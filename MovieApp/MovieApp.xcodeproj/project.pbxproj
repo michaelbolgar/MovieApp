@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CD315D92B39A485003035B0 /* ProfileVC + UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315D82B39A485003035B0 /* ProfileVC + UITableView.swift */; };
+		3CD315DB2B39A60E003035B0 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315DA2B39A60E003035B0 /* ProfileCell.swift */; };
+		3CD315DD2B39B07B003035B0 /* GeneralCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315DC2B39B07B003035B0 /* GeneralCell.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -37,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3CD315D82B39A485003035B0 /* ProfileVC + UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileVC + UITableView.swift"; sourceTree = "<group>"; };
+		3CD315DA2B39A60E003035B0 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		3CD315DC2B39B07B003035B0 /* GeneralCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCell.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +85,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3CD315D72B39A45B003035B0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3CD315DA2B39A60E003035B0 /* ProfileCell.swift */,
+				3CD315DC2B39B07B003035B0 /* GeneralCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F480941D2B389AE6004C9F96 = {
 			isa = PBXGroup;
 			children = (
@@ -292,7 +307,9 @@
 		F48094832B38FA06004C9F96 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3CD315D72B39A45B003035B0 /* Cell */,
 				F48094872B38FA47004C9F96 /* ProfileVC.swift */,
+				3CD315D82B39A485003035B0 /* ProfileVC + UITableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -378,12 +395,15 @@
 			files = (
 				F48094412B389E6F004C9F96 /* UIColor Extension.swift in Sources */,
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
+				3CD315DD2B39B07B003035B0 /* GeneralCell.swift in Sources */,
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
+				3CD315DB2B39A60E003035B0 /* ProfileCell.swift in Sources */,
 				F480947F2B38F9A6004C9F96 /* ChristmasTreeVC.swift in Sources */,
 				F480945F2B38F4B2004C9F96 /* Cell Models.swift in Sources */,
 				F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */,
 				F48094562B38F113004C9F96 /* UIViewController Extension.swift in Sources */,
 				F48094782B38F76E004C9F96 /* SearchVC.swift in Sources */,
+				3CD315D92B39A485003035B0 /* ProfileVC + UITableView.swift in Sources */,
 				F480946E2B38F626004C9F96 /* HomePresenter.swift in Sources */,
 				F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */,
 				F48094542B38EFD6004C9F96 /* UIView Extension.swift in Sources */,
