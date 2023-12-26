@@ -6,6 +6,7 @@ protocol ProfilePresenterProtocol {
     init(view: ProfileVCProtocol, router: ProfileRouterProtocol)
     func showEditProfileVC()
     func showPolicyVC()
+    func showAboutUsVC()
 }
 
 // MARK: - ProfilePresenter
@@ -25,6 +26,10 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func showPolicyVC() {
         router.showPolicyVC()
+    }
+    
+    func showAboutUsVC() {
+        router.showAboutUsVC()
     }
 
 }

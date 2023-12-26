@@ -22,6 +22,7 @@ final class ProfileVC: UIViewController {
         setupNavigationBar()
         setupEditButton()
         setupPoliciesButton()
+        setupAboutUsButton()
     }
     
     // MARK: - Private Methods
@@ -34,6 +35,12 @@ final class ProfileVC: UIViewController {
     private func setupPoliciesButton() {
         moreView.onFirstSetttingTap = {
             self.presenter.showPolicyVC()
+        }
+    }
+    
+    private func setupAboutUsButton() {
+        moreView.onSecondSetttingTap = {
+            self.presenter.showAboutUsVC()
         }
     }
 }

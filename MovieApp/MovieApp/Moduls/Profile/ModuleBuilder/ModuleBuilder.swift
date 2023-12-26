@@ -12,6 +12,7 @@ protocol ModuleBuilderProtocol {
     func createProfileModule(router: ProfileRouterProtocol) -> UIViewController
     func createEditProfileVC() -> UIViewController
     func createPoliciesVC() -> UIViewController
+    func createAboutUsVC() -> UIViewController
 }
 
 // MARK: - ModuleBUilder
@@ -34,6 +35,13 @@ final class ModuleBUilder: ModuleBuilderProtocol {
     func createPoliciesVC() -> UIViewController {
         let view = PolicyVC()
         let presenter = PolicyPresenter(view: view)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createAboutUsVC() -> UIViewController {
+        let view = AboutUsVC()
+        let presenter = AboutUsPresenter(view: view)
         view.presenter = presenter
         return view
     }

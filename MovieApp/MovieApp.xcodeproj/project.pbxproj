@@ -20,6 +20,10 @@
 		3CF904702B3B2E25006E9D51 /* PolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF9046F2B3B2E25006E9D51 /* PolicyVC.swift */; };
 		3CF904742B3B30FD006E9D51 /* PolicyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904732B3B30FD006E9D51 /* PolicyStorage.swift */; };
 		3CF904762B3B409E006E9D51 /* PolicyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904752B3B409E006E9D51 /* PolicyPresenter.swift */; };
+		3CF9047B2B3B5D05006E9D51 /* AboutUsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF9047A2B3B5D05006E9D51 /* AboutUsVC.swift */; };
+		3CF9047E2B3B60CD006E9D51 /* DeveloperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF9047D2B3B60CD006E9D51 /* DeveloperCell.swift */; };
+		3CF904812B3B8595006E9D51 /* Developer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904802B3B8595006E9D51 /* Developer.swift */; };
+		3CF904832B3B86F7006E9D51 /* AboutUsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904822B3B86F7006E9D51 /* AboutUsPresenter.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -63,6 +67,10 @@
 		3CF9046F2B3B2E25006E9D51 /* PolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyVC.swift; sourceTree = "<group>"; };
 		3CF904732B3B30FD006E9D51 /* PolicyStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyStorage.swift; sourceTree = "<group>"; };
 		3CF904752B3B409E006E9D51 /* PolicyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyPresenter.swift; sourceTree = "<group>"; };
+		3CF9047A2B3B5D05006E9D51 /* AboutUsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsVC.swift; sourceTree = "<group>"; };
+		3CF9047D2B3B60CD006E9D51 /* DeveloperCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperCell.swift; sourceTree = "<group>"; };
+		3CF904802B3B8595006E9D51 /* Developer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Developer.swift; sourceTree = "<group>"; };
+		3CF904822B3B86F7006E9D51 /* AboutUsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsPresenter.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -164,14 +172,14 @@
 			path = ViewBuilder;
 			sourceTree = "<group>";
 		};
-		3CF9046E2B3B2DA3006E9D51 /* LegalInformationVC */ = {
+		3CF9046E2B3B2DA3006E9D51 /* PolicyVC */ = {
 			isa = PBXGroup;
 			children = (
 				3CF904732B3B30FD006E9D51 /* PolicyStorage.swift */,
 				3CF904722B3B2E32006E9D51 /* Presenter */,
 				3CF904712B3B2E2C006E9D51 /* View */,
 			);
-			path = LegalInformationVC;
+			path = PolicyVC;
 			sourceTree = "<group>";
 		};
 		3CF904712B3B2E2C006E9D51 /* View */ = {
@@ -188,6 +196,49 @@
 				3CF904752B3B409E006E9D51 /* PolicyPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		3CF904772B3B5CC3006E9D51 /* AboutUsVC */ = {
+			isa = PBXGroup;
+			children = (
+				3CF9047F2B3B8587006E9D51 /* Model */,
+				3CF904792B3B5CD5006E9D51 /* Presenter */,
+				3CF904782B3B5CD1006E9D51 /* View */,
+			);
+			path = AboutUsVC;
+			sourceTree = "<group>";
+		};
+		3CF904782B3B5CD1006E9D51 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3CF9047C2B3B60B0006E9D51 /* Cell */,
+				3CF9047A2B3B5D05006E9D51 /* AboutUsVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3CF904792B3B5CD5006E9D51 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904822B3B86F7006E9D51 /* AboutUsPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		3CF9047C2B3B60B0006E9D51 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3CF9047D2B3B60CD006E9D51 /* DeveloperCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		3CF9047F2B3B8587006E9D51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904802B3B8595006E9D51 /* Developer.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F480941D2B389AE6004C9F96 = {
@@ -299,7 +350,8 @@
 				3C304A4C2B3B0ACE003A88AA /* ModuleBuilder */,
 				3CA4D10F2B3B0DCF00073990 /* MainVC */,
 				3CA4D1102B3B0DDE00073990 /* EditProfileVC */,
-				3CF9046E2B3B2DA3006E9D51 /* LegalInformationVC */,
+				3CF9046E2B3B2DA3006E9D51 /* PolicyVC */,
+				3CF904772B3B5CC3006E9D51 /* AboutUsVC */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -495,6 +547,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CF9047E2B3B60CD006E9D51 /* DeveloperCell.swift in Sources */,
 				3CD315E72B39D2D6003035B0 /* BaseSettingView.swift in Sources */,
 				3CA4D1142B3B0E2200073990 /* EditProfileVC.swift in Sources */,
 				F48094412B389E6F004C9F96 /* UIColor Extension.swift in Sources */,
@@ -519,12 +572,15 @@
 				F480944D2B38A616004C9F96 /* UILabel Extension.swift in Sources */,
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
+				3CF9047B2B3B5D05006E9D51 /* AboutUsVC.swift in Sources */,
+				3CF904832B3B86F7006E9D51 /* AboutUsPresenter.swift in Sources */,
 				3CF904702B3B2E25006E9D51 /* PolicyVC.swift in Sources */,
 				3CF9046D2B3B2924006E9D51 /* EditProfilePresenter.swift in Sources */,
 				3CD315E32B39C378003035B0 /* SettingView.swift in Sources */,
 				3CF904762B3B409E006E9D51 /* PolicyPresenter.swift in Sources */,
 				3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */,
 				F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */,
+				3CF904812B3B8595006E9D51 /* Developer.swift in Sources */,
 				F48094762B38F74D004C9F96 /* SearchPresenter.swift in Sources */,
 				F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */,
 				F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */,
