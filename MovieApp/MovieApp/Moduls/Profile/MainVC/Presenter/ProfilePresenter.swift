@@ -5,11 +5,12 @@ import UIKit
 protocol ProfilePresenterProtocol {
     init(view: ProfileVCProtocol, router: ProfileRouterProtocol)
     func showEditProfileVC()
+    func showPolicyVC()
 }
 
 // MARK: - ProfilePresenter
 final class ProfilePresenter: ProfilePresenterProtocol {
-    
+
     private unowned var view: ProfileVCProtocol
     private var router: ProfileRouterProtocol
     
@@ -20,6 +21,10 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func showEditProfileVC() {
         router.showEditProfileVC()
+    }
+    
+    func showPolicyVC() {
+        router.showPolicyVC()
     }
 
 }

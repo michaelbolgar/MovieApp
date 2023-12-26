@@ -11,7 +11,7 @@ import UIKit
 protocol ModuleBuilderProtocol {
     func createProfileModule(router: ProfileRouterProtocol) -> UIViewController
     func createEditProfileVC() -> UIViewController
-//    func createPoliciesVC() -> UIViewController
+    func createPoliciesVC() -> UIViewController
 }
 
 // MARK: - ModuleBUilder
@@ -27,6 +27,13 @@ final class ModuleBUilder: ModuleBuilderProtocol {
     func createEditProfileVC() -> UIViewController {
         let view = EditProfileVC()
         let presenter = EditProfilePresenter(view: view)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createPoliciesVC() -> UIViewController {
+        let view = PolicyVC()
+        let presenter = PolicyPresenter(view: view)
         view.presenter = presenter
         return view
     }

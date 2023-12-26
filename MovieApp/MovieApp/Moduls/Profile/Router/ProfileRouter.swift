@@ -17,6 +17,7 @@ protocol RouterMain {
 protocol ProfileRouterProtocol: RouterMain {
     func initialViewController()
     func showEditProfileVC()
+    func showPolicyVC()
 }
 
 // MARK: - ProfileRouter
@@ -39,6 +40,13 @@ final class ProfileRouter: ProfileRouterProtocol {
     func showEditProfileVC() {
         if let navigationController = navigationController {
             guard let editProfileVC = moduleBuilder?.createEditProfileVC() else { return }
+            navigationController.pushViewController(editProfileVC, animated: true)
+        }
+    }
+    
+    func showPolicyVC() {
+        if let navigationController = navigationController {
+            guard let editProfileVC = moduleBuilder?.createPoliciesVC() else { return }
             navigationController.pushViewController(editProfileVC, animated: true)
         }
     }

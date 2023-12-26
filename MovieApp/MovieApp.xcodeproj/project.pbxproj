@@ -17,6 +17,9 @@
 		3CD315E52B39CF20003035B0 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315E42B39CF20003035B0 /* MoreView.swift */; };
 		3CD315E72B39D2D6003035B0 /* BaseSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315E62B39D2D6003035B0 /* BaseSettingView.swift */; };
 		3CF9046D2B3B2924006E9D51 /* EditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF9046C2B3B2924006E9D51 /* EditProfilePresenter.swift */; };
+		3CF904702B3B2E25006E9D51 /* PolicyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF9046F2B3B2E25006E9D51 /* PolicyVC.swift */; };
+		3CF904742B3B30FD006E9D51 /* PolicyStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904732B3B30FD006E9D51 /* PolicyStorage.swift */; };
+		3CF904762B3B409E006E9D51 /* PolicyPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904752B3B409E006E9D51 /* PolicyPresenter.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -57,6 +60,9 @@
 		3CD315E42B39CF20003035B0 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
 		3CD315E62B39D2D6003035B0 /* BaseSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSettingView.swift; sourceTree = "<group>"; };
 		3CF9046C2B3B2924006E9D51 /* EditProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenter.swift; sourceTree = "<group>"; };
+		3CF9046F2B3B2E25006E9D51 /* PolicyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyVC.swift; sourceTree = "<group>"; };
+		3CF904732B3B30FD006E9D51 /* PolicyStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyStorage.swift; sourceTree = "<group>"; };
+		3CF904752B3B409E006E9D51 /* PolicyPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyPresenter.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +162,32 @@
 				3CA4D1162B3B1B1E00073990 /* ViewBuilder.swift */,
 			);
 			path = ViewBuilder;
+			sourceTree = "<group>";
+		};
+		3CF9046E2B3B2DA3006E9D51 /* LegalInformationVC */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904732B3B30FD006E9D51 /* PolicyStorage.swift */,
+				3CF904722B3B2E32006E9D51 /* Presenter */,
+				3CF904712B3B2E2C006E9D51 /* View */,
+			);
+			path = LegalInformationVC;
+			sourceTree = "<group>";
+		};
+		3CF904712B3B2E2C006E9D51 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3CF9046F2B3B2E25006E9D51 /* PolicyVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3CF904722B3B2E32006E9D51 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904752B3B409E006E9D51 /* PolicyPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		F480941D2B389AE6004C9F96 = {
@@ -267,6 +299,7 @@
 				3C304A4C2B3B0ACE003A88AA /* ModuleBuilder */,
 				3CA4D10F2B3B0DCF00073990 /* MainVC */,
 				3CA4D1102B3B0DDE00073990 /* EditProfileVC */,
+				3CF9046E2B3B2DA3006E9D51 /* LegalInformationVC */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -474,6 +507,7 @@
 				F480945F2B38F4B2004C9F96 /* Cell Models.swift in Sources */,
 				F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */,
 				F48094562B38F113004C9F96 /* UIViewController Extension.swift in Sources */,
+				3CF904742B3B30FD006E9D51 /* PolicyStorage.swift in Sources */,
 				F48094782B38F76E004C9F96 /* SearchVC.swift in Sources */,
 				3CA4D10E2B3B0B6D00073990 /* ModuleBuilder.swift in Sources */,
 				F480946E2B38F626004C9F96 /* HomePresenter.swift in Sources */,
@@ -485,8 +519,10 @@
 				F480944D2B38A616004C9F96 /* UILabel Extension.swift in Sources */,
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
+				3CF904702B3B2E25006E9D51 /* PolicyVC.swift in Sources */,
 				3CF9046D2B3B2924006E9D51 /* EditProfilePresenter.swift in Sources */,
 				3CD315E32B39C378003035B0 /* SettingView.swift in Sources */,
+				3CF904762B3B409E006E9D51 /* PolicyPresenter.swift in Sources */,
 				3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */,
 				F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */,
 				F48094762B38F74D004C9F96 /* SearchPresenter.swift in Sources */,
