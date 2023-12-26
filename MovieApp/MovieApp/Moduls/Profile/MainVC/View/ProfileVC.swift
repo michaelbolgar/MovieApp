@@ -20,6 +20,14 @@ final class ProfileVC: UIViewController {
         setViews()
         setupConstraints()
         setupNavigationBar()
+        setEdutButton()
+    }
+    
+    // MARK: - Private Methods
+    private func setEdutButton() {
+        userInfoView.editButtonTap = {
+            self.presenter.showEditProfileVC()
+        }
     }
 }
 

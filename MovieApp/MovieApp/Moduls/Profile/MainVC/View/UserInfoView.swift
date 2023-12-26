@@ -9,6 +9,9 @@ import UIKit
 
 final class UserInfoView: UIView {
     
+    // MARK: - Closures
+    var editButtonTap: (() -> Void)?
+    
     // MARK: - Private UI Properties
     private lazy var profileImageView: UIImageView = {
         var imageView = UIImageView()
@@ -43,6 +46,11 @@ final class UserInfoView: UIView {
         let editImage = UIImage(named: "editButton")
         button.setImage(editImage, for: .normal)
         button.tintColor = .customBlue
+        button.addTarget(
+            self,
+            action: #selector(editButtonDidTapped),
+            for: .touchUpInside
+        )
         return button
     }()
     
@@ -56,6 +64,11 @@ final class UserInfoView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Private Actions
+    @objc private func editButtonDidTapped() {
+        editButtonTap?()
     }
     
     // MARK: - Private Methods

@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D10B2B3B0B2900073990 /* ProfileRouter.swift */; };
 		3CA4D10E2B3B0B6D00073990 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D10D2B3B0B6D00073990 /* ModuleBuilder.swift */; };
+		3CA4D1142B3B0E2200073990 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D1132B3B0E2200073990 /* EditProfileVC.swift */; };
+		3CA4D1172B3B1B1E00073990 /* ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D1162B3B1B1E00073990 /* ViewBuilder.swift */; };
 		3CD315DF2B39BF97003035B0 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315DE2B39BF97003035B0 /* UserInfoView.swift */; };
 		3CD315E12B39C120003035B0 /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315E02B39C120003035B0 /* GeneralView.swift */; };
 		3CD315E32B39C378003035B0 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315E22B39C378003035B0 /* SettingView.swift */; };
 		3CD315E52B39CF20003035B0 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315E42B39CF20003035B0 /* MoreView.swift */; };
 		3CD315E72B39D2D6003035B0 /* BaseSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD315E62B39D2D6003035B0 /* BaseSettingView.swift */; };
+		3CF9046D2B3B2924006E9D51 /* EditProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF9046C2B3B2924006E9D51 /* EditProfilePresenter.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -46,11 +49,14 @@
 /* Begin PBXFileReference section */
 		3CA4D10B2B3B0B2900073990 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		3CA4D10D2B3B0B6D00073990 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
+		3CA4D1132B3B0E2200073990 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
+		3CA4D1162B3B1B1E00073990 /* ViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBuilder.swift; sourceTree = "<group>"; };
 		3CD315DE2B39BF97003035B0 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		3CD315E02B39C120003035B0 /* GeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralView.swift; sourceTree = "<group>"; };
 		3CD315E22B39C378003035B0 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		3CD315E42B39CF20003035B0 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
 		3CD315E62B39D2D6003035B0 /* BaseSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSettingView.swift; sourceTree = "<group>"; };
+		3CF9046C2B3B2924006E9D51 /* EditProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePresenter.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +113,49 @@
 				3CA4D10B2B3B0B2900073990 /* ProfileRouter.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		3CA4D10F2B3B0DCF00073990 /* MainVC */ = {
+			isa = PBXGroup;
+			children = (
+				F48094822B38F9FF004C9F96 /* Presenter */,
+				F48094832B38FA06004C9F96 /* View */,
+			);
+			path = MainVC;
+			sourceTree = "<group>";
+		};
+		3CA4D1102B3B0DDE00073990 /* EditProfileVC */ = {
+			isa = PBXGroup;
+			children = (
+				3CA4D1152B3B1B1100073990 /* ViewBuilder */,
+				3CA4D1122B3B0E0200073990 /* Presenter */,
+				3CA4D1112B3B0DF300073990 /* View */,
+			);
+			path = EditProfileVC;
+			sourceTree = "<group>";
+		};
+		3CA4D1112B3B0DF300073990 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3CA4D1132B3B0E2200073990 /* EditProfileVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3CA4D1122B3B0E0200073990 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				3CF9046C2B3B2924006E9D51 /* EditProfilePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		3CA4D1152B3B1B1100073990 /* ViewBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				3CA4D1162B3B1B1E00073990 /* ViewBuilder.swift */,
+			);
+			path = ViewBuilder;
 			sourceTree = "<group>";
 		};
 		F480941D2B389AE6004C9F96 = {
@@ -216,8 +265,8 @@
 			children = (
 				3C304A4D2B3B0AD6003A88AA /* Router */,
 				3C304A4C2B3B0ACE003A88AA /* ModuleBuilder */,
-				F48094832B38FA06004C9F96 /* View */,
-				F48094822B38F9FF004C9F96 /* Presenter */,
+				3CA4D10F2B3B0DCF00073990 /* MainVC */,
+				3CA4D1102B3B0DDE00073990 /* EditProfileVC */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -414,12 +463,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CD315E72B39D2D6003035B0 /* BaseSettingView.swift in Sources */,
+				3CA4D1142B3B0E2200073990 /* EditProfileVC.swift in Sources */,
 				F48094412B389E6F004C9F96 /* UIColor Extension.swift in Sources */,
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
 				3CD315E12B39C120003035B0 /* GeneralView.swift in Sources */,
 				F480947F2B38F9A6004C9F96 /* ChristmasTreeVC.swift in Sources */,
 				3CD315E52B39CF20003035B0 /* MoreView.swift in Sources */,
+				3CA4D1172B3B1B1E00073990 /* ViewBuilder.swift in Sources */,
 				F480945F2B38F4B2004C9F96 /* Cell Models.swift in Sources */,
 				F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */,
 				F48094562B38F113004C9F96 /* UIViewController Extension.swift in Sources */,
@@ -434,6 +485,7 @@
 				F480944D2B38A616004C9F96 /* UILabel Extension.swift in Sources */,
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
+				3CF9046D2B3B2924006E9D51 /* EditProfilePresenter.swift in Sources */,
 				3CD315E32B39C378003035B0 /* SettingView.swift in Sources */,
 				3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */,
 				F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */,

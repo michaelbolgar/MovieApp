@@ -15,7 +15,8 @@ protocol RouterMain {
 
 // MARK: - ProfileRouterProtocol
 protocol ProfileRouterProtocol: RouterMain {
-    func initialViewCOntroller()
+    func initialViewController()
+    func showEditProfileVC()
 }
 
 // MARK: - ProfileRouter
@@ -28,10 +29,17 @@ final class ProfileRouter: ProfileRouterProtocol {
         self.moduleBuilder = moduleBuilder
     }
     
-    func initialViewCOntroller() {
+    func initialViewController() {
         if let navigationController = navigationController {
             guard let profileVC = moduleBuilder?.createProfileModule(router: self) else { return }
             navigationController.viewControllers = [profileVC]
+        }
+    }
+    
+    func showEditProfileVC() {
+        if let navigationController = navigationController {
+            guard let editProfileVC = moduleBuilder?.createEditProfileVC() else { return }
+            navigationController.pushViewController(editProfileVC, animated: true)
         }
     }
 }
