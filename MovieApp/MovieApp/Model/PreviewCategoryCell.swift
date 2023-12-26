@@ -1,10 +1,10 @@
 import UIKit
 import SnapKit
 
-class previewCategoryCell: UICollectionViewCell {
+class PreviewCategoryCell: UICollectionViewCell {
     
     //MARK: - Properties
-    static let identifier = String(describing: previewCategoryCell.self)
+    static let identifier = String(describing: PreviewCategoryCell.self)
     
     private let filmeImage: UIImageView = {
         let imageView = UIImageView()
@@ -14,7 +14,7 @@ class previewCategoryCell: UICollectionViewCell {
     }()
     
     private let nameCategoryLabel:UILabel = .makeLabel(font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
-    private let namberOfMoviesLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 12), textColor: .white, numberOfLines: 1)
+    private let descriptionLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 12), textColor: .white, numberOfLines: 1)
     
     //MARK: - Init
     override init(frame: CGRect) {
@@ -34,19 +34,20 @@ class previewCategoryCell: UICollectionViewCell {
     private func setupViews() {
         contentView.addSubview(filmeImage)
         contentView.addSubview(nameCategoryLabel)
-        contentView.addSubview(namberOfMoviesLabel)
+        contentView.addSubview(descriptionLabel)
     }
     
+    //FIXME: - Переделать когда будет готова сеть
     func configure(with model: MovieCellModel) {
         filmeImage.image = model.image
         nameCategoryLabel.text = model.name
-        namberOfMoviesLabel.text = model.numberOfMovies + " movies"
+        descriptionLabel.text = model.description
     }
     
     private func setupConstraints() {
         
         filmeImage.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.leading.trailing.bottom.equalToSuperview()
         }
         
         nameCategoryLabel.snp.makeConstraints { make in
@@ -55,7 +56,7 @@ class previewCategoryCell: UICollectionViewCell {
             make.centerY.equalTo(filmeImage.snp.centerY)
         }
         
-        namberOfMoviesLabel.snp.makeConstraints { make in
+        descriptionLabel.snp.makeConstraints { make in
             make.leading.equalTo(nameCategoryLabel.snp.leading).offset(16)
             make.bottom.equalTo(filmeImage.snp.bottom).inset(16)
         }
@@ -64,17 +65,9 @@ class previewCategoryCell: UICollectionViewCell {
     
 }
 
+//FIXME: 
 struct MovieCellModel {
     let image: UIImage
     let name: String
-    let numberOfMovies: String
-}
-
-struct Source{
-    static func getMovies() ->[MovieCellModel]{
-        return [
-            MovieCellModel(image: UIImage(named: "background12")!, name: "100 great movies", numberOfMovies: "2000"),
-//            MovieCellModel(image: UIImage(named: "background12")!, name: "50 great movies", numberOfMovies: "2000"),
-        ]
-    }
+    let description: String
 }
