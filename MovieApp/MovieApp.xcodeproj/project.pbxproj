@@ -34,6 +34,7 @@
 		F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */; };
 		F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094852B38FA2A004C9F96 /* ProfilePresenter.swift */; };
 		F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094872B38FA47004C9F96 /* ProfileVC.swift */; };
+		F480948C2B3A1573004C9F96 /* Networking Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480948B2B3A1573004C9F96 /* Networking Manager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeModel.swift; sourceTree = "<group>"; };
 		F48094852B38FA2A004C9F96 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		F48094872B38FA47004C9F96 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		F480948B2B3A1573004C9F96 /* Networking Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking Manager.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		F48094282B389AE6004C9F96 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				F48094892B3A1548004C9F96 /* Service */,
 				F480943D2B389E2C004C9F96 /* Application */,
 				F480945C2B38F496004C9F96 /* Model */,
 				F480943F2B389E49004C9F96 /* Moduls */,
@@ -297,6 +300,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F48094892B3A1548004C9F96 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F480948A2B3A155B004C9F96 /* Network */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		F480948A2B3A155B004C9F96 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F480948B2B3A1573004C9F96 /* Networking Manager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,6 +409,7 @@
 				F48094432B38A37A004C9F96 /* UIFont Extension.swift in Sources */,
 				F480947D2B38F971004C9F96 /* ChristmasTreePresenter.swift in Sources */,
 				F480944D2B38A616004C9F96 /* UILabel Extension.swift in Sources */,
+				F480948C2B3A1573004C9F96 /* Networking Manager.swift in Sources */,
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
 				F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */,
