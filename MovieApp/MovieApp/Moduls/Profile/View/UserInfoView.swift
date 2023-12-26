@@ -1,5 +1,5 @@
 //
-//  ProfileCell.swift
+//  UserInfoView.swift
 //  MovieApp
 //
 //  Created by Kirill Taraturin on 25.12.2023.
@@ -7,17 +7,9 @@
 
 import UIKit
 
-final class ProfileCell: UITableViewCell {
-    
-    // MARK: - Static Properties
-    static let reuseID = String(describing: ProfileVC.self)
+final class UserInfoView: UIView {
     
     // MARK: - Private UI Properties
-    private lazy var profileView: UIView = {
-        var view = makeView()
-        return view
-    }()
-    
     private lazy var profileImageView: UIImageView = {
         var imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.circle")
@@ -50,13 +42,14 @@ final class ProfileCell: UITableViewCell {
         var button = UIButton(type: .system)
         let editImage = UIImage(named: "editButton")
         button.setImage(editImage, for: .normal)
+        button.tintColor = .customBlue
         return button
     }()
     
     // MARK: - Init
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .clear
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupMainView()
         setViews()
         setupConstraints()
     }
@@ -67,22 +60,21 @@ final class ProfileCell: UITableViewCell {
     
     // MARK: - Private Methods
     private func setViews() {
-        contentView.addSubviewsTamicOff(profileView)
-        profileView.addSubviewsTamicOff(profileImageView,
-                                        userNameLabel,
-                                        userEmailLabel,
-                                        editButton
+        self.addSubviewsTamicOff(profileImageView,
+                                 userNameLabel,
+                                 userEmailLabel,
+                                 editButton
         )
     }
     
+    private func setupMainView() {
+        self.backgroundColor = .clear
+        self.layer.borderColor = UIColor.customGrey.cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 15
+    }
+    
     private func setupConstraints() {
-        profileView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
-            make.left.equalToSuperview().offset(24)
-            make.right.equalToSuperview().offset(-24)
-            make.bottom.equalToSuperview()
-        }
-        
         profileImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)
             make.left.equalToSuperview().offset(16)
@@ -108,15 +100,4 @@ final class ProfileCell: UITableViewCell {
             make.width.equalTo(24)
         }
     }
-    
-    // MARK: - Make UI Methods
-    private func makeView() -> UIView {
-        let view = UIView()
-        view.backgroundColor = .clear
-        view.layer.borderColor = UIColor.customGrey.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 15
-        return view
-    }
-    
 }

@@ -1,22 +1,22 @@
 import UIKit
 
+protocol ProfileVCProtocol: AnyObject {
+    
+}
+
 final class ProfileVC: UIViewController {
     
-    // MARK: - Private Properties
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.reuseID)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .customBlack
-        tableView.showsVerticalScrollIndicator = false
-        return tableView
-    }()
+    // MARK: - Presenter
+    var presenter: ProfilePresenterProtocol!
+    
+    // MARK: - Private UI Properties
+    private let userInfoView = UserInfoView()
+    private let generalView = GeneralView()
+    private let moreView = MoreView()
     
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
         setViews()
         setupConstraints()
         setupNavigationBar()
@@ -27,17 +27,31 @@ final class ProfileVC: UIViewController {
 private extension ProfileVC {
     func setViews() {
         view.backgroundColor = .customBlack
-        view.addSubview(tableView)
-    }
-    
-    func configureTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
+        view.addSubview(userInfoView)
+        view.addSubview(generalView)
+        view.addSubview(moreView)
     }
     
     func setupConstraints() {
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        userInfoView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(24)
+            make.left.equalToSuperview().offset(24)
+            make.right.equalToSuperview().offset(-24)
+            make.height.equalTo(88)
+        }
+        
+        generalView.snp.makeConstraints { make in
+            make.top.equalTo(userInfoView.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(24)
+            make.right.equalToSuperview().offset(-24)
+            make.height.equalTo(200)
+        }
+        
+        moreView.snp.makeConstraints { make in
+            make.top.equalTo(generalView.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(24)
+            make.right.equalToSuperview().offset(-24)
+            make.height.equalTo(200)
         }
     }
     
@@ -55,6 +69,9 @@ private extension ProfileVC {
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
-    
+}
 
+// MARK: - ProfileVCProtocol
+extension ProfileVC: ProfileVCProtocol {
+    
 }

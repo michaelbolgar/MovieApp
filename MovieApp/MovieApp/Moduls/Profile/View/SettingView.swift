@@ -1,0 +1,109 @@
+//
+//  SettingView.swift
+//  MovieApp
+//
+//  Created by Kirill Taraturin on 25.12.2023.
+//
+
+import UIKit
+
+final class SettingView: UIView {
+    
+    // MARK: - Private Properties
+    private var title: String!
+    private var imageName: String!
+    
+    // MARK: - Private UI Properties
+    private var iconView: UIView!
+    private var nameLabel: UILabel!
+    
+    private lazy var arrowView: UIView = {
+        let arrowView = UIImageView(image: UIImage(named: "arrow"))
+        arrowView.tintColor = .customBlue
+        return arrowView
+    }()
+    
+    // MARK: - Init
+    init(title: String, imageName: String) {
+        super.init(frame: .zero)
+        configure(title: title)
+        setupConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Private Methods
+    private func setViews() {
+        addSubviewsTamicOff(iconView,
+                            nameLabel,
+                            arrowView
+        )
+    }
+    
+    private func setupConstraints() {
+        iconView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.width.equalTo(35)
+            make.left.equalToSuperview()
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(iconView.snp.right).offset(20)
+            make.right.equalTo(arrowView.snp.left).offset(-50)
+        }
+        
+        arrowView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview()
+            make.width.equalTo(30)
+        }
+    }
+    
+    // MARK: - Private Methods
+    func configure(title: String) {
+        self.title = title
+        self.imageName = title
+        
+        iconView = createIconView(with: title)
+        
+        nameLabel = UILabel.makeLabel(
+            text: title,
+            font: UIFont.montserratMedium(ofSize: 15),
+            textColor: .white,
+            numberOfLines: 1
+        )
+        
+        setViews()
+        setupConstraints()
+    }
+    
+    private func updateIconView(with imageName: String) {
+        if let imageView = iconView.subviews.compactMap({ $0 as? UIImageView }).first {
+            imageView.image = UIImage(named: imageName)
+        }
+    }
+    
+    private func createIconView(with imageName: String) -> UIView {
+        let view = UIView()
+        view.backgroundColor = .customGrey
+        view.layer.cornerRadius = 17.5
+        
+        if !imageName.isEmpty {
+            let imageView = UIImageView(image: UIImage(named: imageName))
+            view.addSubview(imageView)
+            
+            imageView.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(6)
+            }
+        } else {
+            
+        }
+        return view
+    }
+}
+
+
