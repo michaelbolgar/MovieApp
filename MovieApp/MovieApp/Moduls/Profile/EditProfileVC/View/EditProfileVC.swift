@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 protocol EditProfileVCProtocol: AnyObject {
     
@@ -21,14 +22,32 @@ final class EditProfileVC: UIViewController {
     
     // MARK: - Private UI Properties
     private lazy var userImageView = { viewBuilder.makeImageView() }()
-    private lazy var editButton = { viewBuilder.makeEditButton() }()
     private lazy var nameView = { viewBuilder.makeViewForTextField() }()
     private lazy var nameLabel = { viewBuilder.makeTFLabel(with: "Full Name") }()
     private lazy var nameTextField = { viewBuilder.makeTextField(with: "Your name")}()
     private lazy var emailView = { viewBuilder.makeViewForTextField() }()
     private lazy var emailLabel = { viewBuilder.makeTFLabel(with: "Email") }()
     private lazy var emailTextField = { viewBuilder.makeTextField(with: "Your email")}()
-    private lazy var saveButton = { viewBuilder.makeSaveButton() }()
+    private lazy var saveButton = {
+        var button = viewBuilder.makeSaveButton()
+        button.addTarget(
+            self,
+            action: #selector(saveButtonDidTapped),
+            for: .touchUpInside
+        )
+        return button
+        
+    }()
+    
+    private lazy var editButton = {
+        var button = viewBuilder.makeEditButton()
+        button.addTarget(
+            self,
+            action: #selector(editButtonDidTapped),
+            for: .touchUpInside
+        )
+        return button
+    }()
     
     private var userNameLabel: UILabel = {
         UILabel.makeLabel(
@@ -76,6 +95,18 @@ final class EditProfileVC: UIViewController {
         setupNavigationBar()
         setViews()
         setupConstraints()
+    }
+    
+    // MARK: - Private Actions
+    @objc private func editButtonDidTapped() {
+        var configuration = PHPickerConfiguration()
+        configuration.preferredAssetRepresentationMode = .automatic
+        configuration.selectionLimit = 1
+        configuration.filter = .images
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true)
     }
     
     // MARK: - Private Methods
@@ -195,4 +226,22 @@ private extension EditProfileVC {
 // MARK: - EditProfileVCProtocol
 extension EditProfileVC: EditProfileVCProtocol {
     
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension EditProfileVC: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        let firstItem = results.first?.itemProvider
+        guard let itemProvider = firstItem, itemProvider.canLoadObject(ofClass: UIImage.self) else {
+            return
+        }
+        itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+            DispatchQueue.main.async {
+                if let image = image as? UIImage {
+                    self.userImageView.image = image
+                }
+            }
+        }
+    }
 }

@@ -23,6 +23,7 @@ final class ProfileVC: UIViewController {
         setupEditButton()
         setupPoliciesButton()
         setupAboutUsButton()
+        setupEditButton()
     }
     
     // MARK: - Private Methods
@@ -43,6 +44,7 @@ final class ProfileVC: UIViewController {
             self.presenter.showAboutUsVC()
         }
     }
+    
 }
 
 // MARK: - Setup UI
@@ -80,14 +82,14 @@ private extension ProfileVC {
     func setupNavigationBar() {
         title = "Profile"
         let navBarAppearance = UINavigationBarAppearance()
-
+        
         navBarAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,
             .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
         ]
         
         navBarAppearance.backgroundColor = .customBlack
-
+        
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
@@ -97,3 +99,4 @@ private extension ProfileVC {
 extension ProfileVC: ProfileVCProtocol {
     
 }
+

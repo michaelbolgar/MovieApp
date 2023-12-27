@@ -108,13 +108,13 @@ final class PolicyVC: UIViewController {
 }
 
 // MARK: - Setup UI
-extension PolicyVC {
-    private func setViews() {
+private extension PolicyVC {
+    func setViews() {
         view.backgroundColor = .customBlack
         view.addSubview(scrollView)
     }
     
-    private func setupNavigationBar() {
+    func setupNavigationBar() {
         setNavigationBar(title: "Privacy Policy")
         let navBarAppearance = UINavigationBarAppearance()
         
@@ -126,7 +126,7 @@ extension PolicyVC {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         scrollView.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
@@ -137,3 +137,4 @@ extension PolicyVC {
 extension PolicyVC: PolicyVCProtocol {
     
 }
+

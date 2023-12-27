@@ -17,6 +17,7 @@ final class ViewBuilder {
         imageView.image = UIImage(systemName: "person.circle")
         imageView.tintColor = .white
         imageView.layer.cornerRadius = 37.5
+        imageView.clipsToBounds = true
         return imageView
     }
     

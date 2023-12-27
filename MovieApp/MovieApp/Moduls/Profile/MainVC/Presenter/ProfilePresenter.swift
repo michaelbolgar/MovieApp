@@ -31,5 +31,4 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     func showAboutUsVC() {
         router.showAboutUsVC()
     }
-
 }
