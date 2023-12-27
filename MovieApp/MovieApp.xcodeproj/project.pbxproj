@@ -37,6 +37,7 @@
 		F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */; };
 		F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094852B38FA2A004C9F96 /* ProfilePresenter.swift */; };
 		F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094872B38FA47004C9F96 /* ProfileVC.swift */; };
+		FA0C5B982B3C74550097A480 /* TabBarPresenter .swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeModel.swift; sourceTree = "<group>"; };
 		F48094852B38FA2A004C9F96 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		F48094872B38FA47004C9F96 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarPresenter .swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,7 +231,8 @@
 		F48094642B38F558004C9F96 /* Custom Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				F48094652B38F587004C9F96 /* Custom Tabbar.swift */,
+				FA0C5B952B3C74340097A480 /* View */,
+				FA0C5B962B3C743F0097A480 /* Presenter */,
 			);
 			path = "Custom Tabbar";
 			sourceTree = "<group>";
@@ -304,6 +307,22 @@
 				F48094872B38FA47004C9F96 /* ProfileVC.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		FA0C5B952B3C74340097A480 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F48094652B38F587004C9F96 /* Custom Tabbar.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA0C5B962B3C743F0097A480 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,6 +410,7 @@
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
 				F480947F2B38F9A6004C9F96 /* ChristmasTreeVC.swift in Sources */,
 				F480945F2B38F4B2004C9F96 /* PreviewCategoryCell.swift in Sources */,
+				FA0C5B982B3C74550097A480 /* TabBarPresenter .swift in Sources */,
 				F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */,
 				F48094562B38F113004C9F96 /* UIViewController Extension.swift in Sources */,
 				F48094782B38F76E004C9F96 /* SearchVC.swift in Sources */,
