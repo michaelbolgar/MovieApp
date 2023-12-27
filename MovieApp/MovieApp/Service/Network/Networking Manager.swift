@@ -21,7 +21,29 @@ enum Endpoint {
     case getMoviesByCategory
     case getPopular //эти два кейса надо будет использовать вместе на второй коллекции home. Второй возможно заменится сортировкой по рейтингу на экране home, но понадобится дальше на экране справа (см. макет)
 
-    case getMovieDetails //подробное описание фильма
+    case getMovieDetails(id: Int) //подробное описание фильма
     case doSearch
     case getMovieByActor //поиск related movies
+}
+
+struct SearchResult: Codable {
+
+    let id: Int
+    let name: String
+    let year: Int
+    let movieLength: Int
+    let ratingMpaa: String
+    let type: String
+    let poster: Poster //не массив?
+    let genres: [Genre]
+
+    struct Genre: Codable {
+        let name: String
+    }
+
+    struct Poster: Codable {
+        let previewUrl: String
+        //https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/428e2842-4157-45e8-a9af-1e5245e52c37/x1000
+        //заменить часть кода на ключ?
+    }
 }
