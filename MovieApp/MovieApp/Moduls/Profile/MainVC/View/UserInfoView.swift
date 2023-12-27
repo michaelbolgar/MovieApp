@@ -17,7 +17,8 @@ final class UserInfoView: UIView {
         var imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.circle")
         imageView.tintColor = .white
-        imageView.layer.cornerRadius = 25
+//        imageView.layer.cornerRadius = 27
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -66,6 +67,18 @@ final class UserInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
+    }
+    
+    // MARK: - Public Methods
+    func setViews(with user: User) {
+        profileImageView.image = UIImage(data: user.image)
+        userNameLabel.text = user.fullName
+        userEmailLabel.text = user.email
+    }
+    
     // MARK: - Private Actions
     @objc private func editButtonDidTapped() {
         editButtonTap?()
@@ -92,7 +105,7 @@ final class UserInfoView: UIView {
             make.top.equalToSuperview().offset(16)
             make.left.equalToSuperview().offset(16)
             make.bottom.equalToSuperview().offset(-16)
-            make.width.equalTo(54)
+            make.width.equalTo(56)
         }
         
         userNameLabel.snp.makeConstraints { make in

@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ProfileVCProtocol: AnyObject {
-    
+    func setUserInfo(with user: User)
 }
 
 final class ProfileVC: UIViewController {
@@ -24,6 +24,10 @@ final class ProfileVC: UIViewController {
         setupPoliciesButton()
         setupAboutUsButton()
         setupEditButton()
+        presenter.showUserInfo()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("Saved") , object: nil, queue: nil) { _ in
+            self.presenter.showUserInfo()
+        }
     }
     
     // MARK: - Private Methods
@@ -97,6 +101,8 @@ private extension ProfileVC {
 
 // MARK: - ProfileVCProtocol
 extension ProfileVC: ProfileVCProtocol {
-    
+    func setUserInfo(with user: User) {
+        userInfoView.setViews(with: user)
+    }
 }
 

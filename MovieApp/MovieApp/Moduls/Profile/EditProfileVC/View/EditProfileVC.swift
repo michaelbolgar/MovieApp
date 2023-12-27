@@ -9,7 +9,9 @@ import UIKit
 import PhotosUI
 
 protocol EditProfileVCProtocol: AnyObject {
-    
+    func showUserData(_ user: User)
+    func updateImageView(with image: UIImage)
+    func showImagePicker()
 }
 
 final class EditProfileVC: UIViewController {
@@ -105,37 +107,12 @@ final class EditProfileVC: UIViewController {
         setupNavigationBar()
         setViews()
         setupConstraints()
-        nameTextField.text = userNameLabel.text
-        emailTextField.text = userEmailLabel.text
+        presenter.showUserData()
     }
     
     // MARK: - Private Actions
     @objc private func editButtonDidTapped() {
-        var configuration = PHPickerConfiguration()
-        configuration.preferredAssetRepresentationMode = .automatic
-        configuration.selectionLimit = 1
-        configuration.filter = .images
-        
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        self.present(picker, animated: true)
-    }
-    
-    @objc private func saveButtonDidTapped() {
-        validateTextField(
-            nameTextField,
-            errorLabel: nameErrorLabel,
-            view: nameView,
-            borderColorForError: UIColor.customRed,
-            borderColorForValid: UIColor.customGrey
-        )
-        validateTextField(
-            emailTextField,
-            errorLabel: emailErrorLabel,
-            view: emailView,
-            borderColorForError: UIColor.customRed,
-            borderColorForValid: UIColor.customGrey
-        )
+        presenter.didTapEditButton()
     }
     
     @objc private func changeLabel(_ sender: UITextField) {
@@ -144,18 +121,88 @@ final class EditProfileVC: UIViewController {
         } else {
             userEmailLabel.text = emailTextField.text
         }
-
     }
+    
+    
+    @objc private func saveButtonDidTapped() {
+        
+        let isNameEmpty = nameTextField.text?.isEmpty ?? true
+        let isEmailEmpty = emailTextField.text?.isEmpty ?? true
+        
+        if nameTextField.text == "" {
+            valideTextField(textField: nameTextField, isError: false)
+        } else {
+            valideTextField(textField: nameTextField, isError: true)
+        }
+        
+        if emailTextField.text == "" {
+            valideTextField(textField: emailTextField, isError: false)
+        } else {
+            valideTextField(textField: emailTextField, isError: true)
+        }
+        
+        guard let text = nameTextField.text, !text.isEmpty else { return }
+        
+        if StorageManager.shared.isUserExist(withName: text) {
+            nameErrorLabel.text = "* Name already exist"
+            nameErrorLabel.isHidden = false
+            nameView.layer.borderColor = UIColor.systemRed.cgColor
+        }
+        
+        if let name = nameTextField.text,
+           let email = emailTextField.text,
+           let image = userImageView.image {
+            
+            presenter.saveUserData(name: name, email: email, image: image)
+        }
+        
+        
+        
+        //        let user = User()
+        //
+        //        if let text  = nameTextField.text {
+        //            user.fullName = text
+        //        }
+        //
+        //        if let text = emailTextField.text {
+        //            user.email = text
+        //        }
+        //
+        //        if let imageData = userImageView.image?.jpegData(compressionQuality: 1.0) {
+        //            user.image = imageData
+        //        }
+        
+        guard !isNameEmpty, !isEmailEmpty else {
+            return
+        }
+        
+        
+        //        StorageManager.shared.save(user)
+        NotificationCenter.default.post(
+            name: NSNotification.Name("Saved"),
+            object: nil
+        )
+    }
+    
+    func valideTextField(textField: UITextField, isError: Bool) {
+        if textField == nameTextField {
+            nameErrorLabel.isHidden = isError
+            nameErrorLabel.text = "* Required field"
+            nameView.layer.borderColor = isError
+            ? UIColor.customGrey.cgColor
+            :  UIColor.customRed.cgColor
+            
+        } else {
+            emailErrorLabel.isHidden = isError
+            emailErrorLabel.text = "* Required field"
+            emailView.layer.borderColor = isError
+            ? UIColor.customGrey.cgColor
+            :  UIColor.customRed.cgColor
+        }
+    }
+    
     
     // MARK: - Private Methods
-    func validateTextField(_ textField: UITextField, errorLabel: UILabel, view: UIView, borderColorForError: UIColor, borderColorForValid: UIColor) {
-        let isTextEmpty = textField.text?.isEmpty ?? true
-        errorLabel.isHidden = !isTextEmpty
-        view.layer.borderColor = isTextEmpty
-        ? borderColorForError.cgColor
-        : borderColorForValid.cgColor
-    }
-    
 }
 
 // MARK: - Setup Views
@@ -270,7 +317,31 @@ private extension EditProfileVC {
 
 // MARK: - EditProfileVCProtocol
 extension EditProfileVC: EditProfileVCProtocol {
+    func showUserData(_ user: User) {
+        
+        userNameLabel.text = user.fullName
+        userEmailLabel.text = user.email
+        userImageView.image = UIImage(data: user.image)
+        
+        nameTextField.text = user.fullName
+        emailTextField.text = user.email
+        
+    }
     
+    func updateImageView(with image: UIImage) {
+        userImageView.image = image
+    }
+    
+    func showImagePicker() {
+        var configuration = PHPickerConfiguration()
+        configuration.preferredAssetRepresentationMode = .automatic
+        configuration.selectionLimit = 1
+        configuration.filter = .images
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true)
+    }
 }
 
 // MARK: - PHPickerViewControllerDelegate
@@ -278,13 +349,17 @@ extension EditProfileVC: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         let firstItem = results.first?.itemProvider
-        guard let itemProvider = firstItem, itemProvider.canLoadObject(ofClass: UIImage.self) else {
+        
+        guard
+            let itemProvider = firstItem, itemProvider.canLoadObject(ofClass: UIImage.self)
+        else {
             return
         }
+        
         itemProvider.loadObject(ofClass: UIImage.self) { image, error in
             DispatchQueue.main.async {
                 if let image = image as? UIImage {
-                    self.userImageView.image = image
+                    self.presenter.didSelectImage(image)
                 }
             }
         }
