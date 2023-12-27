@@ -42,7 +42,7 @@
 		F48094502B38EF35004C9F96 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F480944F2B38EF35004C9F96 /* SnapKit */; };
 		F48094542B38EFD6004C9F96 /* UIView Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094532B38EFD6004C9F96 /* UIView Extension.swift */; };
 		F48094562B38F113004C9F96 /* UIViewController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094552B38F113004C9F96 /* UIViewController Extension.swift */; };
-		F480945F2B38F4B2004C9F96 /* Cell Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480945E2B38F4B2004C9F96 /* Cell Models.swift */; };
+		F480945F2B38F4B2004C9F96 /* PreviewCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480945E2B38F4B2004C9F96 /* PreviewCategoryCell.swift */; };
 		F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094602B38F514004C9F96 /* PagesViewController.swift */; };
 		F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094622B38F547004C9F96 /* Onboarding View Controller.swift */; };
 		F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094652B38F587004C9F96 /* Custom Tabbar.swift */; };
@@ -92,7 +92,7 @@
 		F480944C2B38A616004C9F96 /* UILabel Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel Extension.swift"; sourceTree = "<group>"; };
 		F48094532B38EFD6004C9F96 /* UIView Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView Extension.swift"; sourceTree = "<group>"; };
 		F48094552B38F113004C9F96 /* UIViewController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController Extension.swift"; sourceTree = "<group>"; };
-		F480945E2B38F4B2004C9F96 /* Cell Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cell Models.swift"; sourceTree = "<group>"; };
+		F480945E2B38F4B2004C9F96 /* PreviewCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCategoryCell.swift; sourceTree = "<group>"; };
 		F48094602B38F514004C9F96 /* PagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesViewController.swift; sourceTree = "<group>"; };
 		F48094622B38F547004C9F96 /* Onboarding View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding View Controller.swift"; sourceTree = "<group>"; };
 		F48094652B38F587004C9F96 /* Custom Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Custom Tabbar.swift"; sourceTree = "<group>"; };
@@ -412,7 +412,10 @@
 		F480945C2B38F496004C9F96 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F480945E2B38F4B2004C9F96 /* Cell Models.swift */,
+				F480945E2B38F4B2004C9F96 /* PreviewCategoryCell.swift */,
+				847DE5142B3A453F001824B6 /* PopularCategoryCell.swift */,
+				847DE5162B3B18A6001824B6 /* WishlistCell.swift */,
+				847DE5182B3B499E001824B6 /* SearchCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				3CD315E72B39D2D6003035B0 /* BaseSettingView.swift in Sources */,
 				3CA4D1142B3B0E2200073990 /* EditProfileVC.swift in Sources */,
 				F48094412B389E6F004C9F96 /* UIColor Extension.swift in Sources */,
+				847DE5192B3B499E001824B6 /* SearchCell.swift in Sources */,
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
 				3CD315E12B39C120003035B0 /* GeneralView.swift in Sources */,
@@ -622,6 +626,7 @@
 				3CF904812B3B8595006E9D51 /* Developer.swift in Sources */,
 				F48094762B38F74D004C9F96 /* SearchPresenter.swift in Sources */,
 				F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */,
+				847DE5152B3A453F001824B6 /* PopularCategoryCell.swift in Sources */,
 				F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */,
 				F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */,
 			);
