@@ -24,10 +24,20 @@ final class EditProfileVC: UIViewController {
     private lazy var userImageView = { viewBuilder.makeImageView() }()
     private lazy var nameView = { viewBuilder.makeViewForTextField() }()
     private lazy var nameLabel = { viewBuilder.makeTFLabel(with: "Full Name") }()
-    private lazy var nameTextField = { viewBuilder.makeTextField(with: "Your name")}()
+    private lazy var nameTextField = {
+        var textField = viewBuilder.makeTextField(with: "Your name")
+        textField.addTarget(self, action: #selector(changeLabel), for: .editingChanged)
+        return textField
+        
+    }()
     private lazy var emailView = { viewBuilder.makeViewForTextField() }()
     private lazy var emailLabel = { viewBuilder.makeTFLabel(with: "Email") }()
-    private lazy var emailTextField = { viewBuilder.makeTextField(with: "Your email")}()
+    private lazy var emailTextField = {
+        var textField = viewBuilder.makeTextField(with: "Your email")
+        textField.addTarget(self, action: #selector(changeLabel), for: .editingChanged)
+        return textField
+        
+    }()
     private lazy var saveButton = {
         var button = viewBuilder.makeSaveButton()
         button.addTarget(
@@ -95,6 +105,8 @@ final class EditProfileVC: UIViewController {
         setupNavigationBar()
         setViews()
         setupConstraints()
+        nameTextField.text = userNameLabel.text
+        emailTextField.text = userEmailLabel.text
     }
     
     // MARK: - Private Actions
@@ -109,7 +121,40 @@ final class EditProfileVC: UIViewController {
         self.present(picker, animated: true)
     }
     
+    @objc private func saveButtonDidTapped() {
+        validateTextField(
+            nameTextField,
+            errorLabel: nameErrorLabel,
+            view: nameView,
+            borderColorForError: UIColor.customRed,
+            borderColorForValid: UIColor.customGrey
+        )
+        validateTextField(
+            emailTextField,
+            errorLabel: emailErrorLabel,
+            view: emailView,
+            borderColorForError: UIColor.customRed,
+            borderColorForValid: UIColor.customGrey
+        )
+    }
+    
+    @objc private func changeLabel(_ sender: UITextField) {
+        if sender == nameTextField {
+            userNameLabel.text = nameTextField.text
+        } else {
+            userEmailLabel.text = emailTextField.text
+        }
+
+    }
+    
     // MARK: - Private Methods
+    func validateTextField(_ textField: UITextField, errorLabel: UILabel, view: UIView, borderColorForError: UIColor, borderColorForValid: UIColor) {
+        let isTextEmpty = textField.text?.isEmpty ?? true
+        errorLabel.isHidden = !isTextEmpty
+        view.layer.borderColor = isTextEmpty
+        ? borderColorForError.cgColor
+        : borderColorForValid.cgColor
+    }
     
 }
 

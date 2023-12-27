@@ -57,6 +57,7 @@ final class ViewBuilder {
         let textField = UITextField()
         textField.placeholder = placeholder
         textField.textColor = .white
+        textField.autocorrectionType = .no
         return textField
     }
     
