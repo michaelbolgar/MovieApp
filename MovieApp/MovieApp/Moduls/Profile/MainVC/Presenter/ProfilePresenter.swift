@@ -8,6 +8,7 @@ protocol ProfilePresenterProtocol {
     func showEditProfileVC()
     func showPolicyVC()
     func showAboutUsVC()
+    func showNotificationVC()
 }
 
 // MARK: - ProfilePresenter
@@ -38,5 +39,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
         if let user = storageManager.fetchUser() {
             view.setUserInfo(with: user)
         }
+    }
+    
+    func showNotificationVC() {
+        router.showNotificationVC()
     }
 }

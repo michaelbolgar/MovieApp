@@ -24,6 +24,7 @@ final class ProfileVC: UIViewController {
         setupPoliciesButton()
         setupAboutUsButton()
         setupEditButton()
+        setupNotificationButton()
         presenter.showUserInfo()
         addObserver()
     }
@@ -32,6 +33,12 @@ final class ProfileVC: UIViewController {
     private func setupEditButton() {
         userInfoView.editButtonTap = {
             self.presenter.showEditProfileVC()
+        }
+    }
+    
+    private func setupNotificationButton() {
+        generalView.onFirstSetttingTap = {
+            self.presenter.showNotificationVC()
         }
     }
     
