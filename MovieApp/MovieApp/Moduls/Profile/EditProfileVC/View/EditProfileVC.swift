@@ -11,7 +11,15 @@ import PhotosUI
 protocol EditProfileVCProtocol: AnyObject {
     func showUserData(_ user: User)
     func updateImageView(with image: UIImage)
+    func updateUserNameLabel(with text: String)
+    func updateUserEmailLabel(with text: String)
     func showImagePicker()
+    
+    func showNameError(_ message: String)
+    func showEmailError(_ message: String)
+    func hideNameError()
+    func hideEmailError()
+    func showSuccessMessage()
 }
 
 final class EditProfileVC: UIViewController {
@@ -22,45 +30,8 @@ final class EditProfileVC: UIViewController {
     // MARK: - ViewBuilder
     private let viewBuilder = ViewBuilder.shared
     
-    // MARK: - Private UI Properties
+    // MARK: - UserInfo Views
     private lazy var userImageView = { viewBuilder.makeImageView() }()
-    private lazy var nameView = { viewBuilder.makeViewForTextField() }()
-    private lazy var nameLabel = { viewBuilder.makeTFLabel(with: "Full Name") }()
-    private lazy var nameTextField = {
-        var textField = viewBuilder.makeTextField(with: "Your name")
-        textField.addTarget(self, action: #selector(changeLabel), for: .editingChanged)
-        return textField
-        
-    }()
-    private lazy var emailView = { viewBuilder.makeViewForTextField() }()
-    private lazy var emailLabel = { viewBuilder.makeTFLabel(with: "Email") }()
-    private lazy var emailTextField = {
-        var textField = viewBuilder.makeTextField(with: "Your email")
-        textField.addTarget(self, action: #selector(changeLabel), for: .editingChanged)
-        return textField
-        
-    }()
-    private lazy var saveButton = {
-        var button = viewBuilder.makeSaveButton()
-        button.addTarget(
-            self,
-            action: #selector(saveButtonDidTapped),
-            for: .touchUpInside
-        )
-        return button
-        
-    }()
-    
-    private lazy var editButton = {
-        var button = viewBuilder.makeEditButton()
-        button.addTarget(
-            self,
-            action: #selector(editButtonDidTapped),
-            for: .touchUpInside
-        )
-        return button
-    }()
-    
     private var userNameLabel: UILabel = {
         UILabel.makeLabel(
             text: "User Name",
@@ -79,6 +50,29 @@ final class EditProfileVC: UIViewController {
         )
     }()
     
+    private lazy var editButton = {
+        var button = viewBuilder.makeEditButton()
+        button.addTarget(
+            self,
+            action: #selector(editButtonDidTapped),
+            for: .touchUpInside
+        )
+        return button
+    }()
+    
+    // MARK: - UserName TextField
+    private lazy var nameView = { viewBuilder.makeViewForTextField() }()
+    private lazy var nameLabel = { viewBuilder.makeTFLabel(with: "Full Name") }()
+    private lazy var nameTextField = {
+        var textField = viewBuilder.makeTextField(with: "Your name")
+        textField.addTarget(
+            self,
+            action: #selector(changeLabel),
+            for: .editingChanged
+        )
+        return textField
+    }()
+    
     private var nameErrorLabel: UILabel = {
         var label = UILabel.makeLabel(
             text: "* Name already exist",
@@ -90,6 +84,20 @@ final class EditProfileVC: UIViewController {
         return label
     }()
     
+    // MARK: - UserEmail TextField
+    private lazy var emailView = { viewBuilder.makeViewForTextField() }()
+    private lazy var emailLabel = { viewBuilder.makeTFLabel(with: "Email") }()
+    private lazy var emailTextField = {
+        var textField = viewBuilder.makeTextField(with: "Your email")
+        textField.addTarget(
+            self,
+            action: #selector(changeLabel),
+            for: .editingChanged
+        )
+        return textField
+        
+    }()
+    
     private var emailErrorLabel: UILabel = {
         var label = UILabel.makeLabel(
             text: "* Email already exist",
@@ -99,6 +107,18 @@ final class EditProfileVC: UIViewController {
         )
         label.isHidden = true
         return label
+    }()
+    
+    // MARK: - SaveButton
+    private lazy var saveButton = {
+        var button = viewBuilder.makeSaveButton()
+        button.addTarget(
+            self,
+            action: #selector(saveButtonDidTapped),
+            for: .touchUpInside
+        )
+        return button
+        
     }()
     
     // MARK: - Life Cycle Methods
@@ -116,75 +136,63 @@ final class EditProfileVC: UIViewController {
     }
     
     @objc private func changeLabel(_ sender: UITextField) {
-        if sender == nameTextField {
-            userNameLabel.text = nameTextField.text
-        } else {
-            userEmailLabel.text = emailTextField.text
-        }
+        let textFieldType = sender == nameTextField
+        ? TextFieldType.name
+        : TextFieldType.email
+        
+        presenter.textFieldDidChange(text: sender.text ?? "", textFieldType: textFieldType)
     }
-    
     
     @objc private func saveButtonDidTapped() {
-        
-        let isNameEmpty = nameTextField.text?.isEmpty ?? true
-        let isEmailEmpty = emailTextField.text?.isEmpty ?? true
-        
-        if nameTextField.text == "" {
-            valideTextField(textField: nameTextField, isError: false)
-        } else {
-            valideTextField(textField: nameTextField, isError: true)
-        }
-        
-        if emailTextField.text == "" {
-            valideTextField(textField: emailTextField, isError: false)
-        } else {
-            valideTextField(textField: emailTextField, isError: true)
-        }
-        
-        guard let text = nameTextField.text, !text.isEmpty else { return }
-        
-        if StorageManager.shared.isUserExist(withName: text) {
-            nameErrorLabel.text = "* Name already exist"
-            nameErrorLabel.isHidden = false
-            nameView.layer.borderColor = UIColor.systemRed.cgColor
-        }
-        
         if let name = nameTextField.text,
-           let email = emailTextField.text,
-           let image = userImageView.image {
-            
-            presenter.saveUserData(name: name, email: email, image: image)
+        let email = emailTextField.text,
+        let image = userImageView.image {
+            presenter.validateAndSaveUserData(name: name, email: email, image: image)
         }
         
-        
-        
-        //        let user = User()
+        //        let isNameEmpty = nameTextField.text?.isEmpty ?? true
+        //        let isEmailEmpty = emailTextField.text?.isEmpty ?? true
         //
-        //        if let text  = nameTextField.text {
-        //            user.fullName = text
+        //        if nameTextField.text == "" {
+        //            valideTextField(textField: nameTextField, isError: false)
+        //        } else {
+        //            valideTextField(textField: nameTextField, isError: true)
         //        }
         //
-        //        if let text = emailTextField.text {
-        //            user.email = text
+        //        if emailTextField.text == "" {
+        //            valideTextField(textField: emailTextField, isError: false)
+        //        } else {
+        //            valideTextField(textField: emailTextField, isError: true)
         //        }
         //
-        //        if let imageData = userImageView.image?.jpegData(compressionQuality: 1.0) {
-        //            user.image = imageData
+        //        guard let text = nameTextField.text, !text.isEmpty else { return }
+        //
+        //        if StorageManager.shared.isUserExist(withName: text) {
+        //            nameErrorLabel.text = "* Name already exist"
+        //            nameErrorLabel.isHidden = false
+        //            nameView.layer.borderColor = UIColor.systemRed.cgColor
+        //            return
         //        }
-        
-        guard !isNameEmpty, !isEmailEmpty else {
-            return
-        }
-        
-        
-        //        StorageManager.shared.save(user)
-        NotificationCenter.default.post(
-            name: NSNotification.Name("Saved"),
-            object: nil
-        )
+        //
+        //        guard !isNameEmpty, !isEmailEmpty else {
+        //            return
+        //        }
+        //
+        //        if let name = nameTextField.text,
+        //           let email = emailTextField.text,
+        //           let image = userImageView.image {
+        //
+        //            presenter.saveUserData(name: name, email: email, image: image)
+        //        }
+        //
+        //        NotificationCenter.default.post(
+        //            name: NSNotification.Name("Saved"),
+        //            object: nil
+        //        )
     }
     
-    func valideTextField(textField: UITextField, isError: Bool) {
+    // MARK: - Private Methods
+    private func valideTextField(textField: UITextField, isError: Bool) {
         if textField == nameTextField {
             nameErrorLabel.isHidden = isError
             nameErrorLabel.text = "* Required field"
@@ -201,8 +209,12 @@ final class EditProfileVC: UIViewController {
         }
     }
     
-    
-    // MARK: - Private Methods
+    private func showSuccessAlert() {
+        let alert = UIAlertController(title: "", message: "Saved", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
 }
 
 // MARK: - Setup Views
@@ -275,7 +287,6 @@ private extension EditProfileVC {
             make.bottom.equalToSuperview().offset(-10)
         }
         
-        
         emailView.snp.makeConstraints { make in
             make.top.equalTo(nameView.snp.bottom).offset(55)
             make.left.equalToSuperview().offset(25)
@@ -317,6 +328,48 @@ private extension EditProfileVC {
 
 // MARK: - EditProfileVCProtocol
 extension EditProfileVC: EditProfileVCProtocol {
+    
+    //validate methods
+    func showNameError(_ message: String) {
+        nameErrorLabel.text = message
+        nameErrorLabel.isHidden = false
+        nameView.layer.borderColor = UIColor.customRed.cgColor
+    }
+    
+    func showEmailError(_ message: String) {
+        emailErrorLabel.text = message
+        emailErrorLabel.isHidden = false
+        emailView.layer.borderColor = UIColor.customRed.cgColor
+    }
+    
+    func hideNameError() {
+        nameErrorLabel.isHidden = true
+        nameView.layer.borderColor = UIColor.customGrey.cgColor
+    }
+    
+    func hideEmailError() {
+        emailErrorLabel.isHidden = true
+        emailView.layer.borderColor = UIColor.customGrey.cgColor
+    }
+    
+    func showSuccessMessage() {
+        showSuccessAlert()
+        NotificationCenter.default.post(
+            name: NSNotification.Name("Saved"),
+            object: nil
+        )
+    }
+    
+    // updateLabels from textField
+    func updateUserNameLabel(with text: String) {
+        userNameLabel.text = text
+    }
+    
+    func updateUserEmailLabel(with text: String) {
+        userEmailLabel.text = text
+    }
+    
+    // show data from presenter
     func showUserData(_ user: User) {
         
         userNameLabel.text = user.fullName
@@ -325,7 +378,6 @@ extension EditProfileVC: EditProfileVCProtocol {
         
         nameTextField.text = user.fullName
         emailTextField.text = user.email
-        
     }
     
     func updateImageView(with image: UIImage) {

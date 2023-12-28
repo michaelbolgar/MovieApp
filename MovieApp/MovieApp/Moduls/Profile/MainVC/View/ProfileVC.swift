@@ -25,7 +25,9 @@ final class ProfileVC: UIViewController {
         setupAboutUsButton()
         setupEditButton()
         presenter.showUserInfo()
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("Saved") , object: nil, queue: nil) { _ in
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("Saved"),
+            object: nil, queue: nil) { _ in
             self.presenter.showUserInfo()
         }
     }
@@ -48,7 +50,13 @@ final class ProfileVC: UIViewController {
             self.presenter.showAboutUsVC()
         }
     }
-    
+}
+
+// MARK: - ProfileVCProtocol
+extension ProfileVC: ProfileVCProtocol {
+    func setUserInfo(with user: User) {
+        userInfoView.setViews(with: user)
+    }
 }
 
 // MARK: - Setup UI
@@ -98,11 +106,3 @@ private extension ProfileVC {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
 }
-
-// MARK: - ProfileVCProtocol
-extension ProfileVC: ProfileVCProtocol {
-    func setUserInfo(with user: User) {
-        userInfoView.setViews(with: user)
-    }
-}
-
