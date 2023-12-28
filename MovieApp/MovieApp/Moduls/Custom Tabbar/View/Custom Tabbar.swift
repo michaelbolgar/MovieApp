@@ -8,20 +8,20 @@
 
 import UIKit
 
-final class MainTabBarController: UITabBarController, TabBarViewProtocol {
-
-    private lazy var tabBarPresenter = TabBarPresenter(view: self)
-
+class MainTabBarController: UITabBarController, TabBarViewProtocol {
+    
+    private var presenter: TabBarPresenterProtocol!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBar.backgroundColor = .customBlack
         tabBar.tintColor = .customBlue
         tabBar.unselectedItemTintColor = .customLightGrey
-        tabBarPresenter.generateVC()
+        
+        presenter = TabBarPresenter(view: self, tabFactory: TabBarFactory())
+        presenter.generateVC()
     }
     
-    // Реализация метода протокола
-    func setupTabBar(with viewControllers: [UIViewController]) {
+    func setupTabs(_ viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
     }
 }
