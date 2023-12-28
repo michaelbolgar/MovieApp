@@ -171,8 +171,18 @@ final class EditProfileVC: UIViewController {
     
     private func showSuccessAlert() {
         let alert = UIAlertController(title: "Changes have been saved", message: "", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default)
+  
+        let titleAttributed = NSAttributedString(string: "Changes have been saved", attributes: [
+            NSAttributedString.Key.font : UIFont.montserratMedium(ofSize: 16) ?? UIFont.systemFont(ofSize: 18),
+            NSAttributedString.Key.foregroundColor : UIColor.black
+        ])
+        
+        alert.setValue(titleAttributed, forKey: "attributedTitle")
+        
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        okAction.setValue(UIColor.customBlue, forKey: "titleTextColor")
         alert.addAction(okAction)
+        
         present(alert, animated: true)
     }
 }
@@ -344,11 +354,11 @@ private extension EditProfileVC {
         
         nameTextField.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-                .inset(ProfileViewLayout.textFieldTopBottomPadding)
+                .inset(ProfileViewLayout.textFieldLeftRight)
             make.top.equalToSuperview()
-                .offset(ProfileViewLayout.textFieldSidePadding)
+                .offset(ProfileViewLayout.textFieldTopBottm)
             make.bottom.equalToSuperview()
-                .offset(-ProfileViewLayout.textFieldSidePadding)
+                .offset(-ProfileViewLayout.textFieldTopBottm)
         }
         
         emailView.snp.makeConstraints { make in
@@ -369,11 +379,11 @@ private extension EditProfileVC {
         
         emailTextField.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-                .inset(ProfileViewLayout.textFieldTopBottomPadding)
+                .inset(ProfileViewLayout.textFieldLeftRight)
             make.top.equalToSuperview()
-                .offset(ProfileViewLayout.textFieldSidePadding)
+                .offset(ProfileViewLayout.textFieldTopBottm)
             make.bottom.equalToSuperview()
-                .offset(-ProfileViewLayout.textFieldSidePadding)
+                .offset(-ProfileViewLayout.textFieldTopBottm)
         }
         
         nameErrorLabel.snp.makeConstraints { make in
@@ -411,10 +421,10 @@ private extension EditProfileVC {
         static let nameLabelTopOffset = -7
         static let nameLabelLeftWidthOffset = 12
         static let nameLabelWidth = 80
-        static let textFieldSidePadding = 20
+        static let textFieldTopBottm = 10
+        static let textFieldLeftRight = 20
         static let errorLabelTopLeftOffset = 15
         static let saveButtonBottomHeightOffset = 60
-        static let textFieldTopBottomPadding = 10
         static let editButtonBottomOffset = 1
         static let editButtonRightOffset = 5
     }
