@@ -28,12 +28,6 @@ class SearchCell: UITableViewCell {
         return element
     }()
     
-    private let backgroundForCell:UIView = {
-        let element = UIView()
-        element.backgroundColor = .clear
-        return element
-    }()
-    
     private let starImage:UIImageView = {
         let element = UIImageView()
         element.image = UIImage(named: "star")
@@ -117,31 +111,16 @@ class SearchCell: UITableViewCell {
     
     //MARK: - Methods
     private func setupViews() {
-        contentView.addSubview(backgroundForCell)
-        backgroundForCell.addSubview(filmeImage)
-        backgroundForCell.addSubview(backgorundForRaitingView)
-        backgorundForRaitingView.addSubview(starImage)
-        backgorundForRaitingView.addSubview(ratingLabel)
-        backgroundForCell.addSubview(filmNameLabel)
-        backgroundForCell.addSubview(yearPublishedLabel)
-        backgroundForCell.addSubview(timeLabel)
-        backgroundForCell.addSubview(ageLimitLabel)
-        backgroundForCell.addSubview(ganreLabel)
-        backgroundForCell.addSubview(typeLabel)
-        backgroundForCell.addSubview(calenderImage)
-        backgroundForCell.addSubview(timeImage)
-        backgroundForCell.addSubview(ganreImage)
+        [filmeImage, backgorundForRaitingView, starImage, filmNameLabel, yearPublishedLabel, timeLabel, ageLimitLabel, ganreLabel, typeLabel, calenderImage, timeImage, ganreImage].forEach { contentView.addSubview($0)}
+        
+        [starImage, ratingLabel].forEach { backgorundForRaitingView.addSubview($0)}
     }
     
     private func setupConstraints() {
-        backgroundForCell.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(8)
-            make.leading.trailing.equalToSuperview().inset(24)
-            make.height.equalTo(147)
-        }
         
         filmeImage.snp.makeConstraints { make in
-            make.top.leading.bottom.equalTo(backgroundForCell)
+            make.top.bottom.equalToSuperview().inset(8)
+            make.leading.equalToSuperview().inset(24)
             make.width.equalTo(112)
         }
         
@@ -164,9 +143,9 @@ class SearchCell: UITableViewCell {
         }
         
         filmNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(backgroundForCell).inset(20)
+            make.top.equalToSuperview().inset(20)
             make.leading.equalTo(filmeImage.snp.trailing).offset(16)
-            make.trailing.equalTo(backgroundForCell).inset(12)
+            make.trailing.equalToSuperview().inset(12)
         }
         
         calenderImage.snp.makeConstraints { make in
