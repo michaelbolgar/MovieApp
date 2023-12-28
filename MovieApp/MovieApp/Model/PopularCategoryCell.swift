@@ -13,13 +13,6 @@ class PopularCategoryCell: UICollectionViewCell {
     //MARK: - Properties
     static let identifier = String(describing: PopularCategoryCell.self)
     
-    private let backgroundForView:UIView = {
-       let element = UIView()
-        element.backgroundColor = .customGrey
-        element.layer.cornerRadius = 12
-        return element
-    }()
-    
     private let backgorundForRaitingView:UIView = {
         let element = UIView()
         element.layer.cornerRadius = 8
@@ -51,12 +44,13 @@ class PopularCategoryCell: UICollectionViewCell {
     
     private let ganreFilmLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 10), textColor: .customLightGrey, numberOfLines: 1)
     
-    private let ratingFilmLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 10), textColor: .customOrange, numberOfLines: 1)
+    private let ratingFilmLabel:UILabel = .makeLabel(font: UIFont.montserratMedium(ofSize: 12), textColor: .customOrange, numberOfLines: 1)
     
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .clear
+        contentView.backgroundColor = .customGrey
+        contentView.layer.cornerRadius = 12
         setupViews()
         setupConstraints()
     }
@@ -67,13 +61,9 @@ class PopularCategoryCell: UICollectionViewCell {
     
     //MARK: - Methods
     private func setupViews() {
-        contentView.addSubview(backgroundForView)
-        backgroundForView.addSubview(filmeImage)
-        backgroundForView.addSubview(backgorundForRaitingView)
-        backgroundForView.addSubview(nameFilmLabel)
-        backgroundForView.addSubview(ganreFilmLabel)
-        backgorundForRaitingView.addSubview(starForRaitingImage)
-        backgorundForRaitingView.addSubview(ratingFilmLabel)
+        [filmeImage, backgorundForRaitingView, nameFilmLabel, ganreFilmLabel].forEach { contentView.addSubview($0) }
+        
+        [starForRaitingImage, ratingFilmLabel].forEach { backgorundForRaitingView.addSubview($0) }
     }
     
     //FIXME: - Переделать когда будет готова сеть
@@ -85,30 +75,26 @@ class PopularCategoryCell: UICollectionViewCell {
     }
     
     private func setupConstraints(){
-        backgroundForView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalTo(contentView)
-        }
-        
         filmeImage.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(backgroundForView)
-            make.bottom.equalTo(backgroundForView.snp.bottom).inset(53)
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().inset(53)
         }
         
         nameFilmLabel.snp.makeConstraints { make in
             make.top.equalTo(filmeImage.snp.bottom).offset(12)
-            make.leading.trailing.equalTo(backgroundForView).inset(8)
+            make.leading.trailing.equalToSuperview().inset(8)
         }
         
         ganreFilmLabel.snp.makeConstraints { make in
             make.top.equalTo(nameFilmLabel.snp.bottom).offset(4)
-            make.leading.trailing.equalTo(backgroundForView).inset(8)
+            make.leading.trailing.equalToSuperview().inset(8)
         }
         
         backgorundForRaitingView.snp.makeConstraints { make in
             make.width.equalTo(55)
             make.height.equalTo(24)
-            make.top.equalTo(backgroundForView.snp.top).offset(8)
-            make.trailing.equalTo(backgroundForView.snp.trailing).inset(8)
+            make.top.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().inset(8)
         }
         
         starForRaitingImage.snp.makeConstraints { make in
