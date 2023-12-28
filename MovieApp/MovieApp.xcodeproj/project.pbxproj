@@ -35,6 +35,9 @@
 		3CF9049F2B3DD094006E9D51 /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF9049E2B3DD094006E9D51 /* NotificationsVC.swift */; };
 		3CF904A12B3DD9AA006E9D51 /* NotificationsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904A02B3DD9AA006E9D51 /* NotificationsPresenter.swift */; };
 		3CF904A72B3DFE47006E9D51 /* LanguageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904A62B3DFE47006E9D51 /* LanguageVC.swift */; };
+		3CF904AF2B3E05A0006E9D51 /* SearchBarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904AC2B3E05A0006E9D51 /* SearchBarViewDelegate.swift */; };
+		3CF904B02B3E05A0006E9D51 /* SearchBarView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904AD2B3E05A0006E9D51 /* SearchBarView + Extensions.swift */; };
+		3CF904B12B3E05A0006E9D51 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904AE2B3E05A0006E9D51 /* SearchBarView.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -91,6 +94,9 @@
 		3CF9049E2B3DD094006E9D51 /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		3CF904A02B3DD9AA006E9D51 /* NotificationsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPresenter.swift; sourceTree = "<group>"; };
 		3CF904A62B3DFE47006E9D51 /* LanguageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageVC.swift; sourceTree = "<group>"; };
+		3CF904AC2B3E05A0006E9D51 /* SearchBarViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewDelegate.swift; sourceTree = "<group>"; };
+		3CF904AD2B3E05A0006E9D51 /* SearchBarView + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchBarView + Extensions.swift"; sourceTree = "<group>"; };
+		3CF904AE2B3E05A0006E9D51 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -354,6 +360,16 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		3CF904AB2B3E057E006E9D51 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904AD2B3E05A0006E9D51 /* SearchBarView + Extensions.swift */,
+				3CF904AE2B3E05A0006E9D51 /* SearchBarView.swift */,
+				3CF904AC2B3E05A0006E9D51 /* SearchBarViewDelegate.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		F480941D2B389AE6004C9F96 = {
 			isa = PBXGroup;
 			children = (
@@ -373,6 +389,7 @@
 		F48094282B389AE6004C9F96 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				3CF904AB2B3E057E006E9D51 /* Common */,
 				3CF904892B3C4513006E9D51 /* Services */,
 				F480943D2B389E2C004C9F96 /* Application */,
 				F480945C2B38F496004C9F96 /* Model */,
@@ -699,15 +716,18 @@
 				F480947D2B38F971004C9F96 /* ChristmasTreePresenter.swift in Sources */,
 				F480944D2B38A616004C9F96 /* UILabel Extension.swift in Sources */,
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
+				3CF904B12B3E05A0006E9D51 /* SearchBarView.swift in Sources */,
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
 				3CF9047B2B3B5D05006E9D51 /* AboutUsVC.swift in Sources */,
 				3CF904832B3B86F7006E9D51 /* AboutUsPresenter.swift in Sources */,
+				3CF904B02B3E05A0006E9D51 /* SearchBarView + Extensions.swift in Sources */,
 				3CF9048F2B3C45F1006E9D51 /* User.swift in Sources */,
 				3CF904702B3B2E25006E9D51 /* PolicyVC.swift in Sources */,
 				3CF9046D2B3B2924006E9D51 /* EditProfilePresenter.swift in Sources */,
 				3CF904932B3C7919006E9D51 /* SearchCell.swift in Sources */,
 				3CD315E32B39C378003035B0 /* SettingView.swift in Sources */,
 				3CF904762B3B409E006E9D51 /* PolicyPresenter.swift in Sources */,
+				3CF904AF2B3E05A0006E9D51 /* SearchBarViewDelegate.swift in Sources */,
 				3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */,
 				F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */,
 				3CF904912B3C7913006E9D51 /* PopularCategoryCell.swift in Sources */,
