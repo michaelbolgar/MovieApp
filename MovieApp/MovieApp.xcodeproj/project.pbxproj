@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		433551EB2B3CF01D003D5104 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433551EA2B3CF01D003D5104 /* SearchBarView.swift */; };
+		433551EE2B3CF0FD003D5104 /* SearchBarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433551ED2B3CF0FD003D5104 /* SearchBarViewDelegate.swift */; };
+		433551F02B3CF15C003D5104 /* SearchBarView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433551EF2B3CF15C003D5104 /* SearchBarView + Extensions.swift */; };
 		847DE5152B3A453F001824B6 /* PopularCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847DE5142B3A453F001824B6 /* PopularCategoryCell.swift */; };
 		847DE5172B3B18A6001824B6 /* WishlistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847DE5162B3B18A6001824B6 /* WishlistCell.swift */; };
 		847DE5192B3B499E001824B6 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847DE5182B3B499E001824B6 /* SearchCell.swift */; };
@@ -40,6 +43,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		433551EA2B3CF01D003D5104 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		433551ED2B3CF0FD003D5104 /* SearchBarViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewDelegate.swift; sourceTree = "<group>"; };
+		433551EF2B3CF15C003D5104 /* SearchBarView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchBarView + Extensions.swift"; sourceTree = "<group>"; };
 		847DE5142B3A453F001824B6 /* PopularCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCategoryCell.swift; sourceTree = "<group>"; };
 		847DE5162B3B18A6001824B6 /* WishlistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistCell.swift; sourceTree = "<group>"; };
 		847DE5182B3B499E001824B6 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
@@ -85,6 +91,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		433551EC2B3CF028003D5104 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				433551EA2B3CF01D003D5104 /* SearchBarView.swift */,
+				433551EF2B3CF15C003D5104 /* SearchBarView + Extensions.swift */,
+				433551ED2B3CF0FD003D5104 /* SearchBarViewDelegate.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		F480941D2B389AE6004C9F96 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				F480943D2B389E2C004C9F96 /* Application */,
+				433551EC2B3CF028003D5104 /* Common */,
 				F480945C2B38F496004C9F96 /* Model */,
 				F480943F2B389E49004C9F96 /* Moduls */,
 				F48094442B38A4D8004C9F96 /* Resources */,
@@ -390,6 +407,7 @@
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
 				F480947F2B38F9A6004C9F96 /* ChristmasTreeVC.swift in Sources */,
+				433551EB2B3CF01D003D5104 /* SearchBarView.swift in Sources */,
 				F480945F2B38F4B2004C9F96 /* PreviewCategoryCell.swift in Sources */,
 				F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */,
 				F48094562B38F113004C9F96 /* UIViewController Extension.swift in Sources */,
@@ -405,9 +423,11 @@
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
 				F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */,
 				F48094762B38F74D004C9F96 /* SearchPresenter.swift in Sources */,
+				433551EE2B3CF0FD003D5104 /* SearchBarViewDelegate.swift in Sources */,
 				F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */,
 				847DE5152B3A453F001824B6 /* PopularCategoryCell.swift in Sources */,
 				F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */,
+				433551F02B3CF15C003D5104 /* SearchBarView + Extensions.swift in Sources */,
 				F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
