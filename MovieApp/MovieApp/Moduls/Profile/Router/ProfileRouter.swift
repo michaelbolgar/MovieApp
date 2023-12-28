@@ -20,6 +20,7 @@ protocol ProfileRouterProtocol: RouterMain {
     func showPolicyVC()
     func showAboutUsVC()
     func showNotificationVC()
+    func showLanguageVC()
 }
 
 // MARK: - ProfileRouter
@@ -64,6 +65,13 @@ final class ProfileRouter: ProfileRouterProtocol {
         if let navigationController = navigationController {
             guard let notificationVC = moduleBuilder?.createNotificationVC() else { return }
             navigationController.pushViewController(notificationVC, animated: true)
+        }
+    }
+    
+    func showLanguageVC() {
+        if let navigationController = navigationController {
+            guard let languageVC = moduleBuilder?.createLanguageVC() else { return }
+            navigationController.pushViewController(languageVC, animated: true)
         }
     }
 }

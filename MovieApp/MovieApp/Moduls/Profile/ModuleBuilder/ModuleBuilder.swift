@@ -14,6 +14,7 @@ protocol ModuleBuilderProtocol {
     func createPoliciesVC() -> UIViewController
     func createAboutUsVC() -> UIViewController
     func createNotificationVC() -> UIViewController
+    func createLanguageVC() -> UIViewController
 }
 
 // MARK: - ModuleBUilder
@@ -50,6 +51,13 @@ final class ModuleBuilder: ModuleBuilderProtocol {
     func createNotificationVC() -> UIViewController {
         let view = NotificationsVC()
         let presenter = NotificationsPresenter(view: view)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createLanguageVC() -> UIViewController {
+        let view = LanguageVC()
+        let presenter = LangugagePresenter(view: view)
         view.presenter = presenter
         return view
     }

@@ -25,6 +25,7 @@ final class ProfileVC: UIViewController {
         setupAboutUsButton()
         setupEditButton()
         setupNotificationButton()
+        setupLanguageViewButton()
         presenter.showUserInfo()
         addObserver()
     }
@@ -51,6 +52,12 @@ final class ProfileVC: UIViewController {
     private func setupAboutUsButton() {
         moreView.onSecondSetttingTap = {
             self.presenter.showAboutUsVC()
+        }
+    }
+    
+    private func setupLanguageViewButton() {
+        generalView.onSecondSetttingTap = {
+            self.presenter.showLanguageVC()
         }
     }
     

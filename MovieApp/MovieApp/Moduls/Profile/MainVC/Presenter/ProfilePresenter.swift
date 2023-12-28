@@ -9,6 +9,7 @@ protocol ProfilePresenterProtocol {
     func showPolicyVC()
     func showAboutUsVC()
     func showNotificationVC()
+    func showLanguageVC()
 }
 
 // MARK: - ProfilePresenter
@@ -43,5 +44,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func showNotificationVC() {
         router.showNotificationVC()
+    }
+    
+    func showLanguageVC() {
+        router.showLanguageVC()
     }
 }
