@@ -75,10 +75,7 @@ final class SettingView: UIView {
 // MARK: - Setup UI
 private extension SettingView {
     func setViews() {
-        addSubviewsTamicOff(iconView,
-                            nameLabel,
-                            arrowView
-        )
+        [iconView, nameLabel, arrowView].forEach { self.addSubview($0)}
     }
     
     func setupConstraints() {
@@ -111,5 +108,3 @@ private extension SettingView {
         static let nameLabelRightOffset = 50
     }
 }
-
-

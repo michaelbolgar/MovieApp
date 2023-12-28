@@ -23,7 +23,6 @@ final class StorageManager {
     func save(_ user: User) {
         write {
             realm.add(user)
-            print("successful")
         }
     }
     

@@ -88,11 +88,8 @@ final class UserInfoView: UIView {
 // MARK: - Setup UI
 private extension UserInfoView {
     func setViews() {
-        self.addSubviewsTamicOff(profileImageView,
-                                 userNameLabel,
-                                 userEmailLabel,
-                                 editButton
-        )
+        [profileImageView, userNameLabel, userEmailLabel, editButton]
+            .forEach { self.addSubview($0) }
     }
     
     func setupMainView() {

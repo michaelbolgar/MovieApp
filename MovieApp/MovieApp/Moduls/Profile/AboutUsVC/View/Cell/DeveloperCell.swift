@@ -77,11 +77,7 @@ private extension DeveloperCell {
     }
     
     func setViews() {
-        addSubviewsTamicOff(mainImageView,
-                            roleLabel,
-                            githubImageView,
-                            githubLabel
-        )
+        [mainImageView, roleLabel, githubImageView, githubLabel].forEach { self.addSubview($0) }
     }
     
     func setupConstraints() {
@@ -112,7 +108,8 @@ private extension DeveloperCell {
             make.centerY.equalTo(githubImageView.snp.centerY)
             make.leading.equalTo(githubImageView.snp.trailing)
                 .offset(LayoutConstraints.githubLabelLeadingOffset)
-            make.trailing.equalToSuperview().offset(-LayoutConstraints.edgePadding)
+            make.trailing.equalToSuperview()
+                .offset(-LayoutConstraints.edgePadding)
         }
     }
     

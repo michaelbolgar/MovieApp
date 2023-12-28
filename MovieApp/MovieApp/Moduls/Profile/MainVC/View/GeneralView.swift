@@ -15,7 +15,6 @@ final class GeneralView: BaseSettingView {
             frame: .zero,
             title: "General",
             firstSettingTitle: "Notification",
-            
             secondSettingTitle: "Language")
     }
     

@@ -97,10 +97,8 @@ private extension BaseSettingView {
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 15
         
-        self.addSubview(titleLabel)
-        self.addSubview(firstSettingView)
-        self.addSubview(lineView)
-        self.addSubview(secondSettingView)
+        [titleLabel, firstSettingView, lineView, secondSettingView]
+            .forEach { self.addSubview($0)}
     }
     
     func setupConstraints() {
@@ -144,7 +142,7 @@ private extension BaseSettingView {
     
     enum LayoutConstraints {
         static let titleTopLeftOffset = 15
-        static let settingsTopOffset = 30
+        static let settingsTopOffset = 20
         static let settingsLeftRightOffset = 20
         static let settingsHeight = 35
         static let lineTopOffset = 20

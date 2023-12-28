@@ -46,4 +46,3 @@ final class ModuleBUilder: ModuleBuilderProtocol {
         return view
     }
 }
-

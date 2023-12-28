@@ -145,8 +145,8 @@ final class EditProfileVC: UIViewController {
     
     @objc private func saveButtonDidTapped() {
         if let name = nameTextField.text,
-        let email = emailTextField.text,
-        let image = userImageView.image {
+           let email = emailTextField.text,
+           let image = userImageView.image {
             presenter.validateAndSaveUserData(name: name, email: email, image: image)
         }
     }
@@ -171,7 +171,7 @@ final class EditProfileVC: UIViewController {
     
     private func showSuccessAlert() {
         let alert = UIAlertController(title: "Changes have been saved", message: "", preferredStyle: .alert)
-  
+        
         let titleAttributed = NSAttributedString(string: "Changes have been saved", attributes: [
             NSAttributedString.Key.font : UIFont.montserratMedium(ofSize: 16) ?? UIFont.systemFont(ofSize: 18),
             NSAttributedString.Key.foregroundColor : UIColor.black
@@ -232,7 +232,6 @@ extension EditProfileVC: EditProfileVCProtocol {
     
     // show data from presenter
     func showUserData(_ user: User) {
-        
         userNameLabel.text = user.fullName
         userEmailLabel.text = user.email
         userImageView.image = UIImage(data: user.image)
@@ -287,22 +286,15 @@ private extension EditProfileVC {
     
     func setViews() {
         view.backgroundColor = .customBlack
-        view.addSubviewsTamicOff(userImageView,
-                                 editButton,
-                                 userNameLabel,
-                                 userEmailLabel,
-                                 nameView,
-                                 nameLabel,
-                                 emailView,
-                                 emailLabel,
-                                 nameErrorLabel,
-                                 emailErrorLabel,
-                                 saveButton
-        )
+        [
+            userImageView,editButton, userNameLabel, userEmailLabel, nameView,
+            nameLabel, emailView, emailLabel, nameErrorLabel, emailErrorLabel,
+            saveButton
+        ].forEach { view.addSubview($0) }
+        
         emailView.addSubview(emailTextField)
         nameView.addSubview(nameTextField)
     }
-    
     
     func setupConstraints() {
         userImageView.snp.makeConstraints { make in

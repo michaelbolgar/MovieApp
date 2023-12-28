@@ -67,9 +67,7 @@ extension ProfileVC: ProfileVCProtocol {
 private extension ProfileVC {
     func setViews() {
         view.backgroundColor = .customBlack
-        view.addSubview(userInfoView)
-        view.addSubview(generalView)
-        view.addSubview(moreView)
+        [userInfoView, generalView, moreView].forEach { view.addSubview($0) }
     }
     
     func setupConstraints() {
