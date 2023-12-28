@@ -46,15 +46,13 @@ final class DeveloperCell: UICollectionViewCell {
             numberOfLines: 1
         )
         label.textAlignment = .center
-        label.isUserInteractionEnabled = true
         return label
     }()
     
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .customBlue
-        layer.cornerRadius = 10
+        setupCell()
         setViews()
         setupConstraints()
     }
@@ -69,9 +67,16 @@ final class DeveloperCell: UICollectionViewCell {
         githubLabel.text = developer.githubLink
         mainImageView.image = UIImage(named: developer.image)
     }
+}
+
+// MARK: - Setup UI
+private extension DeveloperCell {
+    func setupCell() {
+        backgroundColor = .customBlue
+        layer.cornerRadius = 10
+    }
     
-    // MARK: - Private Methods
-    private func setViews() {
+    func setViews() {
         addSubviewsTamicOff(mainImageView,
                             roleLabel,
                             githubImageView,
@@ -79,30 +84,45 @@ final class DeveloperCell: UICollectionViewCell {
         )
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         mainImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
+            make.top.equalToSuperview()
+                .offset(LayoutConstraints.mainImageTopOffset)
             make.centerX.equalToSuperview()
-            make.height.equalTo(80)
-            make.width.equalTo(80)
+            make.height.equalTo(LayoutConstraints.mainImageSize)
+            make.width.equalTo(LayoutConstraints.mainImageSize)
         }
         
         roleLabel.snp.makeConstraints { make in
-            make.top.equalTo(mainImageView.snp.bottom).offset(10)
+            make.top.equalTo(mainImageView.snp.bottom)
+                .offset(LayoutConstraints.roleLabelTopOffset)
             make.centerX.equalToSuperview()
         }
         
         githubImageView.snp.makeConstraints { make in
-            make.top.equalTo(roleLabel.snp.bottom).offset(8)
-            make.leading.equalToSuperview().offset(5)
-            make.height.equalTo(20)
-            make.width.equalTo(20)
+            make.top.equalTo(roleLabel.snp.bottom)
+                .offset(LayoutConstraints.githubImageTopOffset)
+            make.leading.equalToSuperview()
+                .offset(LayoutConstraints.edgePadding)
+            make.height.equalTo(LayoutConstraints.githubImageSize)
+            make.width.equalTo(LayoutConstraints.githubImageSize)
         }
         
         githubLabel.snp.makeConstraints { make in
             make.centerY.equalTo(githubImageView.snp.centerY)
-            make.leading.equalTo(githubImageView.snp.trailing).offset(5)
-            make.trailing.equalToSuperview().offset(-5)
+            make.leading.equalTo(githubImageView.snp.trailing)
+                .offset(LayoutConstraints.githubLabelLeadingOffset)
+            make.trailing.equalToSuperview().offset(-LayoutConstraints.edgePadding)
         }
+    }
+    
+    enum LayoutConstraints {
+        static let mainImageTopOffset = 5
+        static let mainImageSize = 80
+        static let roleLabelTopOffset = 10
+        static let githubImageTopOffset = 8
+        static let githubImageSize = 20
+        static let githubLabelLeadingOffset = 5
+        static let edgePadding = 5
     }
 }

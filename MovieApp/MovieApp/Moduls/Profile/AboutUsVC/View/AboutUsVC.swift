@@ -40,9 +40,6 @@ final class AboutUsVC: UICollectionViewController {
     }
     
     // MARK: - Private Methods
-    private func setViews() {
-        view.backgroundColor = .customBlack
-    }
     private func setupCollectionView() {
         collectionView.register(
             DeveloperCell.self,
@@ -71,8 +68,21 @@ final class AboutUsVC: UICollectionViewController {
         
         return cell
     }
+}
+
+// MARK: - AboutUsVCProtocol
+extension AboutUsVC: AboutUsVCProtocol {
+    func reloadData() {
+        collectionView.reloadData()
+    }
+}
+
+// MARK: - Setup UI
+extension AboutUsVC {
+    private func setViews() {
+        view.backgroundColor = .customBlack
+    }
     
-    // MARK: - Privaet Methods
     private func setupNavigationBar() {
         setNavigationBar(title: "About Us")
         let navBarAppearance = UINavigationBarAppearance()
@@ -83,12 +93,5 @@ final class AboutUsVC: UICollectionViewController {
         
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-    }
-}
-
-// MARK: - AboutUsVCProtocol
-extension AboutUsVC: AboutUsVCProtocol {
-    func reloadData() {
-        collectionView.reloadData()
     }
 }

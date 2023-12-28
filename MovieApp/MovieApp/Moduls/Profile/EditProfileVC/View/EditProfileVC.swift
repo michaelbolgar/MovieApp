@@ -149,46 +149,6 @@ final class EditProfileVC: UIViewController {
         let image = userImageView.image {
             presenter.validateAndSaveUserData(name: name, email: email, image: image)
         }
-        
-        //        let isNameEmpty = nameTextField.text?.isEmpty ?? true
-        //        let isEmailEmpty = emailTextField.text?.isEmpty ?? true
-        //
-        //        if nameTextField.text == "" {
-        //            valideTextField(textField: nameTextField, isError: false)
-        //        } else {
-        //            valideTextField(textField: nameTextField, isError: true)
-        //        }
-        //
-        //        if emailTextField.text == "" {
-        //            valideTextField(textField: emailTextField, isError: false)
-        //        } else {
-        //            valideTextField(textField: emailTextField, isError: true)
-        //        }
-        //
-        //        guard let text = nameTextField.text, !text.isEmpty else { return }
-        //
-        //        if StorageManager.shared.isUserExist(withName: text) {
-        //            nameErrorLabel.text = "* Name already exist"
-        //            nameErrorLabel.isHidden = false
-        //            nameView.layer.borderColor = UIColor.systemRed.cgColor
-        //            return
-        //        }
-        //
-        //        guard !isNameEmpty, !isEmailEmpty else {
-        //            return
-        //        }
-        //
-        //        if let name = nameTextField.text,
-        //           let email = emailTextField.text,
-        //           let image = userImageView.image {
-        //
-        //            presenter.saveUserData(name: name, email: email, image: image)
-        //        }
-        //
-        //        NotificationCenter.default.post(
-        //            name: NSNotification.Name("Saved"),
-        //            object: nil
-        //        )
     }
     
     // MARK: - Private Methods
@@ -210,7 +170,7 @@ final class EditProfileVC: UIViewController {
     }
     
     private func showSuccessAlert() {
-        let alert = UIAlertController(title: "", message: "Saved", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Changes have been saved", message: "", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default)
         alert.addAction(okAction)
         present(alert, animated: true)

@@ -192,8 +192,8 @@
 		3CF9046E2B3B2DA3006E9D51 /* PolicyVC */ = {
 			isa = PBXGroup;
 			children = (
-				3CF904962B3D7C69006E9D51 /* Model */,
 				3CF904732B3B30FD006E9D51 /* PolicyStorage.swift */,
+				3CF904962B3D7C69006E9D51 /* Model */,
 				3CF904722B3B2E32006E9D51 /* Presenter */,
 				3CF904712B3B2E2C006E9D51 /* View */,
 			);

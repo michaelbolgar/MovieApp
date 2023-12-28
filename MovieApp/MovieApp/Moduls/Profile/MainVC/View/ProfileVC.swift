@@ -25,6 +25,7 @@ final class ProfileVC: UIViewController {
         setupAboutUsButton()
         setupEditButton()
         presenter.showUserInfo()
+        addObserver()
     }
     
     // MARK: - Private Methods
