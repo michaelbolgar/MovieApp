@@ -26,7 +26,7 @@ final class AboutUsPresenter: AboutUsPresenterProtocol {
     }
     
     func showDevelopers() {
-        view.success()
+        view.reloadData()
     }
 }
 

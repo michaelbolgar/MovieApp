@@ -24,7 +24,7 @@ final class SettingView: UIView {
     }()
     
     // MARK: - Init
-    init(title: String, imageName: String) {
+    init(title: String) {
         super.init(frame: .zero)
         configure(title: title)
         setupConstraints()
@@ -34,36 +34,7 @@ final class SettingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Private Methods
-    private func setViews() {
-        addSubviewsTamicOff(iconView,
-                            nameLabel,
-                            arrowView
-        )
-    }
-    
-    private func setupConstraints() {
-        iconView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.width.equalTo(35)
-            make.left.equalToSuperview()
-        }
-        
-        nameLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalTo(iconView.snp.right).offset(20)
-            make.right.equalTo(arrowView.snp.left).offset(-50)
-        }
-        
-        arrowView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.right.equalToSuperview()
-            make.width.equalTo(30)
-        }
-    }
-    
-    // MARK: - Private Methods
+    // MARK: - Public Methods
     func configure(title: String) {
         self.title = title
         self.imageName = title
@@ -81,12 +52,7 @@ final class SettingView: UIView {
         setupConstraints()
     }
     
-    private func updateIconView(with imageName: String) {
-        if let imageView = iconView.subviews.compactMap({ $0 as? UIImageView }).first {
-            imageView.image = UIImage(named: imageName)
-        }
-    }
-    
+    // MARK: - Private Methods
     private func createIconView(with imageName: String) -> UIView {
         let view = UIView()
         view.backgroundColor = .customGrey
@@ -103,6 +69,46 @@ final class SettingView: UIView {
             
         }
         return view
+    }
+}
+
+// MARK: - Setup UI
+private extension SettingView {
+    func setViews() {
+        addSubviewsTamicOff(iconView,
+                            nameLabel,
+                            arrowView
+        )
+    }
+    
+    func setupConstraints() {
+        iconView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.width.equalTo(LayoutConstraints.iconWidth)
+            make.left.equalToSuperview()
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(iconView.snp.right)
+                .offset(LayoutConstraints.nameLabelLeftOffset)
+            make.right.equalTo(arrowView.snp.left)
+                .offset(-LayoutConstraints.nameLabelRightOffset)
+        }
+        
+        arrowView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview()
+            make.width.equalTo(LayoutConstraints.arrowWidth)
+        }
+    }
+    
+    enum LayoutConstraints {
+        static let iconWidth = 35
+        static let arrowWidth = 30
+        static let nameLabelLeftOffset = 20
+        static let nameLabelRightOffset = 50
     }
 }
 

@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol PolicyVCProtocol: AnyObject {
-    
+    func setPolicy(with policy: Policy)
 }
 
 final class PolicyVC: UIViewController {
@@ -28,8 +28,8 @@ final class PolicyVC: UIViewController {
         super.viewDidLoad()
         setViews()
         setupNavigationBar()
-        setupSections()
         setupConstraints()
+        presenter.showPolicyInfo()
     }
     
     // MARK: - Private Methods
@@ -53,34 +53,34 @@ final class PolicyVC: UIViewController {
         return stackView
     }
     
-    private func setupSections() {
+    private func setupSections(with policy: Policy) {
         let introductionSection = makeSection(
             with: "Introduction",
-            value: policyText.getPolicyText(for: .introduction),
+            value: policy.introduction,
             font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
         )
         
         let collectInfoSection = makeSection(
             with: "Information We Collect",
-            value: policyText.getPolicyText(for: .collectInfo),
+            value: policy.collectInfo,
             font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
         )
         
         let userInfoSection = makeSection(
             with: "How we User Your information",
-            value: policyText.getPolicyText(for: .userInfo),
+            value: policy.userInfo,
             font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
         )
         
         let sharingSection = makeSection(
             with: "Sharing Your Information",
-            value: policyText.getPolicyText(for: .sharingInfo),
+            value: policy.sharingInfo,
             font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
         )
         
         let contactUsSection = makeSection(
             with: "Contact Us",
-            value: policyText.getPolicyText(for: .contactUS),
+            value: policy.contactUS,
             font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
         )
         
@@ -104,6 +104,13 @@ final class PolicyVC: UIViewController {
             make.bottom.equalToSuperview().offset(-20)
             make.width.equalTo(scrollView.snp.width).offset(-40)
         }
+    }
+}
+
+// MARK: - LegalInformationVCProtocol
+extension PolicyVC: PolicyVCProtocol {
+    func setPolicy(with policy: Policy) {
+        setupSections(with: policy)
     }
 }
 
@@ -133,8 +140,5 @@ private extension PolicyVC {
     }
 }
 
-// MARK: - LegalInformationVCProtocol
-extension PolicyVC: PolicyVCProtocol {
-    
-}
+
 

@@ -17,7 +17,6 @@ final class UserInfoView: UIView {
         var imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.circle")
         imageView.tintColor = .white
-//        imageView.layer.cornerRadius = 27
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -67,6 +66,7 @@ final class UserInfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Override Methods
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
@@ -83,9 +83,11 @@ final class UserInfoView: UIView {
     @objc private func editButtonDidTapped() {
         editButtonTap?()
     }
-    
-    // MARK: - Private Methods
-    private func setViews() {
+}
+
+// MARK: - Setup UI
+private extension UserInfoView {
+    func setViews() {
         self.addSubviewsTamicOff(profileImageView,
                                  userNameLabel,
                                  userEmailLabel,
@@ -93,37 +95,61 @@ final class UserInfoView: UIView {
         )
     }
     
-    private func setupMainView() {
+    func setupMainView() {
         self.backgroundColor = .clear
         self.layer.borderColor = UIColor.customGrey.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 15
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         profileImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.left.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-16)
-            make.width.equalTo(56)
+            make.top.equalToSuperview()
+                .offset(LayoutConstraints.profileImageTopBottomOffset)
+            make.left.equalToSuperview()
+                .offset(LayoutConstraints.profileImageTopBottomOffset)
+            make.bottom.equalToSuperview()
+                .offset(-LayoutConstraints.profileImageTopBottomOffset)
+            make.width.equalTo(LayoutConstraints.profileImageWidth)
         }
         
         userNameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(21)
-            make.left.equalTo(profileImageView.snp.right).offset(16)
+            make.top.equalToSuperview()
+                .offset(LayoutConstraints.userNameTopOffset)
+            make.left.equalTo(profileImageView.snp.right)
+                .offset(LayoutConstraints.labelsLeftOffset)
         }
         
         userEmailLabel.snp.makeConstraints { make in
-            make.top.equalTo(userNameLabel.snp.bottom).offset(8)
-            make.left.equalTo(profileImageView.snp.right).offset(16)
-            make.right.equalTo(editButton.snp.left).offset(-18)
+            make.top.equalTo(userNameLabel.snp.bottom)
+                .offset(LayoutConstraints.userEmailTopOffset)
+            make.left.equalTo(profileImageView.snp.right)
+                .offset(LayoutConstraints.labelsLeftOffset)
+            make.right.equalTo(editButton.snp.left)
+                .offset(-LayoutConstraints.labelsLeftOffset)
         }
         
         editButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(-19)
-            make.top.equalToSuperview().offset(31)
-            make.bottom.equalToSuperview().offset(-31)
-            make.width.equalTo(24)
+            make.right.equalToSuperview()
+                .offset(LayoutConstraints.editButtonRightOffset)
+            make.top.equalToSuperview()
+                .offset(LayoutConstraints.editButtonTopBottomOffset)
+            make.bottom.equalToSuperview()
+                .offset(-LayoutConstraints.editButtonTopBottomOffset)
+            make.width.equalTo(LayoutConstraints.editButtonWidth)
         }
+    }
+    
+    enum LayoutConstraints {
+        static let profileImageTopBottomOffset = 16
+        static let profileImageWidth = 56
+        
+        static let userNameTopOffset = 21
+        static let userEmailTopOffset = 8
+        static let labelsLeftOffset = 16
+        
+        static let editButtonRightOffset = -19
+        static let editButtonTopBottomOffset = 31
+        static let editButtonWidth = 24
     }
 }

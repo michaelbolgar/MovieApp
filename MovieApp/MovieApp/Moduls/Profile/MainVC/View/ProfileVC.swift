@@ -25,11 +25,6 @@ final class ProfileVC: UIViewController {
         setupAboutUsButton()
         setupEditButton()
         presenter.showUserInfo()
-        NotificationCenter.default.addObserver(
-            forName: NSNotification.Name("Saved"),
-            object: nil, queue: nil) { _ in
-            self.presenter.showUserInfo()
-        }
     }
     
     // MARK: - Private Methods
@@ -49,6 +44,14 @@ final class ProfileVC: UIViewController {
         moreView.onSecondSetttingTap = {
             self.presenter.showAboutUsVC()
         }
+    }
+    
+    private func addObserver() {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("Saved"),
+            object: nil, queue: nil) { _ in
+                self.presenter.showUserInfo()
+            }
     }
 }
 
@@ -70,24 +73,33 @@ private extension ProfileVC {
     
     func setupConstraints() {
         userInfoView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(24)
-            make.left.equalToSuperview().offset(24)
-            make.right.equalToSuperview().offset(-24)
-            make.height.equalTo(88)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+                .offset(LayoutConstants.topOffset)
+            make.left.equalToSuperview()
+                .offset(LayoutConstants.leftRightOffset)
+            make.right.equalToSuperview()
+                .offset(-LayoutConstants.leftRightOffset)
+            make.height.equalTo(LayoutConstants.elementHeight)
         }
         
         generalView.snp.makeConstraints { make in
-            make.top.equalTo(userInfoView.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(24)
-            make.right.equalToSuperview().offset(-24)
-            make.height.equalTo(200)
+            make.top.equalTo(userInfoView.snp.bottom)
+                .offset(LayoutConstants.verticalSpacing)
+            make.left.equalToSuperview()
+                .offset(LayoutConstants.leftRightOffset)
+            make.right.equalToSuperview()
+                .offset(-LayoutConstants.leftRightOffset)
+            make.height.equalTo(LayoutConstants.generalHeight)
         }
         
         moreView.snp.makeConstraints { make in
-            make.top.equalTo(generalView.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(24)
-            make.right.equalToSuperview().offset(-24)
-            make.height.equalTo(200)
+            make.top.equalTo(generalView.snp.bottom)
+                .offset(LayoutConstants.verticalSpacing)
+            make.left.equalToSuperview()
+                .offset(LayoutConstants.leftRightOffset)
+            make.right.equalToSuperview()
+                .offset(-LayoutConstants.leftRightOffset)
+            make.height.equalTo(LayoutConstants.moreHeight)
         }
     }
     
@@ -104,5 +116,14 @@ private extension ProfileVC {
         
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+    }
+    
+    enum LayoutConstants {
+        static let topOffset = 24
+        static let leftRightOffset = 24
+        static let elementHeight = 88
+        static let generalHeight = 200
+        static let moreHeight = 200
+        static let verticalSpacing = 20
     }
 }

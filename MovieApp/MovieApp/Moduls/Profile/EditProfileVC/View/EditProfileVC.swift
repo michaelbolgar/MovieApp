@@ -217,115 +217,6 @@ final class EditProfileVC: UIViewController {
     }
 }
 
-// MARK: - Setup Views
-private extension EditProfileVC {
-    func setupNavigationBar() {
-        setNavigationBar(title: "Edit Profile")
-    }
-    
-    func setViews() {
-        view.backgroundColor = .customBlack
-        view.addSubviewsTamicOff(userImageView,
-                                 editButton,
-                                 userNameLabel,
-                                 userEmailLabel,
-                                 nameView,
-                                 nameLabel,
-                                 emailView,
-                                 emailLabel,
-                                 nameErrorLabel,
-                                 emailErrorLabel,
-                                 saveButton
-        )
-        emailView.addSubview(emailTextField)
-        nameView.addSubview(nameTextField)
-    }
-    
-    
-    func setupConstraints() {
-        userImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(30)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(75)
-            make.height.equalTo(75)
-        }
-        
-        editButton.snp.makeConstraints { make in
-            make.bottom.equalTo(userImageView.snp.bottom).offset(1)
-            make.right.equalTo(userImageView.snp.right).offset(5)
-            make.width.equalTo(30)
-            make.height.equalTo(30)
-        }
-        
-        userNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(userImageView.snp.bottom).offset(20)
-            make.centerX.equalToSuperview()
-        }
-        
-        userEmailLabel.snp.makeConstraints { make in
-            make.top.equalTo(userNameLabel.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
-        }
-        
-        nameView.snp.makeConstraints { make in
-            make.top.equalTo(userEmailLabel.snp.bottom).offset(50)
-            make.left.equalToSuperview().offset(25)
-            make.right.equalToSuperview().offset(-25)
-            make.height.equalTo(55)
-        }
-        
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameView.snp.top).offset(-7)
-            make.left.equalTo(nameView.snp.left).offset(12)
-            make.width.equalTo(80)
-        }
-        
-        nameTextField.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-20)
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
-        }
-        
-        emailView.snp.makeConstraints { make in
-            make.top.equalTo(nameView.snp.bottom).offset(55)
-            make.left.equalToSuperview().offset(25)
-            make.right.equalToSuperview().offset(-25)
-            make.height.equalTo(55)
-        }
-        
-        emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailView.snp.top).offset(-7)
-            make.left.equalTo(emailView.snp.left).offset(12)
-            make.width.equalTo(50)
-        }
-        
-        emailTextField.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-20)
-            make.top.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
-        }
-        
-        nameErrorLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameView.snp.bottom).offset(10)
-            make.left.equalTo(nameView.snp.left).offset(15)
-        }
-        
-        emailErrorLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailView.snp.bottom).offset(10)
-            make.left.equalTo(emailView.snp.left).offset(15)
-        }
-        
-        saveButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-15)
-            make.left.equalToSuperview().offset(25)
-            make.right.equalToSuperview().offset(-25)
-            make.height.equalTo(60)
-        }
-    }
-}
-
 // MARK: - EditProfileVCProtocol
 extension EditProfileVC: EditProfileVCProtocol {
     
@@ -415,5 +306,156 @@ extension EditProfileVC: PHPickerViewControllerDelegate {
                 }
             }
         }
+    }
+}
+
+// MARK: - Setup Views
+private extension EditProfileVC {
+    func setupNavigationBar() {
+        setNavigationBar(title: "Edit Profile")
+    }
+    
+    func setViews() {
+        view.backgroundColor = .customBlack
+        view.addSubviewsTamicOff(userImageView,
+                                 editButton,
+                                 userNameLabel,
+                                 userEmailLabel,
+                                 nameView,
+                                 nameLabel,
+                                 emailView,
+                                 emailLabel,
+                                 nameErrorLabel,
+                                 emailErrorLabel,
+                                 saveButton
+        )
+        emailView.addSubview(emailTextField)
+        nameView.addSubview(nameTextField)
+    }
+    
+    
+    func setupConstraints() {
+        userImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+                .offset(ProfileViewLayout.userImageTopOffset)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(ProfileViewLayout.userImageSize)
+            make.height.equalTo(ProfileViewLayout.userImageSize)
+        }
+        
+        editButton.snp.makeConstraints { make in
+            make.bottom.equalTo(userImageView.snp.bottom)
+                .offset(ProfileViewLayout.editButtonBottomOffset)
+            make.right.equalTo(userImageView.snp.right)
+                .offset(ProfileViewLayout.editButtonRightOffset)
+            make.width.equalTo(ProfileViewLayout.editButtonSizeOffset)
+            make.height.equalTo(ProfileViewLayout.editButtonSizeOffset)
+        }
+        
+        userNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(userImageView.snp.bottom)
+                .offset(ProfileViewLayout.userNameLabelTopOffset)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(ProfileViewLayout.userNameLabelTopOffset)
+        }
+        
+        userEmailLabel.snp.makeConstraints { make in
+            make.top.equalTo(userNameLabel.snp.bottom)
+                .offset(ProfileViewLayout.userEmailLabelTopOffset)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(ProfileViewLayout.userNameLabelTopOffset)
+        }
+        
+        nameView.snp.makeConstraints { make in
+            make.top.equalTo(userEmailLabel.snp.bottom)
+                .offset(ProfileViewLayout.nameEmailViewTopOffset)
+            make.left.right.equalToSuperview()
+                .inset(ProfileViewLayout.nameEmailViewHorizontalPadding)
+            make.height.equalTo(ProfileViewLayout.nameEmailViewHeight)
+        }
+        
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameView.snp.top)
+                .offset(ProfileViewLayout.nameLabelTopOffset)
+            make.left.equalTo(nameView.snp.left)
+                .offset(ProfileViewLayout.nameLabelLeftWidthOffset)
+            make.width.equalTo(ProfileViewLayout.nameLabelWidth)
+        }
+        
+        nameTextField.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+                .inset(ProfileViewLayout.textFieldTopBottomPadding)
+            make.top.equalToSuperview()
+                .offset(ProfileViewLayout.textFieldSidePadding)
+            make.bottom.equalToSuperview()
+                .offset(-ProfileViewLayout.textFieldSidePadding)
+        }
+        
+        emailView.snp.makeConstraints { make in
+            make.top.equalTo(nameView.snp.bottom)
+                .offset(ProfileViewLayout.nameEmailViewTopOffset)
+            make.left.right.equalToSuperview()
+                .inset(ProfileViewLayout.nameEmailViewHorizontalPadding)
+            make.height.equalTo(ProfileViewLayout.nameEmailViewHeight)
+        }
+        
+        emailLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailView.snp.top)
+                .offset(ProfileViewLayout.nameLabelTopOffset)
+            make.left.equalTo(emailView.snp.left)
+                .offset(ProfileViewLayout.nameLabelLeftWidthOffset)
+            make.width.equalTo(ProfileViewLayout.nameLabelWidth)
+        }
+        
+        emailTextField.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+                .inset(ProfileViewLayout.textFieldTopBottomPadding)
+            make.top.equalToSuperview()
+                .offset(ProfileViewLayout.textFieldSidePadding)
+            make.bottom.equalToSuperview()
+                .offset(-ProfileViewLayout.textFieldSidePadding)
+        }
+        
+        nameErrorLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameView.snp.bottom)
+                .offset(ProfileViewLayout.errorLabelTopLeftOffset)
+            make.left.equalTo(nameView.snp.left)
+                .offset(ProfileViewLayout.errorLabelTopLeftOffset)
+        }
+        
+        emailErrorLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailView.snp.bottom)
+                .offset(ProfileViewLayout.errorLabelTopLeftOffset)
+            make.left.equalTo(emailView.snp.left)
+                .offset(ProfileViewLayout.errorLabelTopLeftOffset)
+        }
+        
+        saveButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+                .offset(-ProfileViewLayout.saveButtonBottomHeightOffset)
+            make.left.right.equalToSuperview()
+                .inset(ProfileViewLayout.nameEmailViewHorizontalPadding)
+            make.height.equalTo(ProfileViewLayout.saveButtonBottomHeightOffset)
+        }
+    }
+    
+    enum ProfileViewLayout {
+        static let userImageTopOffset = 30
+        static let userImageSize = 75
+        static let editButtonSizeOffset = 30
+        static let userNameLabelTopOffset = 20
+        static let userEmailLabelTopOffset = 10
+        static let nameEmailViewTopOffset = 50
+        static let nameEmailViewHeight = 55
+        static let nameEmailViewHorizontalPadding = 25
+        static let nameLabelTopOffset = -7
+        static let nameLabelLeftWidthOffset = 12
+        static let nameLabelWidth = 80
+        static let textFieldSidePadding = 20
+        static let errorLabelTopLeftOffset = 15
+        static let saveButtonBottomHeightOffset = 60
+        static let textFieldTopBottomPadding = 10
+        static let editButtonBottomOffset = 1
+        static let editButtonRightOffset = 5
     }
 }

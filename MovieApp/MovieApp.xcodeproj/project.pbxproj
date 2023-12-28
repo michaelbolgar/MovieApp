@@ -31,6 +31,7 @@
 		3CF904912B3C7913006E9D51 /* PopularCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904902B3C7913006E9D51 /* PopularCategoryCell.swift */; };
 		3CF904932B3C7919006E9D51 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904922B3C7919006E9D51 /* SearchCell.swift */; };
 		3CF904952B3C791E006E9D51 /* WishlistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904942B3C791E006E9D51 /* WishlistCell.swift */; };
+		3CF904982B3D7C72006E9D51 /* Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904972B3D7C72006E9D51 /* Policy.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -83,6 +84,7 @@
 		3CF904902B3C7913006E9D51 /* PopularCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularCategoryCell.swift; sourceTree = "<group>"; };
 		3CF904922B3C7919006E9D51 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		3CF904942B3C791E006E9D51 /* WishlistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistCell.swift; sourceTree = "<group>"; };
+		3CF904972B3D7C72006E9D51 /* Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Policy.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		3CF9046E2B3B2DA3006E9D51 /* PolicyVC */ = {
 			isa = PBXGroup;
 			children = (
+				3CF904962B3D7C69006E9D51 /* Model */,
 				3CF904732B3B30FD006E9D51 /* PolicyStorage.swift */,
 				3CF904722B3B2E32006E9D51 /* Presenter */,
 				3CF904712B3B2E2C006E9D51 /* View */,
@@ -276,6 +279,14 @@
 			isa = PBXGroup;
 			children = (
 				3CF9048E2B3C45F1006E9D51 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3CF904962B3D7C69006E9D51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904972B3D7C72006E9D51 /* Policy.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -600,6 +611,7 @@
 				3CF904952B3C791E006E9D51 /* WishlistCell.swift in Sources */,
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
+				3CF904982B3D7C72006E9D51 /* Policy.swift in Sources */,
 				3CD315E12B39C120003035B0 /* GeneralView.swift in Sources */,
 				F480947F2B38F9A6004C9F96 /* ChristmasTreeVC.swift in Sources */,
 				3CD315E52B39CF20003035B0 /* MoreView.swift in Sources */,

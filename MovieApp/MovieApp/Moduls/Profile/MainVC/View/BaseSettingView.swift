@@ -25,7 +25,7 @@ class BaseSettingView: UIView {
     }()
     
     private lazy var firstSettingView: SettingView = {
-        SettingView(title: "", imageName: "")
+        SettingView(title: "")
     }()
     
     private lazy var lineView: UIView = {
@@ -35,7 +35,7 @@ class BaseSettingView: UIView {
     }()
     
     private lazy var secondSettingView: SettingView = {
-        SettingView(title: "", imageName: "")
+        SettingView(title: "")
     }()
     
     // MARK: - Init
@@ -87,8 +87,11 @@ class BaseSettingView: UIView {
         secondSettingView.addGestureRecognizer(secondTapGesture)
         secondSettingView.isUserInteractionEnabled = true
     }
-    
-    private func setViews() {
+}
+
+// MARK: - Setup UI
+private extension BaseSettingView {
+    func setViews() {
         self.backgroundColor = .clear
         self.layer.borderColor = UIColor.customGrey.cgColor
         self.layer.borderWidth = 1
@@ -100,31 +103,52 @@ class BaseSettingView: UIView {
         self.addSubview(secondSettingView)
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(15)
-            make.left.equalToSuperview().offset(15)
+            make.top.equalToSuperview()
+                .offset(LayoutConstraints.titleTopLeftOffset)
+            make.left.equalToSuperview()
+                .offset(LayoutConstraints.titleTopLeftOffset)
         }
         
         firstSettingView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(30)
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(35)
+            make.top.equalTo(titleLabel.snp.bottom)
+                .offset(LayoutConstraints.settingsTopOffset)
+            make.left.equalToSuperview()
+                .offset(LayoutConstraints.settingsLeftRightOffset)
+            make.right.equalToSuperview()
+                .offset(-LayoutConstraints.settingsLeftRightOffset)
+            make.height.equalTo(LayoutConstraints.settingsHeight)
         }
         
         lineView.snp.makeConstraints { make in
-            make.top.equalTo(firstSettingView.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(30)
-            make.right.equalToSuperview().offset(-30)
-            make.height.equalTo(1)
+            make.top.equalTo(firstSettingView.snp.bottom)
+                .offset(LayoutConstraints.lineTopOffset)
+            make.left.equalToSuperview()
+                .offset(LayoutConstraints.lineLeftRightOffset)
+            make.right.equalToSuperview()
+                .offset(-LayoutConstraints.lineLeftRightOffset)
+            make.height.equalTo(LayoutConstraints.lineHeight)
         }
         
         secondSettingView.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(35)
+            make.top.equalTo(lineView.snp.bottom)
+                .offset(LayoutConstraints.settingsTopOffset)
+            make.left.equalToSuperview()
+                .offset(LayoutConstraints.settingsLeftRightOffset)
+            make.right.equalToSuperview()
+                .offset(-LayoutConstraints.settingsLeftRightOffset)
+            make.height.equalTo(LayoutConstraints.settingsHeight)
         }
+    }
+    
+    enum LayoutConstraints {
+        static let titleTopLeftOffset = 15
+        static let settingsTopOffset = 30
+        static let settingsLeftRightOffset = 20
+        static let settingsHeight = 35
+        static let lineTopOffset = 20
+        static let lineLeftRightOffset = 30
+        static let lineHeight = 1
     }
 }

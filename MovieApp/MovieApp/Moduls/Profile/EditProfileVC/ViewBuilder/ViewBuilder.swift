@@ -9,9 +9,13 @@ import UIKit
 
 final class ViewBuilder {
     
+    // MARK: - Static Properties
     static let shared = ViewBuilder()
+    
+    // MARK: - Private Init
     private init() {}
     
+    // MARK: - Public Methods
     func makeImageView() -> UIImageView {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.circle")

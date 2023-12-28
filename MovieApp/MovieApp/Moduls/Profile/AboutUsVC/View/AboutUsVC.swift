@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AboutUsVCProtocol: AnyObject {
-    func success()
+    func reloadData()
 }
 
 final class AboutUsVC: UICollectionViewController {
@@ -21,7 +21,7 @@ final class AboutUsVC: UICollectionViewController {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 140, height: 150)
         layout.minimumLineSpacing = 30
-        layout.minimumInteritemSpacing = 5 // Например, 10 пунктов между элементами
+        layout.minimumInteritemSpacing = 5
         layout.sectionInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
         
         super.init(collectionViewLayout: layout)
@@ -34,20 +34,34 @@ final class AboutUsVC: UICollectionViewController {
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .customBlack
+        setViews()
+        setupCollectionView()
         setupNavigationBar()
-        
-        collectionView.register(DeveloperCell.self, forCellWithReuseIdentifier: DeveloperCell.reuseID)
+    }
+    
+    // MARK: - Private Methods
+    private func setViews() {
+        view.backgroundColor = .customBlack
+    }
+    private func setupCollectionView() {
+        collectionView.register(
+            DeveloperCell.self,
+            forCellWithReuseIdentifier: DeveloperCell.reuseID
+        )
         collectionView.backgroundColor = .clear
     }
     
+    // MARK: - UITableDiewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter.developers.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeveloperCell.reuseID, for: indexPath) as? DeveloperCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: DeveloperCell.reuseID,
+                for: indexPath
+            ) as? DeveloperCell
         else {
             return UICollectionViewCell()
         }
@@ -74,7 +88,7 @@ final class AboutUsVC: UICollectionViewController {
 
 // MARK: - AboutUsVCProtocol
 extension AboutUsVC: AboutUsVCProtocol {
-    func success() {
+    func reloadData() {
         collectionView.reloadData()
     }
 }
