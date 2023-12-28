@@ -34,6 +34,7 @@
 		3CF904982B3D7C72006E9D51 /* Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904972B3D7C72006E9D51 /* Policy.swift */; };
 		3CF9049F2B3DD094006E9D51 /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF9049E2B3DD094006E9D51 /* NotificationsVC.swift */; };
 		3CF904A12B3DD9AA006E9D51 /* NotificationsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904A02B3DD9AA006E9D51 /* NotificationsPresenter.swift */; };
+		3CF904A72B3DFE47006E9D51 /* LanguageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904A62B3DFE47006E9D51 /* LanguageVC.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -89,6 +90,7 @@
 		3CF904972B3D7C72006E9D51 /* Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Policy.swift; sourceTree = "<group>"; };
 		3CF9049E2B3DD094006E9D51 /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
 		3CF904A02B3DD9AA006E9D51 /* NotificationsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPresenter.swift; sourceTree = "<group>"; };
+		3CF904A62B3DFE47006E9D51 /* LanguageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageVC.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -320,6 +322,38 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		3CF904A22B3DFD6A006E9D51 /* LanguageVC */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904A52B3DFD8E006E9D51 /* Presenter */,
+				3CF904A42B3DFD89006E9D51 /* Model */,
+				3CF904A32B3DFD85006E9D51 /* View */,
+			);
+			path = LanguageVC;
+			sourceTree = "<group>";
+		};
+		3CF904A32B3DFD85006E9D51 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904A62B3DFE47006E9D51 /* LanguageVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3CF904A42B3DFD89006E9D51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3CF904A52B3DFD8E006E9D51 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		F480941D2B389AE6004C9F96 = {
 			isa = PBXGroup;
 			children = (
@@ -433,6 +467,7 @@
 				3CF9046E2B3B2DA3006E9D51 /* PolicyVC */,
 				3CF904772B3B5CC3006E9D51 /* AboutUsVC */,
 				3CF9049B2B3DCF6B006E9D51 /* NotificationsVC */,
+				3CF904A22B3DFD6A006E9D51 /* LanguageVC */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -656,6 +691,7 @@
 				3CA4D10E2B3B0B6D00073990 /* ModuleBuilder.swift in Sources */,
 				F480946E2B38F626004C9F96 /* HomePresenter.swift in Sources */,
 				3CF904A12B3DD9AA006E9D51 /* NotificationsPresenter.swift in Sources */,
+				3CF904A72B3DFE47006E9D51 /* LanguageVC.swift in Sources */,
 				F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */,
 				F48094542B38EFD6004C9F96 /* UIView Extension.swift in Sources */,
 				3CD315DF2B39BF97003035B0 /* UserInfoView.swift in Sources */,
