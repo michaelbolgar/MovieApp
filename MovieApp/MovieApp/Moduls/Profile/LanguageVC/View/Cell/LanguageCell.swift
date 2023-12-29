@@ -30,8 +30,7 @@ final class LanguageCell: UITableViewCell {
     
     private let checkmarkImageView: UIImageView = {
         var imageView = UIImageView()
-        imageView.image = UIImage(systemName: "checkmark")?
-            .withRenderingMode(.alwaysTemplate)
+        imageView.image = UIImage(systemName: "checkmark")
         imageView.tintColor = .customBlue
         imageView.isHidden = true
         return imageView

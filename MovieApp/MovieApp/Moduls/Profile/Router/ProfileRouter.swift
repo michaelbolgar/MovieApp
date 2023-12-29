@@ -8,13 +8,13 @@
 import UIKit
 
 // MARK: - RouterMain
-protocol RouterMain {
+protocol RouterProtocol {
     var navigationController: UINavigationController? { get set }
     var moduleBuilder: ModuleBuilderProtocol? { get set }
 }
 
 // MARK: - ProfileRouterProtocol
-protocol ProfileRouterProtocol: RouterMain {
+protocol ProfileRouterProtocol: RouterProtocol {
     func initialViewController()
     func showEditProfileVC()
     func showPolicyVC()

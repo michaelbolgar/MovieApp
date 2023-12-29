@@ -8,13 +8,12 @@
 import UIKit
 
 protocol LanguageVCProtocol: AnyObject {
-    
 }
 
 final class LanguageVC: UIViewController {
     
     // MARK: - Presenter
-    var presenter: LangugagePresenterProtocol!
+    var presenter: LanguagePresenterProtocol!
     
     // MARK: - Private UI Properties
     private var mainView: UIView = {
@@ -145,6 +144,4 @@ extension LanguageVC: UITableViewDelegate {
 
 // MARK: - LanguageVCProtocol
 extension LanguageVC: LanguageVCProtocol {
-    
 }
-

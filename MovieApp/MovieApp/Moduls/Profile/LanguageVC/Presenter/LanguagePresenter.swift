@@ -8,14 +8,14 @@
 import UIKit
 
 // MARK: - LangugagePresenterProtocol
-protocol LangugagePresenterProtocol {
+protocol LanguagePresenterProtocol {
     init(view: LanguageVCProtocol)
     var languages: [String] { get }
     var lastSelectedIndexPath: IndexPath? { get set }
 }
 
 // MARK: - LangugagePresenter
-final class LangugagePresenter: LangugagePresenterProtocol {
+final class LanguagePresenter: LanguagePresenterProtocol {
 
     private unowned var view: LanguageVCProtocol
     

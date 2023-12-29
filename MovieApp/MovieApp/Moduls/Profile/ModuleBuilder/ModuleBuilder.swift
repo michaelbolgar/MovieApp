@@ -22,14 +22,16 @@ final class ModuleBuilder: ModuleBuilderProtocol {
 
     func createProfileModule(router: ProfileRouterProtocol) -> UIViewController {
         let view = ProfileVC()
-        let presenter = ProfilePresenter(view: view, router: router)
+        let storageManager = StorageManager.shared
+        let presenter = ProfilePresenter(view: view, storageManager: storageManager, router: router)
         view.presenter = presenter
         return view
     }
     
     func createEditProfileVC() -> UIViewController {
         let view = EditProfileVC()
-        let presenter = EditProfilePresenter(view: view)
+        let storageManager = StorageManager.shared
+        let presenter = EditProfilePresenter(view: view, storageManager: storageManager)
         view.presenter = presenter
         return view
     }
@@ -57,7 +59,7 @@ final class ModuleBuilder: ModuleBuilderProtocol {
     
     func createLanguageVC() -> UIViewController {
         let view = LanguageVC()
-        let presenter = LangugagePresenter(view: view)
+        let presenter = LanguagePresenter(view: view)
         view.presenter = presenter
         return view
     }

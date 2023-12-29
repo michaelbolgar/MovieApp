@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import PhotosUI
 
 protocol EditProfileVCProtocol: AnyObject {
     func showUserData(_ user: User)
@@ -152,37 +151,33 @@ final class EditProfileVC: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func valideTextField(textField: UITextField, isError: Bool) {
-        if textField == nameTextField {
-            nameErrorLabel.isHidden = isError
-            nameErrorLabel.text = "* Required field"
-            nameView.layer.borderColor = isError
-            ? UIColor.customGrey.cgColor
-            :  UIColor.customRed.cgColor
-            
-        } else {
-            emailErrorLabel.isHidden = isError
-            emailErrorLabel.text = "* Required field"
-            emailView.layer.borderColor = isError
-            ? UIColor.customGrey.cgColor
-            :  UIColor.customRed.cgColor
-        }
+    private func updateTextFieldAppearanceForError(textField: UITextField, isValid: Bool) {
+        let errorLabel = textField == nameTextField ? nameErrorLabel : emailErrorLabel
+        let view = textField == nameTextField ? nameView : emailView
+        
+        errorLabel.isHidden = isValid
+        errorLabel.text = "* Required field"
+        view.layer.borderColor = isValid ? UIColor.customGrey.cgColor : UIColor.customRed.cgColor
     }
     
     private func showSuccessAlert() {
-        let alert = UIAlertController(title: "Changes have been saved", message: "", preferredStyle: .alert)
-        
+        let alert = UIAlertController(
+            title: "Changes have been saved",
+            message: "",
+            preferredStyle: .alert
+        )
+
         let titleAttributed = NSAttributedString(string: "Changes have been saved", attributes: [
             NSAttributedString.Key.font : UIFont.montserratMedium(ofSize: 16) ?? UIFont.systemFont(ofSize: 18),
             NSAttributedString.Key.foregroundColor : UIColor.black
         ])
-        
+
         alert.setValue(titleAttributed, forKey: "attributedTitle")
         
         let okAction = UIAlertAction(title: "OK", style: .default)
         okAction.setValue(UIColor.customBlue, forKey: "titleTextColor")
+
         alert.addAction(okAction)
-        
         present(alert, animated: true)
     }
 }
@@ -245,36 +240,7 @@ extension EditProfileVC: EditProfileVCProtocol {
     }
     
     func showImagePicker() {
-        var configuration = PHPickerConfiguration()
-        configuration.preferredAssetRepresentationMode = .automatic
-        configuration.selectionLimit = 1
-        configuration.filter = .images
-        
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        self.present(picker, animated: true)
-    }
-}
-
-// MARK: - PHPickerViewControllerDelegate
-extension EditProfileVC: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-        let firstItem = results.first?.itemProvider
-        
-        guard
-            let itemProvider = firstItem, itemProvider.canLoadObject(ofClass: UIImage.self)
-        else {
-            return
-        }
-        
-        itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-            DispatchQueue.main.async {
-                if let image = image as? UIImage {
-                    self.presenter.didSelectImage(image)
-                }
-            }
-        }
+        setupImagePicker()
     }
 }
 

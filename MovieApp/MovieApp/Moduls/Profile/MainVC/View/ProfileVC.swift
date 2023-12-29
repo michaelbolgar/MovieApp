@@ -23,7 +23,6 @@ final class ProfileVC: UIViewController {
         setupEditButton()
         setupPoliciesButton()
         setupAboutUsButton()
-        setupEditButton()
         setupNotificationButton()
         setupLanguageViewButton()
         presenter.showUserInfo()
@@ -38,25 +37,25 @@ final class ProfileVC: UIViewController {
     }
     
     private func setupNotificationButton() {
-        generalView.onFirstSetttingTap = {
+        generalView.onFirstSettingTap = {
             self.presenter.showNotificationVC()
         }
     }
     
     private func setupPoliciesButton() {
-        moreView.onFirstSetttingTap = {
+        moreView.onFirstSettingTap = {
             self.presenter.showPolicyVC()
         }
     }
     
     private func setupAboutUsButton() {
-        moreView.onSecondSetttingTap = {
+        moreView.onSecondSettingTap = {
             self.presenter.showAboutUsVC()
         }
     }
     
     private func setupLanguageViewButton() {
-        generalView.onSecondSetttingTap = {
+        generalView.onSecondSettingTap = {
             self.presenter.showLanguageVC()
         }
     }
@@ -67,6 +66,11 @@ final class ProfileVC: UIViewController {
             object: nil, queue: nil) { _ in
                 self.presenter.showUserInfo()
             }
+    }
+    
+    // не уверене что это нужно, возможно можно удалить
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -119,14 +123,14 @@ private extension ProfileVC {
     func setupNavigationBar() {
         title = "Profile"
         let navBarAppearance = UINavigationBarAppearance()
-        
+
         navBarAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,
             .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
         ]
-        
+
         navBarAppearance.backgroundColor = .customBlack
-        
+
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
