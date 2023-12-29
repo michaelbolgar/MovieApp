@@ -17,6 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
+
+        window.rootViewController = MainTabBarController()
 //        let navigationController = UINavigationController()
 //        let moduleBuilder = ModuleBuilder()
 //        let router = ProfileRouter(
@@ -25,7 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        )
 //        router.initialViewController()
 //        window.rootViewController = navigationController
-        window.rootViewController = ViewController()
         window.makeKeyAndVisible()
         self.window = window
     }

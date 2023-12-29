@@ -65,6 +65,8 @@
 		F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */; };
 		F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094852B38FA2A004C9F96 /* ProfilePresenter.swift */; };
 		F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094872B38FA47004C9F96 /* ProfileVC.swift */; };
+		FA0C5B982B3C74550097A480 /* TabBarPresenter .swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */; };
+		FA0C5B9A2B3DB2F80097A480 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B992B3DB2F80097A480 /* Factory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +127,8 @@
 		F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeModel.swift; sourceTree = "<group>"; };
 		F48094852B38FA2A004C9F96 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		F48094872B38FA47004C9F96 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarPresenter .swift"; sourceTree = "<group>"; };
+		FA0C5B992B3DB2F80097A480 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -522,7 +526,8 @@
 		F48094642B38F558004C9F96 /* Custom Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				F48094652B38F587004C9F96 /* Custom Tabbar.swift */,
+				FA0C5B952B3C74340097A480 /* View */,
+				FA0C5B962B3C743F0097A480 /* Presenter */,
 			);
 			path = "Custom Tabbar";
 			sourceTree = "<group>";
@@ -602,6 +607,23 @@
 				3CD315E22B39C378003035B0 /* SettingView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		FA0C5B952B3C74340097A480 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F48094652B38F587004C9F96 /* Custom Tabbar.swift */,
+				FA0C5B992B3DB2F80097A480 /* Factory.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FA0C5B962B3C743F0097A480 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -700,6 +722,7 @@
 				3CD315E52B39CF20003035B0 /* MoreView.swift in Sources */,
 				3CA4D1172B3B1B1E00073990 /* ViewBuilder.swift in Sources */,
 				F480945F2B38F4B2004C9F96 /* PreviewCategoryCell.swift in Sources */,
+				FA0C5B982B3C74550097A480 /* TabBarPresenter .swift in Sources */,
 				F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */,
 				3CF9048C2B3C4526006E9D51 /* StorageManager.swift in Sources */,
 				F48094562B38F113004C9F96 /* UIViewController Extension.swift in Sources */,
@@ -716,6 +739,7 @@
 				F480947D2B38F971004C9F96 /* ChristmasTreePresenter.swift in Sources */,
 				F480944D2B38A616004C9F96 /* UILabel Extension.swift in Sources */,
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
+				FA0C5B9A2B3DB2F80097A480 /* Factory.swift in Sources */,
 				3CF904B12B3E05A0006E9D51 /* SearchBarView.swift in Sources */,
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
 				3CF9047B2B3B5D05006E9D51 /* AboutUsVC.swift in Sources */,
