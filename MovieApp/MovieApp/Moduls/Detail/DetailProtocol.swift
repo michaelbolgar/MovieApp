@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+protocol BookInput: AnyObject {
+    func update(with model: BookViewController.ViewModel)
+    func showLoading()
+    func hideLoading()
+}
+
+protocol BookOutput: AnyObject {
+    func activate()
+}
