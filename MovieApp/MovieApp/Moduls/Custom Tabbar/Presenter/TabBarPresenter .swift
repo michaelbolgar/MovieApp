@@ -17,11 +17,11 @@ protocol TabBarPresenterProtocol {
 
 class TabBarPresenter: TabBarPresenterProtocol {
    
-    // MARK: Properties
+    //MARK: - Properties
     weak var view: TabBarViewProtocol?
     let tabFactory: TabBarFactoryProtocol
     
-    // MARK: Init
+    //MARK: - Init
     init(view: TabBarViewProtocol, tabFactory: TabBarFactoryProtocol) {
         self.view = view
         self.tabFactory = tabFactory
