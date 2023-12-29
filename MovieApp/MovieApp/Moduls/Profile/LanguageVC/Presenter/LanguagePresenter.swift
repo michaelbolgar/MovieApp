@@ -16,12 +16,11 @@ protocol LangugagePresenterProtocol {
 
 // MARK: - LangugagePresenter
 final class LangugagePresenter: LangugagePresenterProtocol {
-    var lastSelectedIndexPath: IndexPath?
-    
-    
+
     private unowned var view: LanguageVCProtocol
     
     let languages = ["English", "Русский"]
+    var lastSelectedIndexPath: IndexPath?
     
     init(view: LanguageVCProtocol) {
         self.view = view

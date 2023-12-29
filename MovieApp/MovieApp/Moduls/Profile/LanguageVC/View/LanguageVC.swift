@@ -42,7 +42,7 @@ final class LanguageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
-        setupNavigationBar()
+        setNavigationBar(title: "Language")
         setupConstraints()
         setupTableView()
     }
@@ -61,10 +61,11 @@ final class LanguageVC: UIViewController {
     
     private func setupConstraints() {
         mainView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
-            make.left.equalToSuperview().offset(25)
-            make.right.equalToSuperview().offset(-25)
-            make.height.equalTo(160)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+                .offset(LayoutConstraint.mainViewTopOffset)
+            make.leading.trailing.equalToSuperview()
+                .inset(LayoutConstraint.mainViewHorizontalOffset)
+            make.height.equalTo(LayoutConstraint.mainViewHeight)
         }
         
         tableView.snp.makeConstraints { make in
@@ -72,13 +73,15 @@ final class LanguageVC: UIViewController {
         }
     }
     
-    private func setupNavigationBar() {
-        setNavigationBar(title: "Language")
+    private enum LayoutConstraint {
+        static let mainViewTopOffset: CGFloat = 20
+        static let mainViewHorizontalOffset: CGFloat = 25
+        static let mainViewHeight: CGFloat = 160
     }
 }
 
-// MARK: - UITableViewDataSource, UITableViewDelegate
-extension LanguageVC: UITableViewDataSource, UITableViewDelegate {
+// MARK: - UITableViewDataSource
+extension LanguageVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.languages.count
     }
@@ -92,28 +95,15 @@ extension LanguageVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         let language = presenter.languages[indexPath.row]
+        let checkValue = (indexPath == presenter.lastSelectedIndexPath)
         cell.configure(with: language)
-        
-        cell.isChecked = (indexPath == presenter.lastSelectedIndexPath)
-        cell.backgroundColor = .clear
-        cell.selectionStyle = .none
+        cell.setCheckmarkValue(checkValue)
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        if let lastIndexPath = presenter.lastSelectedIndexPath,
-           let lastCell = tableView.cellForRow(at: lastIndexPath) as? LanguageCell {
-            lastCell.isChecked = false
-        }
-        
-        presenter.lastSelectedIndexPath = indexPath
-        if let cell = tableView.cellForRow(at: indexPath) as? LanguageCell {
-            cell.isChecked = true
-        }
-    }
-    
+}
+
+// MARK: - UITableViewDelegate
+extension LanguageVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerView = UIView()
@@ -137,9 +127,24 @@ extension LanguageVC: UITableViewDataSource, UITableViewDelegate {
         
         return headerView
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if let lastIndexPath = presenter.lastSelectedIndexPath,
+           let lastCell = tableView.cellForRow(at: lastIndexPath) as? LanguageCell {
+            lastCell.setCheckmarkValue(false)
+        }
+        
+        presenter.lastSelectedIndexPath = indexPath
+        if let cell = tableView.cellForRow(at: indexPath) as? LanguageCell {
+            cell.setCheckmarkValue(true)
+        }
+    }
 }
 
 // MARK: - LanguageVCProtocol
 extension LanguageVC: LanguageVCProtocol {
     
 }
+

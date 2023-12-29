@@ -336,7 +336,6 @@
 			isa = PBXGroup;
 			children = (
 				3CF904A52B3DFD8E006E9D51 /* Presenter */,
-				3CF904A42B3DFD89006E9D51 /* Model */,
 				3CF904A32B3DFD85006E9D51 /* View */,
 			);
 			path = LanguageVC;
@@ -349,13 +348,6 @@
 				3CF904A62B3DFE47006E9D51 /* LanguageVC.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		3CF904A42B3DFD89006E9D51 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		3CF904A52B3DFD8E006E9D51 /* Presenter */ = {

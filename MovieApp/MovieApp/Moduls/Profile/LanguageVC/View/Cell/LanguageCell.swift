@@ -14,48 +14,41 @@ final class LanguageCell: UITableViewCell {
     
     // MARK: - Private UI Properties
     private lazy var mainLabel: UILabel = {
-        var label = UILabel.makeLabel(
+        UILabel.makeLabel(
             text: "English",
-            font: .montserratSemiBold(ofSize: 17),
+            font: .montserratSemiBold(ofSize: 16),
             textColor: .white,
             numberOfLines: 1
         )
-        return label
     }()
     
-    private lazy var lineView: UIView = {
+    private var lineView: UIView = {
         var view = UIView()
         view.backgroundColor = .customGrey
         return view
     }()
     
-    private let checkmarkImageVIew = UIImageView()
+    private let checkmarkImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.image = UIImage(systemName: "checkmark")?
+            .withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = .customBlue
+        imageView.isHidden = true
+        return imageView
+    }()
     
-    var isChecked = false {
+    // MARK: - Private Properties
+    private var isChecked = false {
         didSet {
-            checkmarkImageVIew.isHidden = !isChecked
+            checkmarkImageView.isHidden = !isChecked
         }
     }
-    
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setViews()
         setupConstraints()
-        
-        
-        checkmarkImageVIew.image = UIImage(systemName: "checkmark")?.withRenderingMode(.alwaysTemplate)
-        checkmarkImageVIew.tintColor = .customBlue
-        
-        addSubview(checkmarkImageVIew)
-        
-        checkmarkImageVIew.snp.makeConstraints { make in
-            make.centerY.equalTo(mainLabel.snp.centerY)
-            make.right.equalToSuperview().offset(-25)
-        }
-        
-        checkmarkImageVIew.isHidden = true
     }
     
     required init?(coder: NSCoder) {
@@ -67,25 +60,46 @@ final class LanguageCell: UITableViewCell {
         mainLabel.text = language
     }
     
-    // MARK: - Private Methods
-    private func setViews() {
-        addSubview(mainLabel)
-        addSubview(lineView)
+    func setCheckmarkValue(_ value: Bool) {
+        isChecked = value
     }
+}
 
-    private func setupConstraints() {
+// MARK: - Setup UI
+private extension LanguageCell {
+    func setViews() {
+        selectionStyle = .none
+        backgroundColor = .clear
+        [mainLabel, lineView, checkmarkImageView].forEach { addSubview($0) }
+    }
+    
+    func setupConstraints() {
         mainLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(35)
+            make.left.equalToSuperview()
+                .offset(LayoutConstraints.mainLabelLeftOffset)
             make.centerY.equalToSuperview()
         }
         
         lineView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
-            make.height.equalTo(1)
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(LayoutConstraints.lineViewHeight)
+            make.leading.trailing.equalToSuperview()
+                .inset(LayoutConstraints.horizontalInset)
+        }
+        
+        checkmarkImageView.snp.makeConstraints { make in
+            make.centerY.equalTo(mainLabel.snp.centerY)
+            make.right.equalToSuperview()
+                .offset(LayoutConstraints.checkmarkRightOffset)
         }
     }
     
+    enum LayoutConstraints {
+        static let mainLabelLeftOffset: CGFloat = 35
+        static let lineViewHeight: CGFloat = 1
+        static let horizontalInset: CGFloat = 20
+        static let checkmarkRightOffset: CGFloat = -25
+    }
 }
 
 
