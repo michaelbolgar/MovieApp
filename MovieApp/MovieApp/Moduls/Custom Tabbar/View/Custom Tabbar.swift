@@ -12,6 +12,7 @@ class MainTabBarController: UITabBarController, TabBarViewProtocol {
     
     private var presenter: TabBarPresenterProtocol!
     
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.tintColor = .customBlue
@@ -21,6 +22,7 @@ class MainTabBarController: UITabBarController, TabBarViewProtocol {
         presenter.generateVC()
     }
     
+    //MARK: - Protocol methods
     func setupTabs(_ viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
     }

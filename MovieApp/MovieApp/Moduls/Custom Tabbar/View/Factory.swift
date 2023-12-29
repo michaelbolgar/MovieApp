@@ -13,6 +13,7 @@ protocol TabBarFactoryProtocol {
 
 class TabBarFactory: TabBarFactoryProtocol {
     
+    //MARK: - Methods
     func createTabs() -> [UIViewController] {
         
         let homeVC = HomeViewController()

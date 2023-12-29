@@ -16,14 +16,18 @@ protocol TabBarPresenterProtocol {
 }
 
 class TabBarPresenter: TabBarPresenterProtocol {
+   
+    // MARK: Properties
     weak var view: TabBarViewProtocol?
     let tabFactory: TabBarFactoryProtocol
     
+    // MARK: Init
     init(view: TabBarViewProtocol, tabFactory: TabBarFactoryProtocol) {
         self.view = view
         self.tabFactory = tabFactory
     }
     
+    //MARK: - Protocol methods
     func generateVC() {
         let tabs = tabFactory.createTabs()
         view?.setupTabs(tabs)
