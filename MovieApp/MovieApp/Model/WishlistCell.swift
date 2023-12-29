@@ -84,14 +84,7 @@ class WishlistCell: UITableViewCell {
     //MARK: - Methods
     private func setupViews() {
         contentView.addSubview(backgroundForView)
-        backgroundForView.addSubview(filmeImage)
-        backgroundForView.addSubview(playImage)
-        backgroundForView.addSubview(ganreLabel)
-        backgroundForView.addSubview(filmNameLabel)
-        backgroundForView.addSubview(typeFilmeLabel)
-        backgroundForView.addSubview(starImage)
-        backgroundForView.addSubview(ratingLabel)
-        backgroundForView.addSubview(heartImage)
+        [filmeImage, playImage, ganreLabel, filmNameLabel, typeFilmeLabel, starImage, ratingLabel, heartImage].forEach{backgroundForView.addSubview($0)}
     }
     
     private func setupConstraints() {
