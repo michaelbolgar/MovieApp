@@ -28,7 +28,12 @@ class TabBarFactory: TabBarFactoryProtocol {
         treeVC.tabBarItem = UITabBarItem(title: "Tree", image: UIImage(systemName: "puzzlepiece.extension.fill"), tag: 2)
         treeVC.view.backgroundColor = .customBlack
         
-        let profileVC = ProfileVC()
+        let navigationController = UINavigationController()
+        let modeuleBilder = ModuleBuilder()
+        let router = ProfileRouter(navigationController: navigationController, moduleBuilder: modeuleBilder)
+        router.initialViewController()
+        
+        let profileVC = navigationController
         profileVC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.fill"), tag: 3)
         profileVC.view.backgroundColor = .customBlack
         

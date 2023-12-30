@@ -38,6 +38,8 @@
 		3CF904AF2B3E05A0006E9D51 /* SearchBarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904AC2B3E05A0006E9D51 /* SearchBarViewDelegate.swift */; };
 		3CF904B02B3E05A0006E9D51 /* SearchBarView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904AD2B3E05A0006E9D51 /* SearchBarView + Extensions.swift */; };
 		3CF904B12B3E05A0006E9D51 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904AE2B3E05A0006E9D51 /* SearchBarView.swift */; };
+		849B711B2B3F832200D903BA /* CatergoriesSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B711A2B3F832200D903BA /* CatergoriesSectionView.swift */; };
+		849B711E2B3F8C3C00D903BA /* CategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B711D2B3F8C3C00D903BA /* CategoriesCell.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -99,6 +101,8 @@
 		3CF904AC2B3E05A0006E9D51 /* SearchBarViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewDelegate.swift; sourceTree = "<group>"; };
 		3CF904AD2B3E05A0006E9D51 /* SearchBarView + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchBarView + Extensions.swift"; sourceTree = "<group>"; };
 		3CF904AE2B3E05A0006E9D51 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		849B711A2B3F832200D903BA /* CatergoriesSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatergoriesSectionView.swift; sourceTree = "<group>"; };
+		849B711D2B3F8C3C00D903BA /* CategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCell.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -374,6 +378,22 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		849B71192B3F82D600D903BA /* HeaderViews */ = {
+			isa = PBXGroup;
+			children = (
+				849B711A2B3F832200D903BA /* CatergoriesSectionView.swift */,
+			);
+			path = HeaderViews;
+			sourceTree = "<group>";
+		};
+		849B711C2B3F8BF500D903BA /* Collection Cell */ = {
+			isa = PBXGroup;
+			children = (
+				849B711D2B3F8C3C00D903BA /* CategoriesCell.swift */,
+			);
+			path = "Collection Cell";
+			sourceTree = "<group>";
+		};
 		F480941D2B389AE6004C9F96 = {
 			isa = PBXGroup;
 			children = (
@@ -535,6 +555,8 @@
 		F48094702B38F70C004C9F96 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				849B711C2B3F8BF500D903BA /* Collection Cell */,
+				849B71192B3F82D600D903BA /* HeaderViews */,
 				F480946B2B38F600004C9F96 /* HomeViewController.swift */,
 			);
 			path = View;
@@ -717,8 +739,10 @@
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
 				3CF904982B3D7C72006E9D51 /* Policy.swift in Sources */,
+				849B711E2B3F8C3C00D903BA /* CategoriesCell.swift in Sources */,
 				3CD315E12B39C120003035B0 /* GeneralView.swift in Sources */,
 				F480947F2B38F9A6004C9F96 /* ChristmasTreeVC.swift in Sources */,
+				849B711B2B3F832200D903BA /* CatergoriesSectionView.swift in Sources */,
 				3CD315E52B39CF20003035B0 /* MoreView.swift in Sources */,
 				3CA4D1172B3B1B1E00073990 /* ViewBuilder.swift in Sources */,
 				F480945F2B38F4B2004C9F96 /* PreviewCategoryCell.swift in Sources */,
