@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-final class WishlistCellModel: Object {
+final class Movie: Object {
     @Persisted var image = Data()
     @Persisted var ganre = ""
     @Persisted var name = ""

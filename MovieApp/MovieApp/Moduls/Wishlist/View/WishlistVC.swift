@@ -8,6 +8,11 @@
 import UIKit
 
 protocol WishlistVCProtocol: AnyObject {
+    func showView()
+    func deleteAllMovies()
+    func showAlert()
+    func removeMovie(at indexPath: IndexPath)
+    func reloadTableView()
 }
 
 final class WishlistVC: UIViewController {
@@ -25,20 +30,15 @@ final class WishlistVC: UIViewController {
         )
         tableView.separatorStyle = .none
         tableView.backgroundColor = .customBlack
+        tableView.rowHeight = 130
         return tableView
     }()
     
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = WishlistPresenter(view: self)
-        if presenter.wishlist.count == 0 {
-            tableView.isHidden = true
-            plugView.isHidden = false
-        } else {
-            tableView.isHidden = false
-            plugView.isHidden = true
-        }
+        presenter = WishlistPresenter(view: self, storageManager: StorageManager.shared)
+        presenter.showView()
         setViews()
         setupTableView()
         setupNavigationBar()
@@ -47,9 +47,7 @@ final class WishlistVC: UIViewController {
     
     // MARK: - Private Actions
     @objc private func deleteAllButtonDidTapped() {
-        if presenter.wishlist.count != 0 {
-            showDeleteAlert()
-        }
+        presenter.showAlert()
     }
     
     // MARK: - Private Methods
@@ -67,20 +65,15 @@ final class WishlistVC: UIViewController {
         
         let okAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
-             
-             // Очистка данных
-            StorageManager.shared.deleteAllMovies(from: presenter.wishlist)
-
-             // Подготовка индексов для всех строк в секции
-             let indexPaths = self.tableView.indexPathsForVisibleRows ?? []
-
-             // Удаление строк с анимацией
-             self.tableView.performBatchUpdates({
-                 self.tableView.deleteRows(at: indexPaths, with: .automatic)
-             }, completion: { _ in
-                 // Перезагрузка tableView для обновления состояния, если это необходимо
-                 self.tableView.reloadData()
-             })
+            
+            presenter.deleteAllMovies()
+            
+            let numberOfRows = self.tableView.numberOfRows(inSection: 0)
+            let indexPaths = (0..<numberOfRows).map { IndexPath(row: $0, section: 0) }
+            
+            self.tableView.performBatchUpdates {
+                self.tableView.deleteRows(at: indexPaths, with: .fade)
+            }
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default)
@@ -94,7 +87,7 @@ final class WishlistVC: UIViewController {
 // MARK: - UITableViewDataSource
 extension WishlistVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.wishlist.count
+        presenter.movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,7 +102,7 @@ extension WishlistVC: UITableViewDataSource {
         cell.backgroundColor = .customBlack
         cell.selectionStyle = .none
         
-        let movie = presenter.wishlist[indexPath.row]
+        let movie = presenter.movies[indexPath.row]
         
         cell.configure(with:movie)
         return cell
@@ -120,11 +113,7 @@ extension WishlistVC: UITableViewDataSource {
 extension WishlistVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            DispatchQueue.main.async {
-//                self.presenter.wishlist.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .none)
-                tableView.reloadData()
-            }
+            presenter.deleteMovie(at: indexPath)
         }
     }
 }
@@ -165,4 +154,30 @@ private extension WishlistVC {
 
 // MARK: - WishlistVCProtocol
 extension WishlistVC: WishlistVCProtocol {
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+    
+    func showAlert() {
+        showDeleteAlert()
+    }
+    
+    func deleteAllMovies() {
+        if presenter.movies.count != 0 {
+            showDeleteAlert()
+        }
+    }
+    
+    func showView() {
+        if presenter.movies.count == 0 {
+            tableView.isHidden = true
+            plugView.isHidden = false
+        } else {
+            tableView.isHidden = false
+            plugView.isHidden = true
+        }
+    }
+    func removeMovie(at indexPath: IndexPath) {
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
 }

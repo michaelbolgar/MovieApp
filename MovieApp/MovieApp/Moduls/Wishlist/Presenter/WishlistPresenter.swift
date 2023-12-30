@@ -9,43 +9,84 @@ import UIKit
 import RealmSwift
 
 protocol WishlistPresenterProtocol {
-    init(view: WishlistVCProtocol)
-    var wishlist: Results<WishlistCellModel> { get set }
+    var movies: Results<Movie> { get }
+    init(view: WishlistVCProtocol, storageManager: StorageManagerProtocol)
+    func showView()
+    func deleteAllMovies()
+    func deleteMovie(at indexPath: IndexPath)
+    func showAlert()
 }
 
 final class WishlistPresenter: WishlistPresenterProtocol {
     
     private unowned var view: WishlistVCProtocol
+    private var storageManager: StorageManagerProtocol
     
-    var wishlist: Results<WishlistCellModel>
-    init(view: WishlistVCProtocol) {
+    // здесь мы храним фильмы сохраненные в realm
+    var movies: Results<Movie>
+    
+    init(view: WishlistVCProtocol, storageManager: StorageManagerProtocol) {
         self.view = view
+        self.storageManager = storageManager
         
-        let model = WishlistCellModel()
-        wishlist = StorageManager.shared.realm.objects(WishlistCellModel.self)
+        let movie1 = Movie()
+        movie1.name = "Фильм 100"
+        movie1.ganre = "Комедия"
+        movie1.type = "Тип 1"
+        movie1.rating = "8.5"
+        movie1.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
+
+        StorageManager.shared.save(movie1)
+
+        let movie2 = Movie()
+        movie2.name = "Фильм 100"
+        movie2.ganre = "Драма"
+        movie2.type = "Тип 2"
+        movie2.rating = "7.2"
+        movie2.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
+        StorageManager.shared.save(movie2)
+
+        let movie3 = Movie()
+        movie3.name = "Фильм 3100"
+        movie3.ganre = "Боевик"
+        movie3.type = "Тип 3"
+        movie3.rating = "8.0"
+        movie3.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
+        StorageManager.shared.save(movie3)
+
+        let movie4 = Movie()
+        movie4.name = "Фильм 4100"
+        movie4.ganre = "Научная фантастика"
+        movie4.type = "Тип 4"
+        movie4.rating = "9.1"
+        movie4.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
+        StorageManager.shared.save(movie4)
+
+        // инициализируем фильмы из realm
+        movies = storageManager.realm.objects(Movie.self)
         
-//        let model = [Wis]
-////        let models = [
-////            WishlistCellModel(
-////                image: UIImage(named: "Spider") ?? UIImage(),
-////                ganre: "Action",
-////                name: "Spider-Man No Way Home",
-////                type: "Movie",
-////                rating: "5.0"),
-////            WishlistCellModel(
-////                image: UIImage(named: "Spider") ?? UIImage(),
-////                ganre: "Action",
-////                name: "Spider-Man No Way Home",
-////                type: "Movie",
-////                rating: "5.0"),
-////            WishlistCellModel(
-////                image: UIImage(named: "Spider") ?? UIImage(),
-////                ganre: "Action",
-////                name: "Spider-Man No Way Home",
-////                type: "Movie",
-////                rating: "5.0")
-////
-////        ]
-//        wishlist.append(contentsOf: models)
+        
+ 
+    }
+    
+    func showView() {
+        view.showView()
+    }
+    
+    func deleteAllMovies() {
+        storageManager.deleteAllMovies(from: movies)
+    }
+    
+    func deleteMovie(at indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        storageManager.deleteMovie(movie)
+        view.removeMovie(at: indexPath)
+    }
+    
+    func showAlert() {
+        view.showAlert()
     }
 }
+
+
+

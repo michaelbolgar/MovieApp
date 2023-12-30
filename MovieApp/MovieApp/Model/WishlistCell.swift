@@ -22,9 +22,9 @@ final class WishlistCell: UITableViewCell {
     
     private let filmeImage: UIImageView = {
         let element = UIImageView()
-        element.contentMode = .scaleAspectFit
-        element.clipsToBounds = true
+        element.contentMode = .scaleAspectFill
         element.layer.cornerRadius = 8
+        element.clipsToBounds = true
         return element
     }()
     
@@ -92,7 +92,7 @@ final class WishlistCell: UITableViewCell {
     
     // MARK: - Public Methods
     //FIXME: - Переделать когда будет готова сеть
-    func configure(with model:WishlistCellModel){
+    func configure(with model:Movie){
         filmeImage.image = UIImage(data: model.image)
         ganreLabel.text = model.ganre
         filmNameLabel.text = model.name
@@ -114,13 +114,16 @@ final class WishlistCell: UITableViewCell {
             make.top.equalToSuperview().inset(8)
             make.bottom.equalToSuperview().inset(8)
             make.trailing.leading.equalToSuperview().inset(24)
-            make.height.equalTo(107)
+//            make.height.equalTo(107)
         }
         
         filmeImage.snp.makeConstraints { make in
-            make.top.equalTo(backgroundForView.snp.top).inset(12)
-            make.leading.equalTo(backgroundForView.snp.leading).inset(12)
-            make.bottom.equalTo(backgroundForView.snp.bottom).inset(12)
+//            make.top.equalTo(backgroundForView.snp.top).inset(12)
+//            make.top.equalToSuperview().offset(12)
+//            make.leading.equalTo(backgroundForView.snp.leading).inset(12)
+            make.leading.equalToSuperview().offset(12)
+            make.top.bottom.equalToSuperview().inset(12)
+//            make.bottom.equalTo(backgroundForView.snp.bottom).inset(12)
             make.width.equalTo(121)
         }
         
@@ -130,7 +133,8 @@ final class WishlistCell: UITableViewCell {
         }
         
         ganreLabel.snp.makeConstraints { make in
-            make.top.equalTo(backgroundForView.snp.top).inset(13)
+//            make.top.equalTo(backgroundForView.snp.top).inset(13)
+            make.top.equalToSuperview().offset(13)
             make.leading.equalTo(filmeImage.snp.trailing).offset(16)
         }
         
