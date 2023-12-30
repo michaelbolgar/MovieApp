@@ -38,6 +38,10 @@
 		3CF904AF2B3E05A0006E9D51 /* SearchBarViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904AC2B3E05A0006E9D51 /* SearchBarViewDelegate.swift */; };
 		3CF904B02B3E05A0006E9D51 /* SearchBarView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904AD2B3E05A0006E9D51 /* SearchBarView + Extensions.swift */; };
 		3CF904B12B3E05A0006E9D51 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904AE2B3E05A0006E9D51 /* SearchBarView.swift */; };
+		3CF904BF2B3F28D6006E9D51 /* WishlistVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904BE2B3F28D6006E9D51 /* WishlistVC.swift */; };
+		3CF904C12B3F2BB8006E9D51 /* PlugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904C02B3F2BB8006E9D51 /* PlugView.swift */; };
+		3CF904C32B3F49CF006E9D51 /* WishlistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904C22B3F49CF006E9D51 /* WishlistPresenter.swift */; };
+		3CF904C62B3F5070006E9D51 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904C52B3F5070006E9D51 /* Movie.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -99,6 +103,10 @@
 		3CF904AC2B3E05A0006E9D51 /* SearchBarViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewDelegate.swift; sourceTree = "<group>"; };
 		3CF904AD2B3E05A0006E9D51 /* SearchBarView + Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SearchBarView + Extensions.swift"; sourceTree = "<group>"; };
 		3CF904AE2B3E05A0006E9D51 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		3CF904BE2B3F28D6006E9D51 /* WishlistVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistVC.swift; sourceTree = "<group>"; };
+		3CF904C02B3F2BB8006E9D51 /* PlugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlugView.swift; sourceTree = "<group>"; };
+		3CF904C22B3F49CF006E9D51 /* WishlistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistPresenter.swift; sourceTree = "<group>"; };
+		3CF904C52B3F5070006E9D51 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -374,6 +382,41 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		3CF904B92B3F282F006E9D51 /* Wishlist */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904BC2B3F2894006E9D51 /* Presenter */,
+				3CF904BB2B3F288F006E9D51 /* View */,
+				3CF904BA2B3F288A006E9D51 /* Model */,
+			);
+			path = Wishlist;
+			sourceTree = "<group>";
+		};
+		3CF904BA2B3F288A006E9D51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904C52B3F5070006E9D51 /* Movie.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3CF904BB2B3F288F006E9D51 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904BE2B3F28D6006E9D51 /* WishlistVC.swift */,
+				3CF904C02B3F2BB8006E9D51 /* PlugView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3CF904BC2B3F2894006E9D51 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				3CF904C22B3F49CF006E9D51 /* WishlistPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		F480941D2B389AE6004C9F96 = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +475,7 @@
 		F480943F2B389E49004C9F96 /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
+				3CF904B92B3F282F006E9D51 /* Wishlist */,
 				F48094572B38F424004C9F96 /* Onboarding */,
 				F48094642B38F558004C9F96 /* Custom Tabbar */,
 				F48094582B38F42E004C9F96 /* Home */,
@@ -714,6 +758,7 @@
 				3CA4D1142B3B0E2200073990 /* EditProfileVC.swift in Sources */,
 				F48094412B389E6F004C9F96 /* UIColor Extension.swift in Sources */,
 				3CF904952B3C791E006E9D51 /* WishlistCell.swift in Sources */,
+				3CF904C12B3F2BB8006E9D51 /* PlugView.swift in Sources */,
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
 				3CF904982B3D7C72006E9D51 /* Policy.swift in Sources */,
@@ -721,7 +766,9 @@
 				F480947F2B38F9A6004C9F96 /* ChristmasTreeVC.swift in Sources */,
 				3CD315E52B39CF20003035B0 /* MoreView.swift in Sources */,
 				3CA4D1172B3B1B1E00073990 /* ViewBuilder.swift in Sources */,
+				3CF904C62B3F5070006E9D51 /* Movie.swift in Sources */,
 				F480945F2B38F4B2004C9F96 /* PreviewCategoryCell.swift in Sources */,
+				3CF904BF2B3F28D6006E9D51 /* WishlistVC.swift in Sources */,
 				FA0C5B982B3C74550097A480 /* TabBarPresenter .swift in Sources */,
 				F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */,
 				3CF9048C2B3C4526006E9D51 /* StorageManager.swift in Sources */,
@@ -731,6 +778,7 @@
 				3CA4D10E2B3B0B6D00073990 /* ModuleBuilder.swift in Sources */,
 				F480946E2B38F626004C9F96 /* HomePresenter.swift in Sources */,
 				3CF904A12B3DD9AA006E9D51 /* NotificationsPresenter.swift in Sources */,
+				3CF904C32B3F49CF006E9D51 /* WishlistPresenter.swift in Sources */,
 				3CF904A72B3DFE47006E9D51 /* LanguageVC.swift in Sources */,
 				F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */,
 				F48094542B38EFD6004C9F96 /* UIView Extension.swift in Sources */,
