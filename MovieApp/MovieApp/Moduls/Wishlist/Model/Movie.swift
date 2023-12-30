@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import RealmSwift
 
-struct WishlistCellModel{
-    let image: UIImage
-    let ganre: String
-    let name: String
-    let type: String
-    let rating: String
+final class WishlistCellModel: Object {
+    @Persisted var image = Data()
+    @Persisted var ganre = ""
+    @Persisted var name = ""
+    @Persisted var type = ""
+    @Persisted var rating = ""
 }
+
+

@@ -93,7 +93,7 @@ final class WishlistCell: UITableViewCell {
     // MARK: - Public Methods
     //FIXME: - Переделать когда будет готова сеть
     func configure(with model:WishlistCellModel){
-        filmeImage.image = model.image
+        filmeImage.image = UIImage(data: model.image)
         ganreLabel.text = model.ganre
         filmNameLabel.text = model.name
         typeFilmeLabel.text = model.type
