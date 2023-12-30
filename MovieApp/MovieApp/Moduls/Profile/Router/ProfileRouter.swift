@@ -8,18 +8,19 @@
 import UIKit
 
 // MARK: - RouterMain
-protocol RouterMain {
+protocol RouterProtocol {
     var navigationController: UINavigationController? { get set }
     var moduleBuilder: ModuleBuilderProtocol? { get set }
 }
 
 // MARK: - ProfileRouterProtocol
-protocol ProfileRouterProtocol: RouterMain {
+protocol ProfileRouterProtocol: RouterProtocol {
     func initialViewController()
     func showEditProfileVC()
     func showPolicyVC()
     func showAboutUsVC()
     func showNotificationVC()
+    func showLanguageVC()
 }
 
 // MARK: - ProfileRouter
@@ -64,6 +65,13 @@ final class ProfileRouter: ProfileRouterProtocol {
         if let navigationController = navigationController {
             guard let notificationVC = moduleBuilder?.createNotificationVC() else { return }
             navigationController.pushViewController(notificationVC, animated: true)
+        }
+    }
+    
+    func showLanguageVC() {
+        if let navigationController = navigationController {
+            guard let languageVC = moduleBuilder?.createLanguageVC() else { return }
+            navigationController.pushViewController(languageVC, animated: true)
         }
     }
 }

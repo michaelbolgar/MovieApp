@@ -9,13 +9,9 @@ import UIKit
 
 final class SettingView: UIView {
     
-    // MARK: - Private Properties
-    private var title: String!
-    private var imageName: String!
-    
     // MARK: - Private UI Properties
-    private var iconView: UIView!
-    private var nameLabel: UILabel!
+    private var iconView = UIView()
+    private var nameLabel = UILabel()
     
     private lazy var arrowView: UIView = {
         let arrowView = UIImageView(image: UIImage(named: "arrow"))
@@ -36,9 +32,6 @@ final class SettingView: UIView {
     
     // MARK: - Public Methods
     func configure(title: String) {
-        self.title = title
-        self.imageName = title
-        
         iconView = createIconView(with: title)
         
         nameLabel = UILabel.makeLabel(
@@ -65,9 +58,8 @@ final class SettingView: UIView {
             imageView.snp.makeConstraints { make in
                 make.edges.equalToSuperview().inset(6)
             }
-        } else {
-            
         }
+        
         return view
     }
 }

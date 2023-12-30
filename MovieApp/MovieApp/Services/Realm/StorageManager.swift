@@ -8,7 +8,13 @@
 import Foundation
 import RealmSwift
 
-final class StorageManager {
+protocol StorageManagerProtocol {
+    func save(_ user: User)
+    func fetchUser() -> User?
+    func isUserExist(withName name: String) -> Bool
+}
+
+final class StorageManager: StorageManagerProtocol {
     
     // MARK: - Static Properties
     static let shared = StorageManager()

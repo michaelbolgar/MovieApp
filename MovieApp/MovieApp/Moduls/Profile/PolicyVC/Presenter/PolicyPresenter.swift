@@ -16,8 +16,6 @@ protocol PolicyPresenterProtocol {
 // MARK: - LegalPresenter
 final class PolicyPresenter: PolicyPresenterProtocol {
 
-    
-    
     private unowned var view: PolicyVCProtocol
     private let policyStorage = PolicyStorage()
     

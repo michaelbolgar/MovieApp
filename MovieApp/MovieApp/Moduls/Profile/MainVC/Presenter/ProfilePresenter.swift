@@ -3,24 +3,30 @@ import UIKit
 
 // MARK: - ProfilePresenterProtocol
 protocol ProfilePresenterProtocol {
-    init(view: ProfileVCProtocol, router: ProfileRouterProtocol)
+    init(view: ProfileVCProtocol, storageManager: StorageManagerProtocol, router: ProfileRouterProtocol)
     func showUserInfo()
     func showEditProfileVC()
     func showPolicyVC()
     func showAboutUsVC()
     func showNotificationVC()
+    func showLanguageVC()
 }
 
 // MARK: - ProfilePresenter
 final class ProfilePresenter: ProfilePresenterProtocol {
-
+    
     private unowned var view: ProfileVCProtocol
     private var router: ProfileRouterProtocol
-    private let storageManager = StorageManager.shared
+    private let storageManager: StorageManagerProtocol
     
-    init(view: ProfileVCProtocol, router: ProfileRouterProtocol) {
+    init(
+        view: ProfileVCProtocol,
+        storageManager: StorageManagerProtocol,
+        router: ProfileRouterProtocol
+    ) {
         self.view = view
         self.router = router
+        self.storageManager = storageManager
     }
     
     func showEditProfileVC() {
@@ -43,5 +49,9 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     
     func showNotificationVC() {
         router.showNotificationVC()
+    }
+    
+    func showLanguageVC() {
+        router.showLanguageVC()
     }
 }

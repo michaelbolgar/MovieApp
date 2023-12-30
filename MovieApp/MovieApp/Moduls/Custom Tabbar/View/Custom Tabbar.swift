@@ -17,9 +17,18 @@ class MainTabBarController: UITabBarController, TabBarViewProtocol {
         super.viewDidLoad()
         tabBar.tintColor = .customBlue
         tabBar.unselectedItemTintColor = .customLightGrey
-        
+        setupTabBar()
         presenter = TabBarPresenter(view: self, tabFactory: TabBarFactory())
         presenter.generateVC()
+    }
+    
+    // MARK: - Private Methods
+    private func setupTabBar() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.backgroundColor = UIColor.customBlack
+        
+        tabBar.standardAppearance = tabBarAppearance
+        tabBar.scrollEdgeAppearance = tabBarAppearance
     }
     
     //MARK: - Protocol methods
