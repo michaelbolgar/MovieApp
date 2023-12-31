@@ -12,7 +12,6 @@ protocol WishlistVCProtocol: AnyObject {
     func deleteAllMovies()
     func showAlert()
     func removeMovie(at indexPath: IndexPath)
-    func reloadTableView()
 }
 
 final class WishlistVC: UIViewController {
@@ -154,9 +153,6 @@ private extension WishlistVC {
 
 // MARK: - WishlistVCProtocol
 extension WishlistVC: WishlistVCProtocol {
-    func reloadTableView() {
-        tableView.reloadData()
-    }
     
     func showAlert() {
         showDeleteAlert()
@@ -177,6 +173,7 @@ extension WishlistVC: WishlistVCProtocol {
             plugView.isHidden = true
         }
     }
+    
     func removeMovie(at indexPath: IndexPath) {
         tableView.deleteRows(at: [indexPath], with: .automatic)
     }
