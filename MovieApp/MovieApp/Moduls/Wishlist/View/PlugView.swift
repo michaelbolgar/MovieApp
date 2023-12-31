@@ -57,23 +57,20 @@ final class PlugView: UIView {
     private func setupConstraints() {
         boxImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.width.equalTo(LayoutConstraint.boxImageSize)
-            make.height.equalTo(LayoutConstraint.boxImageSize)
+            make.width.height.equalTo(LayoutConstraint.boxImageSize)
             make.centerX.equalToSuperview()
         }
         
         firstInfoLabel.snp.makeConstraints { make in
             make.top.equalTo(boxImageView.snp.bottom)
                 .offset(LayoutConstraint.infoLabelTopOffset)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
         
         secondInfoLabel.snp.makeConstraints { make in
             make.top.equalTo(firstInfoLabel.snp.bottom)
                 .offset(LayoutConstraint.infoLabelTopOffset)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
