@@ -42,6 +42,8 @@
 		3CF904C12B3F2BB8006E9D51 /* PlugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904C02B3F2BB8006E9D51 /* PlugView.swift */; };
 		3CF904C32B3F49CF006E9D51 /* WishlistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904C22B3F49CF006E9D51 /* WishlistPresenter.swift */; };
 		3CF904C62B3F5070006E9D51 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF904C52B3F5070006E9D51 /* Movie.swift */; };
+		3CFEF12E2B418AE9000DA0B1 /* LanguagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFEF12D2B418AE9000DA0B1 /* LanguagePresenter.swift */; };
+		3CFEF1302B418AF3000DA0B1 /* LanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFEF12F2B418AF3000DA0B1 /* LanguageCell.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -107,6 +109,8 @@
 		3CF904C02B3F2BB8006E9D51 /* PlugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlugView.swift; sourceTree = "<group>"; };
 		3CF904C22B3F49CF006E9D51 /* WishlistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistPresenter.swift; sourceTree = "<group>"; };
 		3CF904C52B3F5070006E9D51 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		3CFEF12D2B418AE9000DA0B1 /* LanguagePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagePresenter.swift; sourceTree = "<group>"; };
+		3CFEF12F2B418AF3000DA0B1 /* LanguageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageCell.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -343,7 +347,7 @@
 		3CF904A22B3DFD6A006E9D51 /* LanguageVC */ = {
 			isa = PBXGroup;
 			children = (
-				3CFEF1292B418A73000DA0B1 /* Presenter */,
+				3CFEF12B2B418AD9000DA0B1 /* Presenter */,
 				3CF904A32B3DFD85006E9D51 /* View */,
 			);
 			path = LanguageVC;
@@ -352,7 +356,7 @@
 		3CF904A32B3DFD85006E9D51 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3CFEF12A2B418A7E000DA0B1 /* Cell */,
+				3CFEF12C2B418AE0000DA0B1 /* Cell */,
 				3CF904A62B3DFE47006E9D51 /* LanguageVC.swift */,
 			);
 			path = View;
@@ -403,16 +407,18 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		3CFEF1292B418A73000DA0B1 /* Presenter */ = {
+		3CFEF12B2B418AD9000DA0B1 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				3CFEF12D2B418AE9000DA0B1 /* LanguagePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		3CFEF12A2B418A7E000DA0B1 /* Cell */ = {
+		3CFEF12C2B418AE0000DA0B1 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				3CFEF12F2B418AF3000DA0B1 /* LanguageCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -762,6 +768,7 @@
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
 				3CF904982B3D7C72006E9D51 /* Policy.swift in Sources */,
+				3CFEF12E2B418AE9000DA0B1 /* LanguagePresenter.swift in Sources */,
 				3CD315E12B39C120003035B0 /* GeneralView.swift in Sources */,
 				F480947F2B38F9A6004C9F96 /* ChristmasTreeVC.swift in Sources */,
 				3CD315E52B39CF20003035B0 /* MoreView.swift in Sources */,
@@ -792,6 +799,7 @@
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
 				3CF9047B2B3B5D05006E9D51 /* AboutUsVC.swift in Sources */,
 				3CF904832B3B86F7006E9D51 /* AboutUsPresenter.swift in Sources */,
+				3CFEF1302B418AF3000DA0B1 /* LanguageCell.swift in Sources */,
 				3CF904B02B3E05A0006E9D51 /* SearchBarView + Extensions.swift in Sources */,
 				3CF9048F2B3C45F1006E9D51 /* User.swift in Sources */,
 				3CF904702B3B2E25006E9D51 /* PolicyVC.swift in Sources */,
