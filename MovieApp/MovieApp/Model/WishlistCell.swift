@@ -112,18 +112,13 @@ final class WishlistCell: UITableViewCell {
     private func setupConstraints() {
         backgroundForView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(8)
-            make.bottom.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview().inset(8).priority(.high)
             make.trailing.leading.equalToSuperview().inset(24)
-//            make.height.equalTo(107)
         }
         
         filmeImage.snp.makeConstraints { make in
-//            make.top.equalTo(backgroundForView.snp.top).inset(12)
-//            make.top.equalToSuperview().offset(12)
-//            make.leading.equalTo(backgroundForView.snp.leading).inset(12)
             make.leading.equalToSuperview().offset(12)
             make.top.bottom.equalToSuperview().inset(12)
-//            make.bottom.equalTo(backgroundForView.snp.bottom).inset(12)
             make.width.equalTo(121)
         }
         
@@ -133,7 +128,6 @@ final class WishlistCell: UITableViewCell {
         }
         
         ganreLabel.snp.makeConstraints { make in
-//            make.top.equalTo(backgroundForView.snp.top).inset(13)
             make.top.equalToSuperview().offset(13)
             make.leading.equalTo(filmeImage.snp.trailing).offset(16)
         }
