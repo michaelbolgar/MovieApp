@@ -172,13 +172,9 @@ extension WishlistVC: WishlistVCProtocol {
     }
     
     func showView() {
-        if presenter.movies.count == 0 {
-            tableView.isHidden = true
-            plugView.isHidden = false
-        } else {
-            tableView.isHidden = false
-            plugView.isHidden = true
-        }
+        let isMovieListEmpty = presenter.movies.isEmpty
+        tableView.isHidden = isMovieListEmpty
+        plugView.isHidden = !isMovieListEmpty
     }
     
     func removeMovie(at indexPath: IndexPath) {
