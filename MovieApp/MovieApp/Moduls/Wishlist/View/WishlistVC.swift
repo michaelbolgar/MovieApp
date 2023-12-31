@@ -8,7 +8,7 @@
 import UIKit
 
 protocol WishlistVCProtocol: AnyObject {
-    func showView()
+    func showView(with animate: Bool)
     func showAlert()
     func removeMovie(at indexPath: IndexPath)
 }
@@ -36,7 +36,7 @@ final class WishlistVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = WishlistPresenter(view: self, storageManager: StorageManager.shared)
-        presenter.showView()
+        presenter.showView(with: false)
         setViews()
         setupTableView()
         setupNavigationBar()
@@ -65,7 +65,9 @@ final class WishlistVC: UIViewController {
                 let indexPaths = (0..<numberOfRows).map { IndexPath(row: $0, section: 0) }
                 
                 self.tableView.performBatchUpdates {
-                    self.tableView.deleteRows(at: indexPaths, with: .fade)
+                    self.tableView.deleteRows(at: indexPaths, with: .automatic)
+                } completion: { _ in
+                    self.presenter.showView(with: true)
                 }
             }
         }
@@ -82,10 +84,17 @@ extension WishlistVC: WishlistVCProtocol {
         }
     }
     
-    func showView() {
+    func showView(with animate: Bool) {
         let isMovieListEmpty = presenter.movies.isEmpty
-        tableView.isHidden = isMovieListEmpty
+        
+        if animate {
+            plugView.alpha = 0
+            UIView.animate(withDuration: 0.7) {
+                self.plugView.alpha = 1
+            }
+        }
         plugView.isHidden = !isMovieListEmpty
+        tableView.isHidden = isMovieListEmpty
     }
     
     func removeMovie(at indexPath: IndexPath) {

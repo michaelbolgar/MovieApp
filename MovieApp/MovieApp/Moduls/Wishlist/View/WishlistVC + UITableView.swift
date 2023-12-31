@@ -37,6 +37,9 @@ extension WishlistVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             presenter.deleteMovie(at: indexPath)
+            if presenter.movies.isEmpty {
+                presenter.showView(with: true)
+            }
         }
     }
 }
