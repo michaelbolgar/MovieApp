@@ -29,6 +29,39 @@ final class WishlistPresenter: WishlistPresenterProtocol {
         self.view = view
         self.storageManager = storageManager
         
+//        let movie1 = Movie()
+//                movie1.name = "Spider-Man No Way Home"
+//                movie1.ganre = "Комедия"
+//                movie1.type = "Тип 1"
+//                movie1.rating = "8.5"
+//                movie1.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
+//        
+//                StorageManager.shared.save(movie1)
+//        
+//                let movie2 = Movie()
+//                movie2.name = "Spider-Man No Way Home"
+//                movie2.ganre = "Драма"
+//                movie2.type = "Тип 2"
+//                movie2.rating = "7.2"
+//                movie2.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
+//                StorageManager.shared.save(movie2)
+//        
+//                let movie3 = Movie()
+//                movie3.name = "Spider-Man No Way Home"
+//                movie3.ganre = "Боевик"
+//                movie3.type = "Тип 3"
+//                movie3.rating = "8.0"
+//                movie3.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
+//                StorageManager.shared.save(movie3)
+//        
+//                let movie4 = Movie()
+//                movie4.name = "ФSpider-Man No Way Home"
+//                movie4.ganre = "Научная фантастика"
+//                movie4.type = "Тип 4"
+//                movie4.rating = "9.1"
+//                movie4.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
+//                StorageManager.shared.save(movie4)
+        
         // инициализируем фильмы из realm
         movies = storageManager.realm.objects(Movie.self)
     }
