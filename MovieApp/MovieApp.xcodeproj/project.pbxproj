@@ -193,7 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				3CA4D1132B3B0E2200073990 /* EditProfileVC.swift */,
-				3CF904B72B3ED733006E9D51 /* EditProfileVC + Extension.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,7 +343,6 @@
 		3CF904A22B3DFD6A006E9D51 /* LanguageVC */ = {
 			isa = PBXGroup;
 			children = (
-				3CF904A52B3DFD8E006E9D51 /* Presenter */,
 				3CF904A32B3DFD85006E9D51 /* View */,
 			);
 			path = LanguageVC;
@@ -353,18 +351,9 @@
 		3CF904A32B3DFD85006E9D51 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3CF904B22B3E0B37006E9D51 /* Cell */,
 				3CF904A62B3DFE47006E9D51 /* LanguageVC.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		3CF904A52B3DFD8E006E9D51 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				3CF904B52B3E129E006E9D51 /* LanguagePresenter.swift */,
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		3CF904AB2B3E057E006E9D51 /* Common */ = {
@@ -789,7 +778,6 @@
 				3CF904832B3B86F7006E9D51 /* AboutUsPresenter.swift in Sources */,
 				3CF904B02B3E05A0006E9D51 /* SearchBarView + Extensions.swift in Sources */,
 				3CF9048F2B3C45F1006E9D51 /* User.swift in Sources */,
-				3CF904B42B3E0B4A006E9D51 /* LanguageCell.swift in Sources */,
 				3CF904702B3B2E25006E9D51 /* PolicyVC.swift in Sources */,
 				3CF9046D2B3B2924006E9D51 /* EditProfilePresenter.swift in Sources */,
 				3CF904932B3C7919006E9D51 /* SearchCell.swift in Sources */,
