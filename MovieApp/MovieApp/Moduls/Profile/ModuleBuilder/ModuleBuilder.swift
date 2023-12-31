@@ -14,6 +14,7 @@ protocol ModuleBuilderProtocol {
     func createPoliciesVC() -> UIViewController
     func createAboutUsVC() -> UIViewController
     func createNotificationVC() -> UIViewController
+    func createLanguageVC() -> UIViewController
 }
 
 // MARK: - ModuleBUilder
@@ -21,14 +22,16 @@ final class ModuleBuilder: ModuleBuilderProtocol {
 
     func createProfileModule(router: ProfileRouterProtocol) -> UIViewController {
         let view = ProfileVC()
-        let presenter = ProfilePresenter(view: view, router: router)
+        let storageManager = StorageManager.shared
+        let presenter = ProfilePresenter(view: view, storageManager: storageManager, router: router)
         view.presenter = presenter
         return view
     }
     
     func createEditProfileVC() -> UIViewController {
         let view = EditProfileVC()
-        let presenter = EditProfilePresenter(view: view)
+        let storageManager = StorageManager.shared
+        let presenter = EditProfilePresenter(view: view, storageManager: storageManager)
         view.presenter = presenter
         return view
     }
@@ -50,6 +53,13 @@ final class ModuleBuilder: ModuleBuilderProtocol {
     func createNotificationVC() -> UIViewController {
         let view = NotificationsVC()
         let presenter = NotificationsPresenter(view: view)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createLanguageVC() -> UIViewController {
+        let view = LanguageVC()
+        let presenter = LanguagePresenter(view: view)
         view.presenter = presenter
         return view
     }

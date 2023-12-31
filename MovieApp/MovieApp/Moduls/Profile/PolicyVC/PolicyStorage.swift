@@ -39,13 +39,13 @@ We use the information we collect to:
 
 Provide, maintain, and improve our services;
 Develop new services;
-Protect [Your App Name] and our users;
+Protect MovieApp and our users;
 Communicate with you about our services, including service updates and responses to your inquiries.
 """
     
     private let sharingInformation =
     """
-We do not share your personal information with companies, organizations, or individuals outside of [Your App Name] except in the following cases:
+We do not share your personal information with companies, organizations, or individuals outside of MovieApp except in the following cases:
 
 With your consent;
 For external processing by our trusted service providers based on our instructions and in compliance with our Privacy Policy;

@@ -38,7 +38,7 @@ final class NotificationsVC: UIViewController {
     private var notificationsLabel: UILabel = {
         UILabel.makeLabel(
             text: "Show Notifications",
-            font: .montserratMedium(ofSize: 18),
+            font: .montserratMedium(ofSize: 16),
             textColor: .white,
             numberOfLines: 1
         )
@@ -62,9 +62,7 @@ final class NotificationsVC: UIViewController {
     // MARK: - Private Methods
     private func setViews() {
         view.backgroundColor = .customBlack
-        
         view.addSubview(mainView)
-        
         [settingLabel, notificationsLabel, notificationSwitch].forEach { mainView.addSubview($0) }
     }
     
@@ -110,14 +108,12 @@ extension NotificationsVC: NotificationsVCProtocol {
     }
 }
 
-// MARK: - NotificationsLayout
-enum LayoutConstraint {
+// MARK: - LayoutConstraint
+private enum LayoutConstraint {
     static let standardOffset: CGFloat = 20
     static let mainViewHeight: CGFloat = 130
-
     static let settingLabelTopOffset: CGFloat = 28
     static let labelLeftOffset: CGFloat = 16
-
     static let notificationsLabelBottomOffset: CGFloat = -28
 }
 

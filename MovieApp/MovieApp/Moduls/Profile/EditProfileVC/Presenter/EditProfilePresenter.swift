@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Enums
 enum TextFieldType {
     case name
     case email
@@ -14,7 +15,7 @@ enum TextFieldType {
 
 // MARK: - EditProfilePresenterProtocol
 protocol EditProfilePresenterProtocol {
-    init(view: EditProfileVCProtocol)
+    init(view: EditProfileVCProtocol, storageManager: StorageManagerProtocol)
     func showUserData()
     func didSelectImage(_ image: UIImage)
     func didTapEditButton()
@@ -27,10 +28,11 @@ protocol EditProfilePresenterProtocol {
 final class EditProfilePresenter: EditProfilePresenterProtocol {
     
     private unowned var view: EditProfileVCProtocol
-    private let storageManager = StorageManager.shared
+    private let storageManager: StorageManagerProtocol
     
-    init(view: EditProfileVCProtocol) {
+    init(view: EditProfileVCProtocol, storageManager: StorageManagerProtocol) {
         self.view = view
+        self.storageManager = storageManager
     }
     
     func showUserData() {

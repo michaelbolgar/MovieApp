@@ -10,8 +10,8 @@ import UIKit
 class BaseSettingView: UIView {
     
     // MARK: - Closures
-    var onFirstSetttingTap: (() -> Void)?
-    var onSecondSetttingTap: (() -> Void)?
+    var onFirstSettingTap: (() -> Void)?
+    var onSecondSettingTap: (() -> Void)?
     
     // MARK: - Private UI Properties
     private lazy var titleLabel: UILabel = {
@@ -64,11 +64,11 @@ class BaseSettingView: UIView {
     
     // MARK: - Private Actions
     @objc private func firstSettingTapped() {
-        onFirstSetttingTap?()
+        onFirstSettingTap?()
     }
     
     @objc private func secondSettingTapped() {
-        onSecondSetttingTap?()
+        onSecondSettingTap?()
     }
     
     // MARK: - Private Methods

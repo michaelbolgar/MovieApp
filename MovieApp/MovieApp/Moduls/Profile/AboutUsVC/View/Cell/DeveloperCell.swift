@@ -23,13 +23,12 @@ final class DeveloperCell: UICollectionViewCell {
     }()
     
     private lazy var roleLabel: UILabel = {
-        var label = UILabel.makeLabel(
+        UILabel.makeLabel(
             text: "Team Leader",
             font: .montserratSemiBold(ofSize: 14),
             textColor: .white,
             numberOfLines: 0
         )
-        return label
     }()
     
     private lazy var githubImageView: UIImageView = {
@@ -77,7 +76,8 @@ private extension DeveloperCell {
     }
     
     func setViews() {
-        [mainImageView, roleLabel, githubImageView, githubLabel].forEach { self.addSubview($0) }
+        [mainImageView, roleLabel, githubImageView, githubLabel]
+            .forEach { self.addSubview($0) }
     }
     
     func setupConstraints() {

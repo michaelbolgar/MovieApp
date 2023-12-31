@@ -17,9 +17,6 @@ final class PolicyVC: UIViewController {
     // MARK: - Presenter
     var presenter: PolicyPresenterProtocol!
     
-    // MARK: - PolicyStorage
-    private let policyText = PolicyStorage()
-    
     // MARK: - Private UI Properties
     private let scrollView = UIScrollView()
     
@@ -33,7 +30,7 @@ final class PolicyVC: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func makeSection(with title: String, value: String, font: UIFont) -> UIStackView {
+    private func makeSection(with title: String, value: String) -> UIStackView {
         let titleLabel = UILabel.makeLabel(
             text: title,
             font: .montserratSemiBold(ofSize: 14),
@@ -45,7 +42,8 @@ final class PolicyVC: UIViewController {
             text: value,
             font: .montserratMedium(ofSize: 14),
             textColor: .customLightGrey,
-            numberOfLines: 0)
+            numberOfLines: 0
+        )
         
         let stackView = UIStackView(arrangedSubviews: [titleLabel, valueLabel])
         stackView.axis = .vertical
@@ -54,54 +52,30 @@ final class PolicyVC: UIViewController {
     }
     
     private func setupSections(with policy: Policy) {
-        let introductionSection = makeSection(
-            with: "Introduction",
-            value: policy.introduction,
-            font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
-        )
         
-        let collectInfoSection = makeSection(
-            with: "Information We Collect",
-            value: policy.collectInfo,
-            font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
-        )
-        
-        let userInfoSection = makeSection(
-            with: "How we User Your information",
-            value: policy.userInfo,
-            font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
-        )
-        
-        let sharingSection = makeSection(
-            with: "Sharing Your Information",
-            value: policy.sharingInfo,
-            font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
-        )
-        
-        let contactUsSection = makeSection(
-            with: "Contact Us",
-            value: policy.contactUS,
-            font: .montserratMedium(ofSize: 14) ?? UIFont.systemFont(ofSize: 14)
-        )
-        
-        let sections = [
-            introductionSection,
-            collectInfoSection,
-            userInfoSection,
-            sharingSection,
-            contactUsSection
+        let titles = [
+            ("Introduction", policy.introduction),
+            ("Information We Collect", policy.collectInfo),
+            ("How we User Your information", policy.userInfo),
+            ("Sharing Your Information", policy.sharingInfo),
+            ("Contact Us", policy.contactUS)
         ]
         
-        let stackView = UIStackView(arrangedSubviews: sections)
+        let sectionsAll = titles.map { (key, value) in
+            makeSection(
+                with: key,
+                value: value
+            )
+        }
+        
+        let stackView = UIStackView(arrangedSubviews: sectionsAll)
         stackView.axis = .vertical
         stackView.spacing = 20
         scrollView.addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.bottom.equalToSuperview().offset(-20)
+            make.top.bottom.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
             make.width.equalTo(scrollView.snp.width).offset(-40)
         }
     }
@@ -135,7 +109,8 @@ private extension PolicyVC {
     
     func setupConstraints() {
         scrollView.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview().inset(14)
+            make.top.bottom.equalToSuperview()
         }
     }
 }
