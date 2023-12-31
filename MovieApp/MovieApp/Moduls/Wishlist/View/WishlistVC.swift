@@ -9,7 +9,6 @@ import UIKit
 
 protocol WishlistVCProtocol: AnyObject {
     func showView()
-    func deleteAllMovies()
     func showAlert()
     func removeMovie(at indexPath: IndexPath)
 }
@@ -56,64 +55,41 @@ final class WishlistVC: UIViewController {
     }
     
     private func showDeleteAlert() {
-        let alert = UIAlertController(
-            title: "",
-            message: "Are you sure you want to delete all the movies?",
-            preferredStyle: .alert
-        )
-        
-        let okAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+        let deleteAlert = AlertHelper.createDeleteAlert { [weak self] confirmDelte in
             guard let self = self else { return }
             
-            presenter.deleteAllMovies()
-            
-            let numberOfRows = self.tableView.numberOfRows(inSection: 0)
-            let indexPaths = (0..<numberOfRows).map { IndexPath(row: $0, section: 0) }
-            
-            self.tableView.performBatchUpdates {
-                self.tableView.deleteRows(at: indexPaths, with: .fade)
+            if confirmDelte {
+                self.presenter.deleteAllMovies()
+                
+                let numberOfRows = self.tableView.numberOfRows(inSection: 0)
+                let indexPaths = (0..<numberOfRows).map { IndexPath(row: $0, section: 0) }
+                
+                self.tableView.performBatchUpdates {
+                    self.tableView.deleteRows(at: indexPaths, with: .fade)
+                }
             }
         }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default)
-        
-        [okAction, cancelAction].forEach { alert.addAction($0) }
-        
-        present(alert, animated: true)
+        present(deleteAlert, animated: true)
     }
 }
 
-// MARK: - UITableViewDataSource
-extension WishlistVC: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.movies.count
+// MARK: - WishlistVCProtocol
+extension WishlistVC: WishlistVCProtocol {
+    
+    func showAlert() {
+        if !presenter.movies.isEmpty {
+            showDeleteAlert()
+        }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: WishlistCell.identifier,
-                for: indexPath
-            ) as? WishlistCell
-        else {
-            return UITableViewCell()
-        }
-        cell.backgroundColor = .customBlack
-        cell.selectionStyle = .none
-        
-        let movie = presenter.movies[indexPath.row]
-        
-        cell.configure(with:movie)
-        return cell
+    func showView() {
+        let isMovieListEmpty = presenter.movies.isEmpty
+        tableView.isHidden = isMovieListEmpty
+        plugView.isHidden = !isMovieListEmpty
     }
-}
-
-// MARK: - UITableViewDelegate
-extension WishlistVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            presenter.deleteMovie(at: indexPath)
-        }
+    
+    func removeMovie(at indexPath: IndexPath) {
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
 
@@ -131,7 +107,7 @@ private extension WishlistVC {
                 .offset(LayoutConstrain.plugViewTop)
             make.leading.trailing.equalToSuperview()
                 .inset(LayoutConstrain.plugViewLeftRight)
-        
+            
         }
         
         tableView.snp.makeConstraints { make in
@@ -155,29 +131,5 @@ private extension WishlistVC {
     enum LayoutConstrain {
         static let plugViewTop = 140
         static let plugViewLeftRight = 90
-    }
-}
-
-// MARK: - WishlistVCProtocol
-extension WishlistVC: WishlistVCProtocol {
-    
-    func showAlert() {
-        showDeleteAlert()
-    }
-    
-    func deleteAllMovies() {
-        if presenter.movies.count != 0 {
-            showDeleteAlert()
-        }
-    }
-    
-    func showView() {
-        let isMovieListEmpty = presenter.movies.isEmpty
-        tableView.isHidden = isMovieListEmpty
-        plugView.isHidden = !isMovieListEmpty
-    }
-    
-    func removeMovie(at indexPath: IndexPath) {
-        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }

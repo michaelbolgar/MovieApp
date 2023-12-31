@@ -87,37 +87,3 @@ final class WishlistPresenter: WishlistPresenterProtocol {
     }
 }
 
-//let movie1 = Movie()
-//        movie1.name = "Фильм 100"
-//        movie1.ganre = "Комедия"
-//        movie1.type = "Тип 1"
-//        movie1.rating = "8.5"
-//        movie1.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
-//
-//        StorageManager.shared.save(movie1)
-//
-//        let movie2 = Movie()
-//        movie2.name = "Фильм 100"
-//        movie2.ganre = "Драма"
-//        movie2.type = "Тип 2"
-//        movie2.rating = "7.2"
-//        movie2.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
-//        StorageManager.shared.save(movie2)
-//
-//        let movie3 = Movie()
-//        movie3.name = "Фильм 3100"
-//        movie3.ganre = "Боевик"
-//        movie3.type = "Тип 3"
-//        movie3.rating = "8.0"
-//        movie3.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
-//        StorageManager.shared.save(movie3)
-//
-//        let movie4 = Movie()
-//        movie4.name = "Фильм 4100"
-//        movie4.ganre = "Научная фантастика"
-//        movie4.type = "Тип 4"
-//        movie4.rating = "9.1"
-//        movie4.image = UIImage(named: "Spider")?.jpegData(compressionQuality: 1) ?? Data()
-//        StorageManager.shared.save(movie4)
-
-
