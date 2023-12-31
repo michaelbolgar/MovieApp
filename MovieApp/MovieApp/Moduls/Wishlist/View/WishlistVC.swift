@@ -130,6 +130,7 @@ private extension WishlistVC {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(140)
             make.left.equalToSuperview().offset(90)
             make.right.equalToSuperview().offset(-90)
+        
         }
         
         tableView.snp.makeConstraints { make in
@@ -149,6 +150,11 @@ private extension WishlistVC {
         navigationItem.rightBarButtonItem = deleteAllButton
         navigationItem.rightBarButtonItem?.tintColor = .customRed
     }
+    
+//    enum LayoutConstrain: String {
+//        case plugViewTop = 140
+//        case plugViewLeftRight = 90
+//    }
 }
 
 // MARK: - WishlistVCProtocol

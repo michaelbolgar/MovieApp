@@ -37,10 +37,12 @@ final class WishlistPresenter: WishlistPresenterProtocol {
         view.showView()
     }
     
+    // удаление всех фильмов
     func deleteAllMovies() {
         storageManager.deleteAllMovies(from: movies)
     }
     
+    // удаление конкретного фильма
     func deleteMovie(at indexPath: IndexPath) {
         let movie = movies[indexPath.row]
         storageManager.deleteMovie(movie)
