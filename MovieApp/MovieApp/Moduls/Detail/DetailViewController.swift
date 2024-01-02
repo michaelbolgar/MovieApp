@@ -13,7 +13,7 @@ private enum Titles {
 
 class DetailViewController: UIViewController {
     
-    typealias TextCell = TableCell<UILabel>
+//    typealias TextCell = TableCell<UILabel>
     var presenter: BookOutput!
     
     private lazy var posterImage: UIImageView = {
@@ -32,9 +32,9 @@ class DetailViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tv = UITableView()
-        tv.register(TableCell.self, forCellReuseIdentifier: Titles.filmInfo)
-        tv.delegate = self
-        tv.dataSource = self
+//        tv.register(TableCell.self, forCellReuseIdentifier: Titles.filmInfo)
+//        tv.delegate = self
+//        tv.dataSource = self
         return tv
     }()
 
@@ -46,15 +46,15 @@ class DetailViewController: UIViewController {
     
 }
 
-extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: Titles.filmInfo,
-            for: indexPath) as! SpaceCell
-        return cell
-    }
-}
+//extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 3
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(
+//            withIdentifier: Titles.filmInfo,
+//            for: indexPath) as! SpaceCell
+//        return cell
+//    }
+//}
