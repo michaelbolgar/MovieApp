@@ -76,6 +76,8 @@
 		F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094872B38FA47004C9F96 /* ProfileVC.swift */; };
 		FA0C5B982B3C74550097A480 /* TabBarPresenter .swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */; };
 		FA0C5B9A2B3DB2F80097A480 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B992B3DB2F80097A480 /* Factory.swift */; };
+		FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */; };
+		FA37EAD02B459ED700760039 /* PopularMoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +149,8 @@
 		F48094872B38FA47004C9F96 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarPresenter .swift"; sourceTree = "<group>"; };
 		FA0C5B992B3DB2F80097A480 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieViewController.swift; sourceTree = "<group>"; };
+		FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviePresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -603,6 +607,7 @@
 			isa = PBXGroup;
 			children = (
 				F480946B2B38F600004C9F96 /* HomeViewController.swift */,
+				FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -611,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				F480946D2B38F626004C9F96 /* HomePresenter.swift */,
+				FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -802,6 +808,7 @@
 				3CA4D10E2B3B0B6D00073990 /* ModuleBuilder.swift in Sources */,
 				F480946E2B38F626004C9F96 /* HomePresenter.swift in Sources */,
 				3CF904A12B3DD9AA006E9D51 /* NotificationsPresenter.swift in Sources */,
+				FA37EAD02B459ED700760039 /* PopularMoviePresenter.swift in Sources */,
 				3CF904C32B3F49CF006E9D51 /* WishlistPresenter.swift in Sources */,
 				3CF904A72B3DFE47006E9D51 /* LanguageVC.swift in Sources */,
 				F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */,
@@ -809,6 +816,7 @@
 				3CD315DF2B39BF97003035B0 /* UserInfoView.swift in Sources */,
 				F48094432B38A37A004C9F96 /* UIFont Extension.swift in Sources */,
 				F480947D2B38F971004C9F96 /* ChristmasTreePresenter.swift in Sources */,
+				FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */,
 				F480944D2B38A616004C9F96 /* UILabel Extension.swift in Sources */,
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
 				FA0C5B9A2B3DB2F80097A480 /* Factory.swift in Sources */,
