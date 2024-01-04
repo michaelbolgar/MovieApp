@@ -74,6 +74,10 @@
 		F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */; };
 		F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094852B38FA2A004C9F96 /* ProfilePresenter.swift */; };
 		F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094872B38FA47004C9F96 /* ProfileVC.swift */; };
+		F48094A32B477667004C9F96 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094A22B477667004C9F96 /* API.swift */; };
+		F48094A52B47768A004C9F96 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094A42B47768A004C9F96 /* Endpoints.swift */; };
+		F48094A72B4776AD004C9F96 /* Networking Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094A62B4776AD004C9F96 /* Networking Manager.swift */; };
+		F48094A92B4776C6004C9F96 /* Networking Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094A82B4776C6004C9F96 /* Networking Structs.swift */; };
 		FA0C5B982B3C74550097A480 /* TabBarPresenter .swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */; };
 		FA0C5B9A2B3DB2F80097A480 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B992B3DB2F80097A480 /* Factory.swift */; };
 /* End PBXBuildFile section */
@@ -145,6 +149,10 @@
 		F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeModel.swift; sourceTree = "<group>"; };
 		F48094852B38FA2A004C9F96 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		F48094872B38FA47004C9F96 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		F48094A22B477667004C9F96 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		F48094A42B47768A004C9F96 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		F48094A62B4776AD004C9F96 /* Networking Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking Manager.swift"; sourceTree = "<group>"; };
+		F48094A82B4776C6004C9F96 /* Networking Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking Structs.swift"; sourceTree = "<group>"; };
 		FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarPresenter .swift"; sourceTree = "<group>"; };
 		FA0C5B992B3DB2F80097A480 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -297,6 +305,7 @@
 		3CF904892B3C4513006E9D51 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F48094A12B477658004C9F96 /* Network */,
 				3CF9048A2B3C4519006E9D51 /* Realm */,
 			);
 			path = Services;
@@ -459,9 +468,9 @@
 		F48094282B389AE6004C9F96 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				F480943D2B389E2C004C9F96 /* Application */,
 				3CF904AB2B3E057E006E9D51 /* Common */,
 				3CF904892B3C4513006E9D51 /* Services */,
-				F480943D2B389E2C004C9F96 /* Application */,
 				F480945C2B38F496004C9F96 /* Model */,
 				F480943F2B389E49004C9F96 /* Moduls */,
 				F48094442B38A4D8004C9F96 /* Resources */,
@@ -676,6 +685,17 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F48094A12B477658004C9F96 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F48094A22B477667004C9F96 /* API.swift */,
+				F48094A42B47768A004C9F96 /* Endpoints.swift */,
+				F48094A62B4776AD004C9F96 /* Networking Manager.swift */,
+				F48094A82B4776C6004C9F96 /* Networking Structs.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		FA0C5B952B3C74340097A480 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -803,6 +823,7 @@
 				F480946E2B38F626004C9F96 /* HomePresenter.swift in Sources */,
 				3CF904A12B3DD9AA006E9D51 /* NotificationsPresenter.swift in Sources */,
 				3CF904C32B3F49CF006E9D51 /* WishlistPresenter.swift in Sources */,
+				F48094A52B47768A004C9F96 /* Endpoints.swift in Sources */,
 				3CF904A72B3DFE47006E9D51 /* LanguageVC.swift in Sources */,
 				F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */,
 				F48094542B38EFD6004C9F96 /* UIView Extension.swift in Sources */,
@@ -813,6 +834,7 @@
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
 				FA0C5B9A2B3DB2F80097A480 /* Factory.swift in Sources */,
 				3CFEF1362B4190DE000DA0B1 /* AlertHelper.swift in Sources */,
+				F48094A92B4776C6004C9F96 /* Networking Structs.swift in Sources */,
 				3CF904B12B3E05A0006E9D51 /* SearchBarView.swift in Sources */,
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
 				3CF9047B2B3B5D05006E9D51 /* AboutUsVC.swift in Sources */,
@@ -828,7 +850,9 @@
 				3CF904762B3B409E006E9D51 /* PolicyPresenter.swift in Sources */,
 				3CF904AF2B3E05A0006E9D51 /* SearchBarViewDelegate.swift in Sources */,
 				3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */,
+				F48094A72B4776AD004C9F96 /* Networking Manager.swift in Sources */,
 				F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */,
+				F48094A32B477667004C9F96 /* API.swift in Sources */,
 				3CF904912B3C7913006E9D51 /* PopularCategoryCell.swift in Sources */,
 				3CF904812B3B8595006E9D51 /* Developer.swift in Sources */,
 				F48094762B38F74D004C9F96 /* SearchPresenter.swift in Sources */,
