@@ -25,9 +25,10 @@ class ViewController: UIViewController {
             make.centerY.equalToSuperview()
         }
 
-//        detailsRequst()
-        collectionRequst()
-        popularRequest()
+        detailsRequst()
+//        collectionRequst()
+//        popularRequest()
+        search()
     }
 
     private func detailsRequst() {
@@ -59,7 +60,18 @@ class ViewController: UIViewController {
             case .success(let popular):
                 print("Current collections: \(popular)")
             case .failure(let error):
-                print("Error fetching collections: \(error)")
+                print("Error fetching popular movies: \(error)")
+            }
+        }
+    }
+
+    private func search() {
+        NetworkingManager.shared.doSearch(for: "harry potter") { result in
+            switch result {
+            case .success(let search):
+                print("Results: \(search)")
+            case .failure(let error):
+                print("Error: \(error)")
             }
         }
     }

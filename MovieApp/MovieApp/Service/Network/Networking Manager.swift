@@ -40,20 +40,20 @@ struct NetworkingManager {
         parameters["apiKey"] = API.apiKey
 
         switch endpoint {
-        case .doSearch:
-            if query != nil { parameters ["query"] = query }
+        case .doSearch (request: let request):
             parameters ["number"] = "10"
+            parameters ["query"] = "\(request)"
         case .getCollections:
-            parameters ["query"] = "1"
+            parameters ["page"] = "1"
             parameters ["number"] = "10"
         case .getMovieByActor(actor: let actor):
             parameters ["number"] = "10"
         case .getMovieDetails(id: let id):
-            parameters["id"] = "\(id)"
+            parameters ["id"] = "\(id)"
         case .getMoviesByCategory(category: let category):
             parameters ["number"] = "10"
         case .getPopular:
-            parameters ["query"] = "1"
+            parameters ["page"] = "1"
             parameters ["number"] = "20"
             parameters ["lists"] = "top250"
         case .getRandom:
@@ -68,7 +68,7 @@ struct NetworkingManager {
 
         var request = URLRequest(url: url)
         request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
-//        print("URL: \(url.absoluteString)") принт сгенерированного url
+//        print("URL: \(url.absoluteString)") /*принт сгенерированного url*/
 
         session.dataTask(with: request) {data, response, error in
             if let error = error {
@@ -143,15 +143,15 @@ struct NetworkingManager {
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
-//    func getMoviesByCategory(for actor: String, completion: @escaping(Result<???, NetworkError>) -> Void) {
+//    func getMovieByActor(for actor: String, completion: @escaping(Result<???, NetworkError>) -> Void) {
 //        guard let url = createURL(for: .getMovieByActor(actor: actor)) else { return }
 //        makeTask(for: url, apiKey: API.apiKey, completion: completion)
 //    }
 
-//    func doSearch(for request: String, completion: @escaping(Result<???, NetworkError>) -> Void) {
-//        guard let url = createURL(for: .doSearch(request: request)) else { return }
-//        makeTask(for: url, apiKey: API.apiKey, completion: completion)
-//    }
+    func doSearch(for request: String, completion: @escaping(Result<SearchResults, NetworkError>) -> Void) {
+        guard let url = createURL(for: .doSearch(request: request)) else { return }
+        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+    }
 
 //    func getRandom(completion: @escaping(Result<MovieDetails, NetworkError>) -> Void) {
 //        guard let url = createURL(for: .getRandom) else { return }

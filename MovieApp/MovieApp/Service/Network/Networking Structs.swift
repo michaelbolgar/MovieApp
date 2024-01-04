@@ -19,12 +19,11 @@ import Foundation
 enum Endpoint {
     case getCollections
     case getMoviesByCategory(category: String)
-    case getPopular //эти два кейса надо будет использовать вместе на второй коллекции home. Второй возможно заменится сортировкой по рейтингу на экране home, но понадобится дальше на экране справа (см. макет)
-
-    case getMovieDetails(id: Int) //подробное описание фильма
+    case getPopular
+    case getMovieDetails(id: Int)
     case doSearch(request: String)
-    case getMovieByActor(actor: String) //поиск related movies
-    case getRandom      //запрос для экрана с ёлкой
+    case getMovieByActor(actor: String)             //поиск related movies
+    case getRandom                                  //запрос для экрана с ёлкой
 
     var path: String {
         switch self {
@@ -36,8 +35,8 @@ enum Endpoint {
             return "/v1.4/movie"
         case .getMovieDetails(id: let id):
             return "/v1.4/movie/\(id)"
-        case .doSearch(request: let request):
-            return ""
+        case .doSearch:
+            return "/v1.4/movie/search"
         case .getMovieByActor(actor: let actor):
             return ""
         case .getRandom:
@@ -48,8 +47,8 @@ enum Endpoint {
 
 //это будет отдельной структурой или внутри другой?
 struct Poster: Codable {
-    let url: String
-    let previewUrl: String
+    let url: String?
+    let previewUrl: String?
     //https://avatars.mds.yandex.net/get-kinopoisk-image/1946459/428e2842-4157-45e8-a9af-1e5245e52c37/x1000
     //заменить часть кода на ключ?
 }
@@ -112,14 +111,18 @@ struct PopularMovies: Codable {
     }
 }
 
-//struct SearchResult: Codable {
-//
-//    let id: Int
-//    let name: String
-//    let year: Int
-//    let movieLength: Int
-//    let ratingMpaa: String
-//    let type: String
-//    let poster: Poster //не массив?
-//    let genres: [Genre]
-//}
+struct SearchResults: Codable {
+
+    let docs: [SearchResult]
+
+    struct SearchResult: Codable {
+        let name: String?           //RUS
+        let enName: String?
+        let year: Int?
+        let movieLength: Int?
+        let rating: Rating
+        let type: String?
+        let poster: Poster
+        let genres: [Genre]?
+    }
+}
