@@ -64,26 +64,27 @@ struct Genre: Codable {
     let name: String
 }
 
-struct MovieDetail: Codable {
-    let name: String
-    let year: Int
-    let description: String
-    let rating: Rating
-    let movieLength: Int
-    let poster: Poster //не массив?
-    let genres: [Genre]
-    let persons: [Person]
+struct MovieDetails: Codable {
+    let name: String?                //RUS
+    let year: Int?
+    let description: String?      //RUS
+    let rating: Rating?
+    let movieLength: Int?
+    let poster: Poster?  //не массив?
+    let genres: [Genre]?             //RUS
+    let persons: [Person]?
 
     struct Rating: Codable {
-        let imdb: Int
+        let imdb: Double?
     }
 
     struct Person: Codable {
-//        let id: Int вроде не нужно
-        let name: String
-//        let enName: String если захотим перевести на англ
-        let profession: String
-//        let enProfession: String
+        let enName: String?
+        let enProfession: String?
+
+//        let id: Int                   //вроде не нужно
+//        let name: String              //если захотим перевести на русский
+//        let profession: String
     }
 
 }

@@ -22,5 +22,19 @@ class ViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
+
+        testRequst()
+    }
+
+    private func testRequst() {
+        let movieID = 666
+        NetworkingManager.shared.getMovieDetails(for: movieID) { result in
+            switch result {
+            case .success(let movieDetails):
+                print("Details for movie: \(movieDetails)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
     }
 }
