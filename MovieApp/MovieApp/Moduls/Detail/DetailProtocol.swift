@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol BookInput: AnyObject {
-//    func update(with model: BookViewController.ViewModel)
+protocol DetailInput: AnyObject {
+    func update(with model: DetailViewController.ViewModel)
     func showLoading()
     func hideLoading()
 }
 
-protocol BookOutput: AnyObject {
+protocol DetailOutput: AnyObject {
     func activate()
 }
