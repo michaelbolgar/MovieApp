@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         detailsRequst()
 //        collectionRequst()
 //        popularRequest()
-        search()
+//        search()
     }
 
     private func detailsRequst() {

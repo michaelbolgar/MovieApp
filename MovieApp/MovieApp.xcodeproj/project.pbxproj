@@ -36,6 +36,8 @@
 		F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094872B38FA47004C9F96 /* ProfileVC.swift */; };
 		F480948C2B3A1573004C9F96 /* Networking Structs.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480948B2B3A1573004C9F96 /* Networking Structs.swift */; };
 		F480948E2B3C8D8F004C9F96 /* Networking Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480948D2B3C8D8F004C9F96 /* Networking Manager.swift */; };
+		F480949E2B476FB5004C9F96 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480949D2B476FB5004C9F96 /* Endpoints.swift */; };
+		F48094A02B47700B004C9F96 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480949F2B47700B004C9F96 /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		F48094872B38FA47004C9F96 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		F480948B2B3A1573004C9F96 /* Networking Structs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking Structs.swift"; sourceTree = "<group>"; };
 		F480948D2B3C8D8F004C9F96 /* Networking Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Networking Manager.swift"; sourceTree = "<group>"; };
+		F480949D2B476FB5004C9F96 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		F480949F2B47700B004C9F96 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +319,8 @@
 			children = (
 				F480948B2B3A1573004C9F96 /* Networking Structs.swift */,
 				F480948D2B3C8D8F004C9F96 /* Networking Manager.swift */,
+				F480949D2B476FB5004C9F96 /* Endpoints.swift */,
+				F480949F2B47700B004C9F96 /* API.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -417,9 +423,11 @@
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
 				F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */,
 				F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */,
+				F48094A02B47700B004C9F96 /* API.swift in Sources */,
 				F48094762B38F74D004C9F96 /* SearchPresenter.swift in Sources */,
 				F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */,
 				F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */,
+				F480949E2B476FB5004C9F96 /* Endpoints.swift in Sources */,
 				F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

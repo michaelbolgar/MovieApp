@@ -1,11 +1,5 @@
 import Foundation
 
-struct API {
-    static let scheme = "https"
-    static let host = "api.kinopoisk.dev"
-    static let apiKey = "QC4AKM6-2YZ42H6-NQT8M9Z-P1MC2JP"
-}
-
 enum NetworkError: Error {
     case transportError(Error)
     case serverError(statusCode: Int)
