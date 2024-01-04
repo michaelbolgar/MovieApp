@@ -23,10 +23,11 @@ class ViewController: UIViewController {
             make.centerY.equalToSuperview()
         }
 
-        testRequst()
+        detailsRequst()
+        collectionRequst()
     }
 
-    private func testRequst() {
+    private func detailsRequst() {
         let movieID = 666
         NetworkingManager.shared.getMovieDetails(for: movieID) { result in
             switch result {
@@ -34,6 +35,17 @@ class ViewController: UIViewController {
                 print("Details for movie: \(movieDetails)")
             case .failure(let error):
                 print("Error fetching movie details: \(error)")
+            }
+        }
+    }
+
+    private func collectionRequst() {
+        NetworkingManager.shared.getCollections { result in
+            switch result {
+            case .success(let collections):
+                print("Current collections: \(collections)")
+            case .failure(let error):
+                print("Error fetching collections: \(error)")
             }
         }
     }

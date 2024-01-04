@@ -38,7 +38,7 @@ enum Endpoint {
     var path: String {
         switch self {
         case .getCollections:
-            return ""
+            return "/v1.4/list"
         case .getMoviesByCategory:
             return ""
         case .getPopular:
@@ -53,6 +53,7 @@ enum Endpoint {
     }
 }
 
+//это будет отдельной структурой или внутри другой?
 struct Poster: Codable {
     let url: String
     let previewUrl: String
@@ -65,13 +66,13 @@ struct Genre: Codable {
 }
 
 struct MovieDetails: Codable {
-    let name: String?                //RUS
+    let name: String?               //RUS
     let year: Int?
-    let description: String?      //RUS
+    let description: String?        //RUS
     let rating: Rating?
     let movieLength: Int?
-    let poster: Poster?  //не массив?
-    let genres: [Genre]?             //RUS
+    let poster: Poster?
+    let genres: [Genre]?            //RUS
     let persons: [Person]?
 
     struct Rating: Codable {
@@ -84,19 +85,34 @@ struct MovieDetails: Codable {
 
 //        let id: Int                   //вроде не нужно
 //        let name: String              //если захотим перевести на русский
-//        let profession: String
+//        let profession: String        //если захотим перевести на русский
     }
-
 }
 
-struct SearchResult: Codable {
+struct Collections: Codable {
 
-    let id: Int
-    let name: String
-    let year: Int
-    let movieLength: Int
-    let ratingMpaa: String
-    let type: String
-    let poster: Poster //не массив?
-    let genres: [Genre]
+    let docs: [Collection]
+
+    struct Collection: Codable {
+        let name: String?
+        //    let id: String?                     //нужно для идентфикации коллекции при тапе на ячейку
+            let cover: Cover?
+
+        struct Cover: Codable {
+#warning("подобрать дефолтную картинку для случае, когда нет обложки (так бывает)")
+            let previewUrl: String?
+        }
+    }
 }
+
+//struct SearchResult: Codable {
+//
+//    let id: Int
+//    let name: String
+//    let year: Int
+//    let movieLength: Int
+//    let ratingMpaa: String
+//    let type: String
+//    let poster: Poster //не массив?
+//    let genres: [Genre]
+//}

@@ -6,6 +6,13 @@ struct API {
     static let apiKey = "QC4AKM6-2YZ42H6-NQT8M9Z-P1MC2JP"
 }
 
+enum NetworkError: Error {
+    case transportError(Error)
+    case serverError(statusCode: Int)
+    case noData
+    case decodingError(Error)
+}
+
 struct NetworkingManager {
 
     static let shared = NetworkingManager()
@@ -37,8 +44,8 @@ struct NetworkingManager {
             if query != nil { parameters ["query"] = query }
             parameters ["number"] = "10"
         case .getCollections:
-#warning("work in progress")
-            print ("no func")
+            parameters ["page"] = "1"
+            parameters ["number"] = "10"
         case .getMovieByActor:
             parameters ["number"] = "10"
         case .getMovieDetails(id: let id):
@@ -53,54 +60,70 @@ struct NetworkingManager {
         return parameters
     }
 
-    private func makeTask<T: Codable>(for url: URL, apiKey: String, using session: URLSession = .shared, completion: @escaping(Result<T, Error>) -> Void) {
+    private func makeTask<T: Codable>(for url: URL, apiKey: String, using session: URLSession = .shared, completion: @escaping(Result<T, NetworkError>) -> Void) {
 
         var request = URLRequest(url: url)
         request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
-        print("URL: \(url.absoluteString)")
+//        print("URL: \(url.absoluteString)") принт сгенерированный ссылки
 
         session.dataTask(with: request) {data, response, error in
             if let error = error {
-                completion(.failure(error))
+                completion(.failure(.transportError(error)))
                 return
             }
 
-#warning ("обработать все эти ошибки с выводом правильных сообщений через структуры")
             guard let httpResponse = response as? HTTPURLResponse else {
                 let error = NSError(domain: "No HTTPURLResponse", code: 0, userInfo: nil)
-                completion(.failure(error))
+                completion(.failure(.serverError(statusCode: error.code)))
                 return
             }
 
             let statusCode = httpResponse.statusCode
 
+            #warning ("обработать эти ошибки через структуру с сервера?")
+
+            /// Error handling: authorization error
             if statusCode == 401 {
-                print("Error: Unauthorized")
                 let unauthorizedError = NSError(domain: "Unauthorized", code: 401, userInfo: nil)
-                completion(.failure(unauthorizedError))
+                completion(.failure(.serverError(statusCode: statusCode)))
+                print ("Error \(statusCode). Unauthorized")
+                return
+            }
+
+            /// Error handling: daily request limit exceeded
+            if statusCode == 403 {
+                let exceededLimitError = NSError(domain: "Forbidden", code: 403, userInfo: nil)
+                completion(.failure(.serverError(statusCode: statusCode)))
+                print ("Error \(statusCode). Daily request limit exceeded")
                 return
             }
 
             guard let data = data else {
                 let error =  NSError(domain: "No data", code: 0, userInfo: nil)
-                completion(.failure(error))
+                completion(.failure(.noData))
                 return
             }
 
             do {
                 let decodeData = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(decodeData))
-                print (decodeData)
             } catch {
-                completion(.failure(error))
+                completion(.failure(.decodingError(error)))
             }
         }.resume()
     }
 
     //MARK: - Public Methods
 
+    /// Get categories for homeScreen
+    func getCollections(completion: @escaping(Result<Collections, NetworkError>) -> Void) {
+        guard let url = createURL(for: .getCollections) else { return }
+        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+    }
+
     /// Get full information about a movie
-    func getMovieDetails(for id: Int, completion: @escaping(Result<MovieDetails, Error>) -> Void) {
+    #warning ("при запросе деталей фильма ограничить массив актёров семью персоналиями")
+    func getMovieDetails(for id: Int, completion: @escaping(Result<MovieDetails, NetworkError>) -> Void) {
         guard let url = createURL(for: .getMovieDetails(id: id)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
