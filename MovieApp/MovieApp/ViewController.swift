@@ -25,10 +25,10 @@ class ViewController: UIViewController {
             make.centerY.equalToSuperview()
         }
 
-//        detailsRequst()
-        collectionRequst()
-        popularRequest()
-        search()
+        detailsRequst()
+//        collectionRequst()
+//        popularRequest()
+//        search()
     }
 
     private func detailsRequst() {
