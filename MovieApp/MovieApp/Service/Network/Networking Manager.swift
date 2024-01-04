@@ -44,17 +44,21 @@ struct NetworkingManager {
             if query != nil { parameters ["query"] = query }
             parameters ["number"] = "10"
         case .getCollections:
-            parameters ["page"] = "1"
+            parameters ["query"] = "1"
             parameters ["number"] = "10"
-        case .getMovieByActor:
+        case .getMovieByActor(actor: let actor):
             parameters ["number"] = "10"
         case .getMovieDetails(id: let id):
             parameters["id"] = "\(id)"
-        case .getMoviesByCategory:
+        case .getMoviesByCategory(category: let category):
             parameters ["number"] = "10"
         case .getPopular:
-            parameters ["sort"] = "popularity"
-            parameters ["number"] = "10"
+            parameters ["query"] = "1"
+            parameters ["number"] = "20"
+            parameters ["lists"] = "top250"
+        case .getRandom:
+            //что тут?
+            parameters [""] = ""
         }
 
         return parameters
@@ -64,7 +68,7 @@ struct NetworkingManager {
 
         var request = URLRequest(url: url)
         request.setValue(apiKey, forHTTPHeaderField: "X-API-KEY")
-//        print("URL: \(url.absoluteString)") принт сгенерированный ссылки
+//        print("URL: \(url.absoluteString)") принт сгенерированного url
 
         session.dataTask(with: request) {data, response, error in
             if let error = error {
@@ -121,10 +125,36 @@ struct NetworkingManager {
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
+    /// Get popular movie list (top 20)
+    func getPopular(completion: @escaping(Result<PopularMovies, NetworkError>) -> Void) {
+        guard let url = createURL(for: .getPopular) else { return }
+        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+    }
+
+//    func getMoviesByCategory(for category: String, completion: @escaping(Result<???, NetworkError>) -> Void) {
+//        guard let url = createURL(for: .getMoviesByCategory(category: category)) else { return }
+//        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+//    }
+
     /// Get full information about a movie
     #warning ("при запросе деталей фильма ограничить массив актёров семью персоналиями")
     func getMovieDetails(for id: Int, completion: @escaping(Result<MovieDetails, NetworkError>) -> Void) {
         guard let url = createURL(for: .getMovieDetails(id: id)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
+
+//    func getMoviesByCategory(for actor: String, completion: @escaping(Result<???, NetworkError>) -> Void) {
+//        guard let url = createURL(for: .getMovieByActor(actor: actor)) else { return }
+//        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+//    }
+
+//    func doSearch(for request: String, completion: @escaping(Result<???, NetworkError>) -> Void) {
+//        guard let url = createURL(for: .doSearch(request: request)) else { return }
+//        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+//    }
+
+//    func getRandom(completion: @escaping(Result<MovieDetails, NetworkError>) -> Void) {
+//        guard let url = createURL(for: .getRandom) else { return }
+//        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+//    }
 }

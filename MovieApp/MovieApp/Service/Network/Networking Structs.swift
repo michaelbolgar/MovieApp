@@ -16,38 +16,31 @@
 
 import Foundation
 
-/**
-поиск по id
- https://api.kinopoisk.dev/v1.4/movie/\(id)
-
- поиск сёрча
-
-
-
- */
-
 enum Endpoint {
-    case getCollections //первая коллекция на home
-    case getMoviesByCategory
+    case getCollections
+    case getMoviesByCategory(category: String)
     case getPopular //эти два кейса надо будет использовать вместе на второй коллекции home. Второй возможно заменится сортировкой по рейтингу на экране home, но понадобится дальше на экране справа (см. макет)
 
     case getMovieDetails(id: Int) //подробное описание фильма
-    case doSearch
-    case getMovieByActor //поиск related movies
+    case doSearch(request: String)
+    case getMovieByActor(actor: String) //поиск related movies
+    case getRandom      //запрос для экрана с ёлкой
 
     var path: String {
         switch self {
         case .getCollections:
             return "/v1.4/list"
-        case .getMoviesByCategory:
+        case .getMoviesByCategory(category: let category):
             return ""
         case .getPopular:
-            return ""
+            return "/v1.4/movie"
         case .getMovieDetails(id: let id):
             return "/v1.4/movie/\(id)"
-        case .doSearch:
+        case .doSearch(request: let request):
             return ""
-        case .getMovieByActor:
+        case .getMovieByActor(actor: let actor):
+            return ""
+        case .getRandom:
             return ""
         }
     }
@@ -65,6 +58,16 @@ struct Genre: Codable {
     let name: String
 }
 
+struct Rating: Codable {
+    let imdb: Double?
+    let kp: Double?
+}
+
+struct Cover: Codable {
+#warning("подобрать дефолтную картинку для случае, когда нет обложки (так бывает)")
+    let previewUrl: String?
+}
+
 struct MovieDetails: Codable {
     let name: String?               //RUS
     let year: Int?
@@ -74,10 +77,6 @@ struct MovieDetails: Codable {
     let poster: Poster?
     let genres: [Genre]?            //RUS
     let persons: [Person]?
-
-    struct Rating: Codable {
-        let imdb: Double?
-    }
 
     struct Person: Codable {
         let enName: String?
@@ -97,11 +96,19 @@ struct Collections: Codable {
         let name: String?
         //    let id: String?                     //нужно для идентфикации коллекции при тапе на ячейку
             let cover: Cover?
+    }
+}
 
-        struct Cover: Codable {
-#warning("подобрать дефолтную картинку для случае, когда нет обложки (так бывает)")
-            let previewUrl: String?
-        }
+struct PopularMovies: Codable {
+
+    let docs: [PopularMovie]
+
+    struct PopularMovie: Codable {
+        let name: String?
+        let genre: [Genre]?
+        let rating: Rating
+        let poster: Cover?          //как вариант попробовать let backdrop с тем же типом данных
+        let id: Int?                //нужно для идентфикации коллекции при тапе на ячейку
     }
 }
 
