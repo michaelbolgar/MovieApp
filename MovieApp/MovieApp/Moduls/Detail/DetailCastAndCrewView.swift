@@ -12,11 +12,12 @@ private enum Titles {
     static let avatarSize: CGFloat = 40
 }
 
-final class CastAndCrewView: UIView {
+final class DetailCastAndCrewView: UIView {
     
     private lazy var avatar: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = Titles.avatarSize / 2
+        image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
         return image
     }()
@@ -32,7 +33,7 @@ final class CastAndCrewView: UIView {
         let label = UILabel.makeLabel(
             text: "",
             font: UIFont.montserratSemiBold(ofSize: 10),
-            textColor: UIColor.customGrey,
+            textColor: .white,
             numberOfLines: 1)
         return label
     }()
@@ -63,7 +64,7 @@ final class CastAndCrewView: UIView {
         }
         avatar.snp.makeConstraints {
             $0.width.height.equalTo(Titles.avatarSize)
-            $0.trailing.equalTo(5)
+            $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
     }
@@ -75,10 +76,11 @@ final class CastAndCrewView: UIView {
     }
 }
 
-extension CastAndCrewView: Configurable {
+extension DetailCastAndCrewView: Configurable {
     
     struct Model {
-        let imageURL: URL?
+//        let imageURL: URL?
+        let imageURL: String?
         let name: String?
         let profession: String?
     }
@@ -92,28 +94,29 @@ extension CastAndCrewView: Configurable {
             return
         }
         // Асинхронная загрузка изображения
-           URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
-               guard let self = self else { return }
-               
-               if let error = error {
-                   // Обработка ошибки загрузки
-                   print("Ошибка загрузки изображения: \(error.localizedDescription)")
-                   return
-               }
-               
-               guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                   print("Некорректный ответ сервера")
-                   return
-               }
-               
-               guard let data = data, let image = UIImage(data: data) else {
-                   print("Данные не могут быть преобразованы в изображение")
-                   return
-               }
-               
-               DispatchQueue.main.async {
-                   self.avatar.image = image
-               }
-           }.resume()
+//           URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
+//               guard let self = self else { return }
+//               
+//               if let error = error {
+//                   // Обработка ошибки загрузки
+//                   print("Ошибка загрузки изображения: \(error.localizedDescription)")
+//                   return
+//               }
+//               
+//               guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+//                   print("Некорректный ответ сервера")
+//                   return
+//               }
+//               
+//               guard let data = data, let image = UIImage(data: data) else {
+//                   print("Данные не могут быть преобразованы в изображение")
+//                   return
+//               }
+//               
+//               DispatchQueue.main.async {
+//                   self.avatar.image = image
+//               }
+//           }.resume()
+        avatar.image = UIImage(named: "creator")
     }
 }

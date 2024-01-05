@@ -5,19 +5,18 @@
 //  Created by Nikita Shirobokov on 29.12.23.
 //
 
-import Foundation
+import UIKit
 
 struct DetailModel {
-    let title: String
-    let posterImage: String
-    let year: String
-    let duration: Int
-    let genreFilm: String
-    let rating: Float
-    let releaseDate: String
-    let storyLine: String
-    let personImage: String
-    let personName: String
-    let roleMakingFilm: String
-    let galeryImage: String
+    let title = "Spider man"
+    let posterImage = "Bg"
+    let year = "2024"
+    let duration = "105"
+    let genreFilm = "blockbuster"
+    let rating = "4.8"
+    let storyLine = "THE BATMAN is an edgy, action-packed thriller that depicts Batman in his early years, struggling to balance rage with righteousness as he investigates a disturbing mystery that has terrorized Gotham. Robert Pattinson delivers a raw, intense portrayal of Batman as a disillusioned, desperate vigilante awakened by the realization.. More"
+    let personImage = "creator"
+    let personName = "James Cameron"
+    let roleMakingFilm = "writer"
+    let galeryImage = "filmPhoto"
 }

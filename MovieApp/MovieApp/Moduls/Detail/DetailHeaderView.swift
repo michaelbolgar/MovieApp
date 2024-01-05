@@ -18,19 +18,39 @@ private enum Titles {
 
 final class DetailHeaderView: UIView {
     
+    private lazy var backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+
+    private lazy var gradientLayer: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.colors = [UIColor(red: 31/255, green: 29/255, blue: 43/255, alpha: 0.7).cgColor,
+                           UIColor(red: 31/255, green: 29/255, blue: 43/255, alpha: 1).cgColor]
+        gradient.locations = [0, 1] // Start and end points of the gradient
+        return gradient
+    }()
+    
     private lazy var posterView: UIImageView = {
         let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
         return image
     }()
     
     private lazy var filmInfoStack: UIStackView = {
         let stack = UIStackView()
+        stack.distribution = .fillEqually
+        stack.spacing = 5
         stack.axis = .horizontal
         return stack
     }()
     
     private lazy var buttonStack: UIStackView = {
         let stack = UIStackView()
+        stack.distribution = .equalSpacing
         stack.axis = .horizontal
         return stack
     }()
@@ -45,14 +65,20 @@ final class DetailHeaderView: UIView {
     private lazy var trailerButton: UIButton = {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = 20
-        button.setImage(UIImage(named: Titles.play), for: .normal)
+        button.backgroundColor = .customOrange
+        button.setTitle("  Trailer", for: .normal)
+        let image = UIImage(systemName: Titles.play)?.withRenderingMode(.alwaysTemplate)
+        button.setImage(image, for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = .white
         return button
     }()
     
     private lazy var shareButton: UIButton = {
         let button = UIButton(type: .system)
-        button.layer.cornerRadius = 20
-        button.setImage(UIImage(named: Titles.share), for: .normal)
+        button.layer.cornerRadius = 24
+        button.backgroundColor = .customDarkBlue
+        button.setImage(UIImage(systemName: Titles.share), for: .normal)
         return button
     }()
     
@@ -66,11 +92,18 @@ final class DetailHeaderView: UIView {
         configure()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = bounds
+    }
+    
     private func createSeparator() -> UIView {
         let separator = UIView()
         separator.backgroundColor = .lightGray
         separator.snp.makeConstraints { make in
-            make.width.equalTo(1)
+            make.width.equalTo(3)
+            make.height.equalTo(10)
+//            make.leading.equalToSuperview()
         }
         return separator
     }
@@ -78,17 +111,21 @@ final class DetailHeaderView: UIView {
     private func createLabeledIconView(
         title: UILabel,
         iconName: String,
-        color: UIColor = .black) -> UIView {
+        color: UIColor = .white) -> UIView {
             
             let view = UIView()
             
             let imageView = UIImageView()
             imageView.image = UIImage(systemName: iconName)
             imageView.contentMode = .scaleAspectFit
+            imageView.clipsToBounds = true
+            imageView.tintColor = color
             view.addSubview(imageView)
             
             let label = UILabel()
-            label.text = title.text
+            label.text = "custom"
+//            label.text = title.text
+            label.textColor = color
             view.addSubview(label)
             
             imageView.snp.makeConstraints { make in
@@ -98,15 +135,18 @@ final class DetailHeaderView: UIView {
             
             label.snp.makeConstraints { make in
                 make.leading.equalTo(imageView.snp.trailing).offset(8)
-                make.trailing.equalToSuperview()
-                make.centerY.equalTo(imageView.snp.centerY)
+                make.centerY.equalToSuperview()
             }
-            
             return view
         }
     
     private func configure() {
-        let separator = createSeparator()
+        
+        addSubview(backgroundImageView)
+        layer.insertSublayer(gradientLayer, above: backgroundImageView.layer)
+        
+        let separator1 = createSeparator()
+        let separator2 = createSeparator()
         
         let yearView = createLabeledIconView(title: yearLabel,
                                              iconName: Titles.calendar)
@@ -118,29 +158,46 @@ final class DetailHeaderView: UIView {
                                                 iconName: Titles.rating,
                                                 color: UIColor.customOrange)
         
-        [posterView, filmInfoStack, buttonStack].forEach { addSubview($0) }
-        [yearView, separator, durationView, separator, genreView].forEach { filmInfoStack.addArrangedSubview($0) }
+        [posterView, filmInfoStack, buttonStack, raitingView].forEach { addSubview($0) }
+        [yearView, durationView, genreView].forEach { filmInfoStack.addArrangedSubview($0) }
         [trailerButton, shareButton].forEach { buttonStack.addArrangedSubview($0) }
         
+        backgroundImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            }
+        
         trailerButton.snp.makeConstraints {
-            $0.width.equalTo(30)
+            $0.width.equalTo(115)
+            $0.height.equalTo(48)
         }
         
-        posterView.snp.makeConstraints {
-            $0.width.equalToSuperview().multipliedBy(0.4)
-            $0.height.equalTo(posterView.snp.width).multipliedBy(1.55).priority(999)
-            $0.leading.equalToSuperview()
-            $0.top.bottom.equalToSuperview()
+        shareButton.snp.makeConstraints {
+            $0.width.height.equalTo(48)
         }
+        
+        posterView.snp.makeConstraints { make in
+                make.top.equalToSuperview().inset(80)
+                make.leading.trailing.equalToSuperview().inset(16)
+                make.height.equalTo(posterView.snp.width).multipliedBy(0.85) // Maintain aspect ratio based on your design
+            }
         
         filmInfoStack.snp.makeConstraints {
-            $0.top.equalTo(posterView.snp.bottom).offset(30)
-            $0.leading.trailing.equalTo(posterView).offset(30)
+            $0.top.equalTo(posterView.snp.bottom).offset(40)
+            $0.leading.equalToSuperview().offset(30)
+            $0.trailing.equalToSuperview().offset(-30)
+            $0.centerX.equalToSuperview()
+//            $0.trailing.equalToSuperview().inset(-250)
+        }
+        
+        raitingView.snp.makeConstraints {
+            $0.top.equalTo(filmInfoStack.snp.bottom).offset(40)
+            $0.centerX.equalToSuperview()
         }
         
         buttonStack.snp.makeConstraints {
-            $0.top.equalTo(filmInfoStack.snp.bottom).offset(30)
-            $0.leading.trailing.equalTo(filmInfoStack)
+            $0.top.equalTo(raitingView.snp.bottom).offset(40)
+            $0.leading.equalTo(filmInfoStack).offset(70)
+            $0.trailing.equalTo(filmInfoStack).offset(-70)
         }
     }
     
@@ -156,10 +213,12 @@ final class DetailHeaderView: UIView {
 
 extension DetailHeaderView: Configurable {
     struct Model {
-        let imageURL: URL?
+//        let imageURL: URL?
+        let imageURL: String?
         let duration: String?
         let genre: String?
         let rating: String?
+        let year: String?
         let trailerClosure: () -> Void
         let shareClosure: () -> Void
     }
@@ -176,29 +235,30 @@ extension DetailHeaderView: Configurable {
             return
         }
         
-        URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
-            guard let self = self else { return }
-            
-            if let error = error {
-                // Обработка ошибки загрузки
-                print("Ошибка загрузки изображения: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                print("Некорректный ответ сервера")
-                return
-            }
-            
-            guard let data = data, let image = UIImage(data: data) else {
-                print("Данные не могут быть преобразованы в изображение")
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.posterView.image = image
-            }
-        }.resume()
-
+//        URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
+//            guard let self = self else { return }
+//            
+//            if let error = error {
+//                // Обработка ошибки загрузки
+//                print("Ошибка загрузки изображения: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+//                print("Некорректный ответ сервера")
+//                return
+//            }
+//            
+//            guard let data = data, let image = UIImage(data: data) else {
+//                print("Данные не могут быть преобразованы в изображение")
+//                return
+//            }
+//            
+//            DispatchQueue.main.async {
+//                self.posterView.image = image
+//            }
+//        }.resume()
+        posterView.image = UIImage(named: "Bg")
+        backgroundImageView.image = UIImage(named: "Bg")
     }
 }

@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol DetailInput: AnyObject {
+protocol DetailViewProtocol: AnyObject {
     func update(with model: DetailViewController.ViewModel)
     func showLoading()
     func hideLoading()
 }
 
-protocol DetailOutput: AnyObject {
+protocol DetailPresenterProtocol: AnyObject {
     func activate()
 }
