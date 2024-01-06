@@ -7,13 +7,23 @@
 
 import UIKit
 
+// MARK: - Constants
+private enum Titles {
+    static let width = 100
+    static let leading = 25
+    static let inset = 10
+}
+
+// MARK: - DetailGalleryView
 class DetailGalleryView: UIView {
     
+    // MARK: - Properties
     private lazy var photo: UIImageView = {
         let image = UIImageView()
         return image
     }()
     
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -24,16 +34,18 @@ class DetailGalleryView: UIView {
         configure()
     }
     
+    // MARK: - Configure
     private func configure() {
         addSubview(photo)
         photo.snp.makeConstraints {
-            $0.width.height.equalTo(100)
-            $0.leading.equalTo(25)
-            $0.top.equalToSuperview().inset(10)
+            $0.width.height.equalTo(Titles.width)
+            $0.leading.equalTo(Titles.leading)
+            $0.top.equalToSuperview().inset(Titles.inset)
         }
     }
 }
 
+// MARK: - DetailGalleryView+Configurable
 extension DetailGalleryView: Configurable {
     struct Model {
 //        let imageURL: URL?

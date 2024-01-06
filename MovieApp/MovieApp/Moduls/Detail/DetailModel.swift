@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - DetailModel Will Be Deleted
 struct DetailModel {
     let title = "Spider man"
     let posterImage = "Bg"

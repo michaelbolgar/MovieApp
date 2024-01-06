@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - DetailPresenter+Protocol
 final class DetailPresenter: DetailPresenterProtocol {
     
     weak var view: DetailViewProtocol?

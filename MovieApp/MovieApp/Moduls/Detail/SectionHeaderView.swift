@@ -7,23 +7,37 @@
 
 import UIKit
 
+// MARK: - Constants
+
+private enum Titles {
+    static let fatalError = "init(coder:) has not been implemented"
+}
+
+// MARK: - SectionHeaderView
+
 class SectionHeaderView: UICollectionReusableView {
-    static let reuseIdentifier = "section-header-reuse-identifier"
     
+    // MARK: - Properties
     let titleLabel: UILabel = {
-        let label = UILabel.makeLabel(font: .montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
+        let label = UILabel.makeLabel(
+            font: .montserratSemiBold(ofSize: 16),
+            textColor: .white,
+            numberOfLines: 1
+        )
         return label
     }()
     
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Titles.fatalError)
     }
     
+    // MARK: - Setup
     private func setupViews() {
         addSubview(titleLabel)
         
@@ -34,6 +48,7 @@ class SectionHeaderView: UICollectionReusableView {
         }
     }
     
+    // MARK: - Configuration
     func configure(with title: String) {
         titleLabel.text = title
     }

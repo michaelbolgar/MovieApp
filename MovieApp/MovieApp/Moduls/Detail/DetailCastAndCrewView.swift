@@ -6,14 +6,20 @@
 //
 
 import UIKit
-//import Kingfisher
 
+// MARK: - Constants
 private enum Titles {
     static let avatarSize: CGFloat = 40
+    static let nameFontSize: CGFloat = 14
+    static let professionFontSize: CGFloat = 10
+    static let numberOfLines = 1
+    static let textLeadingOffset = 10
 }
 
+// MARK: - DetailCastAndCrewView
 final class DetailCastAndCrewView: UIView {
     
+    // MARK: - Properties
     private lazy var avatar: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = Titles.avatarSize / 2
@@ -24,17 +30,17 @@ final class DetailCastAndCrewView: UIView {
     private lazy var name: UILabel = {
         let label = UILabel.makeLabel(
             text: "",
-            font: UIFont.montserratSemiBold(ofSize: 14),
+            font: UIFont.montserratSemiBold(ofSize: Titles.nameFontSize),
             textColor: .white,
-            numberOfLines: 1)
+            numberOfLines: Titles.numberOfLines)
         return label
     }()
     private lazy var profession: UILabel = {
         let label = UILabel.makeLabel(
             text: "",
-            font: UIFont.montserratSemiBold(ofSize: 10),
+            font: UIFont.montserratSemiBold(ofSize: Titles.professionFontSize),
             textColor: .white,
-            numberOfLines: 1)
+            numberOfLines: Titles.numberOfLines)
         return label
     }()
     private lazy var textStack: UIStackView = {
@@ -45,6 +51,7 @@ final class DetailCastAndCrewView: UIView {
         return stack
     }()
     
+    // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -57,9 +64,14 @@ final class DetailCastAndCrewView: UIView {
         setupConstraints()
     }
     
+    // MARK: - Layout
     private func setupConstraints() {
         textStack.snp.makeConstraints {
-            $0.leading.equalTo(avatar.snp.trailing).offset(10)
+            $0.leading.equalTo(
+                avatar.snp.trailing
+            ).offset(
+                Titles.textLeadingOffset
+            )
             $0.centerY.equalTo(avatar)
         }
         avatar.snp.makeConstraints {
@@ -68,6 +80,8 @@ final class DetailCastAndCrewView: UIView {
             $0.centerY.equalToSuperview()
         }
     }
+    
+    // MARK: - Configure
     private func configure() {
         addSubview(textStack)
         addSubview(avatar)
@@ -76,6 +90,7 @@ final class DetailCastAndCrewView: UIView {
     }
 }
 
+// MARK: - DetailCastAndCrewView+Configurable
 extension DetailCastAndCrewView: Configurable {
     
     struct Model {
