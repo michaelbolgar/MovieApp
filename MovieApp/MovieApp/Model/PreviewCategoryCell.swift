@@ -57,7 +57,7 @@ class PreviewCategoryCell: UICollectionViewCell {
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalTo(nameCategoryLabel.snp.leading).offset(16)
+            make.leading.equalTo(nameCategoryLabel.snp.leading)
             make.bottom.equalTo(filmeImage.snp.bottom).inset(16)
         }
         
@@ -67,7 +67,7 @@ class PreviewCategoryCell: UICollectionViewCell {
 
 //FIXME: 
 struct MovieCellModel {
-    let image: UIImage
+    let image: UIImage?
     let name: String
     let description: String
 }
