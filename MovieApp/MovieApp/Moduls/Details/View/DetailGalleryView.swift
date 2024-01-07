@@ -9,6 +9,7 @@ import UIKit
 
 // MARK: - Constants
 private enum Titles {
+#warning("эти сущности будут лучше смотреться в configure()")
     static let width = 100
     static let leading = 25
     static let inset = 10

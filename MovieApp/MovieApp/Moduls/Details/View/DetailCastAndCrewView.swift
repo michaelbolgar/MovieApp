@@ -9,6 +9,7 @@ import UIKit
 
 // MARK: - Constants
 private enum Titles {
+#warning("всё это, кроме первого, можно разнести по соответствующим замыканиям/функциям, потому что оно используется только один раз. Только avatarSize имеет смысл задать как отдельную зависимость, потому что она используется в двух местах")
     static let avatarSize: CGFloat = 40
     static let nameFontSize: CGFloat = 14
     static let professionFontSize: CGFloat = 10
@@ -27,6 +28,7 @@ final class DetailCastAndCrewView: UIView {
         image.clipsToBounds = true
         return image
     }()
+#warning("тебе не нужно использовать замыкание, суть extension под лейбл в том, что можно создавать объект через let name = UILabel.makeLabel(). У тебя нет никаких дополнительных настроек этих объектов, которые можно было бы сделать через замыкание")
     private lazy var name: UILabel = {
         let label = UILabel.makeLabel(
             text: "",
@@ -35,6 +37,7 @@ final class DetailCastAndCrewView: UIView {
             numberOfLines: Titles.numberOfLines)
         return label
     }()
+#warning("аналогично предыдущему")
     private lazy var profession: UILabel = {
         let label = UILabel.makeLabel(
             text: "",
@@ -43,6 +46,7 @@ final class DetailCastAndCrewView: UIView {
             numberOfLines: Titles.numberOfLines)
         return label
     }()
+#warning("это необязательно исправлять, но рекомендую обратить внимание в будущем: этот стек несёт мало смысла, потому что там лежит всего два объекта. Я бы заводил стеки только когда внутрь надо положить 3+ объекта. А если эти объекты ещё и верстать надо уже внутри стека -- строго запрещено")
     private lazy var textStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -108,6 +112,8 @@ extension DetailCastAndCrewView: Configurable {
             avatar.image = nil
             return
         }
+
+        #warning("этот закомментированный код полностью дублируется в файлах DetailGalleryView & DetailHeaderView. Сделай функцию) Пока можешь оставить, но учти когда займёшься подтягиванием данных из сети. Саму функцию можно будет написать в NetworkingManager'е")
         // Асинхронная загрузка изображения
 //           URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
 //               guard let self = self else { return }

@@ -9,6 +9,7 @@ import UIKit
 
 // MARK: - Constants
 private enum Titles {
+#warning("см. комментарии к Titles в DetailHeaderView")
     static let fatalError = "init(coder:) has not been implemented"
     static let galleryCell = "GalleryItemCell"
     static let width: CGFloat = 100
