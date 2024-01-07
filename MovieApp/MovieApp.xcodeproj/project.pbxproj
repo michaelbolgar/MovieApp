@@ -631,9 +631,9 @@
 		F48094702B38F70C004C9F96 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F480946B2B38F600004C9F96 /* HomeViewController.swift */,
 				84AF6AD52B4B02AE00E3CB47 /* CollectionCell */,
 				84AF6AD22B4B026700E3CB47 /* HeaderViews */,
-				F480946B2B38F600004C9F96 /* HomeViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

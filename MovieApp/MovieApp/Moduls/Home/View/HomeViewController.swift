@@ -17,7 +17,8 @@ final class HomeViewController: UIViewController {
         element.contentMode = .scaleAspectFill
         return element
     }()
-    
+
+    #warning("почему не использовать тут UILabel.makeLabel() ? ")
     private let userNameLabel: UILabel = {
         let element = UILabel()
         element.font = UIFont.montserratSemiBold(ofSize: 16)
@@ -26,6 +27,7 @@ final class HomeViewController: UIViewController {
         return element
     }()
 
+    #warning("очепятка: preview")
     private lazy var priviewCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -165,6 +167,7 @@ final class HomeViewController: UIViewController {
         }
         
         searchBar.snp.makeConstraints { make in
+            #warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
             make.width.equalTo(327)
             make.height.equalTo(41)
             make.top.equalTo(scrollView).offset(16)

@@ -11,6 +11,7 @@ import SnapKit
 class CatergoriesSectionView: UIView {
     
     // MARK: - UI Properties
+#warning("почему не использовать тут UILabel.makeLabel() ? ")
     let titleLabel:UILabel = {
         let element = UILabel()
         element.textAlignment = .left
