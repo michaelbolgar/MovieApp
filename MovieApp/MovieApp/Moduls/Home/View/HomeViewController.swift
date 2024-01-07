@@ -147,6 +147,7 @@ final class HomeViewController: UIViewController {
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
     
+    #warning("эту функцию можно унести вниз файла в отдельный extension, чтобы не занимала кучу места в середине файла")
     private func setupConstraints(){
         avatarImage.snp.makeConstraints { make in
             make.width.height.equalTo(40)
