@@ -18,17 +18,9 @@ final class HomeViewController: UIViewController {
         return element
     }()
 
-    #warning("почему не использовать тут UILabel.makeLabel() ? ")
-    private let userNameLabel: UILabel = {
-        let element = UILabel()
-        element.font = UIFont.montserratSemiBold(ofSize: 16)
-        element.textColor = .white
-        element.numberOfLines = 1
-        return element
-    }()
+    private let userNameLabel = UILabel.makeLabel(text: "", font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
 
-    #warning("очепятка: preview")
-    private lazy var priviewCollectionView: UICollectionView = {
+    private lazy var previewCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 12
@@ -133,7 +125,7 @@ final class HomeViewController: UIViewController {
     private func setViews() {
         view.backgroundColor = .clear
         [avatarImage, userNameLabel, scrollView].forEach { self.view.addSubview($0) }
-        [searchBar, priviewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0) }
+        [searchBar, previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0) }
     }
     
     func setupUserInfo(with user: User?) {
@@ -147,64 +139,6 @@ final class HomeViewController: UIViewController {
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
     
-    #warning("эту функцию можно унести вниз файла в отдельный extension, чтобы не занимала кучу места в середине файла")
-    private func setupConstraints(){
-        avatarImage.snp.makeConstraints { make in
-            make.width.height.equalTo(40)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
-            make.leading.equalToSuperview().offset(24)
-        }
-        
-        userNameLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(avatarImage)
-            make.leading.equalTo(avatarImage.snp.trailing).offset(17)
-            make.trailing.equalToSuperview().inset(80)
-        }
-        
-        scrollView.snp.makeConstraints { make in
-            make.top.equalTo(avatarImage.snp.bottom).offset(16)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
-        }
-        
-        searchBar.snp.makeConstraints { make in
-            #warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
-            make.width.equalTo(327)
-            make.height.equalTo(41)
-            make.top.equalTo(scrollView).offset(16)
-            make.leading.trailing.equalTo(scrollView).inset(24)
-        }
-        
-        priviewCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(24)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(154)
-        }
-        
-        categoryView.snp.makeConstraints { make in
-            make.top.equalTo(priviewCollectionView.snp.bottom).offset(36)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        categoryCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(categoryView.snp.bottom).offset(15)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(39)
-        }
-        
-        categoriesPreviewView.snp.makeConstraints { make in
-            make.top.equalTo(categoryCollectionView.snp.bottom).offset(24)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        categoryFilmCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(categoriesPreviewView.snp.bottom).offset(16)
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(231)
-            make.bottom.equalTo(scrollView.snp.bottom).offset(-25)
-        }
-    }
-    
 }
 
 
@@ -214,7 +148,7 @@ extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         switch collectionView{
-        case priviewCollectionView:
+        case previewCollectionView:
             return filmsData.count
             
         case categoryCollectionView:
@@ -231,7 +165,7 @@ extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch collectionView{
-        case priviewCollectionView:
+        case previewCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCategoryCell.identifier, for: indexPath) as! PreviewCategoryCell
             cell.configure(with: filmsData[indexPath.item])
             return cell
@@ -259,7 +193,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
         
         switch collectionView {
         
-        case priviewCollectionView:
+        case previewCollectionView:
             return CGSize(width: 295, height: 154)
        
         case categoryCollectionView:
@@ -296,6 +230,65 @@ extension HomeViewController: UICollectionViewDelegate{
             cell.deselectCell()
         default:
             break
+        }
+    }
+}
+//MARK: - SetupConstraints
+extension HomeViewController{
+    private func setupConstraints(){
+        avatarImage.snp.makeConstraints { make in
+            make.width.height.equalTo(40)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
+            make.leading.equalToSuperview().offset(24)
+        }
+        
+        userNameLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(avatarImage)
+            make.leading.equalTo(avatarImage.snp.trailing).offset(17)
+            make.trailing.equalToSuperview().inset(80)
+        }
+        
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(avatarImage.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+        }
+        
+        searchBar.snp.makeConstraints { make in
+            #warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
+            make.height.equalTo(41)
+            make.top.equalTo(scrollView).offset(16)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(24)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
+        }
+        
+        previewCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(24)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(154)
+        }
+        
+        categoryView.snp.makeConstraints { make in
+            make.top.equalTo(previewCollectionView.snp.bottom).offset(36)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        categoryCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(categoryView.snp.bottom).offset(15)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(39)
+        }
+        
+        categoriesPreviewView.snp.makeConstraints { make in
+            make.top.equalTo(categoryCollectionView.snp.bottom).offset(24)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        categoryFilmCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(categoriesPreviewView.snp.bottom).offset(16)
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.height.equalTo(231)
+            make.bottom.equalTo(scrollView.snp.bottom).offset(-25)
         }
     }
 }

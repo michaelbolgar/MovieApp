@@ -11,15 +11,7 @@ import SnapKit
 class CatergoriesSectionView: UIView {
     
     // MARK: - UI Properties
-#warning("почему не использовать тут UILabel.makeLabel() ? ")
-    let titleLabel:UILabel = {
-        let element = UILabel()
-        element.textAlignment = .left
-        element.font = UIFont.montserratSemiBold(ofSize: 16)
-        element.textColor = .white
-        element.numberOfLines = 1
-        return element
-    }()
+    let titleLabel = UILabel.makeLabel(text: "", font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
     
     let seeAllButton: UIButton = {
         let element = UIButton()
