@@ -114,7 +114,7 @@ class PopularCategoryCell: UICollectionViewCell {
 
 //FIXME: 
 struct PopularCategoryMovieCellModel {
-    let image:UIImage
+    let image:UIImage?
     let name:String
     let ganre:String
     let rating:String
