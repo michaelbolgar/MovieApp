@@ -16,7 +16,9 @@ protocol CategoriesCellProtocol {
 class CategoriesCell: UICollectionViewCell {
     
     // MARK: - UI Properties
-    private let headerLabel:UILabel = {
+    static let identifier = String(describing: CategoriesCell.self)
+    
+    private let nameCategoieLabel:UILabel = {
         let element = UILabel()
         element.font = UIFont.montserratMedium(ofSize: 12)
         element.textColor = .white
@@ -32,6 +34,7 @@ class CategoriesCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
         setupConstraints()
+        self.layer.cornerRadius = 8
     }
     
     required init?(coder: NSCoder) {
@@ -39,28 +42,32 @@ class CategoriesCell: UICollectionViewCell {
     }
     
     //MARK: - Methods
-    func configure(with title: String){
-        headerLabel.text = title
+    func configure(with model: catergoriesModel){
+        nameCategoieLabel.text = model.name
     }
     
     func selectCell(){
-        headerLabel.textColor = .customBlue
-        contentView.backgroundColor = .customLightGrey
+        self.backgroundColor = .customGrey
+        nameCategoieLabel.textColor = .customBlue
     }
     
     func deselectCell(){
-        headerLabel.textColor = .white
-        contentView.backgroundColor = .clear
+        nameCategoieLabel.textColor = .white
+        self.backgroundColor = .clear
     }
     
     private func setupViews(){
-        addSubview(headerLabel)
+        addSubview(nameCategoieLabel)
     }
     
     private func setupConstraints(){
-        headerLabel.snp.makeConstraints { make in
+        nameCategoieLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
     
+}
+
+struct catergoriesModel{
+    let name:String
 }
