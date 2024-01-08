@@ -78,6 +78,7 @@
 		FA0C5B9A2B3DB2F80097A480 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B992B3DB2F80097A480 /* Factory.swift */; };
 		FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */; };
 		FA37EAD02B459ED700760039 /* PopularMoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */; };
+		FA37EAD32B4C00AF00760039 /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,6 +152,7 @@
 		FA0C5B992B3DB2F80097A480 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieViewController.swift; sourceTree = "<group>"; };
 		FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviePresenter.swift; sourceTree = "<group>"; };
+		FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -543,6 +545,7 @@
 		F48094582B38F42E004C9F96 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				FA37EAD12B4C008700760039 /* Models */,
 				F48094702B38F70C004C9F96 /* View */,
 				F48094712B38F70F004C9F96 /* Presenter */,
 			);
@@ -587,7 +590,6 @@
 			isa = PBXGroup;
 			children = (
 				3CF904942B3C791E006E9D51 /* WishlistCell.swift */,
-				3CF904922B3C7919006E9D51 /* SearchCell.swift */,
 				3CF904902B3C7913006E9D51 /* PopularCategoryCell.swift */,
 				F480945E2B38F4B2004C9F96 /* PreviewCategoryCell.swift */,
 			);
@@ -608,6 +610,7 @@
 			children = (
 				F480946B2B38F600004C9F96 /* HomeViewController.swift */,
 				FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */,
+				3CF904922B3C7919006E9D51 /* SearchCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -699,6 +702,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		FA37EAD12B4C008700760039 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -787,6 +798,7 @@
 				3CA4D1142B3B0E2200073990 /* EditProfileVC.swift in Sources */,
 				F48094412B389E6F004C9F96 /* UIColor Extension.swift in Sources */,
 				3CF904952B3C791E006E9D51 /* WishlistCell.swift in Sources */,
+				FA37EAD32B4C00AF00760039 /* SearchCellModel.swift in Sources */,
 				3CF904C12B3F2BB8006E9D51 /* PlugView.swift in Sources */,
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
 				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,

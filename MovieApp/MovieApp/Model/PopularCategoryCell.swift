@@ -21,7 +21,7 @@ class PopularCategoryCell: UICollectionViewCell {
         return element
     }()
     
-     let filmeImage: UIImageView = {
+    private let filmeImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -34,7 +34,7 @@ class PopularCategoryCell: UICollectionViewCell {
         return element
     }()
     
-     let nameFilmLabel:UILabel = {
+    private let nameFilmLabel:UILabel = {
         let element = UILabel()
         element.font = UIFont.montserratSemiBold(ofSize: 14)
         element.textColor = .white
@@ -42,9 +42,9 @@ class PopularCategoryCell: UICollectionViewCell {
         return element
     }()
     
-     let ganreFilmLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 10), textColor: .customLightGrey, numberOfLines: 1)
+    private let ganreFilmLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 10), textColor: .customLightGrey, numberOfLines: 1)
     
-     let ratingFilmLabel:UILabel = .makeLabel(font: UIFont.montserratMedium(ofSize: 12), textColor: .customOrange, numberOfLines: 1)
+    private let ratingFilmLabel:UILabel = .makeLabel(font: UIFont.montserratMedium(ofSize: 12), textColor: .customOrange, numberOfLines: 1)
     
     //MARK: - Init
     override init(frame: CGRect) {
@@ -67,12 +67,12 @@ class PopularCategoryCell: UICollectionViewCell {
     }
     
     //FIXME: - Переделать когда будет готова сеть
-//    func configure(with model:PopularCategoryMovieCellModel){
-//        filmeImage.image = model.image
-//        nameFilmLabel.text = model.name
-//        ganreFilmLabel.text = model.ganre
-//        ratingFilmLabel.text = model.rating
-//    }
+    func configure(with model: PopularCategoryMovieCellModel){
+        filmeImage.image = model.image
+        nameFilmLabel.text = model.name
+        ganreFilmLabel.text = model.ganre
+        ratingFilmLabel.text = model.rating
+    }
     
     private func setupConstraints(){
         filmeImage.snp.makeConstraints { make in
@@ -107,15 +107,13 @@ class PopularCategoryCell: UICollectionViewCell {
             make.trailing.equalTo(backgorundForRaitingView).inset(8)
             make.centerY.equalTo(backgorundForRaitingView)
         }
-        
     }
-    
 }
 
-//FIXME: 
-//struct PopularCategoryMovieCellModel {
-//    let image:UIImage
-//    let name:String
-//    let ganre:String
-//    let rating:String
-//}
+//FIXME
+struct PopularCategoryMovieCellModel {
+    let image: UIImage
+    let name: String
+    let ganre: String
+    let rating: String
+}

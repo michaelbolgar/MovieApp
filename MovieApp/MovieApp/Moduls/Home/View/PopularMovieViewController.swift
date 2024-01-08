@@ -8,16 +8,19 @@
 import UIKit
 import SnapKit
 
-final class PopularMovieViewController: UIViewController {
+protocol PopularMovieView: AnyObject {
+    func reloadData()
+}
+
+final class PopularMovieViewController: UIViewController, PopularMovieView {
     
     var presenter: PopularMoviePresenter!
-
     
     //MARK: - Properties
     
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(PopularCategoryCell.self, forCellReuseIdentifier: PopularCategoryCell.identifier)
+        table.register(SearchCell.self, forCellReuseIdentifier: SearchCell.identifier)
         return table
     }()
     
@@ -25,13 +28,14 @@ final class PopularMovieViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         view.addSubview(tableView)
-        
-        presenter = PopularMoviePresenter()
         
         setupLayout()
         setupTableView()
+        
+        presenter = PopularMoviePresenterImpl(view: self)
+        presenter.viewDidLoad()
+        
     }
     
     //MARK: - Functions
@@ -54,26 +58,27 @@ final class PopularMovieViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
     }
+    
+    func reloadData() {
+        tableView.reloadData()
+    }
 }
 
-// MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension PopularMovieViewController: UITableViewDataSource {
+extension PopularMovieViewController: UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.items.count
+        return presenter.numberOfRowsInSection()
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: PopularCategoryCell.identifier, for: indexPath) as! PopularCategoryCell
-//        presenter.configure(cell: cell, forRow: indexPath.row)
-//        return cell
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as! SearchCell
+        
+        let cellModel = presenter.cellModelForRowAt(indexPath: indexPath)
+        cell.configure(with: cellModel)
+        
+        return cell
     }
-}
-
-// MARK: - UITableViewDelegate
-
-extension PopularMovieViewController: UITableViewDelegate {
-    
 }
