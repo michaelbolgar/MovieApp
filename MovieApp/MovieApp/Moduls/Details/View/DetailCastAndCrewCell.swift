@@ -7,15 +7,6 @@
 
 import UIKit
 
-// MARK: - Constants
-private enum Titles {
-#warning("см. комментарии к Titles в DetailHeaderView")
-    static let fatalError = "init(coder:) has not been implemented"
-    static let castAndCrewCell = "CastAndCrewItemCell"
-    static let collectionLeadingOffset = 25
-    static let collectionViewWidth: CGFloat = 180
-}
-
 // MARK: - DetailCastAndCrewCell
 class DetailCastAndCrewCell: UICollectionViewCell {
     
@@ -56,7 +47,9 @@ class DetailCastAndCrewCell: UICollectionViewCell {
         addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.top.bottom.trailing.equalToSuperview()
-            make.leading.equalToSuperview().offset(Titles.collectionLeadingOffset)
+            make.leading.equalToSuperview().offset(
+                LayoutConstants.collectionLeadingOffset
+            )
         }
     }
     
@@ -90,9 +83,23 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: Titles.collectionViewWidth,
+        return CGSize(width: LayoutConstants.collectionViewWidth,
                       height: collectionView.bounds.height)
     }
+}
+
+// MARK: - Constants
+private enum Titles {
+    static let fatalError = "init(coder:) has not been implemented"
+    static let castAndCrewCell = "CastAndCrewItemCell"
+}
+
+// MARK: - LayoutConstants
+private enum LayoutConstants {
+    static let fatalError = "init(coder:) has not been implemented"
+    static let castAndCrewCell = "CastAndCrewItemCell"
+    static let collectionLeadingOffset = 25
+    static let collectionViewWidth: CGFloat = 180
 }
 
 

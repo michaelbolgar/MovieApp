@@ -7,14 +7,6 @@
 
 import UIKit
 
-// MARK: - Constants
-private enum Titles {
-#warning("эти сущности будут лучше смотреться в configure()")
-    static let width = 100
-    static let leading = 25
-    static let inset = 10
-}
-
 // MARK: - DetailGalleryView
 class DetailGalleryView: UIView {
     
@@ -37,11 +29,13 @@ class DetailGalleryView: UIView {
     
     // MARK: - Configure
     private func configure() {
+        
+        
         addSubview(photo)
         photo.snp.makeConstraints {
-            $0.width.height.equalTo(Titles.width)
-            $0.leading.equalTo(Titles.leading)
-            $0.top.equalToSuperview().inset(Titles.inset)
+            $0.width.height.equalTo(Constants.width)
+            $0.leading.equalTo(Constants.leading)
+            $0.top.equalToSuperview().inset(Constants.inset)
         }
     }
 }
@@ -85,4 +79,11 @@ extension DetailGalleryView: Configurable {
 //           }.resume()
         photo.image = UIImage(named: "filmPhoto") // УДАЛИТЬ
     }
+}
+
+// MARK: - Constants
+private enum Constants {
+    static let width = 100
+    static let leading = 25
+    static let inset = 10
 }

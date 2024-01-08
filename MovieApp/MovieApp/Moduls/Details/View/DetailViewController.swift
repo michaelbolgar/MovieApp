@@ -7,31 +7,6 @@
 
 import UIKit
 
-// MARK: - Constants
-
-private enum Titles {
-
-    #warning("см. комментарии к Titles в DetailHeaderView")
-
-    static let castAndCrew = "CastAndCrew"
-    static let header = "headerCell"
-    static let textCell = "textCell"
-    static let galleryCell = "Gallery"
-    static let movieDetail = "Movie Detail"
-    static let storyLineTitle = "Story Line"
-    static let castAndCrewTitle = "Cast and Crew"
-    static let galeryTitle = "Gallery"
-    static let reuseIdentifier = "section-header-reuse-identifier"
-    static let fatalError = "Cannot create new header"
-    static let heartImage = "heart.fill"
-    static let headerHeight: CGFloat = 580
-    static let storyLineWidthSubtraction: CGFloat = 50
-    static let storyLineHeight: CGFloat = 150
-    static let castHeight: CGFloat = 60
-    static let galleryHeight: CGFloat = 180
-    static let sectionsHeight: CGFloat = 40
-}
-
 // MARK: - DetailViewController
 
 class DetailViewController: UIViewController {
@@ -127,22 +102,22 @@ extension DetailViewController: UICollectionViewDelegate,
             case .header:
                 return CGSize(
                     width: collectionView.bounds.width,
-                    height: Titles.headerHeight
+                    height: LayoutConstants.headerHeight
                 )
             case .storyLine:
                 return CGSize(
-                    width: collectionView.bounds.width - Titles.storyLineWidthSubtraction,
-                    height: Titles.storyLineHeight
+                    width: collectionView.bounds.width - LayoutConstants.storyLineWidthSubtraction,
+                    height: LayoutConstants.storyLineHeight
                 )
             case .castAndCrew:
                 return CGSize(
                     width: collectionView.bounds.width,
-                    height: Titles.castHeight
+                    height: LayoutConstants.castHeight
                 )
             case .gallery:
                 return CGSize(
                     width: collectionView.bounds.width,
-                    height: Titles.galleryHeight
+                    height: LayoutConstants.galleryHeight
                 )
             }
         }
@@ -154,7 +129,7 @@ extension DetailViewController: UICollectionViewDelegate,
             case .storyLine, .castAndCrew, .gallery:
                 return CGSize(
                     width: collectionView.bounds.width,
-                    height: Titles.sectionsHeight
+                    height: LayoutConstants.sectionsHeight
                 )
             default:
                 return CGSize.zero
@@ -336,5 +311,29 @@ extension DetailViewController {
         let gallery: [GalleryItem]
         let likeBarButtonAction: (() -> Void)?
     }
+}
+
+// MARK: - Constants
+private enum Titles {
+    static let castAndCrew = "CastAndCrew"
+    static let header = "headerCell"
+    static let textCell = "textCell"
+    static let galleryCell = "Gallery"
+    static let movieDetail = "Movie Detail"
+    static let storyLineTitle = "Story Line"
+    static let castAndCrewTitle = "Cast and Crew"
+    static let galeryTitle = "Gallery"
+    static let reuseIdentifier = "section-header-reuse-identifier"
+    static let fatalError = "Cannot create new header"
+    static let heartImage = "heart.fill"
+}
+
+private enum LayoutConstants {
+    static let headerHeight: CGFloat = 580
+    static let storyLineWidthSubtraction: CGFloat = 50
+    static let storyLineHeight: CGFloat = 150
+    static let castHeight: CGFloat = 60
+    static let galleryHeight: CGFloat = 180
+    static let sectionsHeight: CGFloat = 40
 }
 

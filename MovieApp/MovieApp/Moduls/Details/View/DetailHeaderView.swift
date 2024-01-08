@@ -1,45 +1,5 @@
 import UIKit
 
-// MARK: - Constants
-#warning("здесь и в других view -- что значит 'Title'? это название не даёт понимания, что содержит енам")
-#warning("зачем в енаме одновременно и картинки, и отступы, и цвета?")
-/*
- 1) весь этот большой енам лучше разделить на несколько. Отступы однозначно лучше перенести в то место, где они используются -- к вёрстке в configure(). Во-первых, они тогда будут на своём месте, во-вторых не будут мозолить глаза. В целом, редко используемые сущности (а тут всё используется по одному разу) можно смело уносить вниз, оставляя наверху только самое важное/наиболее используемое
- 2) Другой отдельной сущностью я бы сделал настройку градиента
- 3) Картинки как минимум стоит сгруппировать в отдельную сущность (опять-таки: принцип единой ответственности), как максимум -- вообще убрать и использовать напрямую "clock.fill" и тд. Каждый из этих объектов используется один раз, то есть ты делаешь две строки кода вместо одной, а разницы особой нет, поскольку названия у дефолтных картинок и так говорящие
- */
-private enum Titles {
-    static let calendar = "calendar"
-    static let clock = "clock.fill"
-    static let action = "film.fill"
-    static let rating = "star.fill"
-    static let share = "square.and.arrow.up"
-    static let play = "play.fill"
-    static let buttonTitle = "  Trailer"
-    static let redColor: CGFloat = 31/255
-    static let greenColor: CGFloat = 29/255
-    static let blueColor: CGFloat = 43/255
-    static let alphaBegin: CGFloat = 0.7
-    static let alphaEnd: CGFloat = 1
-    static let gradientBegin: NSNumber = 0
-    static let gradientEnd: NSNumber = 1
-    static let trailerRadius: CGFloat = 20
-    static let separatorWidth: CGFloat = 3
-    static let separatorHeight: CGFloat = 10
-    static let filmInfoStackSpacing: CGFloat = 25
-    static let labelLeadingOffset: CGFloat = 8
-    static let trailerButtonWidth: CGFloat = 115
-    static let trailerButtonHeight: CGFloat = 48
-    static let shareButtonSize: CGFloat = 48
-    static let posterTopInset: CGFloat = 80
-    static let posterLeadTralInset: CGFloat = 16
-    static let posterHeightMultiplied: CGFloat = 0.85
-    static let filmInfoStackTopOffset: CGFloat = 50
-    static let filmInfoStackLeadingOffset: CGFloat = 30
-    static let buttonStackLeadingOffset: CGFloat = 70
-    static let buttonStackTopOffset: CGFloat = 80
-}
-
 // MARK: - DetailHeaderView
 final class DetailHeaderView: UIView {
     
@@ -55,19 +15,19 @@ final class DetailHeaderView: UIView {
         let gradient = CAGradientLayer()
         gradient.colors = [
             UIColor(
-                red: Titles.redColor,
-                green: Titles.greenColor,
-                blue: Titles.blueColor,
-                alpha: Titles.alphaBegin
+                red: GradientConstants.redColor,
+                green: GradientConstants.greenColor,
+                blue: GradientConstants.blueColor,
+                alpha: GradientConstants.alphaBegin
             ).cgColor,
             UIColor(
-                red: Titles.redColor,
-                green: Titles.greenColor,
-                blue: Titles.blueColor,
-                alpha: Titles.alphaEnd
+                red: GradientConstants.redColor,
+                green: GradientConstants.greenColor,
+                blue: GradientConstants.blueColor,
+                alpha: GradientConstants.alphaEnd
             ).cgColor
         ]
-        gradient.locations = [Titles.gradientBegin, Titles.gradientEnd]
+        gradient.locations = [GradientConstants.gradientBegin, GradientConstants.gradientEnd]
         return gradient
     }()
     
@@ -81,7 +41,7 @@ final class DetailHeaderView: UIView {
     private lazy var filmInfoStack: UIStackView = {
         let stack = UIStackView()
         stack.distribution = .equalSpacing
-        stack.spacing = Titles.filmInfoStackSpacing
+        stack.spacing = LayoutConstants.filmInfoStackSpacing
         stack.axis = .horizontal
         return stack
     }()
@@ -98,10 +58,10 @@ final class DetailHeaderView: UIView {
     
     private lazy var trailerButton: UIButton = {
         let button = UIButton(type: .system)
-        button.layer.cornerRadius = Titles.trailerRadius
+        button.layer.cornerRadius = LayoutConstants.trailerRadius
         button.backgroundColor = .customOrange
-        button.setTitle(Titles.buttonTitle, for: .normal)
-        let image = UIImage(systemName: Titles.play)?.withRenderingMode(.alwaysTemplate)
+        button.setTitle("  Trailer", for: .normal)
+        let image = UIImage(systemName: Images.play)?.withRenderingMode(.alwaysTemplate)
         button.setImage(image, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.tintColor = .white
@@ -110,9 +70,9 @@ final class DetailHeaderView: UIView {
 
     private lazy var shareButton: UIButton = {
         let button = UIButton(type: .system)
-        button.layer.cornerRadius = Titles.shareButtonSize / 2
+        button.layer.cornerRadius = LayoutConstants.shareButtonSize / 2
         button.backgroundColor = .customDarkBlue
-        button.setImage(UIImage(systemName: Titles.share), for: .normal)
+        button.setImage(UIImage(systemName: Images.share), for: .normal)
         return button
     }()
     
@@ -137,8 +97,8 @@ final class DetailHeaderView: UIView {
         let separator = UIView()
         separator.backgroundColor = .lightGray
         separator.snp.makeConstraints { make in
-            make.width.equalTo(Titles.separatorWidth)
-            make.height.equalTo(Titles.separatorHeight)
+            make.width.equalTo(LayoutConstants.separatorWidth)
+            make.height.equalTo(LayoutConstants.separatorHeight)
         }
         return separator
     }
@@ -167,7 +127,7 @@ final class DetailHeaderView: UIView {
         }
         
         label.snp.makeConstraints { make in
-            make.leading.equalTo(imageView.snp.trailing).offset(Titles.labelLeadingOffset)
+            make.leading.equalTo(imageView.snp.trailing).offset(LayoutConstants.labelLeadingOffset)
             make.centerY.equalToSuperview()
             make.trailing.lessThanOrEqualToSuperview()
         }
@@ -191,29 +151,29 @@ final class DetailHeaderView: UIView {
         }
         
         trailerButton.snp.makeConstraints {
-            $0.width.equalTo(Titles.trailerButtonWidth)
-            $0.height.equalTo(Titles.trailerButtonHeight)
+            $0.width.equalTo(LayoutConstants.trailerButtonWidth)
+            $0.height.equalTo(LayoutConstants.trailerButtonHeight)
         }
         
         shareButton.snp.makeConstraints {
-            $0.width.height.equalTo(Titles.shareButtonSize)
+            $0.width.height.equalTo(LayoutConstants.shareButtonSize)
         }
         
         posterView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(Titles.posterTopInset)
-            make.leading.trailing.equalToSuperview().inset(Titles.posterLeadTralInset)
-            make.height.equalTo(posterView.snp.width).multipliedBy(Titles.posterHeightMultiplied)
+            make.top.equalToSuperview().inset(LayoutConstants.posterTopInset)
+            make.leading.trailing.equalToSuperview().inset(LayoutConstants.posterLeadTralInset)
+            make.height.equalTo(posterView.snp.width).multipliedBy(LayoutConstants.posterHeightMultiplied)
         }
         
         filmInfoStack.snp.makeConstraints {
-            $0.top.equalTo(posterView.snp.bottom).offset(Titles.filmInfoStackTopOffset)
+            $0.top.equalTo(posterView.snp.bottom).offset(LayoutConstants.filmInfoStackTopOffset)
             $0.centerX.equalToSuperview() // This will center it horizontally
-                $0.width.lessThanOrEqualTo(safeAreaLayoutGuide.snp.width).offset(Titles.filmInfoStackLeadingOffset)
+                $0.width.lessThanOrEqualTo(safeAreaLayoutGuide.snp.width).offset(LayoutConstants.filmInfoStackLeadingOffset)
         }
         
         buttonStack.snp.makeConstraints {
-            $0.top.equalTo(filmInfoStack.snp.bottom).offset(Titles.buttonStackTopOffset)
-            $0.leading.trailing.equalToSuperview().inset(Titles.filmInfoStackLeadingOffset)
+            $0.top.equalTo(filmInfoStack.snp.bottom).offset(LayoutConstants.buttonStackTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(LayoutConstants.filmInfoStackLeadingOffset)
         }
     }
     
@@ -248,14 +208,14 @@ extension DetailHeaderView: Configurable {
         
         filmInfoStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
-        let yearView = createLabeledIconView(title: model.year ?? "", iconName: Titles.calendar)
-        let durationView = createLabeledIconView(title: model.duration ?? "", iconName: Titles.clock)
-        let genreView = createLabeledIconView(title: model.genre ?? "", iconName: Titles.action)
-        let ratingView = createLabeledIconView(title: model.rating ?? "", iconName: Titles.rating, color: UIColor.customOrange)
+        let yearView = createLabeledIconView(title: model.year ?? "", iconName: Images.calendar)
+        let durationView = createLabeledIconView(title: model.duration ?? "", iconName: Images.clock)
+        let genreView = createLabeledIconView(title: model.genre ?? "", iconName: Images.action)
+        let ratingView = createLabeledIconView(title: model.rating ?? "", iconName: Images.rating, color: UIColor.customOrange)
         
         addSubview(ratingView)
                 ratingView.snp.makeConstraints {
-                    $0.top.equalTo(filmInfoStack.snp.bottom).offset(Titles.filmInfoStackTopOffset)
+                    $0.top.equalTo(filmInfoStack.snp.bottom).offset(LayoutConstants.filmInfoStackTopOffset)
                     $0.centerX.equalToSuperview()
                     // Установите любые другие констрейнты, которые необходимы для ratingView
                 }
@@ -295,4 +255,44 @@ extension DetailHeaderView: Configurable {
         posterView.image = UIImage(named: "Bg")
         backgroundImageView.image = UIImage(named: "Bg")
     }
+}
+
+// MARK: - LayoutConstants
+private enum LayoutConstants {
+    static let trailerRadius: CGFloat = 20
+    static let separatorWidth: CGFloat = 3
+    static let separatorHeight: CGFloat = 10
+    static let filmInfoStackSpacing: CGFloat = 25
+    static let labelLeadingOffset: CGFloat = 8
+    static let trailerButtonWidth: CGFloat = 115
+    static let trailerButtonHeight: CGFloat = 48
+    static let shareButtonSize: CGFloat = 48
+    static let posterTopInset: CGFloat = 80
+    static let posterLeadTralInset: CGFloat = 16
+    static let posterHeightMultiplied: CGFloat = 0.85
+    static let filmInfoStackTopOffset: CGFloat = 50
+    static let filmInfoStackLeadingOffset: CGFloat = 30
+    static let buttonStackLeadingOffset: CGFloat = 70
+    static let buttonStackTopOffset: CGFloat = 80
+}
+
+// MARK: - GradientConstants
+private enum GradientConstants {
+    static let redColor: CGFloat = 31/255
+    static let greenColor: CGFloat = 29/255
+    static let blueColor: CGFloat = 43/255
+    static let alphaBegin: CGFloat = 0.7
+    static let alphaEnd: CGFloat = 1
+    static let gradientBegin: NSNumber = 0
+    static let gradientEnd: NSNumber = 1
+}
+
+// MARK: - Images
+private enum Images {
+    static let calendar = "calendar"
+    static let clock = "clock.fill"
+    static let action = "film.fill"
+    static let rating = "star.fill"
+    static let share = "square.and.arrow.up"
+    static let play = "play.fill"
 }

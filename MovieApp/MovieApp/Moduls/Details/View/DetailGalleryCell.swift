@@ -7,14 +7,6 @@
 
 import UIKit
 
-// MARK: - Constants
-private enum Titles {
-#warning("см. комментарии к Titles в DetailHeaderView")
-    static let fatalError = "init(coder:) has not been implemented"
-    static let galleryCell = "GalleryItemCell"
-    static let width: CGFloat = 100
-}
-
 // MARK: - DetailGalleryCell
 class DetailGalleryCell: UICollectionViewCell {
     
@@ -88,8 +80,19 @@ extension DetailGalleryCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: Titles.width, height: collectionView.bounds.height)
+        return CGSize(width: CGFloat.width, height: collectionView.bounds.height)
     }
+}
+
+// MARK: - Titles Enum
+private enum Titles {
+    static let fatalError = "init(coder:) has not been implemented"
+    static let galleryCell = "GalleryItemCell"
+}
+
+// MARK: - CGFloat Private Extension
+private extension CGFloat {
+    static let width: CGFloat = 100
 }
 
 
