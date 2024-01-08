@@ -8,12 +8,13 @@
 import UIKit
 import SnapKit
 
-protocol PopularMovieView: AnyObject {
+protocol PopularMovieViewProtocol: AnyObject {
     func reloadData()
 }
 
-final class PopularMovieViewController: UIViewController, PopularMovieView {
+final class PopularMovieViewController: UIViewController {
     
+    // MARK: - Presenter
     var presenter: PopularMoviePresenter!
     
     //MARK: - Properties
@@ -59,9 +60,7 @@ final class PopularMovieViewController: UIViewController, PopularMovieView {
         }
     }
     
-    func reloadData() {
-        tableView.reloadData()
-    }
+    
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -70,15 +69,29 @@ extension PopularMovieViewController: UITableViewDataSource,UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfRowsInSection()
-
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as! SearchCell
+        
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: SearchCell.identifier,
+                for: indexPath) as? SearchCell
+        else {
+            return UITableViewCell()
+        }
         
         let cellModel = presenter.cellModelForRowAt(indexPath: indexPath)
         cell.configure(with: cellModel)
         
         return cell
+    }
+}
+
+// MARK: - PopularMovieViewProtocol
+extension PopularMovieViewController: PopularMovieViewProtocol {
+    func reloadData() {
+        tableView.reloadData()
     }
 }
