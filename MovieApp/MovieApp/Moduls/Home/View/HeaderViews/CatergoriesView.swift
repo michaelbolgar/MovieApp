@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CatergoriesSectionView: UIView {
+final class CatergoriesSectionView: UIView {
     
     // MARK: - UI Properties
     let titleLabel = UILabel.makeLabel(text: "", font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
@@ -50,5 +50,4 @@ class CatergoriesSectionView: UIView {
             make.trailing.equalToSuperview().inset(24)
         }
     }
-    
 }

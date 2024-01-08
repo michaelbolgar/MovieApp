@@ -16,6 +16,7 @@ protocol RouterMainHomeProtocol {
 // MARK: - ProfileRouterProtocol
 protocol HomeRouterProtocol: RouterMainHomeProtocol {
     func initialViewController()
+    func showFavorites()
 }
 
 // MARK: - ProfileRouter
@@ -32,6 +33,13 @@ final class HomeRouter: HomeRouterProtocol {
         if let navigationController = navigationController {
             guard let homeVC = moduleBuilder?.createHomeModule(router: self) else { return }
             navigationController.viewControllers = [homeVC]
+        }
+    }
+    
+    func showFavorites() {
+        if let navigationController = navigationController {
+            guard let wishlistVC = moduleBuilder?.createFavoritesModule() else { return }
+            navigationController.pushViewController(wishlistVC, animated: true)
         }
     }
 }

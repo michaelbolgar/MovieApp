@@ -9,6 +9,7 @@ final class HomeViewController: UIViewController {
     //MARK: - Presenter
     var presenter: HomePresenterProtocol!
     
+    // MARK: - Private UI Properties
     private let avatarImage: UIImageView = {
         let element = UIImageView()
         element.backgroundColor = .customDarkGrey
@@ -18,19 +19,35 @@ final class HomeViewController: UIViewController {
         return element
     }()
     
-    private let userNameLabel = UILabel.makeLabel(text: "", font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
+    private let userNameLabel = UILabel.makeLabel(
+        text: "",
+        font: UIFont.montserratSemiBold(ofSize: 16),
+        textColor: .white,
+        numberOfLines: 1
+    )
     
     private lazy var previewCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 12
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layout
+        )
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(PreviewCategoryCell.self, forCellWithReuseIdentifier: PreviewCategoryCell.identifier)
+        collectionView.register(
+            PreviewCategoryCell.self,
+            forCellWithReuseIdentifier: PreviewCategoryCell.identifier)
+        
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        collectionView.contentInset = UIEdgeInsets(
+            top: 0,
+            left: 20,
+            bottom: 0,
+            right: 20
+        )
         return collectionView
     }()
     
@@ -40,13 +57,24 @@ final class HomeViewController: UIViewController {
         let layot = UICollectionViewFlowLayout()
         layot.scrollDirection = .horizontal
         layot.minimumLineSpacing = 8
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layot)
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layot
+        )
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(CategoriesCell.self, forCellWithReuseIdentifier: CategoriesCell.identifier)
+        collectionView.register(
+            CategoriesCell.self,
+            forCellWithReuseIdentifier: CategoriesCell.identifier
+        )
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        collectionView.contentInset = UIEdgeInsets(
+            top: 0,
+            left: 24,
+            bottom: 0,
+            right: 24
+        )
         return collectionView
     }()
     
@@ -56,13 +84,24 @@ final class HomeViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 12
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layout
+        )
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(PopularCategoryCell.self, forCellWithReuseIdentifier: PopularCategoryCell.identifier)
+        collectionView.register(
+            PopularCategoryCell.self,
+            forCellWithReuseIdentifier: PopularCategoryCell.identifier
+        )
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        collectionView.contentInset = UIEdgeInsets(
+            top: 0,
+            left: 24,
+            bottom: 0,
+            right: 24
+        )
         return collectionView
     }()
     
@@ -80,6 +119,25 @@ final class HomeViewController: UIViewController {
         return element
     }()
     
+    private let favoriteView: UIView = {
+        var view = UIView()
+        view.backgroundColor = .customGrey
+        view.layer.cornerRadius = 12
+        return view
+    }()
+
+    private lazy var favoritesButton: UIButton = {
+        var button = UIButton(type: .system)
+        button.setImage(UIImage(named: "heart"), for: .normal)
+        button.tintColor = .customRed
+        button.addTarget(
+            self,
+            action: #selector(favoritesButtonDidTapped),
+            for: .touchUpInside
+        )
+        return button
+    }()
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,10 +151,16 @@ final class HomeViewController: UIViewController {
         selectFirstCell()
     }
     
+    // MARK: - Private Actions
+    @objc private func favoritesButtonDidTapped() {
+        presenter.showFavoritesScreen()
+    }
+    
     //MARK: - Private Methods
     private func setViews() {
         view.backgroundColor = .clear
-        [avatarImage, userNameLabel, scrollView].forEach { self.view.addSubview($0) }
+        favoriteView.addSubview(favoritesButton)
+        [avatarImage, userNameLabel, scrollView, favoriteView].forEach { self.view.addSubview($0) }
         [searchBar, previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0) }
     }
     
@@ -104,9 +168,7 @@ final class HomeViewController: UIViewController {
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
-    
 }
-
 
 //MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource{
@@ -171,34 +233,37 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
         default:
             return CGSize.zero
         }
-        
     }
-    
 }
 
 //MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case categoryCollectionView:
-            let cell = collectionView.cellForItem(at: indexPath) as! CategoriesCell
-            cell.selectCell()
-        default:
-            break
+        if collectionView == categoryCollectionView {
+            if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
+                cell.selectCell()
+            }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case categoryCollectionView:
-            let cell = collectionView.cellForItem(at: indexPath) as! CategoriesCell
-            cell.deselectCell()
-        default:
-            break
+        if collectionView == categoryCollectionView {
+            if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
+                cell.deselectCell()
+            }
         }
     }
 }
+
+// MARK: - HomeViewControllerProtocol
+extension HomeViewController: HomeViewControllerProtocol {
+    func setUserInfo(with user: User) {
+        avatarImage.image = UIImage(data: user.image)
+        userNameLabel.text = "Hello, " + user.fullName
+    }
+}
+
 //MARK: - SetupConstraints
 extension HomeViewController{
     private func setupConstraints(){
@@ -256,13 +321,21 @@ extension HomeViewController{
             make.height.equalTo(231)
             make.bottom.equalTo(scrollView.snp.bottom).offset(-25)
         }
+        
+        favoriteView.snp.makeConstraints { make in
+            make.centerY.equalTo(avatarImage.snp.centerY)
+            make.trailing.equalToSuperview().offset(-30)
+            make.height.equalTo(32)
+            make.width.equalTo(32)
+        }
+        
+        favoritesButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(4)
+            make.leading.equalToSuperview().offset(4)
+            make.bottom.equalToSuperview().offset(-4)
+            make.trailing.equalToSuperview().offset(-4)
+        }
     }
 }
 
-// MARK: - HomeViewControllerProtocol
-extension HomeViewController: HomeViewControllerProtocol {
-    func setUserInfo(with user: User) {
-        avatarImage.image = UIImage(data: user.image)
-        userNameLabel.text = "Hello, " + user.fullName
-    }
-}
+

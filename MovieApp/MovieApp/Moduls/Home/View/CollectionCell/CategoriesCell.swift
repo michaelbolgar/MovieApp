@@ -8,12 +8,12 @@
 import UIKit
 
 protocol CategoriesCellProtocol {
-    func configure(with title: String)
+    func configure(with model: CatergoriesModel)
     func selectCell()
     func deselectCell()
 }
 
-class CategoriesCell: UICollectionViewCell {
+final class CategoriesCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     static let identifier = String(describing: CategoriesCell.self)
@@ -41,21 +41,7 @@ class CategoriesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
-    func configure(with model: CatergoriesModel){
-        nameCategoieLabel.text = model.name
-    }
-    
-    func selectCell(){
-        self.backgroundColor = .customGrey
-        nameCategoieLabel.textColor = .customBlue
-    }
-    
-    func deselectCell(){
-        nameCategoieLabel.textColor = .white
-        self.backgroundColor = .clear
-    }
-    
+    // MARK: - Methods
     private func setupViews(){
         addSubview(nameCategoieLabel)
     }
@@ -65,7 +51,24 @@ class CategoriesCell: UICollectionViewCell {
             make.edges.equalToSuperview()
         }
     }
+}
+
+// MARK: - CategoriesCellProtocol
+extension CategoriesCell: CategoriesCellProtocol {
     
+    func configure(with model: CatergoriesModel) {
+        nameCategoieLabel.text = model.name
+    }
+    
+    func selectCell() {
+        self.backgroundColor = .customGrey
+        nameCategoieLabel.textColor = .customBlue
+    }
+    
+    func deselectCell() {
+        nameCategoieLabel.textColor = .white
+        self.backgroundColor = .clear
+    }
 }
 
 struct CatergoriesModel{
