@@ -16,7 +16,15 @@ class TabBarFactory: TabBarFactoryProtocol {
     //MARK: - Methods
     func createTabs() -> [UIViewController] {
         
-        let homeVC = HomeViewController()
+        let homeNavBar = UINavigationController()
+        let homeBuilder = HomeBuilder()
+        let homeRouter = HomeRouter(
+            navigationController: homeNavBar,
+            moduleBuilder: homeBuilder
+        )
+        homeRouter.initialViewController()
+        
+        let homeVC = homeNavBar
         homeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
         homeVC.view.backgroundColor = .customBlack
         

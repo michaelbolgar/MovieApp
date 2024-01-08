@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0BEEEB2B4C6C8100CC7FA4 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0BEEEA2B4C6C8100CC7FA4 /* HomeBuilder.swift */; };
+		3C0BEEED2B4C6D2700CC7FA4 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0BEEEC2B4C6D2700CC7FA4 /* HomeRouter.swift */; };
 		3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D10B2B3B0B2900073990 /* ProfileRouter.swift */; };
 		3CA4D10E2B3B0B6D00073990 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D10D2B3B0B6D00073990 /* ModuleBuilder.swift */; };
 		3CA4D1142B3B0E2200073990 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D1132B3B0E2200073990 /* EditProfileVC.swift */; };
@@ -85,6 +87,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C0BEEEA2B4C6C8100CC7FA4 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
+		3C0BEEEC2B4C6D2700CC7FA4 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		3CA4D10B2B3B0B2900073990 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		3CA4D10D2B3B0B6D00073990 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		3CA4D1132B3B0E2200073990 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
@@ -175,6 +179,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C0BEEE82B4C6C5800CC7FA4 /* HomeBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				3C0BEEEA2B4C6C8100CC7FA4 /* HomeBuilder.swift */,
+			);
+			path = HomeBuilder;
+			sourceTree = "<group>";
+		};
+		3C0BEEE92B4C6C6100CC7FA4 /* HomeRouter */ = {
+			isa = PBXGroup;
+			children = (
+				3C0BEEEC2B4C6D2700CC7FA4 /* HomeRouter.swift */,
+			);
+			path = HomeRouter;
+			sourceTree = "<group>";
+		};
 		3C304A4C2B3B0ACE003A88AA /* ModuleBuilder */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,6 +588,8 @@
 		F48094582B38F42E004C9F96 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3C0BEEE92B4C6C6100CC7FA4 /* HomeRouter */,
+				3C0BEEE82B4C6C5800CC7FA4 /* HomeBuilder */,
 				F48094702B38F70C004C9F96 /* View */,
 				F48094712B38F70F004C9F96 /* Presenter */,
 			);
@@ -849,7 +871,9 @@
 				F48094A52B47768A004C9F96 /* Endpoints.swift in Sources */,
 				3CF904A72B3DFE47006E9D51 /* LanguageVC.swift in Sources */,
 				F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */,
+				3C0BEEEB2B4C6C8100CC7FA4 /* HomeBuilder.swift in Sources */,
 				F48094542B38EFD6004C9F96 /* UIView Extension.swift in Sources */,
+				3C0BEEED2B4C6D2700CC7FA4 /* HomeRouter.swift in Sources */,
 				3CD315DF2B39BF97003035B0 /* UserInfoView.swift in Sources */,
 				F48094432B38A37A004C9F96 /* UIFont Extension.swift in Sources */,
 				F480947D2B38F971004C9F96 /* ChristmasTreePresenter.swift in Sources */,

@@ -42,7 +42,7 @@ class CategoriesCell: UICollectionViewCell {
     }
     
     //MARK: - Methods
-    func configure(with model: catergoriesModel){
+    func configure(with model: CatergoriesModel){
         nameCategoieLabel.text = model.name
     }
     
@@ -68,6 +68,6 @@ class CategoriesCell: UICollectionViewCell {
     
 }
 
-struct catergoriesModel{
+struct CatergoriesModel{
     let name:String
 }
