@@ -10,8 +10,6 @@ protocol HomePresenterProtocol {
 
 final class HomePresenter: HomePresenterProtocol {
 
-    
-
     private weak var view: HomeViewControllerProtocol?
     private let dataSource: StorageManagerProtocol
     
