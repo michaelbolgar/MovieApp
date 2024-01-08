@@ -2,6 +2,7 @@ import UIKit
 
 protocol HomeViewControllerProtocol: AnyObject {
     func setUserInfo(with user: User)
+    func reloadData()
 }
 
 final class HomeViewController: UIViewController {
@@ -125,7 +126,7 @@ final class HomeViewController: UIViewController {
         view.layer.cornerRadius = 12
         return view
     }()
-
+    
     private lazy var favoritesButton: UIButton = {
         var button = UIButton(type: .system)
         button.setImage(UIImage(named: "heart"), for: .normal)
@@ -177,7 +178,8 @@ extension HomeViewController: UICollectionViewDataSource{
         
         switch collectionView{
         case previewCollectionView:
-            return presenter.filmsData.count
+            return presenter.selections.count
+            
             
         case categoryCollectionView:
             return presenter.categoryData.count
@@ -192,10 +194,16 @@ extension HomeViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch collectionView{
+        switch collectionView {
         case previewCollectionView:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCategoryCell.identifier, for: indexPath) as! PreviewCategoryCell
-            cell.configure(with: presenter.filmsData[indexPath.item])
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: PreviewCategoryCell.identifier,
+                for: indexPath) as? PreviewCategoryCell
+            else {
+                return UICollectionViewCell()
+            }
+            cell.configure(with: presenter.selections[indexPath.row])
             return cell
             
         case categoryCollectionView:
@@ -261,6 +269,10 @@ extension HomeViewController: HomeViewControllerProtocol {
     func setUserInfo(with user: User) {
         avatarImage.image = UIImage(data: user.image)
         userNameLabel.text = "Hello, " + user.fullName
+    }
+    
+    func reloadData() {
+        previewCollectionView.reloadData()
     }
 }
 

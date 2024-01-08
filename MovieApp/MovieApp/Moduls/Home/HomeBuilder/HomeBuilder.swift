@@ -19,7 +19,13 @@ final class HomeBuilder: HomeBuilderProtocol {
     func createHomeModule(router: HomeRouterProtocol) -> UIViewController {
         let view = HomeViewController()
         let storageManager = StorageManager.shared
-        let presenter = HomePresenter(view: view, storageManager: storageManager, router: router)
+        let networkingManager = NetworkingManager.shared
+        let presenter = HomePresenter(
+            view: view,
+            storageManager: storageManager,
+            router: router,
+            networkingManager: networkingManager
+        )
         view.presenter = presenter
         return view
     }

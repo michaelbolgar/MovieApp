@@ -38,10 +38,19 @@ class PreviewCategoryCell: UICollectionViewCell {
     }
     
     //FIXME: - Переделать когда будет готова сеть
-    func configure(with model: MovieCellModel) {
-        filmeImage.image = model.image
+    func configure(with model: Collections.Collection) {
+//        filmeImage.image = model.image
         nameCategoryLabel.text = model.name
-        descriptionLabel.text = model.description
+        
+        guard let url = URL(string: model.cover?.previewUrl ?? "") else { return }
+        
+        DispatchQueue.global().async { [weak self] in
+            guard let imageData = try? Data(contentsOf: url) else { return }
+            DispatchQueue.main.async {
+                self?.filmeImage.image = UIImage(data: imageData)
+            }
+        }
+//        descriptionLabel.text = model.description
     }
     
     private func setupConstraints() {

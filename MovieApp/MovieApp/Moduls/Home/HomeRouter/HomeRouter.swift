@@ -31,7 +31,11 @@ final class HomeRouter: HomeRouterProtocol {
     
     func initialViewController() {
         if let navigationController = navigationController {
-            guard let homeVC = moduleBuilder?.createHomeModule(router: self) else { return }
+            guard
+                let homeVC = moduleBuilder?.createHomeModule(router: self)
+            else {
+                return
+            }
             navigationController.viewControllers = [homeVC]
         }
     }

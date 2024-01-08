@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 final class CatergoriesSectionView: UIView {
     

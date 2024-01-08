@@ -1,12 +1,20 @@
 import UIKit
 
 protocol HomePresenterProtocol {
-    init(view: HomeViewControllerProtocol, storageManager: StorageManagerProtocol, router: HomeRouterProtocol)
+    init(
+        view: HomeViewControllerProtocol,
+        storageManager: StorageManagerProtocol,
+        router: HomeRouterProtocol,
+        networkingManager: NetworkingManager
+    )
     var filmsData: [MovieCellModel] { get }
     var categoryData: [CatergoriesModel] { get }
     var categoriesFilmData: [PopularCategoryMovieCellModel] { get }
     func setUser()
     func showFavoritesScreen()
+    func setSelections()
+    
+    var selections: [Collections.Collection] { get }
 }
 
 final class HomePresenter: HomePresenterProtocol {
@@ -14,6 +22,9 @@ final class HomePresenter: HomePresenterProtocol {
     private weak var view: HomeViewControllerProtocol?
     private let dataSource: StorageManagerProtocol
     private let router: HomeRouterProtocol
+    private let networkingManager: NetworkingManager
+    
+    var selections: [Collections.Collection] = []
     
     //MARK: - Mock data
     var filmsData = [
@@ -40,10 +51,13 @@ final class HomePresenter: HomePresenterProtocol {
         PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
     ]
     
-    init(view: HomeViewControllerProtocol, storageManager: StorageManagerProtocol, router: HomeRouterProtocol) {
+    init(view: HomeViewControllerProtocol, storageManager: StorageManagerProtocol, router: HomeRouterProtocol, networkingManager: NetworkingManager) {
         self.view = view
         self.dataSource = storageManager
         self.router = router
+        self.networkingManager = networkingManager
+        
+        setSelections()
     }
     
     func setUser() {
@@ -53,5 +67,22 @@ final class HomePresenter: HomePresenterProtocol {
     
     func showFavoritesScreen() {
         router.showFavorites()
+    }
+    
+    func setSelections() {
+        networkingManager.getCollections { result in
+            switch result {
+                
+            case .success(let collections):
+                self.selections = collections.docs
+                
+                DispatchQueue.main.async {
+                    self.view?.reloadData()
+                }
+
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
