@@ -67,7 +67,7 @@ class PreviewCategoryCell: UICollectionViewCell {
 
 //FIXME: 
 struct MovieCellModel {
-    let image: UIImage
+    let image: UIImage?
     let name: String
     let description: String
 }
