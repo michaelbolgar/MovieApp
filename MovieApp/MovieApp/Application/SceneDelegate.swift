@@ -17,8 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UINavigationController(rootViewController: WishlistVC())
-//        window.rootViewController = MainTabBarController()
+//        window.rootViewController = UINavigationController(rootViewController: ViewController())
+        window.rootViewController = MainTabBarController()
 //        let navigationController = UINavigationController()
 //        let moduleBuilder = ModuleBuilder()
 //        let router = ProfileRouter(
