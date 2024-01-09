@@ -24,6 +24,7 @@ class DetailViewController: UIViewController {
            let layout = UICollectionViewFlowLayout()
            layout.scrollDirection = .vertical
            let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+#warning("заменить reuseIdentifier на нетекстовое значение для всех пяти ячеек -- спроси Мишу как")
         cv.register(
             HeaderCell.self, 
             forCellWithReuseIdentifier: Titles.header
@@ -315,15 +316,22 @@ extension DetailViewController {
 
 // MARK: - Constants
 private enum Titles {
+    #warning("тут надо пройтись по комментам и всё поправить")
+    //эти мы уберём вообще
     static let castAndCrew = "CastAndCrew"
     static let header = "headerCell"
     static let textCell = "textCell"
     static let galleryCell = "Gallery"
+    static let reuseIdentifier = "section-header-reuse-identifier"
+
+    //эти норм
     static let movieDetail = "Movie Detail"
     static let storyLineTitle = "Story Line"
+    //за наименования castAndCrewTitle и castAndCrew в енаме 'Titles' тебя надо отдать под суд :D это исправится само
     static let castAndCrewTitle = "Cast and Crew"
     static let galeryTitle = "Gallery"
-    static let reuseIdentifier = "section-header-reuse-identifier"
+
+    //ну вот тут две сущности, которые не группируются между собой, не относятся к тайтлам и нарушают SOLID
     static let fatalError = "Cannot create new header"
     static let heartImage = "heart.fill"
 }

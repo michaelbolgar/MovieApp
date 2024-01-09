@@ -85,6 +85,7 @@ extension DetailGalleryCell: UICollectionViewDelegate, UICollectionViewDataSourc
 }
 
 // MARK: - Titles Enum
+#warning("это надо убрать")
 private enum Titles {
     static let fatalError = "init(coder:) has not been implemented"
     static let galleryCell = "GalleryItemCell"
@@ -92,6 +93,7 @@ private enum Titles {
 
 // MARK: - CGFloat Private Extension
 private extension CGFloat {
+#warning("это можно пихнуть непосредственно в функцию, сильно жирно выглядит отдельный экстеншн для одной сущности")
     static let width: CGFloat = 100
 }
 

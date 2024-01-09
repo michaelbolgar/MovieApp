@@ -9,6 +9,7 @@ import UIKit
 
 // MARK: - Constants
 
+#warning("вставить текстом в код")
 private enum Titles {
     static let fatalError = "init(coder:) has not been implemented"
 }

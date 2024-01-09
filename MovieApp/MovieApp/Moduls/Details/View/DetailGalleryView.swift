@@ -33,9 +33,9 @@ class DetailGalleryView: UIView {
         
         addSubview(photo)
         photo.snp.makeConstraints {
-            $0.width.height.equalTo(Constants.width)
-            $0.leading.equalTo(Constants.leading)
-            $0.top.equalToSuperview().inset(Constants.inset)
+            $0.width.height.equalTo(LayoutConstants.width)
+            $0.leading.equalTo(LayoutConstants.leading)
+            $0.top.equalToSuperview().inset(LayoutConstants.inset)
         }
     }
 }
@@ -82,7 +82,7 @@ extension DetailGalleryView: Configurable {
 }
 
 // MARK: - Constants
-private enum Constants {
+private enum LayoutConstants {
     static let width = 100
     static let leading = 25
     static let inset = 10

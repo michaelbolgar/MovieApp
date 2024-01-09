@@ -13,7 +13,7 @@ final class DetailCastAndCrewView: UIView {
     // MARK: - Properties
     private lazy var avatar: UIImageView = {
         let image = UIImageView()
-        image.layer.cornerRadius = Constants.avatarSize / 2
+        image.layer.cornerRadius = LayoutConstants.avatarSize / 2
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
         return image
@@ -21,15 +21,15 @@ final class DetailCastAndCrewView: UIView {
 
     private let name = UILabel.makeLabel(
             text: "",
-            font: UIFont.montserratSemiBold(ofSize: Constants.nameFontSize),
+            font: UIFont.montserratSemiBold(ofSize: 14),
             textColor: .white,
-            numberOfLines: Constants.numberOfLines)
+            numberOfLines: 1)
 
         private let profession = UILabel.makeLabel(
             text: "",
-            font: UIFont.montserratSemiBold(ofSize: Constants.professionFontSize),
+            font: UIFont.montserratSemiBold(ofSize: 14),
             textColor: .white,
-            numberOfLines: Constants.numberOfLines)
+            numberOfLines: 1)
 
     // TODO: - NEED REMOVE TEXTSTACK
     private lazy var textStack: UIStackView = {
@@ -59,12 +59,12 @@ final class DetailCastAndCrewView: UIView {
             $0.leading.equalTo(
                 avatar.snp.trailing
             ).offset(
-                Constants.textLeadingOffset
+                LayoutConstants.textLeadingOffset
             )
             $0.centerY.equalTo(avatar)
         }
         avatar.snp.makeConstraints {
-            $0.width.height.equalTo(Constants.avatarSize)
+            $0.width.height.equalTo(LayoutConstants.avatarSize)
             $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
@@ -126,10 +126,8 @@ extension DetailCastAndCrewView: Configurable {
 }
 
 // MARK: - Constants
-private enum Constants {
+private enum LayoutConstants {
     static let avatarSize: CGFloat = 40
-    static let nameFontSize: CGFloat = 14
     static let professionFontSize: CGFloat = 10
-    static let numberOfLines = 1
     static let textLeadingOffset = 10
 }

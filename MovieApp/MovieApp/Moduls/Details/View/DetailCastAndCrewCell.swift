@@ -90,14 +90,13 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
 
 // MARK: - Constants
 private enum Titles {
+    #warning("это надо раскидать по другим местам")
     static let fatalError = "init(coder:) has not been implemented"
     static let castAndCrewCell = "CastAndCrewItemCell"
 }
 
 // MARK: - LayoutConstants
 private enum LayoutConstants {
-    static let fatalError = "init(coder:) has not been implemented"
-    static let castAndCrewCell = "CastAndCrewItemCell"
     static let collectionLeadingOffset = 25
     static let collectionViewWidth: CGFloat = 180
 }
