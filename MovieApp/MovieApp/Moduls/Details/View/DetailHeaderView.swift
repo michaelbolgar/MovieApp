@@ -2,7 +2,7 @@ import UIKit
 
 // MARK: - DetailHeaderView
 final class DetailHeaderView: UIView {
-    
+
     // MARK: - Properties
     private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
@@ -10,7 +10,7 @@ final class DetailHeaderView: UIView {
         imageView.clipsToBounds = true
         return imageView
     }()
-    
+
     private lazy var gradientLayer: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [
@@ -30,14 +30,14 @@ final class DetailHeaderView: UIView {
         gradient.locations = [GradientConstants.gradientBegin, GradientConstants.gradientEnd]
         return gradient
     }()
-    
+
     private lazy var posterView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
     }()
-    
+
     private lazy var filmInfoStack: UIStackView = {
         let stack = UIStackView()
         stack.distribution = .equalSpacing
@@ -45,17 +45,17 @@ final class DetailHeaderView: UIView {
         stack.axis = .horizontal
         return stack
     }()
-    
+
     private lazy var buttonStack: UIStackView = {
         let stack = UIStackView()
         stack.distribution = .equalSpacing
         stack.axis = .horizontal
         return stack
     }()
-    
+
     private var trailerClosure: (() -> Void)?
     private var shareClosure: (() -> Void)?
-    
+
     private lazy var trailerButton: UIButton = {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = LayoutConstants.trailerRadius
@@ -75,24 +75,24 @@ final class DetailHeaderView: UIView {
         button.setImage(UIImage(systemName: Images.share), for: .normal)
         return button
     }()
-    
+
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
     }
-    
+
     // MARK: - Layout
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = bounds
     }
-    
+
     private func createSeparator() -> UIView {
         let separator = UIView()
         separator.backgroundColor = .lightGray
@@ -102,12 +102,12 @@ final class DetailHeaderView: UIView {
         }
         return separator
     }
-    
+
     private func createLabeledIconView(
         title: String,
         iconName: String,
         color: UIColor = .white) -> UIView {
-            
+
         let view = UIView()
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: iconName)
@@ -115,17 +115,17 @@ final class DetailHeaderView: UIView {
         imageView.clipsToBounds = true
         imageView.tintColor = color
         view.addSubview(imageView)
-        
+
         let label = UILabel()
         label.text = title
         label.textColor = color
         view.addSubview(label)
-        
+
         imageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
         }
-        
+
         label.snp.makeConstraints { make in
             make.leading.equalTo(imageView.snp.trailing).offset(LayoutConstants.labelLeadingOffset)
             make.centerY.equalToSuperview()
@@ -133,7 +133,7 @@ final class DetailHeaderView: UIView {
         }
         return view
     }
-    
+
     // MARK: - Layout and Configuration
     private func configure() {
         addSubview(backgroundImageView)
@@ -141,47 +141,47 @@ final class DetailHeaderView: UIView {
         [posterView, filmInfoStack, buttonStack].forEach {
             addSubview($0)
         }
-        
+
         [trailerButton, shareButton].forEach {
             buttonStack.addArrangedSubview($0)
         }
-        
+
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+
         trailerButton.snp.makeConstraints {
             $0.width.equalTo(LayoutConstants.trailerButtonWidth)
             $0.height.equalTo(LayoutConstants.trailerButtonHeight)
         }
-        
+
         shareButton.snp.makeConstraints {
             $0.width.height.equalTo(LayoutConstants.shareButtonSize)
         }
-        
+
         posterView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(LayoutConstants.posterTopInset)
             make.leading.trailing.equalToSuperview().inset(LayoutConstants.posterLeadTralInset)
             make.height.equalTo(posterView.snp.width).multipliedBy(LayoutConstants.posterHeightMultiplied)
         }
-        
+
         filmInfoStack.snp.makeConstraints {
             $0.top.equalTo(posterView.snp.bottom).offset(LayoutConstants.filmInfoStackTopOffset)
             $0.centerX.equalToSuperview() // This will center it horizontally
                 $0.width.lessThanOrEqualTo(safeAreaLayoutGuide.snp.width).offset(LayoutConstants.filmInfoStackLeadingOffset)
         }
-        
+
         buttonStack.snp.makeConstraints {
             $0.top.equalTo(filmInfoStack.snp.bottom).offset(LayoutConstants.buttonStackTopOffset)
             $0.leading.trailing.equalToSuperview().inset(LayoutConstants.filmInfoStackLeadingOffset)
         }
     }
-    
+
     // MARK: - @objc
     @objc func trailerButtonTapped() {
         trailerClosure?()
     }
-    
+
     @objc func shareButtonTapped() {
         shareClosure?()
     }
@@ -198,37 +198,37 @@ extension DetailHeaderView: Configurable {
         let trailerClosure: () -> Void
         let shareClosure: () -> Void
     }
-    
+
     func update(model: Model) {
         trailerButton.addTarget(self, action: #selector(trailerButtonTapped), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        
+
         trailerClosure = model.trailerClosure
         shareClosure = model.shareClosure
-        
+
         filmInfoStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        
+
         let yearView = createLabeledIconView(title: model.year ?? "", iconName: Images.calendar)
         let durationView = createLabeledIconView(title: model.duration ?? "", iconName: Images.clock)
         let genreView = createLabeledIconView(title: model.genre ?? "", iconName: Images.action)
         let ratingView = createLabeledIconView(title: model.rating ?? "", iconName: Images.rating, color: UIColor.customOrange)
-        
+
         addSubview(ratingView)
                 ratingView.snp.makeConstraints {
                     $0.top.equalTo(filmInfoStack.snp.bottom).offset(LayoutConstants.filmInfoStackTopOffset)
                     $0.centerX.equalToSuperview()
                     // Установите любые другие констрейнты, которые необходимы для ratingView
                 }
-        
+
         [yearView, durationView, genreView].forEach {
             filmInfoStack.addArrangedSubview($0)
         }
-        
+
         guard let imageURL = model.imageURL, let url = URL(string: imageURL) else {
             posterView.image = nil
             return
         }
-        
+
 //        URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
 //            guard let self = self else { return }
 //

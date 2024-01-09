@@ -9,28 +9,28 @@ import UIKit
 
 // MARK: - DetailGalleryView
 class DetailGalleryView: UIView {
-    
+
     // MARK: - Properties
     private lazy var photo: UIImageView = {
         let image = UIImageView()
         return image
     }()
-    
+
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
     }
-    
+
     // MARK: - Configure
     private func configure() {
-        
-        
+
+
         addSubview(photo)
         photo.snp.makeConstraints {
             $0.width.height.equalTo(LayoutConstants.width)
@@ -46,9 +46,9 @@ extension DetailGalleryView: Configurable {
 //        let imageURL: URL?
         let imageURL: String?
     }
-    
+
     func update(model: Model) {
-        
+
         guard let imageURL = model.imageURL else {
             photo.image = nil
             return
@@ -56,23 +56,23 @@ extension DetailGalleryView: Configurable {
         // Асинхронная загрузка изображения
 //           URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
 //               guard let self = self else { return }
-//               
+//
 //               if let error = error {
 //                   // Обработка ошибки загрузки
 //                   print("Ошибка загрузки изображения: \(error.localizedDescription)")
 //                   return
 //               }
-//               
+//
 //               guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
 //                   print("Некорректный ответ сервера")
 //                   return
 //               }
-//               
+//
 //               guard let data = data, let image = UIImage(data: data) else {
 //                   print("Данные не могут быть преобразованы в изображение")
 //                   return
 //               }
-//               
+//
 //               DispatchQueue.main.async {
 //                   self.photo.image = image
 //               }

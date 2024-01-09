@@ -9,13 +9,13 @@ import UIKit
 
 // MARK: - DetailPresenter+Protocol
 final class DetailPresenter: DetailPresenterProtocol {
-    
+
     weak var view: DetailViewProtocol?
     let model = DetailModel()
     let header = DetailViewController.ViewModel.HeaderItem.self
     let castandcrew = [DetailViewController.ViewModel.CastAndCrewItem].self
     let gallery = DetailViewController.ViewModel.GalleryItem.self
-    
+
     func activate() {
         view?.update(
             with: DetailViewController.ViewModel(

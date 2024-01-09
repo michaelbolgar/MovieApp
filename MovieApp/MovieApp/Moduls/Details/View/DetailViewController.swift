@@ -10,23 +10,23 @@ import UIKit
 // MARK: - DetailViewController
 
 class DetailViewController: UIViewController {
-    
+
     typealias HeaderCell = CollectionCell<DetailHeaderView>
     typealias TextCell = CollectionCell<UILabel>
-    
+
     var presenter: DetailPresenterProtocol!
-    
+
     private var items = [ViewModel.Item]()
     private var likeBarButtonAction: (() -> Void)?
     private var viewModel: ViewModel?
-    
+
     private lazy var collectionView: UICollectionView = {
            let layout = UICollectionViewFlowLayout()
            layout.scrollDirection = .vertical
            let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
 #warning("заменить reuseIdentifier на нетекстовое значение для всех пяти ячеек -- спроси Мишу как")
         cv.register(
-            HeaderCell.self, 
+            HeaderCell.self,
             forCellWithReuseIdentifier: Titles.header
         )
         cv.register(
@@ -34,11 +34,11 @@ class DetailViewController: UIViewController {
             forCellWithReuseIdentifier: Titles.textCell
         )
         cv.register(
-            DetailGalleryCell.self, 
+            DetailGalleryCell.self,
             forCellWithReuseIdentifier: Titles.galleryCell
         )
         cv.register(
-            SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, 
+            SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: Titles.reuseIdentifier
         )
         cv.register(
@@ -51,7 +51,7 @@ class DetailViewController: UIViewController {
         cv.contentInsetAdjustmentBehavior = .never
            return cv
        }()
-    
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -59,13 +59,13 @@ class DetailViewController: UIViewController {
         presenter.activate()
         layout()
     }
-    
+
     // MARK: - Layout
-    
+
     private func layout() {
         view.addSubview(collectionView)
         view.backgroundColor = UIColor.customDarkBlue
-        
+
         if #available(iOS 11.0, *) {
             collectionView.contentInset = UIEdgeInsets(
                 top: view.safeAreaInsets.top,
@@ -73,7 +73,7 @@ class DetailViewController: UIViewController {
                 right: 0
             )
         }
-        
+
         collectionView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalToSuperview()
@@ -84,19 +84,19 @@ class DetailViewController: UIViewController {
 
 // MARK: - UICollectionView+Extension
 
-extension DetailViewController: UICollectionViewDelegate, 
+extension DetailViewController: UICollectionViewDelegate,
                                     UICollectionViewDataSource,
                                     UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
             return 1
         }
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return items.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, 
+
+    func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
             switch items[indexPath.section] {
@@ -123,7 +123,7 @@ extension DetailViewController: UICollectionViewDelegate,
             }
         }
 
-        func collectionView(_ collectionView: UICollectionView, 
+        func collectionView(_ collectionView: UICollectionView,
                             layout collectionViewLayout: UICollectionViewLayout,
                             referenceSizeForHeaderInSection section: Int) -> CGSize {
             switch items[section] {
@@ -136,8 +136,8 @@ extension DetailViewController: UICollectionViewDelegate,
                 return CGSize.zero
             }
         }
-        
-        func collectionView(_ collectionView: UICollectionView, 
+
+        func collectionView(_ collectionView: UICollectionView,
                             viewForSupplementaryElementOfKind kind: String,
                             at indexPath: IndexPath) -> UICollectionReusableView {
             guard let headerView = collectionView.dequeueReusableSupplementaryView(
@@ -164,11 +164,11 @@ extension DetailViewController: UICollectionViewDelegate,
             headerView.configure(with: title)
             return headerView
         }
-    
-    func collectionView(_ collectionView: UICollectionView, 
+
+    func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = items[indexPath.section]
-        
+
         switch item {
         case .storyLine(item: let item):
             let cell = collectionView.dequeueReusableCell(
@@ -218,23 +218,23 @@ extension DetailViewController: UICollectionViewDelegate,
 
 extension DetailViewController: DetailViewProtocol {
     func update(with model: ViewModel) {
-        
+
         title = model.title
         self.viewModel = model
-        
+
         self.likeBarButtonAction = model.likeBarButtonAction
         if model.likeBarButtonAction != nil {
             navigationItem.rightBarButtonItem = UIBarButtonItem(
-                image: UIImage(named: Titles.heartImage), 
+                image: UIImage(named: Titles.heartImage),
                 style: .plain,
                 target: self,
                 action: #selector(didTapLikeBarButton))
         } else {
             navigationItem.rightBarButtonItem = nil
         }
-        
+
         items.removeAll()
-        
+
         items.append(
             .header(
                 item: .init(
@@ -250,20 +250,20 @@ extension DetailViewController: DetailViewProtocol {
                 item: .init(text: model.storyLine)))
         items.append(.castAndCrew)
         items.append(.gallery)
-        
+
         collectionView.reloadData()
     }
-    
+
     // MARK: - Actions
-    
+
     func showLoading() {
         print("show lodaing")
     }
-    
+
     func hideLoading() {
         print("hide lodaing")
     }
-    
+
     @objc
     private func didTapLikeBarButton() {
         likeBarButtonAction?()
@@ -274,7 +274,7 @@ extension DetailViewController: DetailViewProtocol {
 
 extension DetailViewController {
     struct ViewModel {
-        
+
         struct HeaderItem {
 //            let imageURL: URL?
             let imageURL: String?
@@ -285,26 +285,26 @@ extension DetailViewController {
             let trailerClosure: (() -> Void)
             let shareClosure: (() -> Void)
         }
-        
+
         struct CastAndCrewItem {
 //            let imageURL: URL?
             let imageURL: String?
             let name: String?
             let profession: String?
         }
-        
+
         struct GalleryItem {
 //            let imageURL: URL?
             let imageURL: String?
         }
-        
+
         enum Item {
             case header(item: DetailHeaderView.Model)
             case storyLine(item: UILabel.Model)
             case castAndCrew
             case gallery
         }
-        
+
         let title: String
         let storyLine: String
         let header: HeaderItem
@@ -344,4 +344,3 @@ private enum LayoutConstants {
     static let galleryHeight: CGFloat = 180
     static let sectionsHeight: CGFloat = 40
 }
-

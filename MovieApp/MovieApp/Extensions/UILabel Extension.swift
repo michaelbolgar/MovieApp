@@ -20,7 +20,7 @@ extension UILabel: Configurable {
         let text: NSAttributedString
         let numberOfLines: Int
         let textAlignment: NSTextAlignment
-        
+
         init(
             text: NSAttributedString,
             numberOfLines: Int,
@@ -50,7 +50,7 @@ extension UILabel: Configurable {
             self.textAlignment = textAlignment
         }
     }
-    
+
     func update(model: Model) {
         self.attributedText = model.text
         self.numberOfLines = model.numberOfLines
