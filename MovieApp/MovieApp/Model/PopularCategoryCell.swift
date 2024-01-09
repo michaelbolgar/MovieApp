@@ -75,20 +75,21 @@ final class PopularCategoryCell: UICollectionViewCell {
     }
     
     // MARK: - Public Methods
-    func configure(with model: PopularMovies.PopularMovie){
+    func configure(with model: PopularMovies.PopularMovie) {
+        
         guard
-            let url = URL(string: model.poster?.previewUrl ?? "")
+            let url = URL(string: model.poster?.url ?? "")
         else {
             return
         }
-        
+
         DispatchQueue.global().async { [weak self] in
             guard
                 let imageData = try? Data(contentsOf: url)
             else {
                 return
             }
-            
+
             DispatchQueue.main.async {
                 self?.filmeImage.image = UIImage(data: imageData)
                 self?.activityIndicator.stopAnimating()

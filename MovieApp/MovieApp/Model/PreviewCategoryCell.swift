@@ -46,9 +46,16 @@ final class PreviewCategoryCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     func configure(with model: Collections.Collection) {
+        
+        let defaultImage = UIImage(named: "defaultImage")
+        
         guard
-            let url = URL(string: model.cover?.previewUrl ?? "")
+            let url = URL(string: model.cover?.url ?? "")
         else {
+            filmeImage.image = defaultImage
+            activityIndicator.stopAnimating()
+            nameCategoryLabel.text = model.name
+            descriptionLabel.text = "50 movies"
             return
         }
 

@@ -10,6 +10,7 @@ struct Poster: Codable {
 struct Cover: Codable {
     #warning("подобрать дефолтную картинку для случае, когда нет обложки (так бывает)")
     let previewUrl: String?
+    let url: String?
 }
 
 struct Genre: Codable {
