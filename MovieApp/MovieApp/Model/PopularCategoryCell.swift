@@ -67,7 +67,7 @@ class PopularCategoryCell: UICollectionViewCell {
     }
     
     //FIXME: - Переделать когда будет готова сеть
-    func configure(with model:PopularCategoryMovieCellModel){
+    func configure(with model: PopularCategoryMovieCellModel){
         filmeImage.image = model.image
         nameFilmLabel.text = model.name
         ganreFilmLabel.text = model.ganre
@@ -107,15 +107,20 @@ class PopularCategoryCell: UICollectionViewCell {
             make.trailing.equalTo(backgorundForRaitingView).inset(8)
             make.centerY.equalTo(backgorundForRaitingView)
         }
-        
     }
-    
 }
 
-//FIXME: 
+//FIXME
 struct PopularCategoryMovieCellModel {
+
+//     let image: UIImage
+//     let name: String
+//     let ganre: String
+//     let rating: String
+
     let image:UIImage?
     let name:String
     let ganre:String
     let rating:String
+
 }

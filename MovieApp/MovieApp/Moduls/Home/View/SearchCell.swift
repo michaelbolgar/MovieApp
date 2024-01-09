@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SearchCell: UITableViewCell {
+final class SearchCell: UITableViewCell {
     
     //MARK: - Properties
     static let identifier = String(describing: SearchCell.self)
@@ -98,7 +98,7 @@ class SearchCell: UITableViewCell {
     }
     
     //FIXME: - Переделать когда будет готова сеть
-    func configure(with model:SearchCellModel){
+    func configure(with model: SearchCellModel){
         filmeImage.image = model.image
         ratingLabel.text = model.rating
         filmNameLabel.text = model.name
@@ -191,16 +191,4 @@ class SearchCell: UITableViewCell {
             make.leading.equalTo(ganreLabel.snp.trailing).offset(8)
         }
     }
-}
-
-//FIXME: 
-struct SearchCellModel{
-    let image: UIImage
-    let rating: String
-    let name: String
-    let ageLimit: String
-    let year: String
-    let time: String
-    let ganre: String
-    let type: String
 }
