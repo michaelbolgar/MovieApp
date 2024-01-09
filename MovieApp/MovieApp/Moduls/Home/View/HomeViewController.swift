@@ -2,7 +2,8 @@ import UIKit
 
 protocol HomeViewControllerProtocol: AnyObject {
     func setUserInfo(with user: User)
-    func reloadData()
+    func reloadPreviewCollection()
+    func reloadPopularCollection()
 }
 
 final class HomeViewController: UIViewController {
@@ -39,7 +40,8 @@ final class HomeViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
             PreviewCategoryCell.self,
-            forCellWithReuseIdentifier: PreviewCategoryCell.identifier)
+            forCellWithReuseIdentifier: PreviewCategoryCell.identifier
+        )
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -139,12 +141,14 @@ final class HomeViewController: UIViewController {
         return button
     }()
     
-    //MARK: - Life Cycle
+    //MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
         setupConstraints()
         presenter.setUser()
+        presenter.setSelections()
+        presenter.setPopularMovies()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -158,13 +162,6 @@ final class HomeViewController: UIViewController {
     }
     
     //MARK: - Private Methods
-    private func setViews() {
-        view.backgroundColor = .clear
-        favoriteView.addSubview(favoritesButton)
-        [avatarImage, userNameLabel, scrollView, favoriteView].forEach { self.view.addSubview($0) }
-        [searchBar, previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0) }
-    }
-    
     private func selectFirstCell(){
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
@@ -176,17 +173,13 @@ extension HomeViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        switch collectionView{
+        switch collectionView {
         case previewCollectionView:
             return presenter.selections.count
-            
-            
         case categoryCollectionView:
             return presenter.categoryData.count
-            
         case categoryFilmCollectionView:
-            return presenter.categoriesFilmData.count
-            
+            return presenter.popularMovies.count
         default:
             return 0
         }
@@ -198,8 +191,8 @@ extension HomeViewController: UICollectionViewDataSource{
         case previewCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: PreviewCategoryCell.identifier,
-                for: indexPath) as? PreviewCategoryCell
+                    withReuseIdentifier: PreviewCategoryCell.identifier,
+                    for: indexPath) as? PreviewCategoryCell
             else {
                 return UICollectionViewCell()
             }
@@ -207,14 +200,26 @@ extension HomeViewController: UICollectionViewDataSource{
             return cell
             
         case categoryCollectionView:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCell.identifier, for: indexPath) as! CategoriesCell
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: CategoriesCell.identifier,
+                    for: indexPath) as? CategoriesCell
+            else {
+                return UICollectionViewCell()
+            }
             cell.configure(with: presenter.categoryData[indexPath.item])
             cell.isSelected ? cell.selectCell() : cell.deselectCell()
             return cell
             
         case categoryFilmCollectionView:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCategoryCell.identifier, for: indexPath) as! PopularCategoryCell
-            cell.configure(with: presenter.categoriesFilmData[indexPath.item])
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: PopularCategoryCell.identifier,
+                    for: indexPath) as? PopularCategoryCell
+            else {
+                return UICollectionViewCell()
+            }
+            cell.configure(with: presenter.popularMovies[indexPath.item])
             return cell
             
         default:
@@ -222,22 +227,19 @@ extension HomeViewController: UICollectionViewDataSource{
         }
     }
 }
-//MARK: - UICollectionViewDelegate
+
+//MARK: - UICollectionViewDelegateFlowLayout
 extension HomeViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         switch collectionView {
-            
         case previewCollectionView:
             return CGSize(width: 295, height: 154)
-            
         case categoryCollectionView:
             return CGSize(width: 80, height: 31)
-            
         case categoryFilmCollectionView:
             return CGSize(width: 135, height: 231)
-            
         default:
             return CGSize.zero
         }
@@ -245,8 +247,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
 }
 
 //MARK: - UICollectionViewDelegate
-extension HomeViewController: UICollectionViewDelegate{
-    
+extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == categoryCollectionView {
             if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
@@ -271,14 +272,32 @@ extension HomeViewController: HomeViewControllerProtocol {
         userNameLabel.text = "Hello, " + user.fullName
     }
     
-    func reloadData() {
-        previewCollectionView.reloadData()
+    func reloadPreviewCollection() {
+        DispatchQueue.main.async {
+            self.previewCollectionView.reloadData()
+        }
+    }
+    
+    func reloadPopularCollection() {
+        DispatchQueue.main.async {
+            self.categoryFilmCollectionView.reloadData()
+        }
     }
 }
 
-//MARK: - SetupConstraints
-extension HomeViewController{
-    private func setupConstraints(){
+//MARK: - Setup UI
+private extension HomeViewController{
+    
+    func setViews() {
+        view.backgroundColor = .clear
+        favoriteView.addSubview(favoritesButton)
+        [avatarImage, userNameLabel, scrollView, favoriteView].forEach { self.view.addSubview($0)
+        }
+        [searchBar, previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0)
+        }
+    }
+    
+    func setupConstraints(){
         avatarImage.snp.makeConstraints { make in
             make.width.height.equalTo(40)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(15)

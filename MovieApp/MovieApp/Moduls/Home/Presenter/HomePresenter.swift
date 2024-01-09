@@ -7,31 +7,28 @@ protocol HomePresenterProtocol {
         router: HomeRouterProtocol,
         networkingManager: NetworkingManager
     )
-    var filmsData: [MovieCellModel] { get }
+    
     var categoryData: [CatergoriesModel] { get }
-    var categoriesFilmData: [PopularCategoryMovieCellModel] { get }
+    var selections: [Collections.Collection] { get }
+    var popularMovies: [PopularMovies.PopularMovie] { get }
+    
     func setUser()
     func showFavoritesScreen()
     func setSelections()
-    
-    var selections: [Collections.Collection] { get }
+    func setPopularMovies()
 }
 
 final class HomePresenter: HomePresenterProtocol {
-
+    
     private weak var view: HomeViewControllerProtocol?
     private let dataSource: StorageManagerProtocol
     private let router: HomeRouterProtocol
     private let networkingManager: NetworkingManager
     
     var selections: [Collections.Collection] = []
+    var popularMovies: [PopularMovies.PopularMovie] = []
     
     //MARK: - Mock data
-    var filmsData = [
-        MovieCellModel(image: nil, name: "Marvel", description: "40 best movies"),
-        MovieCellModel(image: nil, name: "Marvel", description: "40 best movies"),
-        MovieCellModel(image: nil, name: "Marvel", description: "40 best movies"),
-    ]
     
     var categoryData = [
         CatergoriesModel(name: "All"),
@@ -43,32 +40,21 @@ final class HomePresenter: HomePresenterProtocol {
         CatergoriesModel(name: "Animation"),
     ]
     
-    var categoriesFilmData = [
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-    ]
-    
     init(view: HomeViewControllerProtocol, storageManager: StorageManagerProtocol, router: HomeRouterProtocol, networkingManager: NetworkingManager) {
         self.view = view
         self.dataSource = storageManager
         self.router = router
         self.networkingManager = networkingManager
-        
-        setSelections()
     }
     
+    // realm
     func setUser() {
         guard let user = dataSource.fetchUser() else { return }
         view?.setUserInfo(with: user)
     }
     
-    func showFavoritesScreen() {
-        router.showFavorites()
-    }
     
+    // network layer
     func setSelections() {
         networkingManager.getCollections { result in
             switch result {
@@ -76,13 +62,30 @@ final class HomePresenter: HomePresenterProtocol {
             case .success(let collections):
                 self.selections = collections.docs
                 
-                DispatchQueue.main.async {
-                    self.view?.reloadData()
-                }
-
+                self.view?.reloadPreviewCollection()
+                
             case .failure(let error):
                 print(error)
             }
         }
+    }
+    
+    func setPopularMovies() {
+        networkingManager.getPopular { result in
+            switch result {
+                
+            case .success(let movies):
+                self.popularMovies = movies.docs
+                print(self.popularMovies)
+                self.view?.reloadPopularCollection()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    // navigation
+    func showFavoritesScreen() {
+        router.showFavorites()
     }
 }

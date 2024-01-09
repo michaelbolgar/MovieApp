@@ -1,11 +1,11 @@
 import UIKit
-import SnapKit
 
-class PreviewCategoryCell: UICollectionViewCell {
+final class PreviewCategoryCell: UICollectionViewCell {
     
-    //MARK: - Properties
+    //MARK: - Static Properties
     static let identifier = String(describing: PreviewCategoryCell.self)
     
+    // MARK: - Private UI Properties
     private let filmeImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -13,15 +13,29 @@ class PreviewCategoryCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let nameCategoryLabel:UILabel = .makeLabel(font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
-    private let descriptionLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 12), textColor: .white, numberOfLines: 1)
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        var indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        indicator.color = .white
+        return indicator
+    }()
+    
+    private let nameCategoryLabel:UILabel = .makeLabel(
+        font: UIFont.montserratSemiBold(ofSize: 16),
+        textColor: .customRed,
+        numberOfLines: 1
+    )
+    private let descriptionLabel:UILabel = .makeLabel(
+        font: UIFont.montserratRegular(ofSize: 12),
+        textColor: .customRed,
+        numberOfLines: 1
+    )
     
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .customGrey
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = 16
+        setupCellUI()
         setupViews()
         setupConstraints()
     }
@@ -30,30 +44,50 @@ class PreviewCategoryCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
-    private func setupViews() {
+    // MARK: - Public Methods
+    func configure(with model: Collections.Collection) {
+        guard
+            let url = URL(string: model.cover?.previewUrl ?? "")
+        else {
+            return
+        }
+
+        DispatchQueue.global().async { [weak self] in
+            guard
+                let imageData = try? Data(contentsOf: url)
+            else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.filmeImage.image = UIImage(data: imageData)
+                self?.activityIndicator.stopAnimating()
+                self?.nameCategoryLabel.text = model.name
+                self?.descriptionLabel.text = "50 movies"
+            }
+        }
+    }
+}
+
+// MARK: - Setup UI
+private extension PreviewCategoryCell {
+    func setupCellUI() {
+        contentView.backgroundColor = .customGrey
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 16
+    }
+    
+    func setupViews() {
         contentView.addSubview(filmeImage)
         contentView.addSubview(nameCategoryLabel)
         contentView.addSubview(descriptionLabel)
+        contentView.addSubview(activityIndicator)
     }
     
-    //FIXME: - Переделать когда будет готова сеть
-    func configure(with model: Collections.Collection) {
-//        filmeImage.image = model.image
-        nameCategoryLabel.text = model.name
-        
-        guard let url = URL(string: model.cover?.previewUrl ?? "") else { return }
-        
-        DispatchQueue.global().async { [weak self] in
-            guard let imageData = try? Data(contentsOf: url) else { return }
-            DispatchQueue.main.async {
-                self?.filmeImage.image = UIImage(data: imageData)
-            }
+    func setupConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
-//        descriptionLabel.text = model.description
-    }
-    
-    private func setupConstraints() {
         
         filmeImage.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
@@ -69,14 +103,5 @@ class PreviewCategoryCell: UICollectionViewCell {
             make.leading.equalTo(nameCategoryLabel.snp.leading).offset(16)
             make.bottom.equalTo(filmeImage.snp.bottom).inset(16)
         }
-        
     }
-    
-}
-
-//FIXME: 
-struct MovieCellModel {
-    let image: UIImage?
-    let name: String
-    let description: String
 }
