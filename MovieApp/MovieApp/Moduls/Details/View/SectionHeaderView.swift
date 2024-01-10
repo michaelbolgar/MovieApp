@@ -7,13 +7,6 @@
 
 import UIKit
 
-// MARK: - Constants
-
-#warning("вставить текстом в код")
-private enum Titles {
-    static let fatalError = "init(coder:) has not been implemented"
-}
-
 // MARK: - SectionHeaderView
 
 class SectionHeaderView: UICollectionReusableView {
@@ -35,7 +28,7 @@ class SectionHeaderView: UICollectionReusableView {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError(Titles.fatalError)
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Setup

@@ -92,36 +92,21 @@ extension DetailCastAndCrewView: Configurable {
     func update(model: Model) {
         name.text = model.name
         profession.text = model.profession
-
-        guard let imageURL = model.imageURL else {
+        
+        guard let imageURL = model.imageURL, let url = URL(string: imageURL) else {
             avatar.image = nil
             return
         }
-        // Асинхронная загрузка изображения
-//           URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
-//               guard let self = self else { return }
-//
-//               if let error = error {
-//                   // Обработка ошибки загрузки
-//                   print("Ошибка загрузки изображения: \(error.localizedDescription)")
-//                   return
-//               }
-//
-//               guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-//                   print("Некорректный ответ сервера")
-//                   return
-//               }
-//
-//               guard let data = data, let image = UIImage(data: data) else {
-//                   print("Данные не могут быть преобразованы в изображение")
-//                   return
-//               }
-//
-//               DispatchQueue.main.async {
-//                   self.avatar.image = image
-//               }
-//           }.resume()
-        avatar.image = UIImage(named: "creator")
+        
+        ImageDownloader.shared.downloadImage(from: url) { result in
+            switch result {
+            case .success(let image):
+                self.avatar.image = image
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.avatar.image = UIImage(named: "creator")
+            }
+        }
     }
 }
 

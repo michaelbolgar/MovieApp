@@ -9,8 +9,9 @@ import UIKit
 
 // MARK: - DetailCastAndCrewCell
 class DetailCastAndCrewCell: UICollectionViewCell {
-
+    
     typealias CastAndCrewCell = CollectionCell<DetailCastAndCrewView>
+    static let identifier = String(describing: DetailCastAndCrewCell.self)
 
     // MARK: - Properties
     private lazy var collectionView: UICollectionView = {
@@ -39,7 +40,7 @@ class DetailCastAndCrewCell: UICollectionViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError(Titles.fatalError)
+        fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Layout
@@ -91,7 +92,6 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
 // MARK: - Constants
 private enum Titles {
     #warning("это надо раскидать по другим местам")
-    static let fatalError = "init(coder:) has not been implemented"
     static let castAndCrewCell = "CastAndCrewItemCell"
 }
 

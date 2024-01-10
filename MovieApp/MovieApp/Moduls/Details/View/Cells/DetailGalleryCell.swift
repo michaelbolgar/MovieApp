@@ -11,6 +11,7 @@ import UIKit
 class DetailGalleryCell: UICollectionViewCell {
 
     typealias GalleryCell = CollectionCell<DetailGalleryView>
+    static let identifier = String(describing: DetailGalleryCell.self)
 
     // MARK: - Properties
     private lazy var collectionView: UICollectionView = {

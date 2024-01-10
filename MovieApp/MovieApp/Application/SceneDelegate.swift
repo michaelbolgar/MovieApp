@@ -1,46 +1,43 @@
-//
-//  SceneDelegate.swift
-//  MovieApp
-//
-//  Created by Михаил Болгар on 24.12.2023.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-//        window.rootViewController = UINavigationController(rootViewController: ViewController())
-//        window.rootViewController = MainTabBarController()
-//        let navigationController = UINavigationController()
+        detailsRequest()
 
-        func makeScreen() -> UIViewController {
-                            let controller = DetailViewController()
-                            let presenter = DetailPresenter()
+        // Define the detailsRequest function
+        func detailsRequest() {
+            let movieID = 666
+            NetworkingManager.shared.getMovieDetails(for: movieID) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let movieDetails):
+                        self?.window?.rootViewController = makeScreen(movieDetails: movieDetails)
+                        self?.window?.makeKeyAndVisible()
+                    case .failure(let error):
+                        print("Error fetching movie details: \(error)")
+                    }
+                }
+            }
+        }
 
-                            controller.presenter = presenter
-                            presenter.view = controller
+        // Define the makeScreen function
+        func makeScreen(movieDetails: MovieDetails) -> UIViewController {
+            let controller = DetailViewController()
+            let presenter = DetailPresenter(movieDetails)
 
-                            return controller
-                        }
+            controller.presenter = presenter
+            presenter.view = controller
 
-                        window.rootViewController = makeScreen()
+            return controller
+        }
 
-//        let moduleBuilder = ModuleBuilder()
-//        let router = ProfileRouter(
-//            navigationController: navigationController,
-//            moduleBuilder: moduleBuilder
-//        )
-//        router.initialViewController()
-//        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
         self.window = window
     }
+
 }
