@@ -25,10 +25,22 @@ class ViewController: UIViewController {
             make.centerY.equalToSuperview()
         }
 
-        detailsRequst()
+//        detailsRequst()
 //        collectionRequst()
 //        popularRequest()
 //        search()
+        slugRequest()
+    }
+
+    private func slugRequest() {
+        NetworkingManager.shared.getColletionMovieList(for: "100_greatest_movies_XXI") { result in
+            switch result {
+            case .success(let movieCollection):
+                print("List of movies: \(movieCollection)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
     }
 
     private func detailsRequst() {
