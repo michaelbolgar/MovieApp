@@ -103,6 +103,7 @@
 		FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */; };
 		FA37EAD02B459ED700760039 /* PopularMoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */; };
 		FA37EAD32B4C00AF00760039 /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */; };
+		FA90FCAD2B4EBE8900DACBA5 /* OnboardingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA90FCAC2B4EBE8900DACBA5 /* OnboardingCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -201,6 +202,7 @@
 		FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieViewController.swift; sourceTree = "<group>"; };
 		FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviePresenter.swift; sourceTree = "<group>"; };
 		FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
+		FA90FCAC2B4EBE8900DACBA5 /* OnboardingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -621,6 +623,7 @@
 			children = (
 				F48094602B38F514004C9F96 /* PagesViewController.swift */,
 				F48094622B38F547004C9F96 /* Onboarding View Controller.swift */,
+				FA90FCAC2B4EBE8900DACBA5 /* OnboardingCollectionViewCell.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1055,6 +1058,7 @@
 				F48094CF2B4DF620004C9F96 /* RootRouter.swift in Sources */,
 				3CFEF1342B418F70000DA0B1 /* WishlistVC + UITableView.swift in Sources */,
 				F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */,
+				FA90FCAD2B4EBE8900DACBA5 /* OnboardingCollectionViewCell.swift in Sources */,
 				F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

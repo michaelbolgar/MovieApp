@@ -121,6 +121,11 @@ final class HomeViewController: UIViewController {
         selectFirstCell()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showOnboarding()
+    }
+    
     //MARK: - Private Methods
     private func setViews() {
         view.backgroundColor = .clear
@@ -139,6 +144,15 @@ final class HomeViewController: UIViewController {
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
     
+    private func showOnboarding() {
+        let userDefaults = UserDefaults.standard
+        let onBoardingWasViewed = userDefaults.bool(forKey: "OnBoardingWasViewed")
+        if onBoardingWasViewed == false {
+            let onboardingViewController = OnboardingViewController()
+            onboardingViewController.modalPresentationStyle = .fullScreen
+            present(onboardingViewController, animated: true)
+        }
+    }
 }
 
 
