@@ -18,6 +18,7 @@ protocol HomePresenterProtocol {
     func setPopularMovies()
     
     func showDetailsMovie(_ movieId: Int)
+    func showPopularMovies()
 }
 
 final class HomePresenter: HomePresenterProtocol {
@@ -78,7 +79,6 @@ final class HomePresenter: HomePresenterProtocol {
                 
             case .success(let movies):
                 self.popularMovies = movies.docs
-                print(self.popularMovies)
                 self.view?.reloadPopularCollection()
             case .failure(let error):
                 print(error)
@@ -93,5 +93,11 @@ final class HomePresenter: HomePresenterProtocol {
     
     func showDetailsMovie(_ movieId: Int) {
         router.showDetails(movieId)
+    }
+    
+    func showPopularMovies() {
+        if !popularMovies.isEmpty {
+            self.router.showPopularScreen(with: self.popularMovies)
+        }
     }
 }

@@ -149,6 +149,7 @@ final class HomeViewController: UIViewController {
         presenter.setUser()
         presenter.setSelections()
         presenter.setPopularMovies()
+        showPopularVC()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,6 +160,12 @@ final class HomeViewController: UIViewController {
     // MARK: - Private Actions
     @objc private func favoritesButtonDidTapped() {
         presenter.showFavoritesScreen()
+    }
+    
+    private func showPopularVC() {
+        categoriesPreviewView.seeAllButtonTapped = {
+            self.presenter.showPopularMovies()
+        }
     }
     
     //MARK: - Private Methods

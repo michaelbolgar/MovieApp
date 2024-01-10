@@ -9,14 +9,22 @@ import UIKit
 
 final class CatergoriesSectionView: UIView {
     
-    // MARK: - UI Properties
-    let titleLabel = UILabel.makeLabel(text: "", font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
+    // MARK: - Closures
+    var seeAllButtonTapped: (() -> Void)?
     
-    let seeAllButton: UIButton = {
-        let element = UIButton()
+    // MARK: - UI Properties
+    private let titleLabel = UILabel.makeLabel(text: "", font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
+    
+    private let seeAllButton: UIButton = {
+        let element = UIButton(type: .system)
         element.setTitle("See all", for: .normal)
         element.setTitleColor(.customBlue, for: .normal)
         element.titleLabel?.font = UIFont.montserratRegular(ofSize: 14)
+        element.addTarget(
+            self,
+            action: #selector(seeAllButtonDidTapped),
+            for: .touchUpInside
+        )
         return element
     }()
     
@@ -31,6 +39,11 @@ final class CatergoriesSectionView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Private Actions
+    @objc private func seeAllButtonDidTapped() {
+        seeAllButtonTapped?()
     }
     
     //MARK: - Methods

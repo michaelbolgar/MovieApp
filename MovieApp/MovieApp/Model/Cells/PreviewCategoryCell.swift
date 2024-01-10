@@ -23,12 +23,12 @@ final class PreviewCategoryCell: UICollectionViewCell {
     
     private let nameCategoryLabel:UILabel = .makeLabel(
         font: UIFont.montserratSemiBold(ofSize: 16),
-        textColor: .customRed,
+        textColor: .white,
         numberOfLines: 1
     )
     private let descriptionLabel:UILabel = .makeLabel(
         font: UIFont.montserratRegular(ofSize: 12),
-        textColor: .customRed,
+        textColor: .white,
         numberOfLines: 1
     )
     
@@ -51,7 +51,7 @@ final class PreviewCategoryCell: UICollectionViewCell {
         
         self.activityIndicator.stopAnimating()
         self.nameCategoryLabel.text = model.name
-        self.descriptionLabel.text = "50 movies"
+        self.descriptionLabel.text = "\(model.moviesCount ?? 10) movies"
         
         guard
             let url = URL(string: model.cover?.url ?? "")
@@ -59,7 +59,7 @@ final class PreviewCategoryCell: UICollectionViewCell {
             filmeImage.image = defaultImage
             activityIndicator.stopAnimating()
             nameCategoryLabel.text = model.name
-            descriptionLabel.text = "50 movies"
+            descriptionLabel.text = "\(model.moviesCount ?? 0) movies"
             return
         }
         

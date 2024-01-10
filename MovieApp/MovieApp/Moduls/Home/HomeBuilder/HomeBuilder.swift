@@ -12,6 +12,7 @@ protocol HomeBuilderProtocol {
     func createHomeModule(router: HomeRouterProtocol) -> UIViewController
     func createFavoritesModule() -> UIViewController
     func createDetailsModule(_ movieId: Int) -> UIViewController
+    func createPopularModule(with movies: [PopularMovies.PopularMovie]) -> UIViewController
 }
 
 // MARK: - ModuleBUilder
@@ -46,5 +47,14 @@ final class HomeBuilder: HomeBuilderProtocol {
         view.presenter = presenter
         return view
     }
+    
+    func createPopularModule(with movies: [PopularMovies.PopularMovie]) -> UIViewController {
+        let view = PopularMovieViewController()
+        let presenter = PopularMoviePresenter(view: view, movies: movies)
+        view.presenter = presenter
+        return view
+    }
+    
+
 }
 

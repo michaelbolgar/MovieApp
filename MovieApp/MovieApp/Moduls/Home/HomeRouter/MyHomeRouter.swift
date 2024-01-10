@@ -18,6 +18,7 @@ protocol HomeRouterProtocol: RouterMainHomeProtocol {
     func initialViewController()
     func showFavorites()
     func showDetails(_ movieId: Int)
+    func showPopularScreen(with movies: [PopularMovies.PopularMovie])
 }
 
 // MARK: - ProfileRouter
@@ -52,6 +53,13 @@ final class MyHomeRouter: HomeRouterProtocol {
         if let navigationController = navigationController {
             guard let detailsVC = moduleBuilder?.createDetailsModule(movieId) else { return }
             navigationController.pushViewController(detailsVC, animated: true)
+        }
+    }
+    
+    func showPopularScreen(with movies: [PopularMovies.PopularMovie]) {
+        if let navigationController = navigationController {
+            guard let popularVC = moduleBuilder?.createPopularModule(with: movies) else { return }
+            navigationController.pushViewController(popularVC, animated: true)
         }
     }
 }
