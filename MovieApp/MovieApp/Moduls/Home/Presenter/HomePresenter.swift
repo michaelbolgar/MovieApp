@@ -19,6 +19,7 @@ protocol HomePresenterProtocol {
     
     func showDetailsMovie(_ movieId: Int)
     func showPopularMovies()
+    func showCollectionMovies(with slug: String)
 }
 
 final class HomePresenter: HomePresenterProtocol {
@@ -98,6 +99,21 @@ final class HomePresenter: HomePresenterProtocol {
     func showPopularMovies() {
         if !popularMovies.isEmpty {
             self.router.showPopularScreen(with: self.popularMovies)
+        }
+    }
+    
+    func showCollectionMovies(with slug: String) {
+        networkingManager.getColletionMovieList(for: slug) { result in
+            switch result {
+                
+            case .success(let movies):
+                DispatchQueue.main.async {
+                    self.router.showPopularScreen(with: movies.docs)
+                }
+
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }

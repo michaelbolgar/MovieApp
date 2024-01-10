@@ -266,6 +266,11 @@ extension HomeViewController: UICollectionViewDelegate {
             let film = presenter.popularMovies[indexPath.row]
             presenter.showDetailsMovie(film.id ?? 0)
         }
+        
+        if collectionView == previewCollectionView {
+            let collection = presenter.selections[indexPath.row]
+            presenter.showCollectionMovies(with: collection.slug ?? "")
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

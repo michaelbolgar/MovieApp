@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 protocol PopularMovieViewProtocol: AnyObject {
+    func reloadData()
 }
 
 final class PopularMovieViewController: UIViewController {
@@ -97,4 +98,9 @@ extension PopularMovieViewController: UITableViewDataSource,UITableViewDelegate 
 
 // MARK: - PopularMovieViewProtocol
 extension PopularMovieViewController: PopularMovieViewProtocol {
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 }

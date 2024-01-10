@@ -51,6 +51,7 @@ struct Collections: Codable {
     struct Collection: Codable {
         let name: String?
         //    let id: String?                     //нужно для идентфикации коллекции при тапе на ячейку
+        let slug: String?
         let cover: Cover?
         let moviesCount: Int?
     }

@@ -62,5 +62,6 @@ final class MyHomeRouter: HomeRouterProtocol {
             navigationController.pushViewController(popularVC, animated: true)
         }
     }
+
 }
 
