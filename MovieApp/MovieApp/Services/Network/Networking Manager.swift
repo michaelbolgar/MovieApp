@@ -40,7 +40,7 @@ struct NetworkingManager {
         case .getCollections:
 //            parameters ["page"] = "1"
             parameters ["number"] = "10"
-            parameters ["name"] = "category"
+            parameters ["category"] = "Фильмы"
         case .getMovieByActor(actor: let actor):
             parameters ["number"] = "10"
         case .getMovieDetails(id: let id):
@@ -54,8 +54,8 @@ struct NetworkingManager {
         case .getRandom:
             //что тут?
             parameters [""] = ""
-        case .getColletionMovieList:
-            parameters [""] = ""
+        case .getColletionMovieList(slug: let slug):
+            parameters ["lists"] = "\(slug)"
         }
 
         return parameters
@@ -119,6 +119,11 @@ struct NetworkingManager {
     /// Get categories for homeScreen
     func getCollections(completion: @escaping(Result<Collections, NetworkError>) -> Void) {
         guard let url = createURL(for: .getCollections) else { return }
+        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+    }
+
+    func getColletionMovieList(for slug: String, completion: @escaping(Result<PopularMovies, NetworkError>) -> Void) {
+        guard let url = createURL(for: .getColletionMovieList(slug: slug)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 

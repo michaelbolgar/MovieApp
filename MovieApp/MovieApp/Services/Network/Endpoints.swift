@@ -23,7 +23,7 @@ enum Endpoint {
     case doSearch(request: String)
     case getMovieByActor(actor: String)             //поиск related movies
     case getRandom                                  //запрос для экрана с ёлкой
-    case getColletionMovieList
+    case getColletionMovieList(slug: String)
 
     var path: String {
         switch self {
@@ -41,8 +41,8 @@ enum Endpoint {
             return ""
         case .getRandom:
             return ""
-        case .getColletionMovieList:
-            return ""
+        case .getColletionMovieList(slug: let slug):
+            return "/v1.4/movie"
         }
     }
 }
