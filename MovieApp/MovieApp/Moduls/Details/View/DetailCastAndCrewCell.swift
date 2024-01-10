@@ -11,8 +11,7 @@ import UIKit
 class DetailCastAndCrewCell: UICollectionViewCell {
     
     typealias CastAndCrewCell = CollectionCell<DetailCastAndCrewView>
-    static let identifier = String(describing: DetailCastAndCrewCell.self)
-
+    
     // MARK: - Properties
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -29,20 +28,20 @@ class DetailCastAndCrewCell: UICollectionViewCell {
         collectionView.contentInsetAdjustmentBehavior = .never
         return collectionView
     }()
-
+    
     // Массив данных для горизонтальной коллекции
     var castAndCrewItems: [DetailCastAndCrewView.Model] = []
-
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionView()
     }
-
+    
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Titles.fatalError)
     }
-
+    
     // MARK: - Layout
     private func setupCollectionView() {
         addSubview(collectionView)
@@ -53,7 +52,7 @@ class DetailCastAndCrewCell: UICollectionViewCell {
             )
         }
     }
-
+    
     // MARK: - Configure
     func configure(with castAndCrewItems: [DetailCastAndCrewView.Model]) {
         self.castAndCrewItems = castAndCrewItems
@@ -62,14 +61,14 @@ class DetailCastAndCrewCell: UICollectionViewCell {
 }
 
 // MARK: - DetailCastAndCrewCell+Extension
-extension DetailCastAndCrewCell: UICollectionViewDelegate,
+extension DetailCastAndCrewCell: UICollectionViewDelegate, 
                                     UICollectionViewDataSource,
                                     UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return castAndCrewItems.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
@@ -80,7 +79,7 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
         cell.update(with: item)
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -92,6 +91,7 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
 // MARK: - Constants
 private enum Titles {
     #warning("это надо раскидать по другим местам")
+    static let fatalError = "init(coder:) has not been implemented"
     static let castAndCrewCell = "CastAndCrewItemCell"
 }
 
@@ -100,4 +100,5 @@ private enum LayoutConstants {
     static let collectionLeadingOffset = 25
     static let collectionViewWidth: CGFloat = 180
 }
+
 

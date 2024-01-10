@@ -49,6 +49,8 @@
 		3CFEF1362B4190DE000DA0B1 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFEF1352B4190DE000DA0B1 /* AlertHelper.swift */; };
 		84AF6AD42B4B029700E3CB47 /* CatergoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6AD32B4B029700E3CB47 /* CatergoriesView.swift */; };
 		84AF6AD72B4B02D300E3CB47 /* CategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6AD62B4B02D300E3CB47 /* CategoriesCell.swift */; };
+		E04096912B4DFB7000BF8DA9 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */; };
+		E04096952B4E2D8800BF8DA9 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -144,6 +146,8 @@
 		3CFEF1352B4190DE000DA0B1 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		84AF6AD32B4B029700E3CB47 /* CatergoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatergoriesView.swift; sourceTree = "<group>"; };
 		84AF6AD62B4B02D300E3CB47 /* CategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCell.swift; sourceTree = "<group>"; };
+		E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -507,6 +511,22 @@
 			path = CollectionCell;
 			sourceTree = "<group>";
 		};
+		E040968F2B4DFB5D00BF8DA9 /* ImageDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */,
+			);
+			path = ImageDownloader;
+			sourceTree = "<group>";
+		};
+		E04096932B4E2D7500BF8DA9 /* DetailRouter */ = {
+			isa = PBXGroup;
+			children = (
+				E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */,
+			);
+			path = DetailRouter;
+			sourceTree = "<group>";
+		};
 		F480941D2B389AE6004C9F96 = {
 			isa = PBXGroup;
 			children = (
@@ -739,6 +759,8 @@
 		F48094AA2B4D884A004C9F96 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				E04096932B4E2D7500BF8DA9 /* DetailRouter */,
+				E040968F2B4DFB5D00BF8DA9 /* ImageDownloader */,
 				F48094AB2B4D885E004C9F96 /* Model */,
 				F48094AD2B4D8867004C9F96 /* View */,
 				F48094AC2B4D8862004C9F96 /* Presenter */,
@@ -947,6 +969,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F48094AF2B4D887E004C9F96 /* DetailModel.swift in Sources */,
+				E04096952B4E2D8800BF8DA9 /* DetailRouter.swift in Sources */,
 				3CF9047E2B3B60CD006E9D51 /* DeveloperCell.swift in Sources */,
 				3CF9049F2B3DD094006E9D51 /* NotificationsVC.swift in Sources */,
 				84AF6AD72B4B02D300E3CB47 /* CategoriesCell.swift in Sources */,
@@ -968,6 +991,7 @@
 				3CF904C62B3F5070006E9D51 /* Movie.swift in Sources */,
 				F480945F2B38F4B2004C9F96 /* PreviewCategoryCell.swift in Sources */,
 				3CF904BF2B3F28D6006E9D51 /* WishlistVC.swift in Sources */,
+				E04096912B4DFB7000BF8DA9 /* ImageDownloader.swift in Sources */,
 				F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */,
 				3CF9048C2B3C4526006E9D51 /* StorageManager.swift in Sources */,
 				F48094562B38F113004C9F96 /* UIViewController Extension.swift in Sources */,
