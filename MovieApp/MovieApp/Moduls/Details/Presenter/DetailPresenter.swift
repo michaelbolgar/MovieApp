@@ -10,6 +10,7 @@ import UIKit
 // MARK: - DetailPresenter+Protocol
 final class DetailPresenter: DetailPresenterProtocol {
     
+    var router: DetailRouter?
     weak var view: DetailViewProtocol?
     let model = DetailModel()
 //    let header = DetailViewController.ViewModel.HeaderItem.self
@@ -17,16 +18,16 @@ final class DetailPresenter: DetailPresenterProtocol {
 //    let gallery = DetailViewController.ViewModel.GalleryItem.self
     
     private let networkManager = NetworkingManager.shared
-    private let movieDetails: MovieDetails
+    private let movieId: Int
     
-    init(_ movieDetails: MovieDetails) {
-        self.movieDetails = movieDetails
-    }
+    init(movieId: Int) {
+            self.movieId = movieId
+        }
     
     func activate() {
         view?.showLoading()
         //
-        networkManager.getMovieDetails(for: 666) {
+        networkManager.getMovieDetails(for: movieId) {
             [weak self] result in
             
             guard let self else {
@@ -65,23 +66,6 @@ final class DetailPresenter: DetailPresenterProtocol {
                 print(error)
             }
         }
-        
-        //        view?.update(
-        //            with: DetailViewController.ViewModel(
-        //                title: model.title,
-        //                storyLine: model.storyLine,
-        //                header: header.init(
-        //                    imageURL: model.posterImage,
-        //                    duration: model.duration,
-        //                    genre: model.genreFilm,
-        //                    rating: model.rating,
-        //                    year: model.year,
-        //                    trailerClosure: {print("trailerClosure")},
-        //                    shareClosure: {print("shareClosure")}),
-        //                castAndCrew: [.init(imageURL: model.personImage, name: model.personName, profession: model.roleMakingFilm), .init(imageURL: model.personImage, name: model.personName, profession: model.roleMakingFilm), .init(imageURL: model.personImage, name: model.personName, profession: model.roleMakingFilm), .init(imageURL: model.personImage, name: model.personName, profession: model.roleMakingFilm)],
-        //                gallery: [.init(imageURL: model.galeryImage), .init(imageURL: model.galeryImage), .init(imageURL: model.galeryImage), .init(imageURL: model.galeryImage)],
-        //                likeBarButtonAction: {print("likeClosure")}))
-        //    }
     }
     private func addToLikes() {
         print("likeButton")
