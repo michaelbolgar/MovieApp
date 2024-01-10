@@ -17,10 +17,11 @@ protocol RouterMainHomeProtocol {
 protocol HomeRouterProtocol: RouterMainHomeProtocol {
     func initialViewController()
     func showFavorites()
+    func showDetails(_ movieId: Int)
 }
 
 // MARK: - ProfileRouter
-final class HomeRouter: HomeRouterProtocol {
+final class MyHomeRouter: HomeRouterProtocol {
     var navigationController: UINavigationController?
     var moduleBuilder: HomeBuilderProtocol?
     
@@ -44,6 +45,13 @@ final class HomeRouter: HomeRouterProtocol {
         if let navigationController = navigationController {
             guard let wishlistVC = moduleBuilder?.createFavoritesModule() else { return }
             navigationController.pushViewController(wishlistVC, animated: true)
+        }
+    }
+    
+    func showDetails(_ movieId: Int) {
+        if let navigationController = navigationController {
+            guard let detailsVC = moduleBuilder?.createDetailsModule(movieId) else { return }
+            navigationController.pushViewController(detailsVC, animated: true)
         }
     }
 }

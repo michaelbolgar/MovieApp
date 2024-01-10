@@ -49,6 +49,10 @@ final class PreviewCategoryCell: UICollectionViewCell {
         
         let defaultImage = UIImage(named: "defaultImage")
         
+        self.activityIndicator.stopAnimating()
+        self.nameCategoryLabel.text = model.name
+        self.descriptionLabel.text = "50 movies"
+        
         guard
             let url = URL(string: model.cover?.url ?? "")
         else {
@@ -58,18 +62,14 @@ final class PreviewCategoryCell: UICollectionViewCell {
             descriptionLabel.text = "50 movies"
             return
         }
-
-        DispatchQueue.global().async { [weak self] in
-            guard
-                let imageData = try? Data(contentsOf: url)
-            else {
-                return
-            }
-            DispatchQueue.main.async {
-                self?.filmeImage.image = UIImage(data: imageData)
-                self?.activityIndicator.stopAnimating()
-                self?.nameCategoryLabel.text = model.name
-                self?.descriptionLabel.text = "50 movies"
+        
+        ImageDownloader.shared.downloadImage(from: url) { result in
+            switch result {
+                
+            case .success(let image):
+                self.filmeImage.image = image
+            case .failure(let error):
+                print(error)
             }
         }
     }

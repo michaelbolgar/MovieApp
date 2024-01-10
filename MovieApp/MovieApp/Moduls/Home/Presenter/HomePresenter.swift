@@ -16,6 +16,8 @@ protocol HomePresenterProtocol {
     func showFavoritesScreen()
     func setSelections()
     func setPopularMovies()
+    
+    func showDetailsMovie(_ movieId: Int)
 }
 
 final class HomePresenter: HomePresenterProtocol {
@@ -87,5 +89,9 @@ final class HomePresenter: HomePresenterProtocol {
     // navigation
     func showFavoritesScreen() {
         router.showFavorites()
+    }
+    
+    func showDetailsMovie(_ movieId: Int) {
+        router.showDetails(movieId)
     }
 }

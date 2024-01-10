@@ -9,6 +9,10 @@ import UIKit
 
 final class PopularCategoryCell: UICollectionViewCell {
     
+    // MARK: - Network Properties
+    private var task: URLSessionDataTask?
+    private var imageUrl: URL?
+    
     //MARK: - Properties
     static let identifier = String(describing: PopularCategoryCell.self)
     
@@ -74,30 +78,53 @@ final class PopularCategoryCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Override Methods
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        filmeImage.image = nil
+        activityIndicator.stopAnimating()
+        task?.cancel()
+    }
+    
     // MARK: - Public Methods
     func configure(with model: PopularMovies.PopularMovie) {
         
-        guard
-            let url = URL(string: model.poster?.url ?? "")
-        else {
-            return
-        }
+        // Остановить предыдущую загрузку, если она есть
+           task?.cancel()
 
-        DispatchQueue.global().async { [weak self] in
-            guard
-                let imageData = try? Data(contentsOf: url)
-            else {
-                return
-            }
+           activityIndicator.startAnimating()
+           nameFilmLabel.text = model.name
+           ganreFilmLabel.text = model.genre?.first?.name
+           ratingFilmLabel.text = model.rating.imdb?.formatted()
 
-            DispatchQueue.main.async {
-                self?.filmeImage.image = UIImage(data: imageData)
-                self?.activityIndicator.stopAnimating()
-                self?.nameFilmLabel.text = model.name
-                self?.ganreFilmLabel.text = model.genre?.first?.name
-                self?.ratingFilmLabel.text = model.rating.imdb?.formatted()
-            }
-        }
+           guard let urlString = model.poster?.url, let url = URL(string: urlString) else {
+               filmeImage.image = nil
+               return
+           }
+
+           // Проверка наличия изображения в кэше
+           if let cachedImage = ImageCache.shared.image(forKey: urlString) {
+               filmeImage.image = cachedImage
+               activityIndicator.stopAnimating()
+               return
+           }
+
+           // Загрузка изображения
+           imageUrl = url
+           task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+               guard let self = self, self.imageUrl == url else { return }
+
+               DispatchQueue.main.async {
+                   if let data = data, let image = UIImage(data: data) {
+                       ImageCache.shared.save(image: image, forKey: urlString)
+                       self.filmeImage.image = image
+                   } else {
+                       self.filmeImage.image = nil
+                   }
+                   self.activityIndicator.stopAnimating()
+               }
+           }
+           task?.resume()
     }
 }
 

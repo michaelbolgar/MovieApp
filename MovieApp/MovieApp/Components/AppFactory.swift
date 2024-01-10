@@ -27,7 +27,7 @@ protocol AppFactory: AnyObject {
     func makeChristmasTreeVC() -> UIViewController
     func makeProfileViewController() -> UIViewController
 
-    func makeHomeRouter() -> BaseRouter
+    func makeHomeRouter() -> MyHomeRouter
     func makeSearchRouter() -> BaseRouter
     func makeChristmasTreeRouter() -> BaseRouter
     func makeProfileRouter() -> ProfileRouter
@@ -63,14 +63,15 @@ final class Factory: AppFactory {
     }
 
     //MARK: - Crating Routers
-    func makeHomeRouter() -> BaseRouter {
+    func makeHomeRouter() -> MyHomeRouter {
         let navController = UINavigationController()
-        navController.configureTabBarItem(
-            "Home",
-            image: "house.fill"
-        )
-        let router = HomeRouter(navigationController: navController, factory: self)
-        router.start()
+                navController.configureTabBarItem(
+                    "Home",
+                    image: "house.fill"
+                )
+        let moduleBuilder = HomeBuilder()
+        let router = MyHomeRouter(navigationController: navController, moduleBuilder: moduleBuilder)
+        router.initialViewController()
         return router
     }
 

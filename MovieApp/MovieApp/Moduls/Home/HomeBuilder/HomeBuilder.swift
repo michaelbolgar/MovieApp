@@ -11,6 +11,7 @@ import UIKit
 protocol HomeBuilderProtocol {
     func createHomeModule(router: HomeRouterProtocol) -> UIViewController
     func createFavoritesModule() -> UIViewController
+    func createDetailsModule(_ movieId: Int) -> UIViewController
 }
 
 // MARK: - ModuleBUilder
@@ -34,6 +35,14 @@ final class HomeBuilder: HomeBuilderProtocol {
         let view = WishlistVC()
         let storageManager = StorageManager.shared
         let presenter = WishlistPresenter(view: view, storageManager: storageManager)
+        view.presenter = presenter
+        return view
+    }
+    
+    func createDetailsModule(_ movieId: Int) -> UIViewController {
+        let view = DetailViewController()
+        let presenter = DetailPresenter(movieId: movieId)
+        presenter.view = view
         view.presenter = presenter
         return view
     }

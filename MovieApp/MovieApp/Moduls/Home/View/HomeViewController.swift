@@ -254,6 +254,11 @@ extension HomeViewController: UICollectionViewDelegate {
                 cell.selectCell()
             }
         }
+        
+        if collectionView == categoryFilmCollectionView {
+            let film = presenter.popularMovies[indexPath.row]
+            presenter.showDetailsMovie(film.id ?? 0)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
