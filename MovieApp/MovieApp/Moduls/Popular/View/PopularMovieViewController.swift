@@ -23,6 +23,7 @@ final class PopularMovieViewController: UIViewController {
         table.rowHeight = 150
         table.sectionFooterHeight = 0
         table.backgroundColor = .customBlack
+        
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         return table
@@ -32,7 +33,7 @@ final class PopularMovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        setupNavigationBar()
+//        setupNavigationBar()
         setupTableView()
         setupConstraints()
     }
