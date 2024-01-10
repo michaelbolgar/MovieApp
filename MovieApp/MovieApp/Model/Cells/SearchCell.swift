@@ -148,10 +148,13 @@ final class SearchCell: UITableViewCell {
         ratingLabel.text = model.rating.imdb?.formatted()
         filmNameLabel.text = model.name
         ageLimitLabel.text = "PG-13"
-        yearPublishedLabel.text = "No data"
-        timeLabel.text = "No data"
-        ganreLabel.text = (model.genre?.first?.name ?? "") + "  |"
-        typeLabel.text = "No data"
+        let year = model.year?.formatted()
+        let newYear = year?.replacingOccurrences(of: ",", with: "")
+        yearPublishedLabel.text = newYear
+        
+        timeLabel.text = "\(model.movieLength ?? 0) minutes"
+        ganreLabel.text = (model.genres?.first?.name ?? "") + "  |"
+        typeLabel.text = model.type
         
         guard let urlString = model.poster?.url, let url = URL(string: urlString) else {
             filmeImage.image = nil

@@ -62,10 +62,14 @@ struct PopularMovies: Codable {
 
     struct PopularMovie: Codable {
         let name: String?
-        let genre: [Genre]?
+        let genres: [Genre]?
         let rating: Rating
         let poster: Cover?          //как вариант попробовать let backdrop с тем же типом данных
         let id: Int?                //нужно для идентфикации коллекции при тапе на ячейку
+        let year: Int?
+        let type: String?
+        let movieLength: Int?
+
     }
 }
 

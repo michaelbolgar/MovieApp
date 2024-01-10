@@ -33,7 +33,7 @@ final class PopularMovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-//        setupNavigationBar()
+        setupNavigationBar()
         setupTableView()
         setupConstraints()
     }
@@ -64,7 +64,7 @@ final class PopularMovieViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.equalToSuperview().offset(10)
-            make.trailing.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().offset(-10)
             make.bottom.equalToSuperview()
         }
     }
