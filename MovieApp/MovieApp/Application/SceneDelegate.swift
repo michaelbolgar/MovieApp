@@ -18,20 +18,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
 //        window.rootViewController = UINavigationController(rootViewController: ViewController())
-//        window.rootViewController = MainTabBarController()
+        window.rootViewController = MainTabBarController()
 //        let navigationController = UINavigationController()
 
-        func makeScreen() -> UIViewController {
-                            let controller = DetailViewController()
-                            let presenter = DetailPresenter()
-
-                            controller.presenter = presenter
-                            presenter.view = controller
-
-                            return controller
-                        }
-
-                        window.rootViewController = makeScreen()
+//        func makeScreen() -> UIViewController {
+//                            let controller = DetailViewController()
+//                            let presenter = DetailPresenter()
+//
+//                            controller.presenter = presenter
+//                            presenter.view = controller
+//
+//                            return controller
+//                        }
+//
+//                        window.rootViewController = makeScreen()
 
 //        let moduleBuilder = ModuleBuilder()
 //        let router = ProfileRouter(
