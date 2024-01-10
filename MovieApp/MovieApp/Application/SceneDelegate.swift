@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  MovieApp
-//
-//  Created by Михаил Болгар on 24.12.2023.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -19,6 +12,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let rootRouter = factory.makeRootRouter(window!)
         rootRouter.start()
 
+        let window = UIWindow(windowScene: windowScene)
+        detailsRequest()
+
+        // Define the detailsRequest function
+        func detailsRequest() {
+            let movieID = 666
+            NetworkingManager.shared.getMovieDetails(for: movieID) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let movieDetails):
+                        self?.window?.rootViewController = makeScreen(movieDetails: movieDetails)
+                        self?.window?.makeKeyAndVisible()
+                    case .failure(let error):
+                        print("Error fetching movie details: \(error)")
+                    }
+                }
+            }
+        }
+
+        // Define the makeScreen function
+        func makeScreen(movieDetails: MovieDetails) -> UIViewController {
+            let controller = DetailViewController()
+            let presenter = DetailPresenter(movieDetails)
+
+            controller.presenter = presenter
+            presenter.view = controller
+
+            return controller
+        }
+
+        self.window = window
         //три разных экрана
 //        window.rootViewController = UINavigationController(rootViewController: ViewController())
 //        window.rootViewController = MainTabBarController()
@@ -49,4 +73,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        window.makeKeyAndVisible()
 //        self.window = window
     }
+
 }
