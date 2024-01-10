@@ -52,6 +52,8 @@
 		3CFEF1362B4190DE000DA0B1 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFEF1352B4190DE000DA0B1 /* AlertHelper.swift */; };
 		84AF6AD42B4B029700E3CB47 /* CatergoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6AD32B4B029700E3CB47 /* CatergoriesView.swift */; };
 		84AF6AD72B4B02D300E3CB47 /* CategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6AD62B4B02D300E3CB47 /* CategoriesCell.swift */; };
+		E04096912B4DFB7000BF8DA9 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */; };
+		E04096952B4E2D8800BF8DA9 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -69,11 +71,9 @@
 		F480945F2B38F4B2004C9F96 /* PreviewCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480945E2B38F4B2004C9F96 /* PreviewCategoryCell.swift */; };
 		F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094602B38F514004C9F96 /* PagesViewController.swift */; };
 		F48094632B38F547004C9F96 /* Onboarding View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094622B38F547004C9F96 /* Onboarding View Controller.swift */; };
-		F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094652B38F587004C9F96 /* Custom Tabbar.swift */; };
+		F48094662B38F587004C9F96 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094652B38F587004C9F96 /* MainTabBarController.swift */; };
 		F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480946B2B38F600004C9F96 /* HomeViewController.swift */; };
 		F480946E2B38F626004C9F96 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480946D2B38F626004C9F96 /* HomePresenter.swift */; };
-		F48094762B38F74D004C9F96 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094752B38F74D004C9F96 /* SearchPresenter.swift */; };
-		F48094782B38F76E004C9F96 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094772B38F76E004C9F96 /* SearchVC.swift */; };
 		F480947D2B38F971004C9F96 /* ChristmasTreePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480947C2B38F971004C9F96 /* ChristmasTreePresenter.swift */; };
 		F480947F2B38F9A6004C9F96 /* ChristmasTreeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480947E2B38F9A6004C9F96 /* ChristmasTreeVC.swift */; };
 		F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */; };
@@ -95,8 +95,14 @@
 		F48094C12B4D89A7004C9F96 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094C02B4D89A7004C9F96 /* DetailPresenter.swift */; };
 		F48094C42B4D8A72004C9F96 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094C32B4D8A72004C9F96 /* CollectionCell.swift */; };
 		F48094C62B4D8A8C004C9F96 /* ConfigurableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094C52B4D8A8C004C9F96 /* ConfigurableProtocol.swift */; };
-		FA0C5B982B3C74550097A480 /* TabBarPresenter .swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */; };
-		FA0C5B9A2B3DB2F80097A480 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0C5B992B3DB2F80097A480 /* Factory.swift */; };
+		F48094CD2B4DF602004C9F96 /* AppFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094CC2B4DF602004C9F96 /* AppFactory.swift */; };
+		F48094CF2B4DF620004C9F96 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094CE2B4DF620004C9F96 /* RootRouter.swift */; };
+		F48094D12B4DF648004C9F96 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D02B4DF648004C9F96 /* HomeRouter.swift */; };
+		F48094D52B4DF6E3004C9F96 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D42B4DF6E3004C9F96 /* SearchPresenter.swift */; };
+		F48094D82B4DF707004C9F96 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D72B4DF707004C9F96 /* SearchVC.swift */; };
+		F48094DA2B4DF838004C9F96 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D92B4DF838004C9F96 /* SearchRouter.swift */; };
+		F48094DC2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094DB2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift */; };
+		F48094DE2B4E020E004C9F96 /* UINavigationController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094DD2B4E020E004C9F96 /* UINavigationController Extension.swift */; };
 		FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */; };
 		FA37EAD02B459ED700760039 /* PopularMoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */; };
 		FA37EAD32B4C00AF00760039 /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */; };
@@ -146,6 +152,8 @@
 		3CFEF1352B4190DE000DA0B1 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		84AF6AD32B4B029700E3CB47 /* CatergoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatergoriesView.swift; sourceTree = "<group>"; };
 		84AF6AD62B4B02D300E3CB47 /* CategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCell.swift; sourceTree = "<group>"; };
+		E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -164,11 +172,9 @@
 		F480945E2B38F4B2004C9F96 /* PreviewCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCategoryCell.swift; sourceTree = "<group>"; };
 		F48094602B38F514004C9F96 /* PagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesViewController.swift; sourceTree = "<group>"; };
 		F48094622B38F547004C9F96 /* Onboarding View Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Onboarding View Controller.swift"; sourceTree = "<group>"; };
-		F48094652B38F587004C9F96 /* Custom Tabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Custom Tabbar.swift"; sourceTree = "<group>"; };
+		F48094652B38F587004C9F96 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F480946B2B38F600004C9F96 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F480946D2B38F626004C9F96 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
-		F48094752B38F74D004C9F96 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
-		F48094772B38F76E004C9F96 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		F480947C2B38F971004C9F96 /* ChristmasTreePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreePresenter.swift; sourceTree = "<group>"; };
 		F480947E2B38F9A6004C9F96 /* ChristmasTreeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeVC.swift; sourceTree = "<group>"; };
 		F48094802B38F9CE004C9F96 /* ChristmasTreeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeModel.swift; sourceTree = "<group>"; };
@@ -190,8 +196,14 @@
 		F48094C02B4D89A7004C9F96 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		F48094C32B4D8A72004C9F96 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		F48094C52B4D8A8C004C9F96 /* ConfigurableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableProtocol.swift; sourceTree = "<group>"; };
-		FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarPresenter .swift"; sourceTree = "<group>"; };
-		FA0C5B992B3DB2F80097A480 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
+		F48094CC2B4DF602004C9F96 /* AppFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFactory.swift; sourceTree = "<group>"; };
+		F48094CE2B4DF620004C9F96 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
+		F48094D02B4DF648004C9F96 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		F48094D42B4DF6E3004C9F96 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		F48094D72B4DF707004C9F96 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		F48094D92B4DF838004C9F96 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		F48094DB2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeRouter.swift; sourceTree = "<group>"; };
+		F48094DD2B4E020E004C9F96 /* UINavigationController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController Extension.swift"; sourceTree = "<group>"; };
 		FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieViewController.swift; sourceTree = "<group>"; };
 		FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviePresenter.swift; sourceTree = "<group>"; };
 		FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchCellModel.swift; path = MovieApp/Moduls/Home/Models/SearchCellModel.swift; sourceTree = "<group>"; };
@@ -442,14 +454,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		3CF904AB2B3E057E006E9D51 /* Common */ = {
+		3CF904AB2B3E057E006E9D51 /* SearchBar */ = {
 			isa = PBXGroup;
 			children = (
 				3CF904AD2B3E05A0006E9D51 /* SearchBarView + Extensions.swift */,
 				3CF904AE2B3E05A0006E9D51 /* SearchBarView.swift */,
 				3CF904AC2B3E05A0006E9D51 /* SearchBarViewDelegate.swift */,
 			);
-			path = Common;
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		3CF904B92B3F282F006E9D51 /* Wishlist */ = {
@@ -529,6 +541,22 @@
 			path = CollectionCell;
 			sourceTree = "<group>";
 		};
+		E040968F2B4DFB5D00BF8DA9 /* ImageDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */,
+			);
+			path = ImageDownloader;
+			sourceTree = "<group>";
+		};
+		E04096932B4E2D7500BF8DA9 /* DetailRouter */ = {
+			isa = PBXGroup;
+			children = (
+				E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */,
+			);
+			path = DetailRouter;
+			sourceTree = "<group>";
+		};
 		F480941D2B389AE6004C9F96 = {
 			isa = PBXGroup;
 			children = (
@@ -550,7 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				F480943D2B389E2C004C9F96 /* Application */,
-				3CF904AB2B3E057E006E9D51 /* Common */,
+				F48094CB2B4DF5E7004C9F96 /* Components */,
 				3CF904892B3C4513006E9D51 /* Services */,
 				F480945C2B38F496004C9F96 /* Model */,
 				F480943F2B389E49004C9F96 /* Moduls */,
@@ -581,6 +609,7 @@
 				F480944C2B38A616004C9F96 /* UILabel Extension.swift */,
 				F48094532B38EFD6004C9F96 /* UIView Extension.swift */,
 				F48094552B38F113004C9F96 /* UIViewController Extension.swift */,
+				F48094DD2B4E020E004C9F96 /* UINavigationController Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -588,12 +617,12 @@
 		F480943F2B389E49004C9F96 /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
-				F48094AA2B4D884A004C9F96 /* Details */,
-				3CF904B92B3F282F006E9D51 /* Wishlist */,
 				F48094572B38F424004C9F96 /* Onboarding */,
 				F48094642B38F558004C9F96 /* Custom Tabbar */,
 				F48094582B38F42E004C9F96 /* Home */,
-				F480945A2B38F440004C9F96 /* Search */,
+				F48094D22B4DF6B7004C9F96 /* Search */,
+				F48094AA2B4D884A004C9F96 /* Details */,
+				3CF904B92B3F282F006E9D51 /* Wishlist */,
 				F480945B2B38F474004C9F96 /* Christmas Tree */,
 				F48094592B38F435004C9F96 /* Profile */,
 			);
@@ -653,15 +682,6 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		F480945A2B38F440004C9F96 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				F48094732B38F72F004C9F96 /* View */,
-				F48094722B38F72A004C9F96 /* Presenter */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
 		F480945B2B38F474004C9F96 /* Christmas Tree */ = {
 			isa = PBXGroup;
 			children = (
@@ -675,10 +695,8 @@
 		F480945C2B38F496004C9F96 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3CF904942B3C791E006E9D51 /* WishlistCell.swift */,
-				3CF904902B3C7913006E9D51 /* PopularCategoryCell.swift */,
-				F480945E2B38F4B2004C9F96 /* PreviewCategoryCell.swift */,
-				F48094C32B4D8A72004C9F96 /* CollectionCell.swift */,
+				F48094C72B4DECAB004C9F96 /* Cells */,
+				3CF904AB2B3E057E006E9D51 /* SearchBar */,
 				F48094C52B4D8A8C004C9F96 /* ConfigurableProtocol.swift */,
 			);
 			path = Model;
@@ -687,8 +705,7 @@
 		F48094642B38F558004C9F96 /* Custom Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				FA0C5B952B3C74340097A480 /* View */,
-				FA0C5B962B3C743F0097A480 /* Presenter */,
+				F48094652B38F587004C9F96 /* MainTabBarController.swift */,
 			);
 			path = "Custom Tabbar";
 			sourceTree = "<group>";
@@ -698,8 +715,8 @@
 			children = (
 				3C0BEEF12B4D572C00CC7FA4 /* HomeViewController + Extension.swift */,
 				F480946B2B38F600004C9F96 /* HomeViewController.swift */,
-				FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */,
 				3CF904922B3C7919006E9D51 /* SearchCell.swift */,
+				F48094D02B4DF648004C9F96 /* HomeRouter.swift */,
 				84AF6AD52B4B02AE00E3CB47 /* CollectionCell */,
 				84AF6AD22B4B026700E3CB47 /* HeaderViews */,
 			);
@@ -710,25 +727,8 @@
 			isa = PBXGroup;
 			children = (
 				F480946D2B38F626004C9F96 /* HomePresenter.swift */,
-				FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		F48094722B38F72A004C9F96 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				F48094752B38F74D004C9F96 /* SearchPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		F48094732B38F72F004C9F96 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				F48094772B38F76E004C9F96 /* SearchVC.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		F48094792B38F947004C9F96 /* Presenter */ = {
@@ -743,6 +743,7 @@
 			isa = PBXGroup;
 			children = (
 				F480947E2B38F9A6004C9F96 /* ChristmasTreeVC.swift */,
+				F48094DB2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -790,6 +791,8 @@
 		F48094AA2B4D884A004C9F96 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				E04096932B4E2D7500BF8DA9 /* DetailRouter */,
+				E040968F2B4DFB5D00BF8DA9 /* ImageDownloader */,
 				F48094AB2B4D885E004C9F96 /* Model */,
 				F48094AD2B4D8867004C9F96 /* View */,
 				F48094AC2B4D8862004C9F96 /* Presenter */,
@@ -836,19 +839,64 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		FA0C5B952B3C74340097A480 /* View */ = {
+		F48094C72B4DECAB004C9F96 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				F48094652B38F587004C9F96 /* Custom Tabbar.swift */,
-				FA0C5B992B3DB2F80097A480 /* Factory.swift */,
+				3CF904942B3C791E006E9D51 /* WishlistCell.swift */,
+				3CF904902B3C7913006E9D51 /* PopularCategoryCell.swift */,
+				F480945E2B38F4B2004C9F96 /* PreviewCategoryCell.swift */,
+				F48094C32B4D8A72004C9F96 /* CollectionCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		F48094C82B4DED2B004C9F96 /* PopularMovie Screen */ = {
+			isa = PBXGroup;
+			children = (
+				F48094C92B4DED4F004C9F96 /* Presenter */,
+				F48094CA2B4DED58004C9F96 /* View */,
+			);
+			path = "PopularMovie Screen";
+			sourceTree = "<group>";
+		};
+		F48094C92B4DED4F004C9F96 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		F48094CA2B4DED58004C9F96 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		FA0C5B962B3C743F0097A480 /* Presenter */ = {
+		F48094CB2B4DF5E7004C9F96 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				FA0C5B972B3C74550097A480 /* TabBarPresenter .swift */,
+				F48094CC2B4DF602004C9F96 /* AppFactory.swift */,
+				F48094CE2B4DF620004C9F96 /* RootRouter.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F48094D22B4DF6B7004C9F96 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				F48094D62B4DF6EF004C9F96 /* View */,
+				F48094D32B4DF6D7004C9F96 /* Presenter */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		F48094D32B4DF6D7004C9F96 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				F48094D42B4DF6E3004C9F96 /* SearchPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -936,6 +984,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F48094AF2B4D887E004C9F96 /* DetailModel.swift in Sources */,
+				E04096952B4E2D8800BF8DA9 /* DetailRouter.swift in Sources */,
 				3CF9047E2B3B60CD006E9D51 /* DeveloperCell.swift in Sources */,
 				3CF9049F2B3DD094006E9D51 /* NotificationsVC.swift in Sources */,
 				84AF6AD72B4B02D300E3CB47 /* CategoriesCell.swift in Sources */,
@@ -944,9 +993,10 @@
 				F48094412B389E6F004C9F96 /* UIColor Extension.swift in Sources */,
 				3CF904952B3C791E006E9D51 /* WishlistCell.swift in Sources */,
 				FA37EAD32B4C00AF00760039 /* SearchCellModel.swift in Sources */,
+				F48094CD2B4DF602004C9F96 /* AppFactory.swift in Sources */,
 				3CF904C12B3F2BB8006E9D51 /* PlugView.swift in Sources */,
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
-				F48094662B38F587004C9F96 /* Custom Tabbar.swift in Sources */,
+				F48094662B38F587004C9F96 /* MainTabBarController.swift in Sources */,
 				3CF904982B3D7C72006E9D51 /* Policy.swift in Sources */,
 				3CFEF12E2B418AE9000DA0B1 /* LanguagePresenter.swift in Sources */,
 				3CD315E12B39C120003035B0 /* GeneralView.swift in Sources */,
@@ -956,14 +1006,15 @@
 				3CF904C62B3F5070006E9D51 /* Movie.swift in Sources */,
 				F480945F2B38F4B2004C9F96 /* PreviewCategoryCell.swift in Sources */,
 				3CF904BF2B3F28D6006E9D51 /* WishlistVC.swift in Sources */,
-				FA0C5B982B3C74550097A480 /* TabBarPresenter .swift in Sources */,
+				E04096912B4DFB7000BF8DA9 /* ImageDownloader.swift in Sources */,
 				F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */,
 				3CF9048C2B3C4526006E9D51 /* StorageManager.swift in Sources */,
 				F48094562B38F113004C9F96 /* UIViewController Extension.swift in Sources */,
 				3CF904742B3B30FD006E9D51 /* PolicyStorage.swift in Sources */,
+				F48094DE2B4E020E004C9F96 /* UINavigationController Extension.swift in Sources */,
 				F48094B32B4D88D7004C9F96 /* DetailCastAndCrewView.swift in Sources */,
-				F48094782B38F76E004C9F96 /* SearchVC.swift in Sources */,
 				F48094B92B4D8926004C9F96 /* DetailHeaderView.swift in Sources */,
+				F48094D12B4DF648004C9F96 /* HomeRouter.swift in Sources */,
 				F48094C42B4D8A72004C9F96 /* CollectionCell.swift in Sources */,
 				3CA4D10E2B3B0B6D00073990 /* ModuleBuilder.swift in Sources */,
 				F480946E2B38F626004C9F96 /* HomePresenter.swift in Sources */,
@@ -985,7 +1036,6 @@
 				F48094C12B4D89A7004C9F96 /* DetailPresenter.swift in Sources */,
 				F48094612B38F514004C9F96 /* PagesViewController.swift in Sources */,
 				84AF6AD42B4B029700E3CB47 /* CatergoriesView.swift in Sources */,
-				FA0C5B9A2B3DB2F80097A480 /* Factory.swift in Sources */,
 				F48094B72B4D8910004C9F96 /* DetailGalleryView.swift in Sources */,
 				3CFEF1362B4190DE000DA0B1 /* AlertHelper.swift in Sources */,
 				F48094A92B4776C6004C9F96 /* Networking Structs.swift in Sources */,
@@ -994,13 +1044,16 @@
 				F48094B12B4D88BB004C9F96 /* DetailCastAndCrewCell.swift in Sources */,
 				3CF9047B2B3B5D05006E9D51 /* AboutUsVC.swift in Sources */,
 				3CF904832B3B86F7006E9D51 /* AboutUsPresenter.swift in Sources */,
+				F48094DA2B4DF838004C9F96 /* SearchRouter.swift in Sources */,
 				3CFEF1322B418B42000DA0B1 /* EditProfileVC + Extension.swift in Sources */,
 				F48094BB2B4D893E004C9F96 /* DetailViewController.swift in Sources */,
 				F48094B52B4D88F3004C9F96 /* DetailGalleryCell.swift in Sources */,
 				3CFEF1302B418AF3000DA0B1 /* LanguageCell.swift in Sources */,
+				F48094D52B4DF6E3004C9F96 /* SearchPresenter.swift in Sources */,
 				3CF904B02B3E05A0006E9D51 /* SearchBarView + Extensions.swift in Sources */,
 				F48094BF2B4D8968004C9F96 /* DetailProtocol.swift in Sources */,
 				3CF9048F2B3C45F1006E9D51 /* User.swift in Sources */,
+				F48094D82B4DF707004C9F96 /* SearchVC.swift in Sources */,
 				3CF904702B3B2E25006E9D51 /* PolicyVC.swift in Sources */,
 				3CF9046D2B3B2924006E9D51 /* EditProfilePresenter.swift in Sources */,
 				3CF904932B3C7919006E9D51 /* SearchCell.swift in Sources */,
@@ -1009,14 +1062,15 @@
 				3CF904762B3B409E006E9D51 /* PolicyPresenter.swift in Sources */,
 				3CF904AF2B3E05A0006E9D51 /* SearchBarViewDelegate.swift in Sources */,
 				3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */,
+				F48094DC2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift in Sources */,
 				F48094BD2B4D8955004C9F96 /* SectionHeaderView.swift in Sources */,
 				F48094A72B4776AD004C9F96 /* Networking Manager.swift in Sources */,
 				F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */,
 				F48094A32B477667004C9F96 /* API.swift in Sources */,
 				3CF904912B3C7913006E9D51 /* PopularCategoryCell.swift in Sources */,
 				3CF904812B3B8595006E9D51 /* Developer.swift in Sources */,
-				F48094762B38F74D004C9F96 /* SearchPresenter.swift in Sources */,
 				F48094812B38F9CE004C9F96 /* ChristmasTreeModel.swift in Sources */,
+				F48094CF2B4DF620004C9F96 /* RootRouter.swift in Sources */,
 				3CFEF1342B418F70000DA0B1 /* WishlistVC + UITableView.swift in Sources */,
 				F48094862B38FA2A004C9F96 /* ProfilePresenter.swift in Sources */,
 				F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */,

@@ -49,10 +49,21 @@ extension DetailGalleryView: Configurable {
 
     func update(model: Model) {
 
-        guard let imageURL = model.imageURL else {
+        guard let imageURL = model.imageURL, let url = URL(string: imageURL) else {
             photo.image = nil
             return
         }
+        
+        ImageDownloader.shared.downloadImage(from: url) { result in
+            switch result {
+            case .success(let image):
+                self.photo.image = image
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.photo.image = UIImage(named: "filmPhoto")
+            }
+        }
+        
         // Асинхронная загрузка изображения
 //           URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
 //               guard let self = self else { return }
@@ -77,7 +88,7 @@ extension DetailGalleryView: Configurable {
 //                   self.photo.image = image
 //               }
 //           }.resume()
-        photo.image = UIImage(named: "filmPhoto") // УДАЛИТЬ
+//        photo.image = UIImage(named: "filmPhoto") // УДАЛИТЬ
     }
 }
 

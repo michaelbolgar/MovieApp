@@ -35,7 +35,7 @@ class DetailViewController: UIViewController {
         )
         cv.register(
             DetailGalleryCell.self,
-            forCellWithReuseIdentifier: Titles.galleryCell
+            forCellWithReuseIdentifier: DetailGalleryCell.identifier
         )
         cv.register(
             SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -43,7 +43,7 @@ class DetailViewController: UIViewController {
         )
         cv.register(
             DetailCastAndCrewCell.self,
-            forCellWithReuseIdentifier: Titles.castAndCrew
+            forCellWithReuseIdentifier: DetailCastAndCrewCell.identifier
         )
            cv.delegate = self
            cv.dataSource = self
@@ -56,7 +56,7 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter.activate()
+                    presenter.activate()
         layout()
     }
 
@@ -145,7 +145,7 @@ extension DetailViewController: UICollectionViewDelegate,
                 withReuseIdentifier: Titles.reuseIdentifier,
                 for: indexPath
             ) as? SectionHeaderView else {
-                fatalError(Titles.fatalError)
+                fatalError("Cannot create new header")
             }
 
             let sectionType = items[indexPath.section]
@@ -179,7 +179,7 @@ extension DetailViewController: UICollectionViewDelegate,
             return cell
         case .castAndCrew:
             let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Titles.castAndCrew,
+                withReuseIdentifier: DetailCastAndCrewCell.identifier,
                 for: indexPath
             ) as! DetailCastAndCrewCell
             if let castAndCrewItem = viewModel?.castAndCrew.map({
@@ -194,7 +194,7 @@ extension DetailViewController: UICollectionViewDelegate,
             return cell
         case .gallery:
             let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Titles.galleryCell,
+                withReuseIdentifier: DetailGalleryCell.identifier,
                 for: indexPath
             ) as! DetailGalleryCell
             if let galleryItem = viewModel?.gallery.map({
@@ -218,24 +218,29 @@ extension DetailViewController: UICollectionViewDelegate,
 
 extension DetailViewController: DetailViewProtocol {
     func update(with model: ViewModel) {
+        
+        DispatchQueue.main.async {
+            self.title = model.title
+            if model.likeBarButtonAction != nil {
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+                    image: UIImage(named: "heart.fill"),
+                    style: .plain,
+                    target: self,
+                    action: #selector(self.didTapLikeBarButton))
+            } else {
+                self.navigationItem.rightBarButtonItem = nil
+            }
 
-        title = model.title
+
+        
         self.viewModel = model
 
         self.likeBarButtonAction = model.likeBarButtonAction
-        if model.likeBarButtonAction != nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(
-                image: UIImage(named: Titles.heartImage),
-                style: .plain,
-                target: self,
-                action: #selector(didTapLikeBarButton))
-        } else {
-            navigationItem.rightBarButtonItem = nil
-        }
+        
 
-        items.removeAll()
+            self.items.removeAll()
 
-        items.append(
+            self.items.append(
             .header(
                 item: .init(
                     imageURL: model.header.imageURL,
@@ -245,23 +250,26 @@ extension DetailViewController: DetailViewProtocol {
                     year: model.header.year,
                     trailerClosure: model.header.trailerClosure,
                     shareClosure: model.header.shareClosure)))
-        items.append(
+            self.items.append(
             .storyLine(
                 item: .init(text: model.storyLine)))
-        items.append(.castAndCrew)
-        items.append(.gallery)
+            self.items.append(.castAndCrew)
+            self.items.append(.gallery)
 
-        collectionView.reloadData()
+            self.collectionView.reloadData()
+    }
     }
 
     // MARK: - Actions
 
     func showLoading() {
         print("show lodaing")
+        collectionView.isHidden = true
     }
 
     func hideLoading() {
         print("hide lodaing")
+        collectionView.isHidden = false
     }
 
     @objc
@@ -278,10 +286,10 @@ extension DetailViewController {
         struct HeaderItem {
 //            let imageURL: URL?
             let imageURL: String?
-            let duration: String?
+            let duration: Int?
             let genre: String?
-            let rating: String?
-            let year: String?
+            let rating: Double?
+            let year: Int?
             let trailerClosure: (() -> Void)
             let shareClosure: (() -> Void)
         }
@@ -318,10 +326,10 @@ extension DetailViewController {
 private enum Titles {
     #warning("тут надо пройтись по комментам и всё поправить")
     //эти мы уберём вообще
-    static let castAndCrew = "CastAndCrew"
+    
     static let header = "headerCell"
     static let textCell = "textCell"
-    static let galleryCell = "Gallery"
+ 
     static let reuseIdentifier = "section-header-reuse-identifier"
 
     //эти норм
@@ -330,10 +338,6 @@ private enum Titles {
     //за наименования castAndCrewTitle и castAndCrew в енаме 'Titles' тебя надо отдать под суд :D это исправится само
     static let castAndCrewTitle = "Cast and Crew"
     static let galeryTitle = "Gallery"
-
-    //ну вот тут две сущности, которые не группируются между собой, не относятся к тайтлам и нарушают SOLID
-    static let fatalError = "Cannot create new header"
-    static let heartImage = "heart.fill"
 }
 
 private enum LayoutConstants {

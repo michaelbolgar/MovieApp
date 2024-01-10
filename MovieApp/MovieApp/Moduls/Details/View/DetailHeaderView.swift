@@ -104,7 +104,7 @@ final class DetailHeaderView: UIView {
     }
 
     private func createLabeledIconView(
-        title: String,
+        title: Any,
         iconName: String,
         color: UIColor = .white) -> UIView {
 
@@ -117,7 +117,7 @@ final class DetailHeaderView: UIView {
         view.addSubview(imageView)
 
         let label = UILabel()
-        label.text = title
+            label.text = "\(title)"
         label.textColor = color
         view.addSubview(label)
 
@@ -167,7 +167,7 @@ final class DetailHeaderView: UIView {
 
         filmInfoStack.snp.makeConstraints {
             $0.top.equalTo(posterView.snp.bottom).offset(LayoutConstants.filmInfoStackTopOffset)
-            $0.centerX.equalToSuperview() // This will center it horizontally
+            $0.centerX.equalToSuperview()
                 $0.width.lessThanOrEqualTo(safeAreaLayoutGuide.snp.width).offset(LayoutConstants.filmInfoStackLeadingOffset)
         }
 
@@ -191,10 +191,10 @@ final class DetailHeaderView: UIView {
 extension DetailHeaderView: Configurable {
     struct Model {
         let imageURL: String?
-        let duration: String?
+        let duration: Int?
         let genre: String?
-        let rating: String?
-        let year: String?
+        let rating: Double?
+        let year: Int?
         let trailerClosure: () -> Void
         let shareClosure: () -> Void
     }
@@ -217,7 +217,6 @@ extension DetailHeaderView: Configurable {
                 ratingView.snp.makeConstraints {
                     $0.top.equalTo(filmInfoStack.snp.bottom).offset(LayoutConstants.filmInfoStackTopOffset)
                     $0.centerX.equalToSuperview()
-                    // Установите любые другие констрейнты, которые необходимы для ratingView
                 }
 
         [yearView, durationView, genreView].forEach {
@@ -225,35 +224,23 @@ extension DetailHeaderView: Configurable {
         }
 
         guard let imageURL = model.imageURL, let url = URL(string: imageURL) else {
-            posterView.image = nil
+//            posterView.image = nil
+            posterView.image = UIImage(named: "Bg")
+            backgroundImageView.image = UIImage(named: "Bg")
             return
         }
-
-//        URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
-//            guard let self = self else { return }
-//
-//            if let error = error {
-//                // Обработка ошибки загрузки
-//                print("Ошибка загрузки изображения: \(error.localizedDescription)")
-//                return
-//            }
-//
-//            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-//                print("Некорректный ответ сервера")
-//                return
-//            }
-//
-//            guard let data = data, let image = UIImage(data: data) else {
-//                print("Данные не могут быть преобразованы в изображение")
-//                return
-//            }
-//
-//            DispatchQueue.main.async {
-//                self.posterView.image = image
-//            }
-//        }.resume()
-        posterView.image = UIImage(named: "Bg")
-        backgroundImageView.image = UIImage(named: "Bg")
+        
+        ImageDownloader.shared.downloadImage(from: url) { result in
+            switch result {
+            case .success(let image):
+                self.posterView.image = image
+                self.backgroundImageView.image = image
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.posterView.image = UIImage(named: "Bg")
+                self.backgroundImageView.image = UIImage(named: "Bg")
+            }
+        }
     }
 }
 

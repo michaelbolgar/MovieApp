@@ -9,10 +9,9 @@ import UIKit
 
 // MARK: - DetailGalleryCell
 class DetailGalleryCell: UICollectionViewCell {
-
+    
     typealias GalleryCell = CollectionCell<DetailGalleryView>
-    static let identifier = String(describing: DetailGalleryCell.self)
-
+    
     // MARK: - Properties
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -32,20 +31,20 @@ class DetailGalleryCell: UICollectionViewCell {
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
-
+    
     // Массив данных для горизонтальной коллекции
     var galleryItems: [DetailGalleryView.Model] = []
-
+    
     // MARK: - Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionView()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError(Titles.fatalError)
     }
-
+    
     // MARK: - Layout
     private func setupCollectionView() {
         addSubview(collectionView)
@@ -53,7 +52,7 @@ class DetailGalleryCell: UICollectionViewCell {
             make.edges.equalToSuperview()
         }
     }
-
+    
     // MARK: - Configure
     func configure(with galleryItems: [DetailGalleryView.Model]) {
         self.galleryItems = galleryItems
@@ -67,7 +66,7 @@ extension DetailGalleryCell: UICollectionViewDelegate, UICollectionViewDataSourc
                         numberOfItemsInSection section: Int) -> Int {
         return galleryItems.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
@@ -77,7 +76,7 @@ extension DetailGalleryCell: UICollectionViewDelegate, UICollectionViewDataSourc
         cell.update(with: item)
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -97,3 +96,7 @@ private extension CGFloat {
 #warning("это можно пихнуть непосредственно в функцию, сильно жирно выглядит отдельный экстеншн для одной сущности")
     static let width: CGFloat = 100
 }
+
+
+
+
