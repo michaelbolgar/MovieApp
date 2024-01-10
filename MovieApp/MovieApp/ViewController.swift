@@ -25,8 +25,8 @@ class ViewController: UIViewController {
             make.centerY.equalToSuperview()
         }
 
-        detailsRequst()
-//        collectionRequst()
+//        detailsRequst()
+        collectionRequst()
 //        popularRequest()
 //        search()
     }

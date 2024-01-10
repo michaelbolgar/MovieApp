@@ -38,8 +38,9 @@ struct NetworkingManager {
             parameters ["number"] = "10"
             parameters ["query"] = "\(request)"
         case .getCollections:
-            parameters ["page"] = "1"
+//            parameters ["page"] = "1"
             parameters ["number"] = "10"
+            parameters ["name"] = "category"
         case .getMovieByActor(actor: let actor):
             parameters ["number"] = "10"
         case .getMovieDetails(id: let id):
@@ -52,6 +53,8 @@ struct NetworkingManager {
             parameters ["lists"] = "top250"
         case .getRandom:
             //что тут?
+            parameters [""] = ""
+        case .getColletionMovieList:
             parameters [""] = ""
         }
 
