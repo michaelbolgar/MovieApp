@@ -22,7 +22,7 @@ final class RootRouter {
 
     func showMainTabbar() -> UITabBarController {
         return factory.makeTabBar(
-            factory.makeHomeRouter().navigationController,
+            factory.makeHomeRouter().navigationController ?? UINavigationController(),
             factory.makeSearchRouter().navigationController,
             factory.makeChristmasTreeRouter().navigationController,
             factory.makeProfileRouter().navigationController!

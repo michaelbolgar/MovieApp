@@ -1,52 +1,71 @@
 import UIKit
 
-//protocol HomeViewControllerProtocol: AnyObject {
-//    func setUserInfo(with user: User)
-//}
+protocol HomeViewControllerProtocol: AnyObject {
+    func setUserInfo(with user: User)
+    func reloadPreviewCollection()
+    func reloadPopularCollection()
+}
 
 final class HomeViewController: UIViewController {
     
     //MARK: - Presenter
-//    var presenter: HomePresenterProtocol!
+    var presenter: HomePresenterProtocol!
     
-    private let avatarImage: UIImageView = {
-       let element = UIImageView()
-        element.backgroundColor = .customDarkGrey
-        element.layer.cornerRadius = 20
-        element.clipsToBounds = true
-        element.contentMode = .scaleAspectFill
-        return element
-    }()
-
-    private let userNameLabel = UILabel.makeLabel(text: "", font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
-
+    // MARK: - Private User Properties
+    private var userName = ""
+    private var userImage = UIImage()
+    
+    // MARK: - Private UI Properties
     private lazy var previewCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 12
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layout
+        )
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(PreviewCategoryCell.self, forCellWithReuseIdentifier: PreviewCategoryCell.identifier)
+        collectionView.register(
+            PreviewCategoryCell.self,
+            forCellWithReuseIdentifier: PreviewCategoryCell.identifier
+        )
+        
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        collectionView.contentInset = UIEdgeInsets(
+            top: 0,
+            left: 20,
+            bottom: 0,
+            right: 20
+        )
         return collectionView
     }()
     
     private let categoryView = CatergoriesSectionView(title: "Categories")
     
     private lazy var categoryCollectionView: UICollectionView = {
-       let layot = UICollectionViewFlowLayout()
+        let layot = UICollectionViewFlowLayout()
         layot.scrollDirection = .horizontal
         layot.minimumLineSpacing = 8
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layot)
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layot
+        )
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(CategoriesCell.self, forCellWithReuseIdentifier: CategoriesCell.identifier)
+        collectionView.register(
+            CategoriesCell.self,
+            forCellWithReuseIdentifier: CategoriesCell.identifier
+        )
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        collectionView.contentInset = UIEdgeInsets(
+            top: 0,
+            left: 24,
+            bottom: 0,
+            right: 24
+        )
         return collectionView
     }()
     
@@ -56,13 +75,24 @@ final class HomeViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 12
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: layout
+        )
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(PopularCategoryCell.self, forCellWithReuseIdentifier: PopularCategoryCell.identifier)
+        collectionView.register(
+            PopularCategoryCell.self,
+            forCellWithReuseIdentifier: PopularCategoryCell.identifier
+        )
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        collectionView.contentInset = UIEdgeInsets(
+            top: 0,
+            left: 24,
+            bottom: 0,
+            right: 24
+        )
         return collectionView
     }()
     
@@ -74,89 +104,61 @@ final class HomeViewController: UIViewController {
         return element
     }()
     
-    private let searchBar: SearchBarView = {
-        let element = SearchBarView()
-        element.backgroundColor = .customGrey
-        return element
-    }()
+//    private let searchBar: SearchBarView = {
+//        let element = SearchBarView()
+//        element.backgroundColor = .customGrey
+//        return element
+//    }()
     
-    private let dataSource = StorageManager.shared
-    
-    //MARK: - Mock data
-    private let filmsData = [
-        MovieCellModel(image: nil, name: "Marvel", description: "40 best movies"),
-        MovieCellModel(image: nil, name: "Marvel", description: "40 best movies"),
-        MovieCellModel(image: nil, name: "Marvel", description: "40 best movies"),
-    ]
-    
-    private let categoryData = [
-        catergoriesModel(name: "All"),
-        catergoriesModel(name: "Action"),
-        catergoriesModel(name: "Comedy"),
-        catergoriesModel(name: "Drama"),
-        catergoriesModel(name: "Horror"),
-        catergoriesModel(name: "Thriller"),
-        catergoriesModel(name: "Animation"),
-    ]
-    
-    private let categoriesFilmData = [
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-        PopularCategoryMovieCellModel(image: nil, name: "CgelovekPayk", ganre: "Action", rating: "4.9"),
-    ]
-    
-    
-    //MARK: - Life Cycle
+    //MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
         setupConstraints()
+        presenter.setUser()
+        presenter.setSelections()
+        presenter.setPopularMovies()
+        showPopularVC()
+        setupNavigationBar(with: userName, and: userImage)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupUserInfo(with: dataSource.fetchUser())
         selectFirstCell()
+        presenter.setUser()
+        setupNavigationBar(with: userName, and: userImage)
+    }
+    
+    // MARK: - Private Actions
+    @objc private func favoritesButtonDidTapped() {
+        presenter.showFavoritesScreen()
+    }
+    
+    private func showPopularVC() {
+        categoriesPreviewView.seeAllButtonTapped = {
+            self.presenter.showPopularMovies()
+        }
     }
     
     //MARK: - Private Methods
-    private func setViews() {
-        view.backgroundColor = .clear
-        [avatarImage, userNameLabel, scrollView].forEach { self.view.addSubview($0) }
-        [searchBar, previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0) }
-    }
-    
-    func setupUserInfo(with user: User?) {
-        guard let user = user else { return }
-        avatarImage.image = UIImage(data: user.image)
-        userNameLabel.text = "Hello, " + user.fullName
-    }
-    
     private func selectFirstCell(){
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
-    
 }
-
 
 //MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        switch collectionView{
+        switch collectionView {
         case previewCollectionView:
-            return filmsData.count
-            
+            return presenter.selections.count
         case categoryCollectionView:
-            return categoryData.count
-            
+            return presenter.categoryData.count
         case categoryFilmCollectionView:
-            return categoriesFilmData.count
-            
+            return presenter.popularMovies.count
         default:
             return 0
         }
@@ -164,21 +166,39 @@ extension HomeViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch collectionView{
+        switch collectionView {
         case previewCollectionView:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCategoryCell.identifier, for: indexPath) as! PreviewCategoryCell
-            cell.configure(with: filmsData[indexPath.item])
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: PreviewCategoryCell.identifier,
+                    for: indexPath) as? PreviewCategoryCell
+            else {
+                return UICollectionViewCell()
+            }
+            cell.configure(with: presenter.selections[indexPath.row])
             return cell
             
         case categoryCollectionView:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCell.identifier, for: indexPath) as! CategoriesCell
-            cell.configure(with: categoryData[indexPath.item])
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: CategoriesCell.identifier,
+                    for: indexPath) as? CategoriesCell
+            else {
+                return UICollectionViewCell()
+            }
+            cell.configure(with: presenter.categoryData[indexPath.item])
             cell.isSelected ? cell.selectCell() : cell.deselectCell()
             return cell
             
         case categoryFilmCollectionView:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopularCategoryCell.identifier, for: indexPath) as! PopularCategoryCell
-            cell.configure(with: categoriesFilmData[indexPath.item])
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: PopularCategoryCell.identifier,
+                    for: indexPath) as? PopularCategoryCell
+            else {
+                return UICollectionViewCell()
+            }
+            cell.configure(with: presenter.popularMovies[indexPath.item])
             return cell
             
         default:
@@ -186,84 +206,102 @@ extension HomeViewController: UICollectionViewDataSource{
         }
     }
 }
-//MARK: - UICollectionViewDelegate
+
+//MARK: - UICollectionViewDelegateFlowLayout
 extension HomeViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         switch collectionView {
-        
         case previewCollectionView:
             return CGSize(width: 295, height: 154)
-       
         case categoryCollectionView:
             return CGSize(width: 80, height: 31)
-        
         case categoryFilmCollectionView:
             return CGSize(width: 135, height: 231)
-        
         default:
             return CGSize.zero
         }
-        
     }
-    
 }
 
 //MARK: - UICollectionViewDelegate
-extension HomeViewController: UICollectionViewDelegate{
-    
+extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case categoryCollectionView:
-            let cell = collectionView.cellForItem(at: indexPath) as! CategoriesCell
-            cell.selectCell()
-        default:
-            break
+        if collectionView == categoryCollectionView {
+            if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
+                cell.selectCell()
+            }
+        }
+        
+        if collectionView == categoryFilmCollectionView {
+            let film = presenter.popularMovies[indexPath.row]
+            presenter.showDetailsMovie(film.id ?? 0)
+        }
+        
+        if collectionView == previewCollectionView {
+            let collection = presenter.selections[indexPath.row]
+            presenter.showCollectionMovies(with: collection.slug ?? "")
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case categoryCollectionView:
-            let cell = collectionView.cellForItem(at: indexPath) as! CategoriesCell
-            cell.deselectCell()
-        default:
-            break
+        if collectionView == categoryCollectionView {
+            if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
+                cell.deselectCell()
+            }
         }
     }
 }
-//MARK: - SetupConstraints
-extension HomeViewController{
-    private func setupConstraints(){
-        avatarImage.snp.makeConstraints { make in
-            make.width.height.equalTo(40)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
-            make.leading.equalToSuperview().offset(24)
+
+// MARK: - HomeViewControllerProtocol
+extension HomeViewController: HomeViewControllerProtocol {
+    func setUserInfo(with user: User) {
+        userName = "Hello, " + user.fullName
+        userImage = UIImage(data: user.image) ?? UIImage()
+    }
+    
+    func reloadPreviewCollection() {
+        DispatchQueue.main.async {
+            self.previewCollectionView.reloadData()
         }
-        
-        userNameLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(avatarImage)
-            make.leading.equalTo(avatarImage.snp.trailing).offset(17)
-            make.trailing.equalToSuperview().inset(80)
+    }
+    
+    func reloadPopularCollection() {
+        DispatchQueue.main.async {
+            self.categoryFilmCollectionView.reloadData()
         }
-        
+    }
+}
+
+//MARK: - Setup UI
+private extension HomeViewController{
+    
+    func setViews() {
+        view.backgroundColor = .clear
+        [scrollView].forEach { self.view.addSubview($0)
+        }
+        [previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0)
+        }
+    }
+    
+    func setupConstraints(){
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(avatarImage.snp.bottom).offset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
         
-        searchBar.snp.makeConstraints { make in
-            #warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
-            make.height.equalTo(41)
-            make.top.equalTo(scrollView).offset(16)
-            make.leading.equalTo(view.safeAreaLayoutGuide).offset(24)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
-        }
+//        searchBar.snp.makeConstraints { make in
+//#warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
+//            make.height.equalTo(41)
+//            make.top.equalTo(scrollView).offset(16)
+//            make.leading.equalTo(view.safeAreaLayoutGuide).offset(24)
+//            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
+//        }
         
         previewCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom).offset(24)
+            make.top.equalTo(scrollView.snp.top).offset(24)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(154)
         }
@@ -292,3 +330,79 @@ extension HomeViewController{
         }
     }
 }
+
+// MARK: - Setup NavigationBar
+private extension HomeViewController {
+    func setupNavigationBar(with name: String, and imageUser: UIImage) {
+        let navBarAppearance = UINavigationBarAppearance()
+        
+        navBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
+        ]
+        
+        navBarAppearance.backgroundColor = .customBlack
+        
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        
+        let rightButton = createCustomButton()
+        let customTitleView = createCustomTitleView(with: name, and: imageUser)
+        
+        navigationItem.rightBarButtonItem = rightButton
+        navigationItem.titleView = customTitleView
+    }
+    
+    func createCustomTitleView(with name: String, and imageUser: UIImage) -> UIView {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
+        
+        let image = UIImageView()
+        image.image = imageUser
+        image.backgroundColor = .customDarkGrey
+        image.layer.cornerRadius = 20
+        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFill
+        image.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        view.addSubview(image)
+        
+        let label = UILabel()
+        label.text = name
+        label.textColor = .white
+        label.font = UIFont.montserratSemiBold(ofSize: 16)
+        label.frame = CGRect(x: 55, y: 10, width: 200, height: 20)
+        view.addSubview(label)
+        return view
+    }
+    
+    func createCustomButton() -> UIBarButtonItem {
+        let view = UIView()
+        view.backgroundColor = .customGrey
+        view.layer.cornerRadius = 11
+        
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "heart"), for: .normal)
+        button.tintColor = .customRed
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(
+            self,
+            action: #selector(favoritesButtonDidTapped),
+            for: .touchUpInside
+        )
+        
+        view.addSubview(button)
+        button.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(3)
+            make.bottom.equalToSuperview().offset(-3)
+            make.leading.equalToSuperview().offset(3)
+            make.trailing.equalToSuperview().offset(-3)
+            
+        }
+        
+        let menuBarItem = UIBarButtonItem(customView: view)
+        return menuBarItem
+    }
+}
+
+

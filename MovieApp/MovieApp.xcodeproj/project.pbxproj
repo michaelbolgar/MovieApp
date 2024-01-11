@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0BEEEB2B4C6C8100CC7FA4 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0BEEEA2B4C6C8100CC7FA4 /* HomeBuilder.swift */; };
+		3C0BEEED2B4C6D2700CC7FA4 /* MyHomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0BEEEC2B4C6D2700CC7FA4 /* MyHomeRouter.swift */; };
+		3C0BEEFA2B4EBAE700CC7FA4 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0BEEF92B4EBAE700CC7FA4 /* CacheManager.swift */; };
 		3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D10B2B3B0B2900073990 /* ProfileRouter.swift */; };
 		3CA4D10E2B3B0B6D00073990 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D10D2B3B0B6D00073990 /* ModuleBuilder.swift */; };
 		3CA4D1142B3B0E2200073990 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA4D1132B3B0E2200073990 /* EditProfileVC.swift */; };
@@ -97,18 +100,21 @@
 		F48094C62B4D8A8C004C9F96 /* ConfigurableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094C52B4D8A8C004C9F96 /* ConfigurableProtocol.swift */; };
 		F48094CD2B4DF602004C9F96 /* AppFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094CC2B4DF602004C9F96 /* AppFactory.swift */; };
 		F48094CF2B4DF620004C9F96 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094CE2B4DF620004C9F96 /* RootRouter.swift */; };
-		F48094D12B4DF648004C9F96 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D02B4DF648004C9F96 /* HomeRouter.swift */; };
+		F48094D12B4DF648004C9F96 /* HomeRouterNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D02B4DF648004C9F96 /* HomeRouterNew.swift */; };
 		F48094D52B4DF6E3004C9F96 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D42B4DF6E3004C9F96 /* SearchPresenter.swift */; };
 		F48094D82B4DF707004C9F96 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D72B4DF707004C9F96 /* SearchVC.swift */; };
 		F48094DA2B4DF838004C9F96 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D92B4DF838004C9F96 /* SearchRouter.swift */; };
 		F48094DC2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094DB2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift */; };
 		F48094DE2B4E020E004C9F96 /* UINavigationController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094DD2B4E020E004C9F96 /* UINavigationController Extension.swift */; };
 		FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */; };
-		FA37EAD02B459ED700760039 /* PopularMoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */; };
+		FA37EAD02B459ED700760039 /* PopularMoviePresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACF2B459ED700760039 /* PopularMoviePresenterProtocol.swift */; };
 		FA37EAD32B4C00AF00760039 /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C0BEEEA2B4C6C8100CC7FA4 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
+		3C0BEEEC2B4C6D2700CC7FA4 /* MyHomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHomeRouter.swift; sourceTree = "<group>"; };
+		3C0BEEF92B4EBAE700CC7FA4 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		3CA4D10B2B3B0B2900073990 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		3CA4D10D2B3B0B6D00073990 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		3CA4D1132B3B0E2200073990 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
@@ -198,14 +204,14 @@
 		F48094C52B4D8A8C004C9F96 /* ConfigurableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableProtocol.swift; sourceTree = "<group>"; };
 		F48094CC2B4DF602004C9F96 /* AppFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFactory.swift; sourceTree = "<group>"; };
 		F48094CE2B4DF620004C9F96 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
-		F48094D02B4DF648004C9F96 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		F48094D02B4DF648004C9F96 /* HomeRouterNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouterNew.swift; sourceTree = "<group>"; };
 		F48094D42B4DF6E3004C9F96 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
-		F48094D72B4DF707004C9F96 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
-		F48094D92B4DF838004C9F96 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		F48094D72B4DF707004C9F96 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchVC.swift; path = MovieApp/Moduls/Search/View/SearchVC.swift; sourceTree = "<group>"; };
+		F48094D92B4DF838004C9F96 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchRouter.swift; path = MovieApp/Moduls/Search/View/SearchRouter.swift; sourceTree = "<group>"; };
 		F48094DB2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeRouter.swift; sourceTree = "<group>"; };
 		F48094DD2B4E020E004C9F96 /* UINavigationController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController Extension.swift"; sourceTree = "<group>"; };
 		FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieViewController.swift; sourceTree = "<group>"; };
-		FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviePresenter.swift; sourceTree = "<group>"; };
+		FA37EACF2B459ED700760039 /* PopularMoviePresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviePresenterProtocol.swift; sourceTree = "<group>"; };
 		FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -223,6 +229,74 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C0BEEE82B4C6C5800CC7FA4 /* HomeBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				3C0BEEEA2B4C6C8100CC7FA4 /* HomeBuilder.swift */,
+			);
+			path = HomeBuilder;
+			sourceTree = "<group>";
+		};
+		3C0BEEE92B4C6C6100CC7FA4 /* HomeRouter */ = {
+			isa = PBXGroup;
+			children = (
+				F48094D02B4DF648004C9F96 /* HomeRouterNew.swift */,
+				3C0BEEEC2B4C6D2700CC7FA4 /* MyHomeRouter.swift */,
+			);
+			path = HomeRouter;
+			sourceTree = "<group>";
+		};
+		3C0BEEF52B4D9C6A00CC7FA4 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				F48094D92B4DF838004C9F96 /* SearchRouter.swift */,
+				F48094D72B4DF707004C9F96 /* SearchVC.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		3C0BEEF82B4EBAD800CC7FA4 /* CacheManager */ = {
+			isa = PBXGroup;
+			children = (
+				3C0BEEF92B4EBAE700CC7FA4 /* CacheManager.swift */,
+			);
+			path = CacheManager;
+			sourceTree = "<group>";
+		};
+		3C0BEEFB2B4ECF4F00CC7FA4 /* Popular */ = {
+			isa = PBXGroup;
+			children = (
+				3C0BEEFE2B4ECF6300CC7FA4 /* Model */,
+				3C0BEEFD2B4ECF5E00CC7FA4 /* Presenter */,
+				3C0BEEFC2B4ECF5700CC7FA4 /* View */,
+			);
+			path = Popular;
+			sourceTree = "<group>";
+		};
+		3C0BEEFC2B4ECF5700CC7FA4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3C0BEEFD2B4ECF5E00CC7FA4 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				FA37EACF2B459ED700760039 /* PopularMoviePresenterProtocol.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		3C0BEEFE2B4ECF6300CC7FA4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3C304A4C2B3B0ACE003A88AA /* ModuleBuilder */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +431,7 @@
 		3CF904892B3C4513006E9D51 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3C0BEEF82B4EBAD800CC7FA4 /* CacheManager */,
 				F48094A12B477658004C9F96 /* Network */,
 				3CF9048A2B3C4519006E9D51 /* Realm */,
 			);
@@ -501,14 +576,13 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		842B8BBF2B4F1F9700753510 /* MovieLists Screen */ = {
+		842B8BBF2B4F1F9700753510 /* MovieLists */ = {
 			isa = PBXGroup;
 			children = (
-				842B8BC92B5091AE00753510 /* Model */,
 				842B8BC02B4F1FD900753510 /* Presenter */,
 				842B8BC12B4F1FE600753510 /* View */,
 			);
-			path = "MovieLists Screen";
+			path = MovieLists;
 			sourceTree = "<group>";
 		};
 		842B8BC02B4F1FD900753510 /* Presenter */ = {
@@ -534,13 +608,6 @@
 				842B8BC72B4F2B3200753510 /* MovieListCell.swift */,
 			);
 			path = MovieListTableCell;
-			sourceTree = "<group>";
-		};
-		842B8BC92B5091AE00753510 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		84AF6AD22B4B026700E3CB47 /* HeaderViews */ = {
@@ -580,6 +647,7 @@
 			children = (
 				F48094282B389AE6004C9F96 /* MovieApp */,
 				F48094272B389AE6004C9F96 /* Products */,
+				3C0BEEF52B4D9C6A00CC7FA4 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -634,6 +702,7 @@
 		F480943F2B389E49004C9F96 /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
+				3C0BEEFB2B4ECF4F00CC7FA4 /* Popular */,
 				F48094572B38F424004C9F96 /* Onboarding */,
 				F48094642B38F558004C9F96 /* Custom Tabbar */,
 				F48094582B38F42E004C9F96 /* Home */,
@@ -642,7 +711,7 @@
 				3CF904B92B3F282F006E9D51 /* Wishlist */,
 				F480945B2B38F474004C9F96 /* Christmas Tree */,
 				F48094592B38F435004C9F96 /* Profile */,
-				842B8BBF2B4F1F9700753510 /* MovieLists Screen */,
+				842B8BBF2B4F1F9700753510 /* MovieLists */,
 			);
 			path = Moduls;
 			sourceTree = "<group>";
@@ -677,8 +746,8 @@
 		F48094582B38F42E004C9F96 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				F48094C82B4DED2B004C9F96 /* PopularMovie Screen */,
-				FA37EAD12B4C008700760039 /* Models */,
+				3C0BEEE92B4C6C6100CC7FA4 /* HomeRouter */,
+				3C0BEEE82B4C6C5800CC7FA4 /* HomeBuilder */,
 				F48094702B38F70C004C9F96 /* View */,
 				F48094712B38F70F004C9F96 /* Presenter */,
 			);
@@ -732,8 +801,6 @@
 			isa = PBXGroup;
 			children = (
 				F480946B2B38F600004C9F96 /* HomeViewController.swift */,
-				3CF904922B3C7919006E9D51 /* SearchCell.swift */,
-				F48094D02B4DF648004C9F96 /* HomeRouter.swift */,
 				84AF6AD52B4B02AE00E3CB47 /* CollectionCell */,
 				84AF6AD22B4B026700E3CB47 /* HeaderViews */,
 			);
@@ -859,37 +926,13 @@
 		F48094C72B4DECAB004C9F96 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				3CF904942B3C791E006E9D51 /* WishlistCell.swift */,
+				3CF904922B3C7919006E9D51 /* SearchCell.swift */,
 				3CF904902B3C7913006E9D51 /* PopularCategoryCell.swift */,
+				3CF904942B3C791E006E9D51 /* WishlistCell.swift */,
 				F480945E2B38F4B2004C9F96 /* PreviewCategoryCell.swift */,
 				F48094C32B4D8A72004C9F96 /* CollectionCell.swift */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		F48094C82B4DED2B004C9F96 /* PopularMovie Screen */ = {
-			isa = PBXGroup;
-			children = (
-				F48094C92B4DED4F004C9F96 /* Presenter */,
-				F48094CA2B4DED58004C9F96 /* View */,
-			);
-			path = "PopularMovie Screen";
-			sourceTree = "<group>";
-		};
-		F48094C92B4DED4F004C9F96 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		F48094CA2B4DED58004C9F96 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		F48094CB2B4DF5E7004C9F96 /* Components */ = {
@@ -904,7 +947,6 @@
 		F48094D22B4DF6B7004C9F96 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				F48094D62B4DF6EF004C9F96 /* View */,
 				F48094D32B4DF6D7004C9F96 /* Presenter */,
 			);
 			path = Search;
@@ -916,23 +958,6 @@
 				F48094D42B4DF6E3004C9F96 /* SearchPresenter.swift */,
 			);
 			path = Presenter;
-			sourceTree = "<group>";
-		};
-		F48094D62B4DF6EF004C9F96 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				F48094D72B4DF707004C9F96 /* SearchVC.swift */,
-				F48094D92B4DF838004C9F96 /* SearchRouter.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		FA37EAD12B4C008700760039 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1030,6 +1055,7 @@
 				F48094CD2B4DF602004C9F96 /* AppFactory.swift in Sources */,
 				3CF904C12B3F2BB8006E9D51 /* PlugView.swift in Sources */,
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
+				3C0BEEFA2B4EBAE700CC7FA4 /* CacheManager.swift in Sources */,
 				F48094662B38F587004C9F96 /* MainTabBarController.swift in Sources */,
 				3CF904982B3D7C72006E9D51 /* Policy.swift in Sources */,
 				3CFEF12E2B418AE9000DA0B1 /* LanguagePresenter.swift in Sources */,
@@ -1048,18 +1074,20 @@
 				F48094DE2B4E020E004C9F96 /* UINavigationController Extension.swift in Sources */,
 				F48094B32B4D88D7004C9F96 /* DetailCastAndCrewView.swift in Sources */,
 				F48094B92B4D8926004C9F96 /* DetailHeaderView.swift in Sources */,
-				F48094D12B4DF648004C9F96 /* HomeRouter.swift in Sources */,
+				F48094D12B4DF648004C9F96 /* HomeRouterNew.swift in Sources */,
 				F48094C42B4D8A72004C9F96 /* CollectionCell.swift in Sources */,
 				3CA4D10E2B3B0B6D00073990 /* ModuleBuilder.swift in Sources */,
 				F480946E2B38F626004C9F96 /* HomePresenter.swift in Sources */,
 				3CF904A12B3DD9AA006E9D51 /* NotificationsPresenter.swift in Sources */,
-				FA37EAD02B459ED700760039 /* PopularMoviePresenter.swift in Sources */,
+				FA37EAD02B459ED700760039 /* PopularMoviePresenterProtocol.swift in Sources */,
 				3CF904C32B3F49CF006E9D51 /* WishlistPresenter.swift in Sources */,
 				F48094A52B47768A004C9F96 /* Endpoints.swift in Sources */,
 				3CF904A72B3DFE47006E9D51 /* LanguageVC.swift in Sources */,
 				842B8BC82B4F2B3200753510 /* MovieListCell.swift in Sources */,
 				F48094882B38FA47004C9F96 /* ProfileVC.swift in Sources */,
+				3C0BEEEB2B4C6C8100CC7FA4 /* HomeBuilder.swift in Sources */,
 				F48094542B38EFD6004C9F96 /* UIView Extension.swift in Sources */,
+				3C0BEEED2B4C6D2700CC7FA4 /* MyHomeRouter.swift in Sources */,
 				3CD315DF2B39BF97003035B0 /* UserInfoView.swift in Sources */,
 				F48094432B38A37A004C9F96 /* UIFont Extension.swift in Sources */,
 				F480947D2B38F971004C9F96 /* ChristmasTreePresenter.swift in Sources */,
