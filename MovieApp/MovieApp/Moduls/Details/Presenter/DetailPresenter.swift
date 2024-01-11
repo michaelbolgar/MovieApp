@@ -10,7 +10,7 @@ import UIKit
 // MARK: - DetailPresenter+Protocol
 final class DetailPresenter: DetailPresenterProtocol {
     
-    var router: DetailRouter?
+//    var router: DetailRouter?
     weak var view: DetailViewProtocol?
     let model = DetailModel()
 //    let header = DetailViewController.ViewModel.HeaderItem.self

@@ -10,6 +10,7 @@ struct Poster: Codable {
 struct Cover: Codable {
     #warning("подобрать дефолтную картинку для случае, когда нет обложки (так бывает)")
     let previewUrl: String?
+    let url: String?
 }
 
 struct Genre: Codable {
@@ -50,7 +51,9 @@ struct Collections: Codable {
     struct Collection: Codable {
         let name: String?
         //    let id: String?                     //нужно для идентфикации коллекции при тапе на ячейку
+        let slug: String?
         let cover: Cover?
+        let moviesCount: Int?
     }
 }
 
@@ -60,10 +63,14 @@ struct PopularMovies: Codable {
 
     struct PopularMovie: Codable {
         let name: String?
-        let genre: [Genre]?
+        let genres: [Genre]?
         let rating: Rating
         let poster: Cover?          //как вариант попробовать let backdrop с тем же типом данных
         let id: Int?                //нужно для идентфикации коллекции при тапе на ячейку
+        let year: Int?
+        let type: String?
+        let movieLength: Int?
+
     }
 }
 
