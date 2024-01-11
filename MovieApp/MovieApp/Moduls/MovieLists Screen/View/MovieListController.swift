@@ -7,14 +7,6 @@
 
 import UIKit
 
-protocol MovieListPresenterProtocol: AnyObject {
-    func numberOfCategories() -> Int
-    func category(at index: Int) -> catergoriesModel
-    func numberOfSelections() -> Int
-    func selection(at index: Int) -> MovieListCellModel
-    func didSelectCategory(at index: Int)
-}
-
 // MARK: - MovieListViewProtocol
 
 protocol MovieListViewProtocol: AnyObject {
@@ -25,7 +17,7 @@ protocol MovieListViewProtocol: AnyObject {
 
 final class MovieListController: UIViewController {
     
-//    weak var view: MovieListViewProtocol?
+    var presenter: MovieListPresenterProtocol!
     
     //MARK: - Properties
     private lazy var categoryCollectionView: UICollectionView = {
@@ -55,23 +47,6 @@ final class MovieListController: UIViewController {
         return element
     }()
     
-    private let categoryData = [
-        catergoriesModel(name: "All"),
-        catergoriesModel(name: "Action"),
-        catergoriesModel(name: "Comedy"),
-        catergoriesModel(name: "Drama"),
-        catergoriesModel(name: "Horror"),
-        catergoriesModel(name: "Thriller"),
-        catergoriesModel(name: "Animation"),
-    ]
-    
-    private let selectionData = [
-        MovieListCellModel(image: nil, name: "Marvel Movies"),
-        MovieListCellModel(image: nil, name: "Marvel Movies"),
-        MovieListCellModel(image: nil, name: "Marvel Movies"),
-        MovieListCellModel(image: nil, name: "Marvel Movies"),
-    ]
-    
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,8 +54,10 @@ final class MovieListController: UIViewController {
         setupViews()
         setupConstraints()
         
-//        presenter = MovieListPresenter()
-//        presenter.view = self
+        let model = MovieListModel()
+        presenter = MovieListPresenterImpl(model: model)
+        presenter.view = self
+        presenter.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,12 +93,13 @@ final class MovieListController: UIViewController {
 //MARK: - UICollectionViewDataSource
 extension MovieListController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        selectionData.count
+        presenter.numberOfSelections()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoriesCell.identifier, for: indexPath) as! CategoriesCell
-        cell.configure(with: categoryData[indexPath.item])
+        let category = presenter.category(at: indexPath.item)
+        cell.configure(with: category)
         cell.isSelected ? cell.selectCell() : cell.deselectCell()
         return cell
     }
@@ -161,12 +139,13 @@ extension MovieListController: UICollectionViewDelegate {
     //MARK: - UITableViewDataSource
 extension MovieListController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        selectionData.count
+        presenter.numberOfSelections()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListCell.identifier, for: indexPath) as? MovieListCell else { return UITableViewCell() }
-        cell.configureCell(with: selectionData[indexPath.row])
+        let selection = presenter.selection(at: indexPath.item)
+        cell.configureCell(with: selection)
         return cell
     }
 }
