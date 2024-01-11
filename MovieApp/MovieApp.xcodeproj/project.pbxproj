@@ -504,6 +504,7 @@
 		842B8BBF2B4F1F9700753510 /* MovieLists Screen */ = {
 			isa = PBXGroup;
 			children = (
+				842B8BC92B5091AE00753510 /* Model */,
 				842B8BC02B4F1FD900753510 /* Presenter */,
 				842B8BC12B4F1FE600753510 /* View */,
 			);
@@ -533,6 +534,13 @@
 				842B8BC72B4F2B3200753510 /* MovieListCell.swift */,
 			);
 			path = MovieListTableCell;
+			sourceTree = "<group>";
+		};
+		842B8BC92B5091AE00753510 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		84AF6AD22B4B026700E3CB47 /* HeaderViews */ = {

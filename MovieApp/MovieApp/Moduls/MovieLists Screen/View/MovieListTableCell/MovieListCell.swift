@@ -78,7 +78,7 @@ final class MovieListCell: UITableViewCell{
 }
 
 struct MovieListModel{
-    var categories: [String] = ["All", "Action", "Comedy", "Drama", "Horror", "Thriller", "Animation"]
+    var categories: [String] = ["Action", "Comedy", "Horror", "Drama", "Anime", "Cartoon"]
     var selections: [MovieListCellModel] = [
         MovieListCellModel(image: UIImage(named: "movie1"), name: "Movie Title 1"),
         MovieListCellModel(image: UIImage(named: "movie1"), name: "Movie Title 1"),

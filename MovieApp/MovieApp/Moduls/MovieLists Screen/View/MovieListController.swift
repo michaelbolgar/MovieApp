@@ -62,17 +62,12 @@ final class MovieListController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        selectFirstCell()
+        selectFirstCategory()
     }
     
     //MARK: - Private methods
     private func setupViews() {
         [selectionMovieTable, categoryCollectionView].forEach { self.view.addSubview($0) }
-    }
-    
-    private func selectFirstCell(){
-        let selectedIndexPath = IndexPath(item: 0, section: 0)
-        categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
     
     private func setupConstraints(){
@@ -93,7 +88,7 @@ final class MovieListController: UIViewController {
 //MARK: - UICollectionViewDataSource
 extension MovieListController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter.numberOfSelections()
+        presenter.numberOfCategories()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -120,6 +115,7 @@ extension MovieListController: UICollectionViewDelegate {
         case categoryCollectionView:
             let cell = collectionView.cellForItem(at: indexPath) as! CategoriesCell
             cell.selectCell()
+            reloadSelectionTableView()
         default:
             break
         }
