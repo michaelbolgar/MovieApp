@@ -119,12 +119,14 @@ final class HomeViewController: UIViewController {
         presenter.setSelections()
         presenter.setPopularMovies()
         showPopularVC()
-        setupNavigationBar()
+        setupNavigationBar(with: userName, and: userImage)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         selectFirstCell()
+        presenter.setUser()
+        setupNavigationBar(with: userName, and: userImage)
     }
     
     // MARK: - Private Actions
@@ -331,7 +333,7 @@ private extension HomeViewController{
 
 // MARK: - Setup NavigationBar
 private extension HomeViewController {
-    func setupNavigationBar() {
+    func setupNavigationBar(with name: String, and imageUser: UIImage) {
         let navBarAppearance = UINavigationBarAppearance()
         
         navBarAppearance.titleTextAttributes = [
@@ -344,18 +346,18 @@ private extension HomeViewController {
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         
         let rightButton = createCustomButton()
-        let customTitleView = createCustomTitleView()
+        let customTitleView = createCustomTitleView(with: name, and: imageUser)
         
         navigationItem.rightBarButtonItem = rightButton
         navigationItem.titleView = customTitleView
     }
     
-    func createCustomTitleView() -> UIView {
+    func createCustomTitleView(with name: String, and imageUser: UIImage) -> UIView {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
         
         let image = UIImageView()
-        image.image = userImage
+        image.image = imageUser
         image.backgroundColor = .customDarkGrey
         image.layer.cornerRadius = 20
         image.clipsToBounds = true
@@ -364,7 +366,7 @@ private extension HomeViewController {
         view.addSubview(image)
         
         let label = UILabel()
-        label.text = userName
+        label.text = name
         label.textColor = .white
         label.font = UIFont.montserratSemiBold(ofSize: 16)
         label.frame = CGRect(x: 55, y: 10, width: 200, height: 20)
