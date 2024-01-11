@@ -48,7 +48,9 @@ final class DetailPresenter: DetailPresenterProtocol {
                             rating: movieDetails.rating?.imdb,
                             year: movieDetails.year,
                             trailerClosure: {print("trailerClosure")},
-                            shareClosure: {print("shareClosure")}),
+                            shareClosure: { [weak self] in
+                                
+                                self?.userDidTapShare()}),
                         castAndCrew: [.init(
                             imageURL: model.personImage,
                             name: movieDetails.persons?.first?.enName,
@@ -67,6 +69,12 @@ final class DetailPresenter: DetailPresenterProtocol {
             }
         }
     }
+    
+    func userDidTapShare() {
+           // Обрабатывает нажатие кнопки поделиться, показывает ShareView и т.д.
+        self.view?.showShareView()
+       }
+    
     private func addToLikes() {
         print("likeButton")
     }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Social
 
 // MARK: - DetailViewController
 
@@ -19,7 +20,9 @@ class DetailViewController: UIViewController {
     private var items = [ViewModel.Item]()
     private var likeBarButtonAction: (() -> Void)?
     private var viewModel: ViewModel?
-
+    private var shareView: ShareView?
+    private var blurEffectView: UIVisualEffectView?
+    
     private lazy var collectionView: UICollectionView = {
            let layout = UICollectionViewFlowLayout()
            layout.scrollDirection = .vertical
@@ -58,6 +61,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         presenter.activate()
         layout()
+        setupShareView()
     }
 
     // MARK: - Layout
@@ -80,6 +84,38 @@ class DetailViewController: UIViewController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
+    private func setupShareView() {
+           shareView = ShareView()
+           shareView?.alpha = 0
+           shareView?.closeButton.addTarget(self, action: #selector(hideShareView), for: .touchUpInside)
+           view.addSubview(shareView!)
+           shareView?.snp.makeConstraints { make in
+               make.center.equalToSuperview()
+               make.width.equalTo(300)
+               make.height.equalTo(200)
+           }
+       }
+
+    internal func blurBackground() {
+            let blurEffect = UIBlurEffect(style: .dark)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = view.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.addSubview(blurEffectView)
+        }
+    
+    @objc func hideShareView() {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.shareView?.alpha = 0
+            }) { _ in
+                self.blurEffectView?.removeFromSuperview()
+            }
+        }
+
+        @objc func shareButtonTapped() {
+            presenter.userDidTapShare()
+            print("share tapped")
+        }
 }
 
 // MARK: - UICollectionView+Extension
@@ -217,6 +253,26 @@ extension DetailViewController: UICollectionViewDelegate,
 // MARK: - DetailViewProtocol
 
 extension DetailViewController: DetailViewProtocol {
+    func showShareView() {
+        setupBlurView()
+               UIView.animate(withDuration: 0.3) {
+                   self.shareView?.alpha = 1
+               }
+    }
+    
+    private func setupBlurView() {
+            blurEffectView?.removeFromSuperview() // Удаляем предыдущее размытие, если оно было добавлено
+            let blurEffect = UIBlurEffect(style: .dark)
+            blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView?.frame = view.bounds
+            blurEffectView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.addSubview(blurEffectView!)
+            
+            // Убедимся, что shareView добавляется поверх blurEffectView
+            view.addSubview(shareView!)
+            view.bringSubviewToFront(shareView!)
+        }
+    
     func update(with model: ViewModel) {
         
         DispatchQueue.main.async {
@@ -230,8 +286,6 @@ extension DetailViewController: DetailViewProtocol {
             } else {
                 self.navigationItem.rightBarButtonItem = nil
             }
-
-
         
         self.viewModel = model
 
