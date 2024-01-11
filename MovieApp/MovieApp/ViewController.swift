@@ -30,7 +30,19 @@ class ViewController: UIViewController {
 //        popularRequest()
 //        search()
 //        slugRequest()
-        loadImages()
+//        loadImages()
+        getGenreMovies()
+    }
+
+    private func getGenreMovies() {
+        NetworkingManager.shared.getMoviesByCategory(for: Categories.comedy) { result in
+            switch result {
+            case .success(let movies):
+                print("Movies in genre: \(movies)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
     }
 
     private func loadImages() {

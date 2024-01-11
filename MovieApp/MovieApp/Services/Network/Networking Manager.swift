@@ -46,7 +46,8 @@ struct NetworkingManager {
         case .getMovieDetails(id: let id):
             parameters ["id"] = "\(id)"
         case .getMoviesByCategory(category: let category):
-            parameters ["number"] = "10"
+            parameters ["number"] = "20"
+            parameters ["genres.name"] = "\(category)"
         case .getPopular:
             parameters ["page"] = "1"
             parameters ["number"] = "20"
@@ -130,16 +131,17 @@ struct NetworkingManager {
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
-    /// Get popular movie list (top 20)
+    /// Get movie list for a category on HomeScreen
+    func getMoviesByCategory(for category: Categories, completion: @escaping(Result<PopularMovies, NetworkError>) -> Void) {
+        guard let url = createURL(for: .getMoviesByCategory(category: category.rawValue)) else { return }
+        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+    }
+
+    /// Get popular movie list (top 20) on HomeScreen
     func getPopular(completion: @escaping(Result<PopularMovies, NetworkError>) -> Void) {
         guard let url = createURL(for: .getPopular) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
-
-//    func getMoviesByCategory(for category: String, completion: @escaping(Result<???, NetworkError>) -> Void) {
-//        guard let url = createURL(for: .getMoviesByCategory(category: category)) else { return }
-//        makeTask(for: url, apiKey: API.apiKey, completion: completion)
-//    }
 
     /// Get full information about a movie
     #warning ("при запросе деталей фильма ограничить массив актёров семью персоналиями")

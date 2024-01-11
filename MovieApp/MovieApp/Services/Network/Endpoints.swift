@@ -30,8 +30,8 @@ enum Endpoint {
         switch self {
         case .getCollections:
             return "/v1.4/list"
-        case .getMoviesByCategory(category: let category):
-            return ""
+        case .getMoviesByCategory:
+            return "/v1.4/movie"
         case .getPopular:
             return "/v1.4/movie"
         case .getMovieDetails(id: let id):
