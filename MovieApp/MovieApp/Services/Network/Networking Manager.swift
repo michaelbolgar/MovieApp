@@ -124,7 +124,7 @@ struct NetworkingManager {
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
-    /// Get movies for collections in the above collection on HomeScreen
+    /// Get movies for collections in the above collectionView on HomeScreen
     func getColletionMovieList(for slug: String, completion: @escaping(Result<PopularMovies, NetworkError>) -> Void) {
         guard let url = createURL(for: .getColletionMovieList(slug: slug)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
@@ -155,11 +155,13 @@ struct NetworkingManager {
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
+    /// Get related movies by actor
     func getMovieByActor(for actorID: Int, completion: @escaping(Result<PersonInfo, NetworkError>) -> Void) {
         guard let url = createURL(for: .getMovieByActor(actorID: actorID)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
+    /// Do search by movie
     func doSearch(for request: String, completion: @escaping(Result<SearchResults, NetworkError>) -> Void) {
         guard let url = createURL(for: .doSearch(request: request)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
