@@ -1,8 +1,10 @@
 import Foundation
 
+#warning("сделать универсальную структуру Doc")
+
 /// Small structs for arrays
 struct Poster: Codable {
-    let url: String?
+    let url: String?            //this one is in high quality (as possible)
     let previewUrl: String?
     #warning("надо проверить прилетающие картинки на большом количестве фильмов. Возможно запрос logo будет тоже релевантным")
 }
@@ -84,4 +86,9 @@ struct SearchResults: Codable {
 //        let poster: Poster
 //        let genres: [Genre]?
 //    }
+}
+
+struct Gallery: Codable {
+
+    let docs: [Poster]
 }

@@ -24,6 +24,7 @@ enum Endpoint {
     case getMovieByActor(actor: String)             //поиск related movies
     case getRandom                                  //запрос для экрана с ёлкой
     case getColletionMovieList(slug: String)
+    case getImages(id: Int)
 
     var path: String {
         switch self {
@@ -43,6 +44,8 @@ enum Endpoint {
             return ""
         case .getColletionMovieList(slug: let slug):
             return "/v1.4/movie"
+        case .getImages(id: let id):
+            return "/v1.4/image"
         }
     }
 }

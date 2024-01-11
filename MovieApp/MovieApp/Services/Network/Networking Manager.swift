@@ -56,6 +56,8 @@ struct NetworkingManager {
             parameters [""] = ""
         case .getColletionMovieList(slug: let slug):
             parameters ["lists"] = "\(slug)"
+        case .getImages(id: let id):
+            parameters ["movieId"] = "\(id)"
         }
 
         return parameters
@@ -116,12 +118,13 @@ struct NetworkingManager {
 
     //MARK: - Public Methods
 
-    /// Get categories for homeScreen
+    /// Get categories for HomeScreen
     func getCollections(completion: @escaping(Result<Collections, NetworkError>) -> Void) {
         guard let url = createURL(for: .getCollections) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
+    /// Get movies for collections in the above collection on HomeScreen
     func getColletionMovieList(for slug: String, completion: @escaping(Result<PopularMovies, NetworkError>) -> Void) {
         guard let url = createURL(for: .getColletionMovieList(slug: slug)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
@@ -142,6 +145,12 @@ struct NetworkingManager {
     #warning ("при запросе деталей фильма ограничить массив актёров семью персоналиями")
     func getMovieDetails(for id: Int, completion: @escaping(Result<MovieDetails, NetworkError>) -> Void) {
         guard let url = createURL(for: .getMovieDetails(id: id)) else { return }
+        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+    }
+
+    /// Get images for gallery in Movie Details
+    func getImages(for id: Int, completion: @escaping(Result<Gallery, NetworkError>) -> Void) {
+        guard let url = createURL(for: .getImages(id: id)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 

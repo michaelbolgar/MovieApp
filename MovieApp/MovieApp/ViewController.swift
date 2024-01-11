@@ -29,7 +29,19 @@ class ViewController: UIViewController {
 //        collectionRequst()
 //        popularRequest()
 //        search()
-        slugRequest()
+//        slugRequest()
+        loadImages()
+    }
+
+    private func loadImages() {
+        NetworkingManager.shared.getImages(for: 665) { result in
+            switch result {
+            case .success(let urlPool):
+                print("Pool of urls: \(urlPool)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
     }
 
     private func slugRequest() {
