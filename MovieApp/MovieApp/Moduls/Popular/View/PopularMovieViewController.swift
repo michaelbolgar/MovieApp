@@ -17,10 +17,23 @@ final class PopularMovieViewController: UIViewController {
     // MARK: - Presenter
     var presenter: PopularMoviePresenterProtocol!
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        var indicator = UIActivityIndicatorView()
+        indicator.startAnimating()
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        indicator.color = .white
+        indicator.isHidden = true
+        return indicator
+    }()
+    
     //MARK: - Properties
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
-        table.register(SearchCell.self, forCellReuseIdentifier: SearchCell.identifier)
+        table.register(
+            SearchCell.self,
+            forCellReuseIdentifier: SearchCell.identifier
+        )
         table.rowHeight = 150
         table.sectionFooterHeight = 0
         table.backgroundColor = .customBlack
@@ -34,6 +47,7 @@ final class PopularMovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
+        view.addSubview(activityIndicator)
         setupNavigationBar()
         setupTableView()
         setupConstraints()
@@ -42,6 +56,7 @@ final class PopularMovieViewController: UIViewController {
     // MARK: - Private Methods
     func setupNavigationBar() {
         setNavigationBar(title: "Popular Movies")
+        title = "Popular Movies"
         let navBarAppearance = UINavigationBarAppearance()
 
         navBarAppearance.titleTextAttributes = [

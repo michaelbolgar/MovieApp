@@ -18,6 +18,7 @@ final class CategoriesCell: UICollectionViewCell {
     // MARK: - UI Properties
     static let identifier = String(describing: CategoriesCell.self)
     
+    // MARK: - Private UI Properties
     private let nameCategoieLabel:UILabel = {
         let element = UILabel()
         element.font = UIFont.montserratMedium(ofSize: 12)

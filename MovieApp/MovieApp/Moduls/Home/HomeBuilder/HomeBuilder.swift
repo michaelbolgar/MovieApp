@@ -48,7 +48,7 @@ final class HomeBuilder: HomeBuilderProtocol {
         return view
     }
     
-    func createPopularModule(with movies: [PopularMovies.PopularMovie]) -> UIViewController {
+    func createPopularModule(with movies: [PopularMovies.PopularMovie] = []) -> UIViewController {
         let view = PopularMovieViewController()
         let presenter = PopularMoviePresenter(view: view, movies: movies)
         view.presenter = presenter
