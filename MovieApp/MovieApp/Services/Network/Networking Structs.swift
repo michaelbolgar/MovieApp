@@ -111,3 +111,20 @@ struct Gallery: Codable {
 
     let docs: [Poster]
 }
+
+struct PersonInfo: Codable {
+
+//    let id: Int?
+    let enName: String?
+    let movies: [Filmography]?
+
+    struct Filmography: Codable {
+
+        let id: Int?                        //id фильма -- понадобится для тапа на ячейку
+        let name: String?                   //название на русском
+        let alternativeName: String?        //название на английском
+        let rating: Double?
+        let description: String?            //это имя героя в фильме -- можно вставить для красоты (хз что прилетит для не актёров)
+        let enProfession: String?
+    }
+}

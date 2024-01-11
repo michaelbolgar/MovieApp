@@ -41,7 +41,7 @@ struct NetworkingManager {
 //            parameters ["page"] = "1"
             parameters ["number"] = "10"
             parameters ["category"] = "Фильмы"
-        case .getMovieByActor(actor: let actor):
+        case .getMovieByActor:
             parameters ["number"] = "10"
         case .getMovieDetails(id: let id):
             parameters ["id"] = "\(id)"
@@ -53,8 +53,7 @@ struct NetworkingManager {
             parameters ["number"] = "20"
             parameters ["lists"] = "top250"
         case .getRandom:
-            //что тут?
-            parameters [""] = ""
+            parameters ["number"] = "1"
         case .getColletionMovieList(slug: let slug):
             parameters ["lists"] = "\(slug)"
         case .getImages(id: let id):
@@ -156,10 +155,10 @@ struct NetworkingManager {
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
-//    func getMovieByActor(for actor: String, completion: @escaping(Result<???, NetworkError>) -> Void) {
-//        guard let url = createURL(for: .getMovieByActor(actor: actor)) else { return }
-//        makeTask(for: url, apiKey: API.apiKey, completion: completion)
-//    }
+    func getMovieByActor(for actorID: Int, completion: @escaping(Result<PersonInfo, NetworkError>) -> Void) {
+        guard let url = createURL(for: .getMovieByActor(actorID: actorID)) else { return }
+        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+    }
 
     func doSearch(for request: String, completion: @escaping(Result<SearchResults, NetworkError>) -> Void) {
         guard let url = createURL(for: .doSearch(request: request)) else { return }

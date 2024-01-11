@@ -21,7 +21,7 @@ enum Endpoint {
     case getPopular
     case getMovieDetails(id: Int)
     case doSearch(request: String)
-    case getMovieByActor(actor: String)             //поиск related movies
+    case getMovieByActor(actorID: Int)             //поиск related movies
     case getRandom                                  //запрос для экрана с ёлкой
     case getColletionMovieList(slug: String)
     case getImages(id: Int)
@@ -38,13 +38,13 @@ enum Endpoint {
             return "/v1.4/movie/\(id)"
         case .doSearch:
             return "/v1.4/movie/search"
-        case .getMovieByActor(actor: let actor):
-            return ""
+        case .getMovieByActor(actorID: let actorID):
+            return "/v1.4/person/\(actorID)"
         case .getRandom:
             return ""
-        case .getColletionMovieList(slug: let slug):
+        case .getColletionMovieList(slug: let slug): //можно убрать slug?
             return "/v1.4/movie"
-        case .getImages(id: let id):
+        case .getImages(id: let id): //можно убрать id?
             return "/v1.4/image"
         }
     }

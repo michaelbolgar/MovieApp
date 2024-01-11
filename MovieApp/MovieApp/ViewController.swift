@@ -31,7 +31,19 @@ class ViewController: UIViewController {
 //        search()
 //        slugRequest()
 //        loadImages()
-        getGenreMovies()
+//        getGenreMovies()
+        getPersonInfo()
+    }
+
+    private func getPersonInfo() {
+        NetworkingManager.shared.getMovieByActor(for: 6317) { result in
+            switch result {
+            case .success(let info):
+                print("Info about \(info.enName ?? "person"): \(info)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
     }
 
     private func getGenreMovies() {
