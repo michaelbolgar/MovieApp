@@ -54,7 +54,5 @@ final class HomeBuilder: HomeBuilderProtocol {
         view.presenter = presenter
         return view
     }
-    
-
 }
 

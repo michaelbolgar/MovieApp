@@ -11,23 +11,11 @@ final class HomeViewController: UIViewController {
     //MARK: - Presenter
     var presenter: HomePresenterProtocol!
     
+    // MARK: - Private User Properties
+    private var userName = ""
+    private var userImage = UIImage()
+    
     // MARK: - Private UI Properties
-    private let avatarImage: UIImageView = {
-        let element = UIImageView()
-        element.backgroundColor = .customDarkGrey
-        element.layer.cornerRadius = 20
-        element.clipsToBounds = true
-        element.contentMode = .scaleAspectFill
-        return element
-    }()
-    
-    private let userNameLabel = UILabel.makeLabel(
-        text: "",
-        font: UIFont.montserratSemiBold(ofSize: 16),
-        textColor: .white,
-        numberOfLines: 1
-    )
-    
     private lazy var previewCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -122,25 +110,6 @@ final class HomeViewController: UIViewController {
         return element
     }()
     
-    private let favoriteView: UIView = {
-        var view = UIView()
-        view.backgroundColor = .customGrey
-        view.layer.cornerRadius = 12
-        return view
-    }()
-    
-    private lazy var favoritesButton: UIButton = {
-        var button = UIButton(type: .system)
-        button.setImage(UIImage(named: "heart"), for: .normal)
-        button.tintColor = .customRed
-        button.addTarget(
-            self,
-            action: #selector(favoritesButtonDidTapped),
-            for: .touchUpInside
-        )
-        return button
-    }()
-    
     //MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,6 +119,7 @@ final class HomeViewController: UIViewController {
         presenter.setSelections()
         presenter.setPopularMovies()
         showPopularVC()
+        setupNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -285,8 +255,8 @@ extension HomeViewController: UICollectionViewDelegate {
 // MARK: - HomeViewControllerProtocol
 extension HomeViewController: HomeViewControllerProtocol {
     func setUserInfo(with user: User) {
-        avatarImage.image = UIImage(data: user.image)
-        userNameLabel.text = "Hello, " + user.fullName
+        userName = "Hello, " + user.fullName
+        userImage = UIImage(data: user.image) ?? UIImage()
     }
     
     func reloadPreviewCollection() {
@@ -307,28 +277,15 @@ private extension HomeViewController{
     
     func setViews() {
         view.backgroundColor = .clear
-        favoriteView.addSubview(favoritesButton)
-        [avatarImage, userNameLabel, scrollView, favoriteView].forEach { self.view.addSubview($0)
+        [scrollView].forEach { self.view.addSubview($0)
         }
         [searchBar, previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0)
         }
     }
     
     func setupConstraints(){
-        avatarImage.snp.makeConstraints { make in
-            make.width.height.equalTo(40)
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(15)
-            make.leading.equalToSuperview().offset(24)
-        }
-        
-        userNameLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(avatarImage)
-            make.leading.equalTo(avatarImage.snp.trailing).offset(17)
-            make.trailing.equalToSuperview().inset(80)
-        }
-        
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(avatarImage.snp.bottom).offset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
@@ -369,20 +326,80 @@ private extension HomeViewController{
             make.height.equalTo(231)
             make.bottom.equalTo(scrollView.snp.bottom).offset(-25)
         }
+    }
+}
+
+// MARK: - Setup NavigationBar
+private extension HomeViewController {
+    func setupNavigationBar() {
+        let navBarAppearance = UINavigationBarAppearance()
         
-        favoriteView.snp.makeConstraints { make in
-            make.centerY.equalTo(avatarImage.snp.centerY)
-            make.trailing.equalToSuperview().offset(-30)
-            make.height.equalTo(32)
-            make.width.equalTo(32)
+        navBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
+        ]
+        
+        navBarAppearance.backgroundColor = .customBlack
+        
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        
+        let rightButton = createCustomButton()
+        let customTitleView = createCustomTitleView()
+        
+        navigationItem.rightBarButtonItem = rightButton
+        navigationItem.titleView = customTitleView
+    }
+    
+    func createCustomTitleView() -> UIView {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
+        
+        let image = UIImageView()
+        image.image = userImage
+        image.backgroundColor = .customDarkGrey
+        image.layer.cornerRadius = 20
+        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFill
+        image.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        view.addSubview(image)
+        
+        let label = UILabel()
+        label.text = userName
+        label.textColor = .white
+        label.font = UIFont.montserratSemiBold(ofSize: 16)
+        label.frame = CGRect(x: 55, y: 10, width: 200, height: 20)
+        view.addSubview(label)
+        return view
+    }
+    
+    func createCustomButton() -> UIBarButtonItem {
+        let view = UIView()
+        view.backgroundColor = .customGrey
+        view.layer.cornerRadius = 11
+        
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "heart"), for: .normal)
+        button.tintColor = .customRed
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.addTarget(
+            self,
+            action: #selector(favoritesButtonDidTapped),
+            for: .touchUpInside
+        )
+        
+        view.addSubview(button)
+        button.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(3)
+            make.bottom.equalToSuperview().offset(-3)
+            make.leading.equalToSuperview().offset(3)
+            make.trailing.equalToSuperview().offset(-3)
+            
         }
         
-        favoritesButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(4)
-            make.leading.equalToSuperview().offset(4)
-            make.bottom.equalToSuperview().offset(-4)
-            make.trailing.equalToSuperview().offset(-4)
-        }
+        let menuBarItem = UIBarButtonItem(customView: view)
+        return menuBarItem
     }
 }
 
