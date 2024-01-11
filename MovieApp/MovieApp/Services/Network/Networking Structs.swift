@@ -40,8 +40,9 @@ struct Rating: Codable {
 struct Person: Codable {
     let enName: String?
     let enProfession: String?
+    let photo: String?
+    let id: Int?
 
-//        let id: Int                   //вроде не нужно
 //        let name: String              //если захотим перевести на русский
 //        let profession: String        //если захотим перевести на русский
 }
