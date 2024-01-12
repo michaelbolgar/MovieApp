@@ -19,6 +19,7 @@ final class DetailPresenter: DetailPresenterProtocol {
     
     private let networkManager = NetworkingManager.shared
     private let movieId: Int
+    private var movieDetail = MovieWishlist()
     
     init(movieId: Int) {
             self.movieId = movieId
@@ -36,6 +37,21 @@ final class DetailPresenter: DetailPresenterProtocol {
             
             switch result {
             case .success(let movieDetails):
+                
+                movieDetail.ganre = movieDetails.genres?.first?.name ?? ""
+                movieDetail.name = movieDetails.name ?? ""
+                movieDetail.type = movieDetails.type ?? ""
+                movieDetail.rating = movieDetails.rating?.imdb?.formatted() ?? ""
+            
+                if let imageUrl = movieDetails.poster?.url, let url = URL(string: imageUrl) {
+                    if let imageData = try? Data(contentsOf: url) {
+                        movieDetail.image = imageData
+                    }
+                }
+                
+                
+                
+                
                 print("presenter \(movieDetails)")
                 view?.update(
                     with: .init(
@@ -68,6 +84,8 @@ final class DetailPresenter: DetailPresenterProtocol {
         }
     }
     private func addToLikes() {
+        StorageManager.shared.save(movieDetail)
+        NotificationCenter.default.post(name: NSNotification.Name("SavedMovie"), object: nil)
         print("likeButton")
     }
 }

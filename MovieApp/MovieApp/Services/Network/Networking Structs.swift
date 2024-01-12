@@ -88,6 +88,7 @@ struct FullMovieInfo: Codable {
     let poster: Poster?
     let genres: [Genre]?            //RUS
     let persons: [Person]?
+    let type: String?
 }
 
 /// Screenshots from movie on MovieDetails Screen

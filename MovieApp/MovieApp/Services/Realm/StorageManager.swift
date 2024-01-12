@@ -11,11 +11,12 @@ import RealmSwift
 protocol StorageManagerProtocol {
     var realm: Realm { get }
     func save(_ user: User)
-    func save(_ movie: Movie)
+    func save(_ movie: MovieWishlist)
     func fetchUser() -> User?
     func isUserExist(withName name: String) -> Bool
-    func deleteAllMovies(from wishlist: Results<Movie>)
-    func deleteMovie(_ movie: Movie)
+    func deleteAllMovies(from wishlist: Results<MovieWishlist>)
+    func deleteMovie(_ movie: MovieWishlist)
+    func fetchAllMovies() -> Results<MovieWishlist>
 }
 
 final class StorageManager: StorageManagerProtocol {
@@ -39,7 +40,7 @@ final class StorageManager: StorageManagerProtocol {
     }
     
     // сохранения фильма в favorites
-    func save(_ movie: Movie) {
+    func save(_ movie: MovieWishlist) {
         write {
             realm.add(movie)
         }
@@ -51,20 +52,24 @@ final class StorageManager: StorageManagerProtocol {
 
     }
     
+    func fetchAllMovies() -> Results<MovieWishlist> {
+        realm.objects(MovieWishlist.self)
+    }
+    
     // проверка, сохранен ли уже такой юзер
     func isUserExist(withName name: String) -> Bool {
         realm.objects(User.self).filter("fullName = %@", name).count > 0
     }
     
     // удаление всех фильмов
-    func deleteAllMovies(from wishlist: Results<Movie>) {
+    func deleteAllMovies(from wishlist: Results<MovieWishlist>) {
         write {
             realm.delete(wishlist)
         }
     }
     
     // удаление конкретного фильма
-    func deleteMovie(_ movie: Movie) {
+    func deleteMovie(_ movie: MovieWishlist) {
         write {
             realm.delete(movie)
         }
