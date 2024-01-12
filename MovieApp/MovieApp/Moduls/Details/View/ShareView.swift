@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import FBSDKShareKit
 
 // Класс для представления всплывающего окна с кнопками поделиться
 class ShareView: UIView {
     
-    private lazy var facebookButton: UIButton = {
+    weak var parentViewController: DetailViewController?
+    
+    let facebookButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(
             UIImage(
@@ -23,7 +26,7 @@ class ShareView: UIView {
            btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
-    private lazy var instagramButton: UIButton = {
+    let instagramButton: UIButton = {
         let btn = UIButton(
             type: .system
         )
@@ -38,7 +41,7 @@ class ShareView: UIView {
            btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
-    private lazy var twitterButton: UIButton = {
+    let twitterButton: UIButton = {
         let btn = UIButton(
             type: .system
         )
@@ -53,13 +56,13 @@ class ShareView: UIView {
            btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
-    private lazy var fbMessanger: UIButton = {
+    let fbMessanger: UIButton = {
         let btn = UIButton(
             type: .system
         )
         btn.setImage(
             UIImage(
-                named: Images.twitter
+                named: Images.faceBookMessanger
             )?.withRenderingMode(
                 .alwaysOriginal
             ), for: .normal
@@ -127,6 +130,10 @@ class ShareView: UIView {
             $0.width.equalToSuperview().inset(30)
         }
     }
+    
+
+
+    
 }
 
 private enum Images {
