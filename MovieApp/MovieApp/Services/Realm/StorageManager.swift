@@ -16,7 +16,7 @@ protocol StorageManagerProtocol {
     func isUserExist(withName name: String) -> Bool
     func deleteAllMovies(from wishlist: Results<MovieWishlist>)
     func deleteMovie(_ movie: MovieWishlist)
-//    func fetchAllMovies() -> Results<MovieWishlist>
+    //    func fetchAllMovies() -> Results<MovieWishlist>
 }
 
 final class StorageManager: StorageManagerProtocol {
@@ -24,8 +24,10 @@ final class StorageManager: StorageManagerProtocol {
     
     // MARK: - Static Properties
     static let shared = StorageManager()
-    
-    static let config = Realm.Configuration(schemaVersion: 1, deleteRealmIfMigrationNeeded: true)
+    static let config = Realm.Configuration(
+        schemaVersion: 1,
+        deleteRealmIfMigrationNeeded: true
+    )
     
     // MARK: - Private Properties
     let realm: Realm
@@ -33,11 +35,10 @@ final class StorageManager: StorageManagerProtocol {
     // MARK: - Private init
     private init() {
         Realm.Configuration.defaultConfiguration = StorageManager.config
-          realm = try! Realm()
+        realm = try! Realm()
     }
     
     // MARK: - Public Methods
-    
     // сохранение пользователя
     func save(_ user: User) {
         write {
@@ -55,12 +56,12 @@ final class StorageManager: StorageManagerProtocol {
     // загрузка последнего пользователя в списке
     func fetchUser() -> User? {
         realm.objects(User.self).last
-
+        
     }
     
-//    func fetchAllMovies() -> Results<MovieWishlist> {
-//        realm.objects(MovieWishlist.self)
-//    }
+    //    func fetchAllMovies() -> Results<MovieWishlist> {
+    //        realm.objects(MovieWishlist.self)
+    //    }
     
     // проверка, сохранен ли уже такой юзер
     func isUserExist(withName name: String) -> Bool {

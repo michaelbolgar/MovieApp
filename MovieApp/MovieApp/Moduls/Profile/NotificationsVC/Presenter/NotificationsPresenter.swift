@@ -44,16 +44,12 @@ final class NotificationsPresenter: NotificationsPresenterProtocol {
                 DispatchQueue.main.async {
                     self.scheduleNotification()
                 }
-                print("Разрешение на уведомления получено")
-            } else {
-                print("Разрешение на уведомления не получено")
             }
         }
     }
     
     func removeNotifications() {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["dailyReminder"])
-//        view.removeNotification()
     }
     
     private func scheduleNotification() {

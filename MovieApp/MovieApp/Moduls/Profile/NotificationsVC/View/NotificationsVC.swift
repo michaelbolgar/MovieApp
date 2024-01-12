@@ -10,7 +10,6 @@ import SnapKit
 
 protocol NotificationsVCProtocol: AnyObject {
     func showView()
-//    func removeNotification()
 }
 
 final class NotificationsVC: UIViewController {
@@ -56,7 +55,7 @@ final class NotificationsVC: UIViewController {
     
     private let timeLabel = UILabel.makeLabel(
         text: "Send notifications at",
-        font: UIFont.montserratRegular(ofSize: 15),
+        font: UIFont.montserratMedium(ofSize: 16),
         textColor: .white,
         numberOfLines: 1
     )
@@ -129,10 +128,6 @@ extension NotificationsVC: NotificationsVCProtocol {
     func showView() {
         setViews()
     }
-        
-//    func removeNotification() {
-//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["dailyReminder"])
-//    }
 }
 
 // MARK: - Setup UI
@@ -182,12 +177,12 @@ private extension NotificationsVC {
         timePicker.snp.makeConstraints { make in
             make.top.equalTo(notificationSwitch.snp.bottom).offset(25)
             make.centerY.equalTo(timeLabel.snp.centerY)
-            make.leading.equalTo(timeLabel.snp.trailing).offset(15)
+            make.centerX.equalTo(notificationSwitch.snp.centerX)
         }
     }
     
     enum LayoutConstraint {
-        static let standardOffset: CGFloat = 20
+        static let standardOffset: CGFloat = 30
         static let mainViewHeight: CGFloat = 200
         static let settingLabelTopOffset: CGFloat = 28
         static let labelLeftOffset: CGFloat = 16
