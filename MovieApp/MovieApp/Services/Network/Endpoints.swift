@@ -41,10 +41,10 @@ enum Endpoint {
         case .getMovieByActor(actorID: let actorID):
             return "/v1.4/person/\(actorID)"
         case .getRandom:
-            return ""
-        case .getColletionMovieList(slug: let slug): //можно убрать slug?
+            return "/v1.4/movie/random"
+        case .getColletionMovieList:
             return "/v1.4/movie"
-        case .getImages(id: let id): //можно убрать id?
+        case .getImages:
             return "/v1.4/image"
         }
     }

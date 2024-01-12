@@ -34,28 +34,39 @@ struct NetworkingManager {
         parameters["apiKey"] = API.apiKey
 
         switch endpoint {
+
         case .doSearch (request: let request):
             parameters ["number"] = "10"
             parameters ["query"] = "\(request)"
+
         case .getCollections:
-//            parameters ["page"] = "1"
             parameters ["number"] = "10"
             parameters ["category"] = "Фильмы"
+
         case .getMovieByActor:
             parameters ["number"] = "10"
+
         case .getMovieDetails(id: let id):
             parameters ["id"] = "\(id)"
+
         case .getMoviesByCategory(category: let category):
             parameters ["number"] = "20"
             parameters ["genres.name"] = "\(category)"
+
         case .getPopular:
             parameters ["page"] = "1"
             parameters ["number"] = "20"
             parameters ["lists"] = "top250"
+
         case .getRandom:
-            parameters ["number"] = "1"
+            parameters ["notNullFields"] = "name"
+            parameters ["notNullFields"] = "enName"
+            parameters ["rating.imdb"] = "9-10"
+            parameters ["genres.name"] = "комедия"
+
         case .getColletionMovieList(slug: let slug):
             parameters ["lists"] = "\(slug)"
+
         case .getImages(id: let id):
             parameters ["movieId"] = "\(id)"
         }
@@ -82,8 +93,6 @@ struct NetworkingManager {
             }
 
             let statusCode = httpResponse.statusCode
-
-            #warning ("обработать эти ошибки через структуру с сервера?")
 
             /// Error handling: authorization error
             if statusCode == 401 {
@@ -125,26 +134,25 @@ struct NetworkingManager {
     }
 
     /// Get movies for collections in the above collectionView on HomeScreen
-    func getColletionMovieList(for slug: String, completion: @escaping(Result<PopularMovies, NetworkError>) -> Void) {
+    func getColletionMovieList(for slug: String, completion: @escaping(Result<MovieShortInfo, NetworkError>) -> Void) {
         guard let url = createURL(for: .getColletionMovieList(slug: slug)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
     /// Get movie list for a category on HomeScreen
-    func getMoviesByCategory(for category: Categories, completion: @escaping(Result<PopularMovies, NetworkError>) -> Void) {
+    func getMoviesByCategory(for category: Categories, completion: @escaping(Result<MovieShortInfo, NetworkError>) -> Void) {
         guard let url = createURL(for: .getMoviesByCategory(category: category.rawValue)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
     /// Get popular movie list (top 20) on HomeScreen
-    func getPopular(completion: @escaping(Result<PopularMovies, NetworkError>) -> Void) {
+    func getPopular(completion: @escaping(Result<MovieShortInfo, NetworkError>) -> Void) {
         guard let url = createURL(for: .getPopular) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
     /// Get full information about a movie
-    #warning ("при запросе деталей фильма ограничить массив актёров семью персоналиями")
-    func getMovieDetails(for id: Int, completion: @escaping(Result<MovieDetails, NetworkError>) -> Void) {
+    func getMovieDetails(for id: Int, completion: @escaping(Result<FullMovieInfo, NetworkError>) -> Void) {
         guard let url = createURL(for: .getMovieDetails(id: id)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
@@ -162,13 +170,13 @@ struct NetworkingManager {
     }
 
     /// Do search by movie
-    func doSearch(for request: String, completion: @escaping(Result<SearchResults, NetworkError>) -> Void) {
+    func doSearch(for request: String, completion: @escaping(Result<MovieShortInfo, NetworkError>) -> Void) {
         guard let url = createURL(for: .doSearch(request: request)) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 
-//    func getRandom(completion: @escaping(Result<MovieDetails, NetworkError>) -> Void) {
-//        guard let url = createURL(for: .getRandom) else { return }
-//        makeTask(for: url, apiKey: API.apiKey, completion: completion)
-//    }
+    func getRandom(completion: @escaping(Result<MovieInfoForCell, NetworkError>) -> Void) {
+        guard let url = createURL(for: .getRandom) else { return }
+        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+    }
 }

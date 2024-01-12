@@ -25,6 +25,7 @@ class ViewController: UIViewController {
             make.centerY.equalToSuperview()
         }
 
+#warning("пройтись по запросам и дать им нормальные названия")
 //        detailsRequst()
 //        collectionRequst()
 //        popularRequest()
@@ -32,7 +33,19 @@ class ViewController: UIViewController {
 //        slugRequest()
 //        loadImages()
 //        getGenreMovies()
-        getPersonInfo()
+//        getPersonInfo()
+        getRandom()
+    }
+
+    private func getRandom() {
+        NetworkingManager.shared.getRandom { result in
+            switch result {
+            case .success(let movie):
+                print("Info about movie: \(movie)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
     }
 
     private func getPersonInfo() {
