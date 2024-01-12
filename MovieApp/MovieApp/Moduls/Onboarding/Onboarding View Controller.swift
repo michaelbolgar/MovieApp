@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 struct OnboardingStruct {
     let image: UIImage
@@ -28,7 +29,7 @@ final class OnboardingViewController: UIViewController {
         return pageControl
     }()
     
-    let collectionView: UICollectionView = {
+    private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.scrollDirection = .horizontal
@@ -37,6 +38,7 @@ final class OnboardingViewController: UIViewController {
         collectionView.isScrollEnabled = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isPagingEnabled = true
         return collectionView
     }()
     
@@ -49,7 +51,7 @@ final class OnboardingViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-   
+    
     private let bottomLabel: UILabel = {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
@@ -89,7 +91,7 @@ final class OnboardingViewController: UIViewController {
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
         
         guard let imageFirst = UIImage(named: "onboarding1"),
-              let imageSecond = UIImage(named: "onboarding1"),
+              let imageSecond = UIImage(named: "tom"),
               let imageThird = UIImage(named: "onboarding3") else {
             return
         }
@@ -145,6 +147,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension OnboardingViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: view.frame.width, height: collectionView.frame.height)
     }
@@ -155,30 +158,36 @@ extension OnboardingViewController {
     
     private func setConstraints() {
         
-        NSLayoutConstraint.activate([
-            
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            collectionView.heightAnchor.constraint(equalToConstant: 400),
-            
-            topLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 50),
-            topLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            topLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            bottomLabel.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 20),
-            bottomLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            bottomLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-           
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -65),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            nextButton.heightAnchor.constraint(equalToConstant: 60),
-            nextButton.widthAnchor.constraint(equalToConstant: 60),
-            
-            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -80),
-            pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            pageControl.heightAnchor.constraint(equalToConstant: 30),
-            
-        ])
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.height.equalTo(400)
+        }
+        
+        topLabel.snp.makeConstraints { make in
+            make.top.equalTo(collectionView.snp.bottom).offset(50)
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.trailing.equalTo(view.snp.trailing).offset(-20)
+        }
+        
+        bottomLabel.snp.makeConstraints { make in
+            make.top.equalTo(topLabel.snp.bottom).offset(20)
+            make.leading.equalTo(view.snp.leading).offset(20)
+            make.trailing.equalTo(view.snp.trailing).offset(-20)
+        }
+        
+        nextButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-65)
+            make.trailing.equalTo(view.snp.trailing).offset(-30)
+            make.height.equalTo(60)
+            make.width.equalTo(60)
+        }
+        
+        pageControl.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-80)
+            make.leading.equalTo(view.snp.leading).offset(10)
+            make.height.equalTo(30)
+        }
     }
 }

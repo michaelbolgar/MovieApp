@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class OnboardingCollectionViewCell: UICollectionViewCell {
     
@@ -42,11 +43,11 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
     }
     
     private func setConstraints() {
-        NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            backgroundImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            backgroundImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1),
-        ])
+        backgroundImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(0)
+            make.leading.equalToSuperview().offset(0)
+            make.trailing.equalToSuperview().offset(0)
+            make.height.equalToSuperview()
+        }
     }
 }
