@@ -16,11 +16,9 @@ protocol StorageManagerProtocol {
     func isUserExist(withName name: String) -> Bool
     func deleteAllMovies(from wishlist: Results<MovieWishlist>)
     func deleteMovie(_ movie: MovieWishlist)
-    //    func fetchAllMovies() -> Results<MovieWishlist>
 }
 
 final class StorageManager: StorageManagerProtocol {
-    
     
     // MARK: - Static Properties
     static let shared = StorageManager()
@@ -58,10 +56,6 @@ final class StorageManager: StorageManagerProtocol {
         realm.objects(User.self).last
         
     }
-    
-    //    func fetchAllMovies() -> Results<MovieWishlist> {
-    //        realm.objects(MovieWishlist.self)
-    //    }
     
     // проверка, сохранен ли уже такой юзер
     func isUserExist(withName name: String) -> Bool {
