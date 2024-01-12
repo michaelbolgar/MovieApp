@@ -20,6 +20,7 @@ enum Categories: String, Equatable {
 struct Poster: Codable {
     let url: String?            //this one is in high quality (as possible)
     let previewUrl: String?
+    let url: String?
 }
 
 /// Genre of movie
