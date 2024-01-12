@@ -21,28 +21,31 @@ enum Endpoint {
     case getPopular
     case getMovieDetails(id: Int)
     case doSearch(request: String)
-    case getMovieByActor(actor: String)             //поиск related movies
+    case getMovieByActor(actorID: Int)             //поиск related movies
     case getRandom                                  //запрос для экрана с ёлкой
     case getColletionMovieList(slug: String)
+    case getImages(id: Int)
 
     var path: String {
         switch self {
         case .getCollections:
             return "/v1.4/list"
-        case .getMoviesByCategory(category: let category):
-            return ""
+        case .getMoviesByCategory:
+            return "/v1.4/movie"
         case .getPopular:
             return "/v1.4/movie"
         case .getMovieDetails(id: let id):
             return "/v1.4/movie/\(id)"
         case .doSearch:
             return "/v1.4/movie/search"
-        case .getMovieByActor(actor: let actor):
-            return ""
+        case .getMovieByActor(actorID: let actorID):
+            return "/v1.4/person/\(actorID)"
         case .getRandom:
-            return ""
-        case .getColletionMovieList(slug: let slug):
+            return "/v1.4/movie/random"
+        case .getColletionMovieList:
             return "/v1.4/movie"
+        case .getImages:
+            return "/v1.4/image"
         }
     }
 }
