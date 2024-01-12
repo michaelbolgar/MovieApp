@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol NotificationsVCProtocol: AnyObject {
     func showView()
+//    func removeNotification()
 }
 
 final class NotificationsVC: UIViewController {
@@ -26,47 +28,124 @@ final class NotificationsVC: UIViewController {
         return view
     }()
     
-    private var settingLabel: UILabel = {
-        UILabel.makeLabel(
-            text: "Messages Notifications",
-            font: .montserratMedium(ofSize: 14),
-            textColor: .customLightGrey,
-            numberOfLines: 1
-        )
-    }()
+    private var settingLabel = UILabel.makeLabel(
+        text: "Messages Notifications",
+        font: .montserratMedium(ofSize: 14),
+        textColor: .customLightGrey,
+        numberOfLines: 1
+    )
     
-    private var notificationsLabel: UILabel = {
-        UILabel.makeLabel(
-            text: "Show Notifications",
-            font: .montserratMedium(ofSize: 16),
-            textColor: .white,
-            numberOfLines: 1
-        )
-    }()
+    private var notificationsLabel = UILabel.makeLabel(
+        text: "Show Notifications",
+        font: .montserratMedium(ofSize: 16),
+        textColor: .white,
+        numberOfLines: 1
+    )
     
     private var notificationSwitch: UISwitch = {
         var switcher = UISwitch()
         switcher.isOn = false
         switcher.onTintColor = .customBlue
+        switcher.addTarget(
+            self,
+            action: #selector(switcherDidChanged),
+            for: .valueChanged
+        )
         return switcher
+    }()
+    
+    private let timeLabel = UILabel.makeLabel(
+        text: "Send notifications at",
+        font: UIFont.montserratRegular(ofSize: 15),
+        textColor: .white,
+        numberOfLines: 1
+    )
+    
+    private let timePicker: UIDatePicker = {
+        var picker = UIDatePicker()
+        picker.datePickerMode = .time
+        picker.backgroundColor = .customBlack
+        picker.tintColor = .white
+        picker.layer.borderWidth = 1
+        picker.layer.borderColor = UIColor.white.cgColor
+        picker.layer.cornerRadius = 10
+        picker.clipsToBounds = true
+        picker.overrideUserInterfaceStyle = .dark
+        picker.locale = Locale(identifier: "en_GB")
+        picker.addTarget(
+            self,
+            action: #selector(pickerTimeDidChanged),
+            for: .valueChanged
+        )
+        return picker
     }()
     
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigationBar(title: "Notification")
         presenter.showView()
-        setupNavigationBar()
         setupConstraints()
+        updateDataFromPickerToPresenter()
     }
     
-    // MARK: - Private Methods
-    private func setViews() {
+    // MARK: - Private Actions
+    @objc private func pickerTimeDidChanged() {
+        updateDataFromPickerToPresenter()
+    }
+    
+    @objc private func switcherDidChanged() {
+        let value = notificationSwitch.isOn
+        
+        if value {
+            presenter.showrequestAuthorization()
+        } else {
+            presenter.removeNotifications()
+        }
+    }
+    
+    // MARK: - Picker Methods
+    private func getHourFromPicker() -> Int {
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: self.timePicker.date)
+        return hour
+    }
+    
+    private func getMinutesFromPicker() -> Int {
+        let calendar = Calendar.current
+        let minute = calendar.component(.minute, from: self.timePicker.date)
+        return minute
+    }
+    
+    private func updateDataFromPickerToPresenter() {
+        let hour = getHourFromPicker()
+        let minute = getMinutesFromPicker()
+        presenter.getDataFromPicker(hour: hour, minute: minute)
+    }
+}
+
+// MARK: - NotificationsVCProtocol
+extension NotificationsVC: NotificationsVCProtocol {
+    func showView() {
+        setViews()
+    }
+        
+//    func removeNotification() {
+//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["dailyReminder"])
+//    }
+}
+
+// MARK: - Setup UI
+private extension NotificationsVC {
+    
+    func setViews() {
         view.backgroundColor = .customBlack
         view.addSubview(mainView)
-        [settingLabel, notificationsLabel, notificationSwitch].forEach { mainView.addSubview($0) }
+        [settingLabel, notificationsLabel, notificationSwitch, timePicker, timeLabel].forEach { mainView.addSubview($0)
+        }
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         mainView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
                 .offset(LayoutConstraint.standardOffset)
@@ -83,8 +162,8 @@ final class NotificationsVC: UIViewController {
         }
         
         notificationsLabel.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-                .offset(LayoutConstraint.notificationsLabelBottomOffset)
+            make.top.equalTo(settingLabel.snp.bottom)
+                .offset(40)
             make.left.equalToSuperview()
                 .offset(LayoutConstraint.labelLeftOffset)
         }
@@ -94,26 +173,27 @@ final class NotificationsVC: UIViewController {
             make.right.equalToSuperview()
                 .offset(-LayoutConstraint.standardOffset)
         }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalTo(notificationsLabel.snp.bottom).offset(20)
+        }
+        
+        timePicker.snp.makeConstraints { make in
+            make.top.equalTo(notificationSwitch.snp.bottom).offset(25)
+            make.centerY.equalTo(timeLabel.snp.centerY)
+            make.leading.equalTo(timeLabel.snp.trailing).offset(15)
+        }
     }
     
-    private func setupNavigationBar() {
-        setNavigationBar(title: "Notification")
+    enum LayoutConstraint {
+        static let standardOffset: CGFloat = 20
+        static let mainViewHeight: CGFloat = 200
+        static let settingLabelTopOffset: CGFloat = 28
+        static let labelLeftOffset: CGFloat = 16
+        static let notificationsLabelBottomOffset: CGFloat = -28
     }
 }
 
-// MARK: - NotificationsVCProtocol
-extension NotificationsVC: NotificationsVCProtocol {
-    func showView() {
-        setViews()
-    }
-}
 
-// MARK: - LayoutConstraint
-private enum LayoutConstraint {
-    static let standardOffset: CGFloat = 20
-    static let mainViewHeight: CGFloat = 130
-    static let settingLabelTopOffset: CGFloat = 28
-    static let labelLeftOffset: CGFloat = 16
-    static let notificationsLabelBottomOffset: CGFloat = -28
-}
 
