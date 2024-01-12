@@ -3,7 +3,7 @@ import Foundation
 struct API {
     static let scheme = "https"
     static let host = "api.kinopoisk.dev"
-    static let apiKey = Token.first
+    static let apiKey = Token.third
 }
 
 struct Token {

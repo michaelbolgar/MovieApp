@@ -119,6 +119,7 @@ final class HomeViewController: UIViewController {
         presenter.setSelections()
         presenter.setPopularMovies()
         showPopularVC()
+        showMovieList()
         setupNavigationBar(with: userName, and: userImage)
     }
     
@@ -137,6 +138,12 @@ final class HomeViewController: UIViewController {
     private func showPopularVC() {
         categoriesPreviewView.seeAllButtonTapped = {
             self.presenter.showPopularMovies()
+        }
+    }
+    
+    private func showMovieList(){
+        categoryView.seeAllButtonTapped = {
+            self.navigationController?.pushViewController(MovieListController(), animated: true)
         }
     }
     
