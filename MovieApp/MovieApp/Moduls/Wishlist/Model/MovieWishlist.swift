@@ -8,12 +8,13 @@
 import UIKit
 import RealmSwift
 
-final class Movie: Object {
+final class MovieWishlist: Object {
     @Persisted var image = Data()
     @Persisted var ganre = ""
     @Persisted var name = ""
     @Persisted var type = ""
     @Persisted var rating = ""
+    @Persisted var id = Int()
 }
 
 

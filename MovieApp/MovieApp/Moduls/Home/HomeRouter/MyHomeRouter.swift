@@ -45,7 +45,7 @@ final class MyHomeRouter: HomeRouterProtocol {
     
     func showFavorites() {
         if let navigationController = navigationController {
-            guard let wishlistVC = moduleBuilder?.createFavoritesModule() else { return }
+            guard let wishlistVC = moduleBuilder?.createFavoritesModule(router: self) else { return }
             navigationController.pushViewController(wishlistVC, animated: true)
         }
     }
@@ -59,7 +59,7 @@ final class MyHomeRouter: HomeRouterProtocol {
     
     func showPopularScreen(with movies: [MovieInfoForCell] = []) {
         if let navigationController = navigationController {
-            guard let popularVC = moduleBuilder?.createPopularModule(with: movies) else { return }
+            guard let popularVC = moduleBuilder?.createPopularModule(with: movies, and: self) else { return }
             navigationController.pushViewController(popularVC, animated: true)
         }
     }

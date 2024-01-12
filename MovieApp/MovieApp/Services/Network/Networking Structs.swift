@@ -35,9 +35,9 @@ struct Rating: Codable {
 
 /// People related to movie
 struct Person: Codable {
-    let name: String                        //RUS
+    let name: String?                        //RUS
     let enName: String?
-    let profession: String                  //RUS
+    let profession: String?                 //RUS
     let enProfession: String?
     let photo: String?
     let id: Int?
@@ -88,6 +88,7 @@ struct FullMovieInfo: Codable {
     let poster: Poster?
     let genres: [Genre]?            //RUS
     let persons: [Person]?
+    let type: String?
 }
 
 /// Screenshots from movie on MovieDetails Screen

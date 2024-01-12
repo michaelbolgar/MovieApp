@@ -42,4 +42,9 @@ extension WishlistVC: UITableViewDelegate {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = presenter.movies[indexPath.row]
+        presenter.showDetailsMovie(with: movie.id)
+    }
 }
