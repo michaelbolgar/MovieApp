@@ -45,7 +45,7 @@ final class MyHomeRouter: HomeRouterProtocol {
     
     func showFavorites() {
         if let navigationController = navigationController {
-            guard let wishlistVC = moduleBuilder?.createFavoritesModule() else { return }
+            guard let wishlistVC = moduleBuilder?.createFavoritesModule(router: self) else { return }
             navigationController.pushViewController(wishlistVC, animated: true)
         }
     }

@@ -42,6 +42,7 @@ final class DetailPresenter: DetailPresenterProtocol {
                 movieDetail.name = movieDetails.name ?? ""
                 movieDetail.type = movieDetails.type ?? ""
                 movieDetail.rating = movieDetails.rating?.imdb?.formatted() ?? ""
+                movieDetail.id = movieId
             
                 if let imageUrl = movieDetails.poster?.url, let url = URL(string: imageUrl) {
                     if let imageData = try? Data(contentsOf: url) {
@@ -85,7 +86,7 @@ final class DetailPresenter: DetailPresenterProtocol {
     }
     private func addToLikes() {
         StorageManager.shared.save(movieDetail)
-        NotificationCenter.default.post(name: NSNotification.Name("SavedMovie"), object: nil)
+//        NotificationCenter.default.post(name: NSNotification.Name("SavedMovie"), object: nil)
         print("likeButton")
     }
 }
