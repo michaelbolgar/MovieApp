@@ -54,8 +54,8 @@ final class MovieListController: UIViewController {
         setupViews()
         setupConstraints()
         
-        let model = MovieListModel()
-        presenter = MovieListPresenterImpl(model: model)
+        let model = MovieListCellModel(image: nil, name: nil)
+        presenter = MovieListPresenterImpl(model: [model])
         presenter.view = self
         presenter.viewDidLoad()
     }

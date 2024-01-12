@@ -10,40 +10,59 @@ import UIKit
 protocol MovieListPresenterProtocol: AnyObject {
     func viewDidLoad()
     func numberOfCategories() -> Int
-    func category(at index: Int) -> catergoriesModel
+    func category(at index: Int) -> CatergoriesModel
     func numberOfSelections() -> Int
     func selection(at index: Int) -> MovieListCellModel
     func didSelectCategory(at index: Int)
     var view: MovieListViewProtocol? { get set }
+    var selections: [MovieListCellModel] { get }
 }
 
 final class MovieListPresenterImpl: MovieListPresenterProtocol {
     
     weak var view: MovieListViewProtocol?
-    private let model: MovieListModel
+    private let model: [MovieListCellModel]
     
-    init(model: MovieListModel) {
+    //MARK: - Mock Data
+    let categoryData = [
+        CatergoriesModel(name: "Action"),
+        CatergoriesModel(name: "Comedy"),
+        CatergoriesModel(name: "Horror"),
+        CatergoriesModel(name: "Drama"),
+        CatergoriesModel(name: "Anime"),
+        CatergoriesModel(name: "Cartoon"),
+    ]
+    
+    var selections: [MovieListCellModel] = [
+        MovieListCellModel(image: UIImage(named: "movie1"), name: "Movie Title 1"),
+        MovieListCellModel(image: UIImage(named: "movie1"), name: "Movie Title 1"),
+        MovieListCellModel(image: UIImage(named: "movie1"), name: "Movie Title 1")
+    ]
+    
+    //MARK: - Init
+    init(model: [MovieListCellModel]) {
         self.model = model
     }
     
+    //MARK: - Methods
     func viewDidLoad() {
         view?.reloadCategoryCollectionView()
     }
     
     func numberOfCategories() -> Int {
-        model.categories.count
+        categoryData.count
     }
     
-    func category(at index: Int) -> catergoriesModel {
-        catergoriesModel(name: model.categories[index])
+    func category(at index: Int) -> CatergoriesModel {
+        CatergoriesModel(name: categoryData[index].name)
     }
     
     func numberOfSelections() -> Int {
-        model.selections.count
+        selections.count
     }
     
     func selection(at index: Int) -> MovieListCellModel {
-        model.selections[index]
+        selections[index]
     }
     
     func didSelectCategory(at index: Int) {
