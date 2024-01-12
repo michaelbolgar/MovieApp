@@ -36,40 +36,34 @@ final class StorageManager: StorageManagerProtocol {
         realm = try! Realm()
     }
     
-    // MARK: - Public Methods
-    // сохранение пользователя
+    // MARK: - User Methods
     func save(_ user: User) {
         write {
             realm.add(user)
         }
     }
     
-    // сохранения фильма в favorites
+    func fetchUser() -> User? {
+        realm.objects(User.self).last
+    }
+    
+    func isUserExist(withName name: String) -> Bool {
+        realm.objects(User.self).filter("fullName = %@", name).count > 0
+    }
+    
+    // MARK: - Movie Methods
     func save(_ movie: MovieWishlist) {
         write {
             realm.add(movie)
         }
     }
     
-    // загрузка последнего пользователя в списке
-    func fetchUser() -> User? {
-        realm.objects(User.self).last
-        
-    }
-    
-    // проверка, сохранен ли уже такой юзер
-    func isUserExist(withName name: String) -> Bool {
-        realm.objects(User.self).filter("fullName = %@", name).count > 0
-    }
-    
-    // удаление всех фильмов
     func deleteAllMovies(from wishlist: Results<MovieWishlist>) {
         write {
             realm.delete(wishlist)
         }
     }
     
-    // удаление конкретного фильма
     func deleteMovie(_ movie: MovieWishlist) {
         write {
             realm.delete(movie)

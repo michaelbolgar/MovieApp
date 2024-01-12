@@ -17,16 +17,7 @@ final class PopularMovieViewController: UIViewController {
     // MARK: - Presenter
     var presenter: PopularMoviePresenterProtocol!
     
-    private lazy var activityIndicator: UIActivityIndicatorView = {
-        var indicator = UIActivityIndicatorView()
-        indicator.hidesWhenStopped = true
-        indicator.style = .large
-        indicator.color = .white
-        indicator.startAnimating()
-        return indicator
-    }()
-    
-    //MARK: - UI Properties
+    //MARK: - Private UI Properties
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(
@@ -39,6 +30,15 @@ final class PopularMovieViewController: UIViewController {
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         return table
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        var indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        indicator.color = .white
+        indicator.startAnimating()
+        return indicator
     }()
     
     //MARK: - Life Cycle
