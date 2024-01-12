@@ -87,8 +87,8 @@ final class PopularCategoryCell: UICollectionViewCell {
     }
     
     // MARK: - Public Methods
-    func configure(with model: PopularMovies.PopularMovie) {
-        
+    func configure(with model: MovieInfoForCell) {
+
         // Остановить предыдущую загрузку, если она есть
            task?.cancel()
 

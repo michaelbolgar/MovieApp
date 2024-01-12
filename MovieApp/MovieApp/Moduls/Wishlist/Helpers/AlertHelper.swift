@@ -20,7 +20,6 @@ final class AlertHelper {
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
-            completion(true)
         }
         
         [okAction, cancelAction].forEach { alert.addAction($0) }
