@@ -10,8 +10,8 @@ protocol HomePresenterProtocol {
     
     var categoryData: [CatergoriesModel] { get }
     var selections: [Collections.Collection] { get }
-    var popularMovies: [PopularMovies.PopularMovie] { get }
-    
+    var popularMovies: [MovieInfoForCell] { get }
+
     func setUser()
     func showFavoritesScreen()
     func setSelections()
@@ -30,8 +30,8 @@ final class HomePresenter: HomePresenterProtocol {
     private let networkingManager: NetworkingManager
     
     var selections: [Collections.Collection] = []
-    var popularMovies: [PopularMovies.PopularMovie] = []
-    
+    var popularMovies: [MovieInfoForCell] = []
+
     //MARK: - Mock data
     
     var categoryData = [

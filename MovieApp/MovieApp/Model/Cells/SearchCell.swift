@@ -140,8 +140,8 @@ final class SearchCell: UITableViewCell {
     }
     
     // MARK: - Public Methods
-    func configure(with model: PopularMovies.PopularMovie) {
-        
+    func configure(with model: MovieInfoForCell) {
+
         task?.cancel()
         
         activityIndicator.startAnimating()

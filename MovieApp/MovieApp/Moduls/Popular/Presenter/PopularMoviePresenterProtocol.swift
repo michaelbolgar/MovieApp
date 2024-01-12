@@ -9,8 +9,8 @@ import UIKit
 
 // MARK: - PopularMoviePresenterProtocol
 protocol PopularMoviePresenterProtocol {
-    init(view: PopularMovieViewProtocol, movies: [PopularMovies.PopularMovie])
-    var movies: [PopularMovies.PopularMovie] { get set }
+    init(view: PopularMovieViewProtocol, movies: [MovieInfoForCell])
+    var movies: [MovieInfoForCell] { get set }
     func updateData()
 }
 
@@ -18,9 +18,9 @@ protocol PopularMoviePresenterProtocol {
 final class PopularMoviePresenter: PopularMoviePresenterProtocol {
     
     private unowned var view: PopularMovieViewProtocol
-    var movies: [PopularMovies.PopularMovie] = []
-    
-    init(view: PopularMovieViewProtocol, movies: [PopularMovies.PopularMovie]) {
+    var movies: [MovieInfoForCell] = []
+
+    init(view: PopularMovieViewProtocol, movies: [MovieInfoForCell]) {
         self.view = view
         self.movies = movies
     }
