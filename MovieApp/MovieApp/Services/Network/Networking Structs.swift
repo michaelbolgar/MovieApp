@@ -35,9 +35,9 @@ struct Rating: Codable {
 
 /// People related to movie
 struct Person: Codable {
-    let name: String                        //RUS
+    let name: String?                        //RUS
     let enName: String?
-    let profession: String                  //RUS
+    let profession: String?                 //RUS
     let enProfession: String?
     let photo: String?
     let id: Int?

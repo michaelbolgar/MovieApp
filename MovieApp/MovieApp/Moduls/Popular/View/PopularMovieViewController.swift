@@ -86,30 +86,7 @@ final class PopularMovieViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDataSource, UITableViewDelegate
-extension PopularMovieViewController: UITableViewDataSource,UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.movies.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: SearchCell.identifier,
-                for: indexPath) as? SearchCell
-        else {
-            return UITableViewCell()
-        }
-        
-        let cellModel = presenter.movies[indexPath.row]
-        cell.configure(with: cellModel)
-        cell.selectionStyle = .none
-        
-        return cell
-    }
-}
+
 
 // MARK: - PopularMovieViewProtocol
 extension PopularMovieViewController: PopularMovieViewProtocol {
