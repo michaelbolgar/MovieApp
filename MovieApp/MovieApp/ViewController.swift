@@ -25,10 +25,71 @@ class ViewController: UIViewController {
             make.centerY.equalToSuperview()
         }
 
+#warning("пройтись по запросам и дать им нормальные названия")
         detailsRequst()
 //        collectionRequst()
 //        popularRequest()
 //        search()
+//        slugRequest()
+//        loadImages()
+//        getGenreMovies()
+//        getPersonInfo()
+//        getRandom()
+    }
+
+    private func getRandom() {
+        NetworkingManager.shared.getRandom { result in
+            switch result {
+            case .success(let movie):
+                print("Info about movie: \(movie)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
+    }
+
+    private func getPersonInfo() {
+        NetworkingManager.shared.getMovieByActor(for: 6317) { result in
+            switch result {
+            case .success(let info):
+                print("Info about \(info.enName ?? "person"): \(info)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
+    }
+
+    private func getGenreMovies() {
+        NetworkingManager.shared.getMoviesByCategory(for: Categories.comedy) { result in
+            switch result {
+            case .success(let movies):
+                print("Movies in genre: \(movies)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
+    }
+
+    private func loadImages() {
+        NetworkingManager.shared.getImages(for: 665) { result in
+            switch result {
+            case .success(let urlPool):
+                print("Pool of urls: \(urlPool)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
+    }
+
+    private func slugRequest() {
+        NetworkingManager.shared.getColletionMovieList(for: "100_greatest_movies_XXI") { result in
+            switch result {
+            case .success(let movieCollection):
+                print("List of movies: \(movieCollection)")
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
     }
 
     private func detailsRequst() {

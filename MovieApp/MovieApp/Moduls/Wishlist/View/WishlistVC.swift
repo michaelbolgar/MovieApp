@@ -35,7 +35,6 @@ final class WishlistVC: UIViewController {
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = WishlistPresenter(view: self, storageManager: StorageManager.shared)
         presenter.showView(with: false)
         setViews()
         setupTableView()

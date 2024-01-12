@@ -6,14 +6,18 @@
 //
 
 import UIKit
-import SnapKit
 
-class PopularCategoryCell: UICollectionViewCell {
+final class PopularCategoryCell: UICollectionViewCell {
+    
+    // MARK: - Network Properties
+    private var task: URLSessionDataTask?
+    private var imageUrl: URL?
     
     //MARK: - Properties
     static let identifier = String(describing: PopularCategoryCell.self)
     
-    private let backgorundForRaitingView:UIView = {
+    // MARK: - Private UI Properties
+    private let backgorundForRaitingView: UIView = {
         let element = UIView()
         element.layer.cornerRadius = 8
         element.backgroundColor = .gray
@@ -28,13 +32,13 @@ class PopularCategoryCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let starForRaitingImage:UIImageView = {
+    private let starForRaitingImage: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(named: "star")
         return element
     }()
     
-    private let nameFilmLabel:UILabel = {
+    private let nameFilmLabel: UILabel = {
         let element = UILabel()
         element.font = UIFont.montserratSemiBold(ofSize: 14)
         element.textColor = .white
@@ -42,15 +46,30 @@ class PopularCategoryCell: UICollectionViewCell {
         return element
     }()
     
-    private let ganreFilmLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 10), textColor: .customLightGrey, numberOfLines: 1)
+    private let ganreFilmLabel: UILabel = .makeLabel(
+        font: UIFont.montserratRegular(ofSize: 10),
+        textColor: .customLightGrey,
+        numberOfLines: 1
+    )
     
-    private let ratingFilmLabel:UILabel = .makeLabel(font: UIFont.montserratMedium(ofSize: 12), textColor: .customOrange, numberOfLines: 1)
+    private let ratingFilmLabel: UILabel = .makeLabel(
+        font: UIFont.montserratMedium(ofSize: 12),
+        textColor: .customOrange,
+        numberOfLines: 1
+    )
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        var indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        indicator.color = .white
+        return indicator
+    }()
     
     //MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .customGrey
-        contentView.layer.cornerRadius = 12
+        setupCellUI()
         setupViews()
         setupConstraints()
     }
@@ -59,22 +78,73 @@ class PopularCategoryCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Methods
-    private func setupViews() {
-        [filmeImage, backgorundForRaitingView, nameFilmLabel, ganreFilmLabel].forEach { contentView.addSubview($0) }
+    // MARK: - Override Methods
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        filmeImage.image = nil
+        activityIndicator.stopAnimating()
+        task?.cancel()
+    }
+    
+    // MARK: - Public Methods
+    func configure(with model: MovieInfoForCell) {
+
+        // Остановить предыдущую загрузку, если она есть
+           task?.cancel()
+
+           activityIndicator.startAnimating()
+           nameFilmLabel.text = model.name
+           ganreFilmLabel.text = model.genres?.first?.name
+           ratingFilmLabel.text = model.rating.imdb?.formatted()
+
+           guard let urlString = model.poster?.url, let url = URL(string: urlString) else {
+               filmeImage.image = nil
+               return
+           }
+
+           // Проверка наличия изображения в кэше
+           if let cachedImage = ImageCache.shared.image(forKey: urlString) {
+               filmeImage.image = cachedImage
+               activityIndicator.stopAnimating()
+               return
+           }
+
+           // Загрузка изображения
+           imageUrl = url
+           task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+               guard let self = self, self.imageUrl == url else { return }
+
+               DispatchQueue.main.async {
+                   if let data = data, let image = UIImage(data: data) {
+                       ImageCache.shared.save(image: image, forKey: urlString)
+                       self.filmeImage.image = image
+                   } else {
+                       self.filmeImage.image = nil
+                   }
+                   self.activityIndicator.stopAnimating()
+               }
+           }
+           task?.resume()
+    }
+}
+
+// MARK: - Setup UI
+private extension PopularCategoryCell {
+    func setupCellUI() {
+        contentView.backgroundColor = .customGrey
+        contentView.layer.cornerRadius = 12
+    }
+    
+    func setupViews() {
+        [
+            filmeImage, backgorundForRaitingView,
+            nameFilmLabel, ganreFilmLabel, activityIndicator
+        ].forEach { contentView.addSubview($0) }
         
         [starForRaitingImage, ratingFilmLabel].forEach { backgorundForRaitingView.addSubview($0) }
     }
     
-    //FIXME: - Переделать когда будет готова сеть
-    func configure(with model: PopularCategoryMovieCellModel){
-        filmeImage.image = model.image
-        nameFilmLabel.text = model.name
-        ganreFilmLabel.text = model.ganre
-        ratingFilmLabel.text = model.rating
-    }
-    
-    private func setupConstraints(){
+    func setupConstraints(){
         filmeImage.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().inset(53)
@@ -107,20 +177,10 @@ class PopularCategoryCell: UICollectionViewCell {
             make.trailing.equalTo(backgorundForRaitingView).inset(8)
             make.centerY.equalTo(backgorundForRaitingView)
         }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
     }
-}
-
-//FIXME
-struct PopularCategoryMovieCellModel {
-
-//     let image: UIImage
-//     let name: String
-//     let ganre: String
-//     let rating: String
-
-    let image:UIImage?
-    let name:String
-    let ganre:String
-    let rating:String
-
 }

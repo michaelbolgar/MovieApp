@@ -10,13 +10,19 @@ import SnapKit
 
 final class SearchCell: UITableViewCell {
     
+    // MARK: - Network Properties
+    private var task: URLSessionDataTask?
+    private var imageUrl: URL?
+    
     //MARK: - Properties
     static let identifier = String(describing: SearchCell.self)
     
+    // MARK: - Private UI Properties
     private let filmeImage:UIImageView = {
         let element = UIImageView()
         element.contentMode = .scaleAspectFill
         element.clipsToBounds = true
+        element.layer.cornerRadius = 10
         return element
     }()
     
@@ -55,7 +61,11 @@ final class SearchCell: UITableViewCell {
         return element
     }()
     
-    private let ratingLabel:UILabel = .makeLabel(font: UIFont.montserratMedium(ofSize: 14.5), textColor: .customOrange, numberOfLines: 1)
+    private let ratingLabel:UILabel = .makeLabel(
+        font: UIFont.montserratMedium(ofSize: 14.5),
+        textColor: .customOrange,
+        numberOfLines: 1
+    )
     
     private let filmNameLabel:UILabel = {
         let element = UILabel()
@@ -77,18 +87,42 @@ final class SearchCell: UITableViewCell {
         return element
     }()
     
-    private let yearPublishedLabel:UILabel = .makeLabel(font: UIFont.montserratMedium(ofSize: 12), textColor: .customDarkGrey, numberOfLines: 1)
+    private let yearPublishedLabel:UILabel = .makeLabel(
+        font: UIFont.montserratMedium(ofSize: 12),
+        textColor: .customDarkGrey,
+        numberOfLines: 1
+    )
     
-    private let timeLabel:UILabel = .makeLabel(font: UIFont.montserratMedium(ofSize: 12), textColor: .customDarkGrey, numberOfLines: 1)
+    private let timeLabel:UILabel = .makeLabel(
+        font: UIFont.montserratMedium(ofSize: 12),
+        textColor: .customDarkGrey,
+        numberOfLines: 1
+    )
     
-    private let ganreLabel:UILabel = .makeLabel(font: UIFont.montserratMedium(ofSize: 12), textColor: .customDarkGrey, numberOfLines: 1)
+    private let ganreLabel:UILabel = .makeLabel(
+        font: UIFont.montserratMedium(ofSize: 12),
+        textColor: .customDarkGrey,
+        numberOfLines: 1
+    )
     
-    private let typeLabel:UILabel = .makeLabel(font: UIFont.montserratMedium(ofSize: 12), textColor: .white, numberOfLines: 1)
+    private let typeLabel:UILabel = .makeLabel(
+        font: UIFont.montserratMedium(ofSize: 12),
+        textColor: .white,
+        numberOfLines: 1
+    )
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        var indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        indicator.color = .white
+        return indicator
+    }()
     
     //MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .customGrey
+
         setupViews()
         setupConstraints()
     }
@@ -97,21 +131,67 @@ final class SearchCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //FIXME: - Переделать когда будет готова сеть
-    func configure(with model: SearchCellModel){
-        filmeImage.image = model.image
-        ratingLabel.text = model.rating
+    // MARK: - Override Methods
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        filmeImage.image = nil
+        activityIndicator.stopAnimating()
+        task?.cancel()
+    }
+    
+    // MARK: - Public Methods
+    func configure(with model: MovieInfoForCell) {
+
+        task?.cancel()
+        
+        activityIndicator.startAnimating()
+        ratingLabel.text = model.rating.imdb?.formatted()
         filmNameLabel.text = model.name
-        ageLimitLabel.text = model.ageLimit
-        yearPublishedLabel.text = model.year
-        timeLabel.text = model.time + " Minutes"
-        ganreLabel.text = model.ganre + "  |"
+        ageLimitLabel.text = "PG-13"
+        let year = model.year?.formatted()
+        let newYear = year?.replacingOccurrences(of: ",", with: "")
+        yearPublishedLabel.text = newYear
+        
+        timeLabel.text = "\(model.movieLength ?? 0) minutes"
+        ganreLabel.text = (model.genres?.first?.name ?? "") + "  |"
         typeLabel.text = model.type
+        
+        guard let urlString = model.poster?.url, let url = URL(string: urlString) else {
+            filmeImage.image = nil
+            return
+        }
+
+        // Проверка наличия изображения в кэше
+        if let cachedImage = ImageCache.shared.image(forKey: urlString) {
+            filmeImage.image = cachedImage
+            activityIndicator.stopAnimating()
+            return
+        }
+
+        // Загрузка изображения
+        imageUrl = url
+        task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let self = self, self.imageUrl == url else { return }
+
+            DispatchQueue.main.async {
+                if let data = data, let image = UIImage(data: data) {
+                    ImageCache.shared.save(image: image, forKey: urlString)
+                    self.filmeImage.image = image
+                } else {
+                    self.filmeImage.image = nil
+                }
+                self.activityIndicator.stopAnimating()
+            }
+        }
+        task?.resume()
     }
     
     //MARK: - Methods
     private func setupViews() {
-        [filmeImage, backgorundForRaitingView, starImage, filmNameLabel, yearPublishedLabel, timeLabel, ageLimitLabel, ganreLabel, typeLabel, calenderImage, timeImage, ganreImage].forEach { contentView.addSubview($0)}
+        backgroundColor = .customBlack
+        [filmeImage, backgorundForRaitingView, starImage, filmNameLabel,
+         yearPublishedLabel, timeLabel, ageLimitLabel, ganreLabel, typeLabel,
+         calenderImage, timeImage, ganreImage].forEach { contentView.addSubview($0)}
         
         [starImage, ratingLabel].forEach { backgorundForRaitingView.addSubview($0)}
     }

@@ -7,15 +7,15 @@
 
 import UIKit
 
-final class DetailRouter {
-    
-    func makeScreen(with movieId: Int) -> UIViewController {
-        let controller = DetailViewController()
-        let presenter = DetailPresenter(movieId: movieId)
-        
-        controller.presenter = presenter
-        presenter.view = controller
-        
-        return controller
-    }
-}
+//final class DetailRouter {
+//    
+//    func makeScreen(with movieId: Int) -> UIViewController {
+//        let controller = DetailViewController()
+//        let presenter = DetailPresenter(movieId: movieId)
+//        
+//        controller.presenter = presenter
+//        presenter.view = controller
+//        
+//        return controller
+//    }
+//}
