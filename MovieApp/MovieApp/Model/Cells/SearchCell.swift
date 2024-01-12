@@ -115,6 +115,7 @@ final class SearchCell: UITableViewCell {
         var indicator = UIActivityIndicatorView()
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
+        indicator.style = .medium
         indicator.color = .white
         return indicator
     }()
@@ -189,6 +190,7 @@ final class SearchCell: UITableViewCell {
     //MARK: - Methods
     private func setupViews() {
         backgroundColor = .customBlack
+        filmeImage.addSubview(activityIndicator)
         [filmeImage, backgorundForRaitingView, starImage, filmNameLabel,
          yearPublishedLabel, timeLabel, ageLimitLabel, ganreLabel, typeLabel,
          calenderImage, timeImage, ganreImage].forEach { contentView.addSubview($0)}
@@ -269,6 +271,11 @@ final class SearchCell: UITableViewCell {
         typeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(ganreImage)
             make.leading.equalTo(ganreLabel.snp.trailing).offset(8)
+        }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
 }
