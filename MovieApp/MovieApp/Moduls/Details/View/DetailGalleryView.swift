@@ -13,6 +13,8 @@ class DetailGalleryView: UIView {
     // MARK: - Properties
     private lazy var photo: UIImageView = {
         let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
         return image
     }()
 
@@ -29,14 +31,14 @@ class DetailGalleryView: UIView {
 
     // MARK: - Configure
     private func configure() {
-
-
+        layer.cornerRadius = 20
+        backgroundColor = .customDarkGrey // Set background color for the whole view
         addSubview(photo)
         photo.snp.makeConstraints {
-            $0.width.height.equalTo(LayoutConstants.width)
-            $0.leading.equalTo(LayoutConstants.leading)
-            $0.top.equalToSuperview().inset(LayoutConstants.inset)
+            $0.edges.equalToSuperview() // Remove insets
         }
+//        photo.layer.cornerRadius = 20
+        photo.clipsToBounds = true
     }
 }
 
@@ -63,38 +65,12 @@ extension DetailGalleryView: Configurable {
                 self.photo.image = UIImage(named: "filmPhoto")
             }
         }
-        
-        // Асинхронная загрузка изображения
-//           URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
-//               guard let self = self else { return }
-//
-//               if let error = error {
-//                   // Обработка ошибки загрузки
-//                   print("Ошибка загрузки изображения: \(error.localizedDescription)")
-//                   return
-//               }
-//
-//               guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-//                   print("Некорректный ответ сервера")
-//                   return
-//               }
-//
-//               guard let data = data, let image = UIImage(data: data) else {
-//                   print("Данные не могут быть преобразованы в изображение")
-//                   return
-//               }
-//
-//               DispatchQueue.main.async {
-//                   self.photo.image = image
-//               }
-//           }.resume()
-//        photo.image = UIImage(named: "filmPhoto") // УДАЛИТЬ
     }
 }
 
 // MARK: - Constants
 private enum LayoutConstants {
-    static let width = 100
+    static let width = 120
     static let leading = 25
     static let inset = 10
 }

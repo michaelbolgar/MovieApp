@@ -48,9 +48,7 @@ class DetailCastAndCrewCell: UICollectionViewCell {
         addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.top.bottom.trailing.equalToSuperview()
-            make.leading.equalToSuperview().offset(
-                LayoutConstants.collectionLeadingOffset
-            )
+            make.leading.equalToSuperview()
         }
     }
 
@@ -81,12 +79,24 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: LayoutConstants.collectionViewWidth,
-                      height: collectionView.bounds.height)
-    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            // Расчет предполагаемого размера основывается на содержимом
+            let item = castAndCrewItems[indexPath.item]
+            let approximateWidthOfName = item.name?.size(withAttributes: [
+                .font: UIFont.montserratSemiBold(ofSize: 14) ?? .systemFont(ofSize: 14)
+            ]).width ?? 0
+            let approximateWidthOfProfession = item.profession?.size(withAttributes: [
+                .font: UIFont.montserratSemiBold(ofSize: 14) ?? .systemFont(ofSize: 14)
+            ]).width ?? 0
+            
+            // Выбираем максимальное значение из двух для установки ширины
+            let maxWidth = max(approximateWidthOfName, approximateWidthOfProfession)
+            // Добавляем отступы и размер аватара к ширине
+            let totalWidth = maxWidth + LayoutConstants.avatarSize + CGFloat(LayoutConstants.textLeadingOffset * 2)
+            
+            // Возвращаем размер ячейки с учетом расчетной ширины и высоты коллекции
+            return CGSize(width: totalWidth, height: collectionView.bounds.height)
+        }
 }
 
 // MARK: - Constants
@@ -98,6 +108,8 @@ private enum Titles {
 // MARK: - LayoutConstants
 private enum LayoutConstants {
     static let collectionLeadingOffset = 25
-    static let collectionViewWidth: CGFloat = 180
+    static let collectionViewWidth: CGFloat = 250
+    static let avatarSize: CGFloat = 40
+        static let textLeadingOffset = 10
 }
 

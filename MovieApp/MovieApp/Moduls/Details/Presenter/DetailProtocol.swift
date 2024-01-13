@@ -14,10 +14,21 @@ protocol DetailViewProtocol: AnyObject {
     func showLoading()
     func hideLoading()
     func showShareView()
+    func playTrailer(url: String)
+    func shareToInstagram(imageData: Data)
+    func shareToTwitter()
+    func shareToFacebook()
+    func shareToMessenger()
+    func closeShareView()
 }
 
 // MARK: - DetailPresenterProtocol
 protocol DetailPresenterProtocol: AnyObject {
     func activate()
     func userDidTapShare()
+    func shareToInstagram(imageData: Data)
+    func shareToTwitter()
+    func shareToFacebook()
+    func shareToMessenger()
+    func closeShareView()
 }

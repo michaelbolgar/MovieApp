@@ -7,12 +7,11 @@
 
 import UIKit
 import FBSDKShareKit
+import WebKit
 
 // MARK: - DetailViewController
 
 class DetailViewController: UIViewController {
-  
-    
     
     typealias HeaderCell = CollectionCell<DetailHeaderView>
     typealias TextCell = CollectionCell<UILabel>
@@ -29,10 +28,9 @@ class DetailViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-#warning("заменить reuseIdentifier на нетекстовое значение для всех пяти ячеек -- спроси Мишу как")
         cv.register(
             HeaderCell.self,
-            forCellWithReuseIdentifier: Titles.header
+            forCellWithReuseIdentifier: Titles.headerCell
         )
         cv.register(
             TextCell.self,
@@ -64,6 +62,7 @@ class DetailViewController: UIViewController {
         presenter.activate()
         layout()
         setupShareView()
+        collectionView.delegate = self
     }
     
     // MARK: - Layout
@@ -73,11 +72,9 @@ class DetailViewController: UIViewController {
         view.backgroundColor = UIColor.customDarkBlue
         
         if #available(iOS 11.0, *) {
-            collectionView.contentInset = UIEdgeInsets(
-                top: view.safeAreaInsets.top,
-                left: 0, bottom: 0,
-                right: 0
-            )
+            let topInset = view.safeAreaInsets.top - 40
+            collectionView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
+            collectionView.scrollIndicatorInsets = collectionView.contentInset
         }
         
         collectionView.snp.makeConstraints {
@@ -88,10 +85,16 @@ class DetailViewController: UIViewController {
     }
     private func setupShareView() {
         shareView = ShareView()
-        shareView?.parentViewController = self
         shareView?.alpha = 0
-        shareView?.closeButton.addTarget(self, action: #selector(hideShareView), for: .touchUpInside)
-//        shareView?.instagramButton.addTarget(self, action: #selector(facebookShareButtonTapped), for: .touchUpInside)
+        shareView?.onInstagramShare = { [weak self] imageData in
+            self?.presenter.shareToInstagram(imageData: imageData)
+        }
+        shareView?.onTwitterShare = { [weak self] in
+            self?.presenter.shareToTwitter()
+        }
+        shareView?.onCloseTapped = { [weak self] in
+            self?.presenter.closeShareView()
+        }
         view.addSubview(shareView!)
         shareView?.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -108,52 +111,26 @@ class DetailViewController: UIViewController {
         view.addSubview(blurEffectView)
     }
     
-//    @objc private func facebookShareButtonTapped() {
-//        guard let url = URL(string: "https://developers.facebook.com") else {
-//            // handle and return
-//        }
-//
-//        let content = ShareLinkContent()
-//        content.contentURL = url
-//
-//        let dialog = ShareDialog(
-//            viewController: self,
-//            content: content,
-//            delegate: self
-//        )
-//        dialog.show()
-//        }
+    //    @objc private func facebookShareButtonTapped() {
+    //        guard let url = URL(string: "https://developers.facebook.com") else {
+    //            // handle and return
+    //        }
+    //
+    //        let content = ShareLinkContent()
+    //        content.contentURL = url
+    //
+    //        let dialog = ShareDialog(
+    //            viewController: self,
+    //            content: content,
+    //            delegate: self
+    //        )
+    //        dialog.show()
+    //        }
     
-    @objc func hideShareView() {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.shareView?.alpha = 0
-        }) { _ in
-            self.blurEffectView?.removeFromSuperview()
-        }
-    }
+    
     
     @objc func fBTapped() {
         print("fB tapped")
-    }
-    
-    func imagePickerController(
-        _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo
-        info: [UIImagePickerController.InfoKey : Any]
-    ) {
-        guard let image = info[.originalImage] as? UIImage else {
-            // handle and return
-            return
-        }
-        let photo = SharePhoto(
-            image: image,
-            isUserGenerated: true
-        )
-        var content = SharePhotoContent()
-        content.photos = [photo]
-        // use the content
-        var button = FBShareButton()
-        button.shareContent = content
     }
 }
 
@@ -231,9 +208,9 @@ extension DetailViewController: UICollectionViewDelegate,
         case .storyLine:
             title = Titles.storyLineTitle
         case .castAndCrew:
-            title = Titles.castAndCrewTitle
+            title = Titles.castAndCrewHeader
         case .gallery:
-            title = Titles.galeryTitle
+            title = Titles.galeryHeader
         }
         
         headerView.configure(with: title)
@@ -280,7 +257,7 @@ extension DetailViewController: UICollectionViewDelegate,
             return cell
         case .header(item: let item):
             let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Titles.header,
+                withReuseIdentifier: Titles.headerCell,
                 for: indexPath
             ) as! HeaderCell
             cell.update(with: item)
@@ -292,6 +269,65 @@ extension DetailViewController: UICollectionViewDelegate,
 // MARK: - DetailViewProtocol
 
 extension DetailViewController: DetailViewProtocol {
+    func closeShareView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.shareView?.alpha = 0
+        }) { _ in
+            self.blurEffectView?.removeFromSuperview()
+        }
+    }
+    
+    func shareToInstagram(imageData: Data) {
+        
+    }
+    
+    func shareToTwitter() {
+        let tweetText = "Проверьте это приложение!"
+        let tweetUrl = "http://yourappwebsite.com"
+        let tweetHashtags = "AwesomeApp"
+        
+        if let tweetScheme = URL(string: "twitter://post?message=\(tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&hashtags=\(tweetHashtags)") {
+            if UIApplication.shared.canOpenURL(tweetScheme) {
+                UIApplication.shared.open(tweetScheme)
+            } else if let tweetWebUrl = URL(string: "https://twitter.com/intent/tweet?text=\(tweetText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)&url=\(tweetUrl)&hashtags=\(tweetHashtags)") {
+                UIApplication.shared.open(tweetWebUrl)
+            }
+        }
+    }
+    
+    func shareToFacebook() {
+        
+    }
+    
+    func shareToMessenger() {
+        let messengerURLScheme = URL(string: "fb-messenger://compose")!
+        
+        if UIApplication.shared.canOpenURL(messengerURLScheme) {
+            UIApplication.shared.open(messengerURLScheme, options: [:], completionHandler: nil)
+        } else {
+            // Если Messenger не установлен, вы можете перенаправить пользователя в App Store или предложить альтернативный способ связи
+            if let appStoreURL = URL(string: "itms-apps://itunes.apple.com/app/id454638411") {
+                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
+            }
+        }
+    }
+    
+    func playTrailer(url: String) {
+        guard let videoURL = URL(string: url) else {
+            print("Invalid URL")
+            return
+        }
+        let webViewController = UIViewController()
+        let webView = WKWebView(frame: webViewController.view.bounds)
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        webViewController.view.addSubview(webView)
+        
+        let request = URLRequest(url: videoURL)
+        webView.load(request)
+        
+        present(webViewController, animated: true, completion: nil)
+    }
+    
     func showShareView() {
         setupBlurView()
         UIView.animate(withDuration: 0.3) {
@@ -356,12 +392,10 @@ extension DetailViewController: DetailViewProtocol {
     // MARK: - Actions
     
     func showLoading() {
-        print("show lodaing")
         collectionView.isHidden = true
     }
     
     func hideLoading() {
-        print("hide lodaing")
         collectionView.isHidden = false
     }
     
@@ -377,7 +411,6 @@ extension DetailViewController {
     struct ViewModel {
         
         struct HeaderItem {
-            //            let imageURL: URL?
             let imageURL: String?
             let duration: Int?
             let genre: String?
@@ -388,14 +421,12 @@ extension DetailViewController {
         }
         
         struct CastAndCrewItem {
-            //            let imageURL: URL?
             let imageURL: String?
             let name: String?
             let profession: String?
         }
         
         struct GalleryItem {
-            //            let imageURL: URL?
             let imageURL: String?
         }
         
@@ -415,26 +446,35 @@ extension DetailViewController {
     }
 }
 
+extension DetailViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentInsetTop = scrollView.contentInset.top
+        
+        if offsetY >= -contentInsetTop {
+            // The top of the content is at the top of the view, enable bounce
+            collectionView.alwaysBounceVertical = true
+        } else {
+            // The top of the content has been pulled below the top of the view, disable bounce
+            collectionView.alwaysBounceVertical = false
+        }
+    }
+}
+
 // MARK: - Constants
 private enum Titles {
-#warning("тут надо пройтись по комментам и всё поправить")
-    //эти мы уберём вообще
-    
-    static let header = "headerCell"
+    static let headerCell = "headerCell"
     static let textCell = "textCell"
-    
     static let reuseIdentifier = "section-header-reuse-identifier"
-    
-    //эти норм
     static let movieDetail = "Movie Detail"
     static let storyLineTitle = "Story Line"
-    //за наименования castAndCrewTitle и castAndCrew в енаме 'Titles' тебя надо отдать под суд :D это исправится само
-    static let castAndCrewTitle = "Cast and Crew"
-    static let galeryTitle = "Gallery"
+    static let castAndCrewHeader = "Cast and Crew"
+    static let galeryHeader = "Gallery"
 }
 
 private enum LayoutConstants {
-    static let headerHeight: CGFloat = 580
+    static let headerHeight: CGFloat = 650
     static let storyLineWidthSubtraction: CGFloat = 50
     static let storyLineHeight: CGFloat = 150
     static let castHeight: CGFloat = 60

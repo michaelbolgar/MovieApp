@@ -11,7 +11,11 @@ import FBSDKShareKit
 // Класс для представления всплывающего окна с кнопками поделиться
 class ShareView: UIView {
     
-    weak var parentViewController: DetailViewController?
+    var onInstagramShare: ((Data) -> Void)?
+    var onTwitterShare: (() -> Void)?
+    var onFacebookShare: (() -> Void)?
+    var onMessengerShare: (() -> Void)?
+    var onCloseTapped: (() -> Void)?
     
     let facebookButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -23,7 +27,7 @@ class ShareView: UIView {
             ), for: .normal
         )
         btn.contentMode = .scaleAspectFit // Измените здесь
-           btn.imageView?.contentMode = .scaleAspectFit
+        btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
     let instagramButton: UIButton = {
@@ -38,7 +42,7 @@ class ShareView: UIView {
             ), for: .normal
         )
         btn.contentMode = .scaleAspectFit // Измените здесь
-           btn.imageView?.contentMode = .scaleAspectFit
+        btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
     let twitterButton: UIButton = {
@@ -53,7 +57,7 @@ class ShareView: UIView {
             ), for: .normal
         )
         btn.contentMode = .scaleAspectFit // Измените здесь
-           btn.imageView?.contentMode = .scaleAspectFit
+        btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
     let fbMessanger: UIButton = {
@@ -68,13 +72,14 @@ class ShareView: UIView {
             ), for: .normal
         )
         btn.contentMode = .scaleAspectFit
-           btn.imageView?.contentMode = .scaleAspectFit
+        btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
     let closeButton: UIButton = {
         let btn = UIButton(
             type: .system
         )
+        btn.contentMode = .scaleAspectFill
         btn.setImage(
             UIImage(
                 named: Images.close
@@ -82,19 +87,49 @@ class ShareView: UIView {
                 .alwaysOriginal
             ), for: .normal
         )
-        btn.contentMode = .scaleAspectFill
         return btn
     }()
     
     let shareLabel = UILabel.makeLabel(text: "Share to", font: .montserratSemiBold(ofSize: 18), textColor: .white, numberOfLines: 1)
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
+        self.setupActions()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupActions() {
+        instagramButton.addTarget(self, action: #selector(instagramTapped), for: .touchUpInside)
+        twitterButton.addTarget(self, action: #selector(twitterTapped), for: .touchUpInside)
+        facebookButton.addTarget(self, action: #selector(fbTapped), for: .touchUpInside)
+        fbMessanger.addTarget(self, action: #selector(fbMessangerTapped), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
+    }
+    
+    @objc func instagramTapped() {
+        
+        // Предположим, что imageData уже передана в ShareView
+        //            if let imageData = ... {
+        //                onInstagramShare?(imageData)
+        //            }
+    }
+    
+    @objc func twitterTapped() {
+        onTwitterShare?()
+        print("twittertapped")
+    }
+    @objc func fbMessangerTapped() {
+        onMessengerShare?()
+    }
+    @objc func fbTapped() {
+        onFacebookShare?()
+    }
+    @objc func closeTapped() {
+        onCloseTapped?()
     }
     
     private func setupView() {
@@ -125,14 +160,11 @@ class ShareView: UIView {
         
         stackView.snp.makeConstraints {
             $0.top.equalTo(shareLabel.snp.bottom).offset(30)
-                $0.centerX.equalToSuperview()
-                $0.height.equalTo(49)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(49)
             $0.width.equalToSuperview().inset(30)
         }
     }
-    
-
-
     
 }
 
