@@ -53,6 +53,7 @@ final class StorageManager: StorageManagerProtocol {
     
     // MARK: - Movie Methods
     func save(_ movie: MovieWishlist) {
+        let existingMovie = realm.objects(MovieWishlist.self).filter("id == %@", movie.id).first
         write {
             realm.add(movie)
         }
