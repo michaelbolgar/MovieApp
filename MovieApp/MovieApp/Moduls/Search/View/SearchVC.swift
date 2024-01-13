@@ -103,11 +103,11 @@ final class SearchVC: UIViewController {
         return element
     }()
 
-//    private let searchBar: SearchBarView = {
-//        let element = SearchBarView()
-//        element.backgroundColor = .customGrey
-//        return element
-//    }()
+    private let searchBar: SearchBarView = {
+        let element = SearchBarView()
+        element.backgroundColor = .customGrey
+        return element
+    }()
 
     //MARK: - Life Cycle Methods
     override func viewDidLoad() {
@@ -116,8 +116,8 @@ final class SearchVC: UIViewController {
         setupConstraints()
         presenter.setUpcomingMovies()
         presenter.setRecentMovies()
-//        showPopularVC()                                           //это что и как работает?
-//        setupNavigationBar(with: userName, and: userImage)
+//        showPopularVC()
+        setupNavigationBar(with: searchBar)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -272,7 +272,7 @@ private extension SearchVC {
     func setViews() {
         view.backgroundColor = .clear
         self.view.addSubview(scrollView)
-        [categoryCollectionView, upcomingMoviesCollectionView, recentMoviesCollectionView, recentMoviesPreviewView, upcomingMoviesPreviewView].forEach { scrollView.addSubview($0)
+        [searchBar, categoryCollectionView, upcomingMoviesCollectionView, recentMoviesCollectionView, recentMoviesPreviewView, upcomingMoviesPreviewView].forEach { scrollView.addSubview($0)
         }
     }
 
@@ -286,23 +286,17 @@ private extension SearchVC {
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
 
-//        searchBar.snp.makeConstraints { make in
-//#warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
-//            make.height.equalTo(41)
-//            make.top.equalTo(scrollView).offset(16)
-//            make.leading.equalTo(view.safeAreaLayoutGuide).offset(24)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
-//        }
-
         categoryCollectionView.snp.makeConstraints { make in
             make.top.equalTo(scrollView.snp.top).offset(inset)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(39)
         }
 
-//        categoryView.snp.makeConstraints { make in
-//            make.top.equalTo(previewCollectionView.snp.bottom).offset(36)
-//            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+//        searchBar.snp.makeConstraints { make in
+//#warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
+//            make.height.equalTo(41)
+//            make.bottom.equalTo(categoryCollectionView.snp.top).offset(inset)
+//            make.leading.trailing.equalToSuperview().offset(inset)
 //        }
 
         upcomingMoviesPreviewView.snp.makeConstraints { make in
@@ -332,7 +326,7 @@ private extension SearchVC {
 
 // MARK: - Setup NavigationBar
 private extension SearchVC {
-    func setupNavigationBar(with name: String, and imageUser: UIImage) {
+    func setupNavigationBar(with view: UIView) {
         let navBarAppearance = UINavigationBarAppearance()
 
         navBarAppearance.titleTextAttributes = [
@@ -346,7 +340,8 @@ private extension SearchVC {
 
         let customTitleView = createCustomTitleView(with: "Wanna search?")
 
-        navigationItem.titleView = customTitleView
+//        navigationItem.titleView = customTitleView
+        navigationItem.titleView = view
     }
 
     func createCustomTitleView(with name: String) -> UIView {
