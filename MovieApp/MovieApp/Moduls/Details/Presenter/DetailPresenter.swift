@@ -22,7 +22,7 @@ final class DetailPresenter: DetailPresenterProtocol {
     
     func activate() {
         view?.showLoading()
-    
+        
         let group = DispatchGroup()
         var galleryImages: [String] = []
         var movieDetails: FullMovieInfo?
@@ -67,28 +67,46 @@ final class DetailPresenter: DetailPresenterProtocol {
     }
     
     private func updateMovieWishlist(with details: FullMovieInfo) {
-        let movieDetail = MovieWishlist()
-        movieDetail.ganre = details.genres?.first?.name ?? ""
-        movieDetail.name = details.name ?? ""
-        movieDetail.type = details.type ?? ""
-        movieDetail.rating = details.rating?.imdb?.formatted() ?? ""
-        movieDetail.id = movieId
+        let realm = try! Realm()
         
-        if let imageUrlString = details.poster?.url, let url = URL(string: imageUrlString) {
-            // Асинхронная загрузка изображения
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                guard let data = data, error == nil else {
-                    print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
-                    return
+        if let existingMovieDetail = realm.object(ofType: MovieWishlist.self, forPrimaryKey: movieId) {
+            // Update the existing record without changing its primary key
+            try! realm.write {
+                existingMovieDetail.name = details.name ?? ""
+                existingMovieDetail.ganre = details.genres?.first?.name ?? ""
+                existingMovieDetail.type = details.type ?? ""
+                existingMovieDetail.rating = details.rating?.imdb?.formatted() ?? ""
+            }
+            self.movieDetail = existingMovieDetail
+        } else {
+            // Create a new record
+            let newMovieDetail = MovieWishlist()
+            newMovieDetail.id = movieId
+            newMovieDetail.name = details.name ?? ""
+            newMovieDetail.ganre = details.genres?.first?.name ?? ""
+            newMovieDetail.type = details.type ?? ""
+            newMovieDetail.rating = details.rating?.imdb?.formatted() ?? ""
+            if let imageUrlString = details.poster?.url, let url = URL(string: imageUrlString) {
+                let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                    guard let data = data, error == nil else {
+                        print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        newMovieDetail.image = data
+                        StorageManager.shared.save(newMovieDetail)
+                        self.movieDetail = newMovieDetail
+                    }
                 }
-                
-                // Переключаемся на основной поток для обновления UI
+                task.resume()
+            } else {
+                // Save data without image
                 DispatchQueue.main.async {
-                    movieDetail.image = data
-                    StorageManager.shared.save(movieDetail)
+                    StorageManager.shared.save(newMovieDetail)
+                    self.movieDetail = newMovieDetail
                 }
             }
-            task.resume()
         }
     }
     
@@ -115,11 +133,15 @@ final class DetailPresenter: DetailPresenterProtocol {
         } ?? []
         
         let galleryItems = galleryImages.map { self.viewModel.GalleryItem(imageURL: $0) }
+        let storyLineItem = DetailViewController.ViewModel.StoryLineItem(
+            text: details.description ?? "",
+            isExpanded: false // Initial state for expansion
+        )
         
         return self.viewModel.init(
             title: details.name ?? "",
-            storyLine: details.description ?? "",
             header: header,
+            storyLine: storyLineItem,
             castAndCrew: castAndCrew,
             gallery: galleryItems,
             likeBarButtonAction: { [weak self] in self?.addToLikes() }
@@ -139,7 +161,7 @@ final class DetailPresenter: DetailPresenterProtocol {
     }
     
     func shareToTwitter() {
-        view?.shareToTwitter()
+        view?.shareToTwitter(movieName: movieDetail.name)
     }
     
     func shareToFacebook() {

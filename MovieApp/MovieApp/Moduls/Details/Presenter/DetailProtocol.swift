@@ -16,7 +16,7 @@ protocol DetailViewProtocol: AnyObject {
     func showShareView()
     func playTrailer(url: String)
     func shareToInstagram(imageData: Data)
-    func shareToTwitter()
+    func shareToTwitter(movieName: String)
     func shareToFacebook()
     func shareToMessenger()
     func closeShareView()

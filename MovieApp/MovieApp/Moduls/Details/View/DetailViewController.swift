@@ -33,8 +33,8 @@ class DetailViewController: UIViewController {
             forCellWithReuseIdentifier: Titles.headerCell
         )
         cv.register(
-            TextCell.self,
-            forCellWithReuseIdentifier: Titles.textCell
+            DetailStoryLineCell.self,
+            forCellWithReuseIdentifier: DetailStoryLineCell.identifier
         )
         cv.register(
             DetailGalleryCell.self,
@@ -92,6 +92,9 @@ class DetailViewController: UIViewController {
         shareView?.onTwitterShare = { [weak self] in
             self?.presenter.shareToTwitter()
         }
+        shareView?.onMessengerShare = { [weak self] in
+            self?.presenter.shareToMessenger()
+        }
         shareView?.onCloseTapped = { [weak self] in
             self?.presenter.closeShareView()
         }
@@ -126,12 +129,6 @@ class DetailViewController: UIViewController {
     //        )
     //        dialog.show()
     //        }
-    
-    
-    
-    @objc func fBTapped() {
-        print("fB tapped")
-    }
 }
 
 // MARK: - UICollectionView+Extension
@@ -157,11 +154,12 @@ extension DetailViewController: UICollectionViewDelegate,
                 width: collectionView.bounds.width,
                 height: LayoutConstants.headerHeight
             )
-        case .storyLine:
-            return CGSize(
-                width: collectionView.bounds.width - LayoutConstants.storyLineWidthSubtraction,
-                height: LayoutConstants.storyLineHeight
-            )
+        case .storyLine(let storyLineItem):
+                let width = collectionView.bounds.width - LayoutConstants.storyLineWidthSubtraction
+                let font = UIFont.systemFont(ofSize: 17)
+                let textHeight = heightForText(storyLineItem.text, width: width, font: font)
+                let expandedHeight = textHeight + (15 * 2) // отступы
+                return CGSize(width: width, height: storyLineItem.isExpanded ? expandedHeight : LayoutConstants.storyLineHeight)
         case .castAndCrew:
             return CGSize(
                 width: collectionView.bounds.width,
@@ -173,6 +171,17 @@ extension DetailViewController: UICollectionViewDelegate,
                 height: LayoutConstants.galleryHeight
             )
         }
+    }
+    
+    private func heightForText(_ text: String, width: CGFloat, font: UIFont) -> CGFloat {
+        let nsstring = NSString(string: text)
+        let maxHeight = CGFloat.greatestFiniteMagnitude
+        let textAttributes = [NSAttributedString.Key.font: font]
+        let boundingRect = nsstring.boundingRect(with: CGSize(width: width, height: maxHeight),
+                                                 options: .usesLineFragmentOrigin,
+                                                 attributes: textAttributes,
+                                                 context: nil)
+        return ceil(boundingRect.height)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -222,13 +231,13 @@ extension DetailViewController: UICollectionViewDelegate,
         let item = items[indexPath.section]
         
         switch item {
-        case .storyLine(item: let item):
-            let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: Titles.textCell,
-                for: indexPath
-            ) as! TextCell
-            cell.update(with: item)
-            return cell
+        case .storyLine(let storyLineItem):
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailStoryLineCell.identifier, for: indexPath) as! DetailStoryLineCell
+                    cell.configure(with: storyLineItem.text, isExpanded: storyLineItem.isExpanded)
+                    cell.onMoreButtonTapped = { [weak self] in
+                        self?.toggleStoryLine(at: indexPath)
+                    }
+                    return cell
         case .castAndCrew:
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: DetailCastAndCrewCell.identifier,
@@ -264,6 +273,20 @@ extension DetailViewController: UICollectionViewDelegate,
             return cell
         }
     }
+   
+        // Функция для переключения состояния текста сюжетной линии
+    private func toggleStoryLine(at indexPath: IndexPath) {
+            guard let itemIndex = items.firstIndex(where: { if case .storyLine = $0 { return true } else { return false } }),
+                  case let .storyLine(storyLineItem) = items[itemIndex] else { return }
+            
+            var updatedStoryLineItem = storyLineItem
+            updatedStoryLineItem.isExpanded.toggle()
+            items[itemIndex] = .storyLine(item: updatedStoryLineItem)
+
+            collectionView.performBatchUpdates({
+                self.collectionView.reloadItems(at: [indexPath])
+            }, completion: nil)
+        }
 }
 
 // MARK: - DetailViewProtocol
@@ -281,8 +304,8 @@ extension DetailViewController: DetailViewProtocol {
         
     }
     
-    func shareToTwitter() {
-        let tweetText = "Проверьте это приложение!"
+    func shareToTwitter(movieName: String) {
+        let tweetText = "\(movieName)"
         let tweetUrl = "http://yourappwebsite.com"
         let tweetHashtags = "AwesomeApp"
         
@@ -300,15 +323,22 @@ extension DetailViewController: DetailViewProtocol {
     }
     
     func shareToMessenger() {
-        let messengerURLScheme = URL(string: "fb-messenger://compose")!
+        let messengerURLScheme = URL(string: "messenger://compose")!
         
         if UIApplication.shared.canOpenURL(messengerURLScheme) {
             UIApplication.shared.open(messengerURLScheme, options: [:], completionHandler: nil)
         } else {
-            // Если Messenger не установлен, вы можете перенаправить пользователя в App Store или предложить альтернативный способ связи
-            if let appStoreURL = URL(string: "itms-apps://itunes.apple.com/app/id454638411") {
+            // Если Messenger не установлен, переход в app store
+            if let appStoreURL = URL(string: "https://apps.apple.com/app/id454638411") {
                 UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
             }
+        }
+        UIApplication.shared.open(messengerURLScheme, options: [:]) { (success) in
+          if success {
+            print("Messenger opened successfully.")
+          } else {
+            print("Failed to open Messenger.")
+          }
         }
     }
     
@@ -380,8 +410,7 @@ extension DetailViewController: DetailViewProtocol {
                         trailerClosure: model.header.trailerClosure,
                         shareClosure: model.header.shareClosure)))
             self.items.append(
-                .storyLine(
-                    item: .init(text: model.storyLine)))
+                .storyLine(item: model.storyLine))
             self.items.append(.castAndCrew)
             self.items.append(.gallery)
             
@@ -430,19 +459,25 @@ extension DetailViewController {
             let imageURL: String?
         }
         
+        struct StoryLineItem {
+            let text: String
+            var isExpanded: Bool = false
+        }
+        
         enum Item {
             case header(item: DetailHeaderView.Model)
-            case storyLine(item: UILabel.Model)
+            case storyLine(item: StoryLineItem)
             case castAndCrew
             case gallery
         }
         
         let title: String
-        let storyLine: String
         let header: HeaderItem
+        var storyLine: StoryLineItem
         let castAndCrew: [CastAndCrewItem]
         let gallery: [GalleryItem]
         let likeBarButtonAction: (() -> Void)?
+        var items = [Item]()
     }
 }
 
