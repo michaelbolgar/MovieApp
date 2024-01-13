@@ -2,6 +2,8 @@ import UIKit
 import SnapKit
 
 struct OnboardingStruct {
+    let topLabel: String
+    let bottomLabel: String
     let image: UIImage
 }
 
@@ -42,26 +44,6 @@ final class OnboardingViewController: UIViewController {
         return collectionView
     }()
     
-    private let topLabel: UILabel = {
-        let label = UILabel()
-        label.adjustsFontSizeToFitWidth = true
-        label.font = .montserratSemiBold(ofSize: 18)
-        label.textColor = .white
-        label.text = "Lorem ipsum dolor sit amet consecteur esplicit"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let bottomLabel: UILabel = {
-        let label = UILabel()
-        label.adjustsFontSizeToFitWidth = true
-        label.font = .montserratMedium(ofSize: 14)
-        label.textColor = .customGrey
-        label.text = "Semper in cursus magna et eu varius nunc adipiscing. Elementum justo, laoreet id sem semper parturient. "
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private var onboardingArray = [OnboardingStruct]()
     private var collectionItem = 0
     
@@ -80,13 +62,7 @@ final class OnboardingViewController: UIViewController {
         view.addSubview(nextButton)
         view.addSubview(pageControl)
         view.addSubview(collectionView)
-        view.addSubview(topLabel)
-        view.addSubview(bottomLabel)
         
-        topLabel.numberOfLines = 2
-        topLabel.textAlignment = .center
-        bottomLabel.textAlignment = .center
-        bottomLabel.numberOfLines = 4
         
         collectionView.register(OnboardingCollectionViewCell.self, forCellWithReuseIdentifier: OnboardingCollectionViewCell.identifier)
         
@@ -96,9 +72,15 @@ final class OnboardingViewController: UIViewController {
             return
         }
         
-        let firstScreen = OnboardingStruct(image: imageFirst)
-        let secondScreen = OnboardingStruct(image: imageSecond)
-        let thirdScreen = OnboardingStruct(image: imageThird)
+        let firstScreen = OnboardingStruct(topLabel: "Добро пожаловать в мир кино!",
+                                           bottomLabel: "Исследуйте бесконечную коллекцию фильмов и сериалов со всего мира прямо у себя дома.",
+                                           image: imageFirst)
+        let secondScreen = OnboardingStruct(topLabel: "Пользовательский интерфейс",
+                                            bottomLabel: "Изящно скользите по нашей поистине кинематографической платформе, где каждый жанр и эпоха находят своего зрителя. Наше меню - это ваш персональный режиссёр выбора!",
+                                            image: imageSecond)
+        let thirdScreen = OnboardingStruct(topLabel: "Персональные Рекомендации",
+                                           bottomLabel: "Получайте индивидуальные подборки на основе ваших предпочтений и просмотренных фильмов.",
+                                           image: imageThird)
         onboardingArray = [firstScreen, secondScreen, thirdScreen]
     }
     
@@ -158,25 +140,6 @@ extension OnboardingViewController {
     
     private func setConstraints() {
         
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(view.snp.leading)
-            make.trailing.equalTo(view.snp.trailing)
-            make.height.equalTo(400)
-        }
-        
-        topLabel.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(50)
-            make.leading.equalTo(view.snp.leading).offset(20)
-            make.trailing.equalTo(view.snp.trailing).offset(-20)
-        }
-        
-        bottomLabel.snp.makeConstraints { make in
-            make.top.equalTo(topLabel.snp.bottom).offset(20)
-            make.leading.equalTo(view.snp.leading).offset(20)
-            make.trailing.equalTo(view.snp.trailing).offset(-20)
-        }
-        
         nextButton.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-65)
             make.trailing.equalTo(view.snp.trailing).offset(-30)
@@ -188,6 +151,13 @@ extension OnboardingViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-80)
             make.leading.equalTo(view.snp.leading).offset(10)
             make.height.equalTo(30)
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(3)
+            make.leading.equalTo(view.snp.leading)
+            make.trailing.equalTo(view.snp.trailing)
+            make.bottom.equalTo(pageControl.snp.top).offset(-20)
         }
     }
 }
