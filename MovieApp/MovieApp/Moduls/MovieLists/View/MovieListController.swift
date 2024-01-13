@@ -39,14 +39,25 @@ final class MovieListController: UIViewController {
         element.backgroundColor = .clear
         element.showsVerticalScrollIndicator = false
         element.separatorStyle = .none
-        element.rowHeight = 236
+        element.rowHeight = 152
         element.allowsSelection = false
-        element.register(MovieListCell.self, forCellReuseIdentifier: MovieListCell.identifier)
+        element.register(SearchCell.self, forCellReuseIdentifier: SearchCell.identifier)
         element.dataSource = self
         element.delegate = self
         return element
     }()
     
+    var chosenGanreIndexPath:IndexPath
+    
+    
+    init(with chosenGanreIndexPath: IndexPath) {
+        self.chosenGanreIndexPath = chosenGanreIndexPath
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,11 +69,17 @@ final class MovieListController: UIViewController {
         presenter = MovieListPresenterImpl(model: [model])
         presenter.view = self
         presenter.viewDidLoad()
+        setupNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         selectFirstCategory()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        scrollToItemCollectionView()
     }
     
     //MARK: - Private methods
@@ -82,6 +99,60 @@ final class MovieListController: UIViewController {
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    private func getGenreMovies(with genre: Categories) {
+        NetworkingManager.shared.getMoviesByCategory(for: genre) { result in
+            switch result {
+            case .success(let movies):
+                print("Movies fetched successfully: \(movies.docs) \n")
+                self.presenter.selections = movies.docs
+                DispatchQueue.main.async {
+                    self.reloadSelectionTableView()
+                }
+            case .failure(let error):
+                print("Error fetching movie details: \(error)")
+            }
+        }
+    }
+    
+    private func stringToEnum(string: String) -> Categories {
+        switch string {
+        case "Action":
+            return Categories.action
+        case "Comedy":
+            return Categories.comedy
+        case "Drama":
+            return Categories.drama
+        case "Horror":
+            return Categories.horror
+        case "Anime":
+            return Categories.anime
+        case "Cartoon":
+            return Categories.cartoon
+        default:
+            return Categories.action
+        }
+    }
+    
+    private func setupNavigationBar() {
+        setNavigationBar(title: "Genres")
+        title = "Genres"
+        let navBarAppearance = UINavigationBarAppearance()
+
+        navBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
+        ]
+
+        navBarAppearance.backgroundColor = .customBlack
+
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+    }
+    
+    private func scrollToItemCollectionView(){
+        categoryCollectionView.scrollToItem(at: chosenGanreIndexPath, at: .centeredHorizontally, animated: true)
     }
 }
 
@@ -115,6 +186,7 @@ extension MovieListController: UICollectionViewDelegate {
         case categoryCollectionView:
             let cell = collectionView.cellForItem(at: indexPath) as! CategoriesCell
             cell.selectCell()
+            getGenreMovies(with: stringToEnum(string: presenter.category(at: indexPath.item).name))
             reloadSelectionTableView()
         default:
             break
@@ -139,14 +211,19 @@ extension MovieListController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieListCell.identifier, for: indexPath) as? MovieListCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as? SearchCell else { return UITableViewCell() }
         let selection = presenter.selection(at: indexPath.item)
-        cell.configureCell(with: selection)
+        cell.configure(with: selection)
         return cell
     }
 }
 
+//MARK: - UITableViewDelegate
 extension MovieListController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selection = presenter.selection(at: indexPath.item)
+        
+    }
 
 }
 
@@ -157,11 +234,14 @@ extension MovieListController: MovieListViewProtocol {
     }
 
     func reloadSelectionTableView() {
-        selectionMovieTable.reloadData()
+        DispatchQueue.main.async {
+            self.selectionMovieTable.reloadData()
+        }
     }
 
     func selectFirstCategory() {
-        let selectedIndexPath = IndexPath(item: 0, section: 0)
+        let selectedIndexPath = chosenGanreIndexPath
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
+        getGenreMovies(with: stringToEnum(string: presenter.category(at: selectedIndexPath.item).name))
     }
 }

@@ -12,10 +12,10 @@ protocol MovieListPresenterProtocol: AnyObject {
     func numberOfCategories() -> Int
     func category(at index: Int) -> CatergoriesModel
     func numberOfSelections() -> Int
-    func selection(at index: Int) -> MovieListCellModel
+    func selection(at index: Int) -> MovieInfoForCell
     func didSelectCategory(at index: Int)
     var view: MovieListViewProtocol? { get set }
-    var selections: [MovieListCellModel] { get }
+    var selections: [MovieInfoForCell] { get set }
 }
 
 final class MovieListPresenterImpl: MovieListPresenterProtocol {
@@ -33,15 +33,12 @@ final class MovieListPresenterImpl: MovieListPresenterProtocol {
         CatergoriesModel(name: "Cartoon"),
     ]
     
-    var selections: [MovieListCellModel] = [
-        MovieListCellModel(image: UIImage(named: "movie1"), name: "Movie Title 1"),
-        MovieListCellModel(image: UIImage(named: "movie1"), name: "Movie Title 1"),
-        MovieListCellModel(image: UIImage(named: "movie1"), name: "Movie Title 1")
-    ]
+    var selections: [MovieInfoForCell]
     
     //MARK: - Init
     init(model: [MovieListCellModel]) {
         self.model = model
+        self.selections = []
     }
     
     //MARK: - Methods
@@ -61,7 +58,7 @@ final class MovieListPresenterImpl: MovieListPresenterProtocol {
         selections.count
     }
     
-    func selection(at index: Int) -> MovieListCellModel {
+    func selection(at index: Int) -> MovieInfoForCell {
         selections[index]
     }
     
