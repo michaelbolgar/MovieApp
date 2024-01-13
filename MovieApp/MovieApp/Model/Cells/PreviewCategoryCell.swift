@@ -18,6 +18,7 @@ final class PreviewCategoryCell: UICollectionViewCell {
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
         indicator.color = .white
+        indicator.style = .medium
         return indicator
     }()
     
@@ -48,8 +49,6 @@ final class PreviewCategoryCell: UICollectionViewCell {
     func configure(with model: Collections.Collection) {
         
         let defaultImage = UIImage(named: "defaultImage")
-        
-        self.activityIndicator.stopAnimating()
         self.nameCategoryLabel.text = model.name
         self.descriptionLabel.text = "\(model.moviesCount ?? 10) movies"
         
@@ -68,6 +67,7 @@ final class PreviewCategoryCell: UICollectionViewCell {
                 
             case .success(let image):
                 self.filmeImage.image = image
+                self.activityIndicator.stopAnimating()
             case .failure(let error):
                 print(error)
             }
@@ -87,7 +87,7 @@ private extension PreviewCategoryCell {
         contentView.addSubview(filmeImage)
         contentView.addSubview(nameCategoryLabel)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(activityIndicator)
+        filmeImage.addSubview(activityIndicator)
     }
     
     func setupConstraints() {
