@@ -33,7 +33,7 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
         label.font = .montserratMedium(ofSize: 14)
-        label.textColor = .customGrey
+        label.textColor = .customLightGrey
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
