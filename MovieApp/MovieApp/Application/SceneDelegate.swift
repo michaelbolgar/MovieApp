@@ -1,4 +1,5 @@
 import UIKit
+import FacebookCore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -14,3 +15,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         rootRouter.start()
     }
 }
+
+

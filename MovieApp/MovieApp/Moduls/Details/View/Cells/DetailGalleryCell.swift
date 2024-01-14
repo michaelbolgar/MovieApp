@@ -49,6 +49,11 @@ class DetailGalleryCell: UICollectionViewCell {
     // MARK: - Layout
     private func setupCollectionView() {
         addSubview(collectionView)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: Layout.sectionInset, bottom: 0, right: 0) // Установка отступа секции
+        layout.minimumLineSpacing = Layout.itemSpacing // Установка промежутка между элементами
+        collectionView.setCollectionViewLayout(layout, animated: true)
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -68,32 +73,29 @@ extension DetailGalleryCell: UICollectionViewDelegate, UICollectionViewDataSourc
         return galleryItems.count
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: Titles.galleryCell,
-            for: indexPath) as! GalleryCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Titles.galleryCell, for: indexPath) as! GalleryCell
         let item = galleryItems[indexPath.item]
         cell.update(with: item)
+        cell.clipsToBounds = true
+
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: CGFloat.width, height: collectionView.bounds.height)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: Layout.cellSize, height: Layout.cellSize)
     }
 }
 
 // MARK: - Titles Enum
-#warning("это надо убрать")
 private enum Titles {
     static let fatalError = "init(coder:) has not been implemented"
     static let galleryCell = "GalleryItemCell"
 }
 
 // MARK: - CGFloat Private Extension
-private extension CGFloat {
-#warning("это можно пихнуть непосредственно в функцию, сильно жирно выглядит отдельный экстеншн для одной сущности")
-    static let width: CGFloat = 100
+private enum Layout {
+    static let cellSize: CGFloat = 120
+    static let sectionInset: CGFloat = 25
+    static let itemSpacing: CGFloat = 20
 }

@@ -17,6 +17,12 @@ final class SearchBarView: UIView {
         let image = UIImage(systemName: searchIcon)?.withTintColor(.clear, renderingMode: .alwaysOriginal)
         search.setImage(image, for: .search, state: .normal)
         search.delegate = self
+        #warning("fix color")
+        search.barTintColor = .customBlack
+        search.tintColor = .customBlue
+        search.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
+        search.searchTextField.placeholder = "Search"
+        search.searchTextField.textColor = .customWhiteGrey
         return search
     }()
     
@@ -48,7 +54,7 @@ final class SearchBarView: UIView {
         
         searchBar.addSubview(searchButton)
         searchButton.snp.makeConstraints {
-            $0.top.bottom.leading.equalTo(searchBar.searchTextField).inset(3)
+            $0.top.leading.equalTo(searchBar.searchTextField).inset(5)
         }
     }
     
