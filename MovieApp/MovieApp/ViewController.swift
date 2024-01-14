@@ -34,7 +34,7 @@ class ViewController: UIViewController {
 //        loadImages()
 //        getGenreMovies()
 //        getPersonInfo()
-        getRandom()
+//        getRandom()
     }
 
     private func getRandom() {

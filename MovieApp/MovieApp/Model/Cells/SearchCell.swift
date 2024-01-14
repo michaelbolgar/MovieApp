@@ -145,7 +145,7 @@ final class SearchCell: UITableViewCell {
         task?.cancel()
         
         activityIndicator.startAnimating()
-        ratingLabel.text = model.rating.imdb?.formatted()
+        ratingLabel.text = model.rating?.imdb?.formatted()
         filmNameLabel.text = model.name
         ageLimitLabel.text = "PG-13"
         let year = model.year?.formatted()

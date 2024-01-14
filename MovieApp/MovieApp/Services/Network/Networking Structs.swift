@@ -51,7 +51,7 @@ struct MovieInfoForCell: Codable {
     let name: String?                       //RUS
     let enName: String?                     //ENG
     let genres: [Genre]?
-    let rating: Rating
+    let rating: Rating?
     let poster: Poster?
     let year: Int?
     let type: String?

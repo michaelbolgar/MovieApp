@@ -69,6 +69,10 @@ struct NetworkingManager {
 
         case .getImages(id: let id):
             parameters ["movieId"] = "\(id)"
+
+        case .getUpcoming:
+            parameters ["number"] = "10"
+            parameters ["status"] = "announced"
         }
 
         return parameters
@@ -177,6 +181,11 @@ struct NetworkingManager {
 
     func getRandom(completion: @escaping(Result<MovieInfoForCell, NetworkError>) -> Void) {
         guard let url = createURL(for: .getRandom) else { return }
+        makeTask(for: url, apiKey: API.apiKey, completion: completion)
+    }
+
+    func getUpcoming(completion: @escaping(Result<MovieShortInfo, NetworkError>) -> Void) {
+        guard let url = createURL(for: .getUpcoming) else { return }
         makeTask(for: url, apiKey: API.apiKey, completion: completion)
     }
 }
