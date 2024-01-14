@@ -55,6 +55,6 @@ final class DetailStoryLineCell: UICollectionViewCell {
     func configure(with text: String, isExpanded: Bool) {
         storyLabel.text = text
         storyLabel.numberOfLines = isExpanded ? 0 : 5
-        moreButton.setTitle(isExpanded ? "Less" : "More", for: .normal)
+        moreButton.setTitle(isExpanded ? "Hide" : "More", for: .normal)
     }
 }
