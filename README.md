@@ -31,6 +31,7 @@
 
 ---
 
+![Simulator Screenshot - iPhone 15 - 2024-01-14 at 10 50 20](https://github.com/michaelbolgar/MovieApp/assets/119865051/23d6c220-c669-4124-9ba9-f69b7686d671)
 
 
 ---
