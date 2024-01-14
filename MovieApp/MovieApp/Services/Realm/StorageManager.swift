@@ -16,11 +16,9 @@ protocol StorageManagerProtocol {
     func isUserExist(withName name: String) -> Bool
     func deleteAllMovies(from wishlist: Results<MovieWishlist>)
     func deleteMovie(_ movie: MovieWishlist)
-    //    func fetchAllMovies() -> Results<MovieWishlist>
 }
 
 final class StorageManager: StorageManagerProtocol {
-    
     
     // MARK: - Static Properties
     static let shared = StorageManager()
@@ -38,44 +36,38 @@ final class StorageManager: StorageManagerProtocol {
         realm = try! Realm()
     }
     
-    // MARK: - Public Methods
-    // сохранение пользователя
+    // MARK: - User Methods
     func save(_ user: User) {
         write {
             realm.add(user)
         }
     }
     
-    // сохранения фильма в favorites
-    func save(_ movie: MovieWishlist) {
-        write {
-            realm.add(movie)
-        }
-    }
-    
-    // загрузка последнего пользователя в списке
     func fetchUser() -> User? {
         realm.objects(User.self).last
-        
     }
     
-    //    func fetchAllMovies() -> Results<MovieWishlist> {
-    //        realm.objects(MovieWishlist.self)
-    //    }
-    
-    // проверка, сохранен ли уже такой юзер
     func isUserExist(withName name: String) -> Bool {
         realm.objects(User.self).filter("fullName = %@", name).count > 0
     }
     
-    // удаление всех фильмов
+    // MARK: - Movie Methods
+    func save(_ movie: MovieWishlist) {
+        let existingMovie = realm.objects(MovieWishlist.self).filter("id == %@", movie.id).first
+        
+        if existingMovie == nil {
+              write {
+                  realm.add(movie)
+              }
+          }
+    }
+    
     func deleteAllMovies(from wishlist: Results<MovieWishlist>) {
         write {
             realm.delete(wishlist)
         }
     }
     
-    // удаление конкретного фильма
     func deleteMovie(_ movie: MovieWishlist) {
         write {
             realm.delete(movie)

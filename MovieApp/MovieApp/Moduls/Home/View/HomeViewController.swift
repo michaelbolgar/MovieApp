@@ -52,7 +52,7 @@ final class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    private let categoryView = CatergoriesSectionView(title: "Categories")
+    private let categoryView = CatergoriesSectionView(title: "Genres")
     
     private lazy var categoryCollectionView: UICollectionView = {
         let layot = UICollectionViewFlowLayout()
@@ -106,6 +106,22 @@ final class HomeViewController: UIViewController {
         return collectionView
     }()
     
+    private let scrollView: UIScrollView = {
+        let element = UIScrollView()
+        element.backgroundColor = .clear
+        element.showsVerticalScrollIndicator = false
+        element.alwaysBounceVertical = true
+        return element
+    }()
+    
+    private var selectedGanreIndexPath: IndexPath!
+    
+//    private let searchBar: SearchBarView = {
+//        let element = SearchBarView()
+//        element.backgroundColor = .customGrey
+//        return element
+//    }()
+  
     //MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,6 +131,7 @@ final class HomeViewController: UIViewController {
         presenter.setSelections()
         presenter.setPopularMovies()
         showPopularVC()
+        showMovieList()
         setupNavigationBar(with: userName, and: userImage)
     }
     
@@ -136,9 +153,16 @@ final class HomeViewController: UIViewController {
         }
     }
     
+    private func showMovieList(){
+        categoryView.seeAllButtonTapped = {
+            self.navigationController?.pushViewController(MovieListController(with: self.selectedGanreIndexPath), animated: true)
+        }
+    }
+    
     //MARK: - Private Methods
     private func selectFirstCell(){
         let selectedIndexPath = IndexPath(item: 0, section: 0)
+        selectedGanreIndexPath = selectedIndexPath
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
 }
@@ -227,6 +251,7 @@ extension HomeViewController: UICollectionViewDelegate {
         if collectionView == categoryCollectionView {
             if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
                 cell.selectCell()
+                selectedGanreIndexPath = indexPath
             }
         }
         
@@ -340,7 +365,7 @@ private extension HomeViewController {
         
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         
-        let rightButton = createCustomButton()
+        let rightButton = CustomBarItem.shared.createCustomButton(target: self, action: #selector(favoritesButtonDidTapped))
         let customTitleView = createCustomTitleView(with: name, and: imageUser)
         
         navigationItem.rightBarButtonItem = rightButton
@@ -367,36 +392,6 @@ private extension HomeViewController {
         label.frame = CGRect(x: 55, y: 10, width: 200, height: 20)
         view.addSubview(label)
         return view
-    }
-    
-    func createCustomButton() -> UIBarButtonItem {
-        let view = UIView()
-        view.backgroundColor = .customGrey
-        view.layer.cornerRadius = 11
-        
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "heart"), for: .normal)
-        button.tintColor = .customRed
-        button.imageView?.contentMode = .scaleAspectFit
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.addTarget(
-            self,
-            action: #selector(favoritesButtonDidTapped),
-            for: .touchUpInside
-        )
-        
-        view.addSubview(button)
-        button.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(3)
-            make.bottom.equalToSuperview().offset(-3)
-            make.leading.equalToSuperview().offset(3)
-            make.trailing.equalToSuperview().offset(-3)
-            
-        }
-        
-        let menuBarItem = UIBarButtonItem(customView: view)
-        return menuBarItem
     }
 }
 

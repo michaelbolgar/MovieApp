@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         }
 
 #warning("пройтись по запросам и дать им нормальные названия")
-//        detailsRequst()
+        detailsRequst()
 //        collectionRequst()
 //        popularRequest()
 //        search()
