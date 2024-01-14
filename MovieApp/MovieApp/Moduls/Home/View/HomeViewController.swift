@@ -42,7 +42,7 @@ final class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    private let categoryView = CatergoriesSectionView(title: "Categories")
+    private let categoryView = CatergoriesSectionView(title: "Genres")
     
     private lazy var categoryCollectionView: UICollectionView = {
         let layot = UICollectionViewFlowLayout()
@@ -104,6 +104,8 @@ final class HomeViewController: UIViewController {
         return element
     }()
     
+    private var selectedGanreIndexPath: IndexPath!
+    
 //    private let searchBar: SearchBarView = {
 //        let element = SearchBarView()
 //        element.backgroundColor = .customGrey
@@ -119,6 +121,7 @@ final class HomeViewController: UIViewController {
         presenter.setSelections()
         presenter.setPopularMovies()
         showPopularVC()
+        showMovieList()
         setupNavigationBar(with: userName, and: userImage)
     }
     
@@ -140,9 +143,16 @@ final class HomeViewController: UIViewController {
         }
     }
     
+    private func showMovieList(){
+        categoryView.seeAllButtonTapped = {
+            self.navigationController?.pushViewController(MovieListController(with: self.selectedGanreIndexPath), animated: true)
+        }
+    }
+    
     //MARK: - Private Methods
     private func selectFirstCell(){
         let selectedIndexPath = IndexPath(item: 0, section: 0)
+        selectedGanreIndexPath = selectedIndexPath
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
 }
@@ -231,6 +241,7 @@ extension HomeViewController: UICollectionViewDelegate {
         if collectionView == categoryCollectionView {
             if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
                 cell.selectCell()
+                selectedGanreIndexPath = indexPath
             }
         }
         
