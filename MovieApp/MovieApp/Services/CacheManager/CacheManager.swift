@@ -8,17 +8,11 @@
 import UIKit
 
 final class ImageCache {
-    
-    // MARK: - Static Properties
     static let shared = ImageCache()
-    
-    // MARK: - Private Properties
-    private var cache = NSCache<NSString, UIImage>()
-    
-    // MARK: - Private init
     private init() {}
 
-    // MARK: - Public Methods
+    private var cache = NSCache<NSString, UIImage>()
+
     func image(forKey key: String) -> UIImage? {
         return cache.object(forKey: key as NSString)
     }

@@ -9,12 +9,8 @@ import UIKit
 
 // MARK: - PopularMoviePresenterProtocol
 protocol PopularMoviePresenterProtocol {
+    init(view: PopularMovieViewProtocol, movies: [MovieInfoForCell], router: HomeRouterProtocol)
     var movies: [MovieInfoForCell] { get set }
-    init(
-        view: PopularMovieViewProtocol,
-        movies: [MovieInfoForCell],
-        router: HomeRouterProtocol
-    )
     func updateData()
     func showMovieDetails(with id: Int)
 }
@@ -26,18 +22,10 @@ final class PopularMoviePresenter: PopularMoviePresenterProtocol {
     private var router: HomeRouterProtocol
     var movies: [MovieInfoForCell] = []
 
-    init(
-        view: PopularMovieViewProtocol,
-        movies: [MovieInfoForCell],
-        router: HomeRouterProtocol
-    ) {
+    init(view: PopularMovieViewProtocol, movies: [MovieInfoForCell], router: HomeRouterProtocol) {
         self.view = view
         self.movies = movies
         self.router = router
-        
-        if !movies.isEmpty {
-            view.reloadData()
-        }
     }
     
     func updateData() {
@@ -48,3 +36,5 @@ final class PopularMoviePresenter: PopularMoviePresenterProtocol {
         router.showDetails(id)
     }
 }
+
+

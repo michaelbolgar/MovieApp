@@ -51,7 +51,7 @@ final class SearchPresenter: SearchPresenterProtocol {
     /// Network layer
 #warning("заменить на реальный запрос, пока что тянутся популярные чтобы заполнить контент")
     func setUpcomingMovies() {
-        networkingManager.getPopular { result in
+        networkingManager.getUpcoming { result in
             switch result {
 
             case .success(let movies):

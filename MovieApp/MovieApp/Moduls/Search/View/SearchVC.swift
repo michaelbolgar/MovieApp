@@ -41,6 +41,16 @@ final class SearchVC: UIViewController {
     /// Second collection (middle)
     private let upcomingMoviesPreviewView = CatergoriesSectionView(title: "Upcoming movie")
 
+//    let searchCell = SearchCell(style: .default, reuseIdentifier: SearchCell.identifier)
+//    let movieInfo = NetworkingManager.shared.getMovieDetails(for: 666) { result in
+//        switch result {
+//        case .success(let movieDetails):
+//            print("Details for movie: \(movieDetails)")
+//        case .failure(let error):
+//            print("Error fetching movie details: \(error)")
+//        }
+//    }
+
     private lazy var upcomingMoviesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -174,7 +184,7 @@ extension SearchVC: UICollectionViewDataSource{
             cell.isSelected ? cell.selectCell() : cell.deselectCell()
             return cell
 
-        case upcomingMoviesPreviewView:
+        case upcomingMoviesCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: PopularCategoryCell.identifier,
@@ -210,8 +220,8 @@ extension SearchVC: UICollectionViewDelegateFlowLayout{
         switch collectionView {
         case categoryCollectionView:
             return CGSize(width: 80, height: 31)
-        case upcomingMoviesPreviewView:
-            return CGSize(width: 295, height: 154)
+        case upcomingMoviesCollectionView:
+            return CGSize(width: 135, height: 231)
         case recentMoviesCollectionView:
             return CGSize(width: 135, height: 231)
         default:
