@@ -39,4 +39,4 @@
 [swift]: https://img.shields.io/badge/-Swift-9cf
 [uikit]: https://img.shields.io/badge/-UIKit-blue
 [SnapKit]: https://img.shields.io/badge/-SnapKit-green
-[SnapKit]: https://img.shields.io/badge/-Realm-red
+[Realm]: https://img.shields.io/badge/-Realm-green
