@@ -17,17 +17,7 @@ final class PopularMovieViewController: UIViewController {
     // MARK: - Presenter
     var presenter: PopularMoviePresenterProtocol!
     
-    private let activityIndicator: UIActivityIndicatorView = {
-        var indicator = UIActivityIndicatorView()
-        indicator.startAnimating()
-        indicator.hidesWhenStopped = true
-        indicator.style = .large
-        indicator.color = .white
-        indicator.isHidden = true
-        return indicator
-    }()
-    
-    //MARK: - Properties
+    //MARK: - Private UI Properties
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(
@@ -37,43 +27,54 @@ final class PopularMovieViewController: UIViewController {
         table.rowHeight = 150
         table.sectionFooterHeight = 0
         table.backgroundColor = .customBlack
-        
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         return table
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        var indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        indicator.color = .white
+        indicator.startAnimating()
+        return indicator
+    }()
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(tableView)
-        view.addSubview(activityIndicator)
+        setupViews()
         setupNavigationBar()
         setupTableView()
         setupConstraints()
     }
     
     // MARK: - Private Methods
-    func setupNavigationBar() {
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    private func setupViews() {
+        view.addSubview(tableView)
+        view.addSubview(activityIndicator)
+    }
+    
+    private func setupNavigationBar() {
         setNavigationBar(title: "Popular Movies")
         title = "Popular Movies"
         let navBarAppearance = UINavigationBarAppearance()
-
+        
         navBarAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,
             .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
         ]
-
+        
         navBarAppearance.backgroundColor = .customBlack
-
+        
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-    }
-    
-    //MARK: - Functions
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
     }
     
     private func setupConstraints() {
@@ -83,15 +84,19 @@ final class PopularMovieViewController: UIViewController {
             make.trailing.equalToSuperview().offset(-10)
             make.bottom.equalToSuperview()
         }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
     }
 }
-
-
 
 // MARK: - PopularMovieViewProtocol
 extension PopularMovieViewController: PopularMovieViewProtocol {
     func reloadData() {
         DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
             self.tableView.reloadData()
         }
     }

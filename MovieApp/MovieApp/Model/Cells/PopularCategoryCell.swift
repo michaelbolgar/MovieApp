@@ -95,7 +95,7 @@ final class PopularCategoryCell: UICollectionViewCell {
            activityIndicator.startAnimating()
            nameFilmLabel.text = model.name
            ganreFilmLabel.text = model.genres?.first?.name
-           ratingFilmLabel.text = model.rating?.imdb?.formatted()
+           ratingFilmLabel.text = model.rating.imdb?.formatted()
 
            guard let urlString = model.poster?.url, let url = URL(string: urlString) else {
                filmeImage.image = nil

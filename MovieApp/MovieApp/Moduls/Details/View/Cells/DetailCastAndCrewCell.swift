@@ -20,7 +20,7 @@ class DetailCastAndCrewCell: UICollectionViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(
             CollectionCell<DetailCastAndCrewView>.self,
-            forCellWithReuseIdentifier: Titles.castAndCrewCell
+            forCellWithReuseIdentifier: "CastAndCrewItemCell"
         )
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -48,9 +48,7 @@ class DetailCastAndCrewCell: UICollectionViewCell {
         addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.top.bottom.trailing.equalToSuperview()
-            make.leading.equalToSuperview().offset(
-                LayoutConstants.collectionLeadingOffset
-            )
+            make.leading.equalToSuperview()
         }
     }
 
@@ -73,7 +71,7 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: Titles.castAndCrewCell,
+            withReuseIdentifier: "CastAndCrewItemCell",
             for: indexPath
         ) as! CollectionCell<DetailCastAndCrewView>
         let item = castAndCrewItems[indexPath.item]
@@ -81,23 +79,32 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: LayoutConstants.collectionViewWidth,
-                      height: collectionView.bounds.height)
-    }
-}
-
-// MARK: - Constants
-private enum Titles {
-    #warning("это надо раскидать по другим местам")
-    static let castAndCrewCell = "CastAndCrewItemCell"
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            // Расчет предполагаемого размера основывается на содержимом
+            let item = castAndCrewItems[indexPath.item]
+            let approximateWidthOfName = item.name?.size(withAttributes: [
+                .font: UIFont.montserratSemiBold(ofSize: LayoutConstants.fontSize) ?? .systemFont(ofSize: LayoutConstants.fontSize)
+            ]).width ?? 0
+            let approximateWidthOfProfession = item.profession?.size(withAttributes: [
+                .font: UIFont.montserratSemiBold(ofSize: LayoutConstants.fontSize) ?? .systemFont(ofSize: LayoutConstants.fontSize)
+            ]).width ?? 0
+            
+            // Выбираем максимальное значение из двух для установки ширины
+            let maxWidth = max(approximateWidthOfName, approximateWidthOfProfession)
+            // Добавляем отступы и размер аватара к ширине
+            let totalWidth = maxWidth + LayoutConstants.avatarSize + CGFloat(LayoutConstants.textLeadingOffset * 2)
+            
+            // Возвращаем размер ячейки с учетом расчетной ширины и высоты коллекции
+            return CGSize(width: totalWidth, height: collectionView.bounds.height)
+        }
 }
 
 // MARK: - LayoutConstants
 private enum LayoutConstants {
     static let collectionLeadingOffset = 25
-    static let collectionViewWidth: CGFloat = 180
+    static let collectionViewWidth: CGFloat = 250
+    static let avatarSize: CGFloat = 40
+    static let textLeadingOffset = 10
+    static let fontSize: CGFloat = 10
 }
 
