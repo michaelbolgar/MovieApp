@@ -105,15 +105,7 @@ final class HomeViewController: UIViewController {
         )
         return collectionView
     }()
-    
-    private let scrollView: UIScrollView = {
-        let element = UIScrollView()
-        element.backgroundColor = .clear
-        element.showsVerticalScrollIndicator = false
-        element.alwaysBounceVertical = true
-        return element
-    }()
-    
+
     private var selectedGanreIndexPath: IndexPath!
     
 //    private let searchBar: SearchBarView = {
