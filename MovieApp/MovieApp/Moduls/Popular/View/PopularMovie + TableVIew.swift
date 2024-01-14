@@ -10,7 +10,6 @@ import UIKit
 // MARK: - UITableViewDataSource
 extension PopularMovieViewController: UITableViewDataSource {
     
-    // MARK: - UITableViewDataSrouce
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         presenter.movies.count
     }

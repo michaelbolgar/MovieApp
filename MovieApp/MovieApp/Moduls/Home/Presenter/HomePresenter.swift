@@ -35,13 +35,12 @@ final class HomePresenter: HomePresenterProtocol {
     //MARK: - Mock data
     
     var categoryData = [
-        CatergoriesModel(name: "All"),
         CatergoriesModel(name: "Action"),
         CatergoriesModel(name: "Comedy"),
-        CatergoriesModel(name: "Drama"),
         CatergoriesModel(name: "Horror"),
-        CatergoriesModel(name: "Thriller"),
-        CatergoriesModel(name: "Animation"),
+        CatergoriesModel(name: "Drama"),
+        CatergoriesModel(name: "Anime"),
+        CatergoriesModel(name: "Cartoon"),
     ]
     
     init(view: HomeViewControllerProtocol, storageManager: StorageManagerProtocol, router: HomeRouterProtocol, networkingManager: NetworkingManager) {

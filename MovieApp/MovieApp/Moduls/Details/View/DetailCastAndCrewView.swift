@@ -14,20 +14,20 @@ final class DetailCastAndCrewView: UIView {
     private lazy var avatar: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = LayoutConstants.avatarSize / 2
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         return image
     }()
 
     private let name = UILabel.makeLabel(
             text: "",
-            font: UIFont.montserratSemiBold(ofSize: 14),
+            font: UIFont.montserratSemiBold(ofSize: LayoutConstants.fontSize),
             textColor: .white,
             numberOfLines: 1)
 
         private let profession = UILabel.makeLabel(
             text: "",
-            font: UIFont.montserratSemiBold(ofSize: 14),
+            font: UIFont.montserratSemiBold(ofSize: LayoutConstants.fontSize),
             textColor: .white,
             numberOfLines: 1)
 
@@ -55,17 +55,19 @@ final class DetailCastAndCrewView: UIView {
 
     // MARK: - Layout
     private func setupConstraints() {
+        
         textStack.snp.makeConstraints {
             $0.leading.equalTo(
                 avatar.snp.trailing
             ).offset(
                 LayoutConstants.textLeadingOffset
             )
+            $0.trailing.equalToSuperview()
             $0.centerY.equalTo(avatar)
         }
         avatar.snp.makeConstraints {
             $0.width.height.equalTo(LayoutConstants.avatarSize)
-            $0.leading.equalToSuperview()
+            $0.leading.equalToSuperview().inset(25)
             $0.centerY.equalToSuperview()
         }
     }
@@ -104,7 +106,6 @@ extension DetailCastAndCrewView: Configurable {
                 self.avatar.image = image
             case .failure(let error):
                 print(error.localizedDescription)
-                self.avatar.image = UIImage(named: "creator")
             }
         }
     }
@@ -115,4 +116,5 @@ private enum LayoutConstants {
     static let avatarSize: CGFloat = 40
     static let professionFontSize: CGFloat = 10
     static let textLeadingOffset = 10
+    static let fontSize: CGFloat = 14
 }
