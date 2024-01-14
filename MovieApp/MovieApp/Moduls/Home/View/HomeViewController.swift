@@ -345,7 +345,7 @@ private extension HomeViewController {
         
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         
-        let rightButton = createCustomButton()
+        let rightButton = CustomBarItem.shared.createCustomButton(target: self, action: #selector(favoritesButtonDidTapped))
         let customTitleView = createCustomTitleView(with: name, and: imageUser)
         
         navigationItem.rightBarButtonItem = rightButton
@@ -372,36 +372,6 @@ private extension HomeViewController {
         label.frame = CGRect(x: 55, y: 10, width: 200, height: 20)
         view.addSubview(label)
         return view
-    }
-    
-    func createCustomButton() -> UIBarButtonItem {
-        let view = UIView()
-        view.backgroundColor = .customGrey
-        view.layer.cornerRadius = 11
-        
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "heart"), for: .normal)
-        button.tintColor = .customRed
-        button.imageView?.contentMode = .scaleAspectFit
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.addTarget(
-            self,
-            action: #selector(favoritesButtonDidTapped),
-            for: .touchUpInside
-        )
-        
-        view.addSubview(button)
-        button.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(3)
-            make.bottom.equalToSuperview().offset(-3)
-            make.leading.equalToSuperview().offset(3)
-            make.trailing.equalToSuperview().offset(-3)
-            
-        }
-        
-        let menuBarItem = UIBarButtonItem(customView: view)
-        return menuBarItem
     }
 }
 

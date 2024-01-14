@@ -55,8 +55,15 @@
 		3CFEF1362B4190DE000DA0B1 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CFEF1352B4190DE000DA0B1 /* AlertHelper.swift */; };
 		84AF6AD42B4B029700E3CB47 /* CatergoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6AD32B4B029700E3CB47 /* CatergoriesView.swift */; };
 		84AF6AD72B4B02D300E3CB47 /* CategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF6AD62B4B02D300E3CB47 /* CategoriesCell.swift */; };
+		E012D7EF2B532B9C00B29DC4 /* DetailStoryLineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E012D7EE2B532B9C00B29DC4 /* DetailStoryLineCell.swift */; };
+		E012D7F22B537D3A00B29DC4 /* CustomBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E012D7F12B537D3A00B29DC4 /* CustomBarItem.swift */; };
 		E04096912B4DFB7000BF8DA9 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */; };
 		E04096952B4E2D8800BF8DA9 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */; };
+		E04096972B4F65AE00BF8DA9 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096962B4F65AE00BF8DA9 /* ShareView.swift */; };
+		E040969A2B50AD4800BF8DA9 /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = E04096992B50AD4800BF8DA9 /* FacebookAEM */; };
+		E040969C2B50AD4800BF8DA9 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = E040969B2B50AD4800BF8DA9 /* FacebookBasics */; };
+		E040969E2B50AD4800BF8DA9 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = E040969D2B50AD4800BF8DA9 /* FacebookShare */; };
+		E04096A12B50C7CA00BF8DA9 /* SharePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096A02B50C7CA00BF8DA9 /* SharePhotoViewController.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -158,8 +165,13 @@
 		3CFEF1352B4190DE000DA0B1 /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		84AF6AD32B4B029700E3CB47 /* CatergoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatergoriesView.swift; sourceTree = "<group>"; };
 		84AF6AD62B4B02D300E3CB47 /* CategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCell.swift; sourceTree = "<group>"; };
+		E012D7EE2B532B9C00B29DC4 /* DetailStoryLineCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailStoryLineCell.swift; sourceTree = "<group>"; };
+		E012D7F12B537D3A00B29DC4 /* CustomBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarItem.swift; sourceTree = "<group>"; };
 		E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
+		E04096962B4F65AE00BF8DA9 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		E040969F2B50AFB700BF8DA9 /* MovieApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MovieApp.entitlements; sourceTree = "<group>"; };
+		E04096A02B50C7CA00BF8DA9 /* SharePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoViewController.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -220,7 +232,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E040969A2B50AD4800BF8DA9 /* FacebookAEM in Frameworks */,
 				3CF904882B3C44DB006E9D51 /* RealmSwift in Frameworks */,
+				E040969E2B50AD4800BF8DA9 /* FacebookShare in Frameworks */,
+				E040969C2B50AD4800BF8DA9 /* FacebookBasics in Frameworks */,
 				3CF904862B3C44DB006E9D51 /* Realm in Frameworks */,
 				F48094502B38EF35004C9F96 /* SnapKit in Frameworks */,
 			);
@@ -611,6 +626,14 @@
 			path = CollectionCell;
 			sourceTree = "<group>";
 		};
+		E012D7F02B537D2500B29DC4 /* CustomBarItem */ = {
+			isa = PBXGroup;
+			children = (
+				E012D7F12B537D3A00B29DC4 /* CustomBarItem.swift */,
+			);
+			path = CustomBarItem;
+			sourceTree = "<group>";
+		};
 		E040968F2B4DFB5D00BF8DA9 /* ImageDownloader */ = {
 			isa = PBXGroup;
 			children = (
@@ -647,6 +670,7 @@
 		F48094282B389AE6004C9F96 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
+				E040969F2B50AFB700BF8DA9 /* MovieApp.entitlements */,
 				F480943D2B389E2C004C9F96 /* Application */,
 				F48094CB2B4DF5E7004C9F96 /* Components */,
 				3CF904892B3C4513006E9D51 /* Services */,
@@ -730,6 +754,7 @@
 		F48094582B38F42E004C9F96 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				E012D7F02B537D2500B29DC4 /* CustomBarItem */,
 				3C0BEEE92B4C6C6100CC7FA4 /* HomeRouter */,
 				3C0BEEE82B4C6C5800CC7FA4 /* HomeBuilder */,
 				F48094702B38F70C004C9F96 /* View */,
@@ -891,8 +916,10 @@
 				F48094C22B4D89B8004C9F96 /* Cells */,
 				F48094B22B4D88D7004C9F96 /* DetailCastAndCrewView.swift */,
 				F48094B62B4D8910004C9F96 /* DetailGalleryView.swift */,
+				E04096962B4F65AE00BF8DA9 /* ShareView.swift */,
 				F48094B82B4D8926004C9F96 /* DetailHeaderView.swift */,
 				F48094BA2B4D893E004C9F96 /* DetailViewController.swift */,
+				E04096A02B50C7CA00BF8DA9 /* SharePhotoViewController.swift */,
 				F48094BC2B4D8955004C9F96 /* SectionHeaderView.swift */,
 			);
 			path = View;
@@ -903,6 +930,7 @@
 			children = (
 				F48094B02B4D88BB004C9F96 /* DetailCastAndCrewCell.swift */,
 				F48094B42B4D88F3004C9F96 /* DetailGalleryCell.swift */,
+				E012D7EE2B532B9C00B29DC4 /* DetailStoryLineCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -964,6 +992,9 @@
 				F480944F2B38EF35004C9F96 /* SnapKit */,
 				3CF904852B3C44DB006E9D51 /* Realm */,
 				3CF904872B3C44DB006E9D51 /* RealmSwift */,
+				E04096992B50AD4800BF8DA9 /* FacebookAEM */,
+				E040969B2B50AD4800BF8DA9 /* FacebookBasics */,
+				E040969D2B50AD4800BF8DA9 /* FacebookShare */,
 			);
 			productName = MovieApp;
 			productReference = F48094262B389AE6004C9F96 /* MovieApp.app */;
@@ -996,6 +1027,7 @@
 			packageReferences = (
 				F480944E2B38EF35004C9F96 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3CF904842B3C44DB006E9D51 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = F48094272B389AE6004C9F96 /* Products */;
 			projectDirPath = "";
@@ -1029,6 +1061,7 @@
 				F48094AF2B4D887E004C9F96 /* DetailModel.swift in Sources */,
 				E04096952B4E2D8800BF8DA9 /* DetailRouter.swift in Sources */,
 				3C0BEF0F2B514A2700CC7FA4 /* PopularMovie + TableVIew.swift in Sources */,
+				E012D7EF2B532B9C00B29DC4 /* DetailStoryLineCell.swift in Sources */,
 				3CF9047E2B3B60CD006E9D51 /* DeveloperCell.swift in Sources */,
 				3CF9049F2B3DD094006E9D51 /* NotificationsVC.swift in Sources */,
 				84AF6AD72B4B02D300E3CB47 /* CategoriesCell.swift in Sources */,
@@ -1038,6 +1071,7 @@
 				3CF904952B3C791E006E9D51 /* WishlistCell.swift in Sources */,
 				FA37EAD32B4C00AF00760039 /* SearchCellModel.swift in Sources */,
 				F48094CD2B4DF602004C9F96 /* AppFactory.swift in Sources */,
+				E012D7F22B537D3A00B29DC4 /* CustomBarItem.swift in Sources */,
 				3CF904C12B3F2BB8006E9D51 /* PlugView.swift in Sources */,
 				F480946C2B38F600004C9F96 /* HomeViewController.swift in Sources */,
 				3C0BEEFA2B4EBAE700CC7FA4 /* CacheManager.swift in Sources */,
@@ -1076,6 +1110,8 @@
 				3CD315DF2B39BF97003035B0 /* UserInfoView.swift in Sources */,
 				F48094432B38A37A004C9F96 /* UIFont Extension.swift in Sources */,
 				F480947D2B38F971004C9F96 /* ChristmasTreePresenter.swift in Sources */,
+				E04096A12B50C7CA00BF8DA9 /* SharePhotoViewController.swift in Sources */,
+				E04096972B4F65AE00BF8DA9 /* ShareView.swift in Sources */,
 				FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */,
 				F480944D2B38A616004C9F96 /* UILabel Extension.swift in Sources */,
 				F48094C62B4D8A8C004C9F96 /* ConfigurableProtocol.swift in Sources */,
@@ -1261,6 +1297,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MovieApp/MovieApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 87P7GYW9VY;
@@ -1293,9 +1330,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MovieApp/MovieApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 87P7GYW9VY;
+				DEVELOPMENT_TEAM = MKKVV86K5G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MovieApp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
@@ -1309,7 +1347,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Bolgar.MovieApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "Michail-Bolgar.MovieApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1352,6 +1390,14 @@
 				kind = branch;
 			};
 		};
+		E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
+			};
+		};
 		F480944E2B38EF35004C9F96 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1372,6 +1418,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3CF904842B3C44DB006E9D51 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		E04096992B50AD4800BF8DA9 /* FacebookAEM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookAEM;
+		};
+		E040969B2B50AD4800BF8DA9 /* FacebookBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		E040969D2B50AD4800BF8DA9 /* FacebookShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookShare;
 		};
 		F480944F2B38EF35004C9F96 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
