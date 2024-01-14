@@ -15,7 +15,7 @@ final class CatergoriesSectionView: UIView {
     // MARK: - UI Properties
     private let titleLabel = UILabel.makeLabel(text: "", font: UIFont.montserratSemiBold(ofSize: 16), textColor: .white, numberOfLines: 1)
     
-    private lazy var seeAllButton: UIButton = {
+    private let seeAllButton: UIButton = {
         let element = UIButton(type: .system)
         element.setTitle("See all", for: .normal)
         element.setTitleColor(.customBlue, for: .normal)
