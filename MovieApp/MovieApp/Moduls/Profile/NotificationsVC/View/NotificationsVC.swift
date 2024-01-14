@@ -41,7 +41,7 @@ final class NotificationsVC: UIViewController {
         numberOfLines: 1
     )
     
-    private lazy var notificationSwitch: UISwitch = {
+    private var notificationSwitch: UISwitch = {
         var switcher = UISwitch()
         switcher.isOn = false
         switcher.onTintColor = .customBlue
@@ -60,7 +60,7 @@ final class NotificationsVC: UIViewController {
         numberOfLines: 1
     )
     
-    private lazy var timePicker: UIDatePicker = {
+    private let timePicker: UIDatePicker = {
         var picker = UIDatePicker()
         picker.datePickerMode = .time
         picker.backgroundColor = .customBlack
@@ -76,7 +76,6 @@ final class NotificationsVC: UIViewController {
             action: #selector(pickerTimeDidChanged),
             for: .valueChanged
         )
-        picker.isEnabled = false
         return picker
     }()
     
@@ -92,17 +91,14 @@ final class NotificationsVC: UIViewController {
     // MARK: - Private Actions
     @objc private func pickerTimeDidChanged() {
         updateDataFromPickerToPresenter()
-        presenter.showrequestAuthorization()
     }
     
     @objc private func switcherDidChanged() {
         let value = notificationSwitch.isOn
         
         if value {
-            timePicker.isEnabled = true
             presenter.showrequestAuthorization()
         } else {
-            timePicker.isEnabled = false
             presenter.removeNotifications()
         }
     }
@@ -162,7 +158,7 @@ private extension NotificationsVC {
         
         notificationsLabel.snp.makeConstraints { make in
             make.top.equalTo(settingLabel.snp.bottom)
-                .offset(LayoutConstraint.notificationsLabelTopOffset)
+                .offset(40)
             make.left.equalToSuperview()
                 .offset(LayoutConstraint.labelLeftOffset)
         }
@@ -174,28 +170,25 @@ private extension NotificationsVC {
         }
         
         timeLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-                .offset(LayoutConstraint.labelLeftOffset)
-            make.top.equalTo(notificationsLabel.snp.bottom)
-                .offset(LayoutConstraint.timeLabelTopOffset)
+            make.leading.equalToSuperview().offset(16)
+            make.top.equalTo(notificationsLabel.snp.bottom).offset(20)
         }
         
         timePicker.snp.makeConstraints { make in
-            make.top.equalTo(notificationSwitch.snp.bottom)
-                .offset(LayoutConstraint.timePickerTopOffset)
+            make.top.equalTo(notificationSwitch.snp.bottom).offset(25)
             make.centerY.equalTo(timeLabel.snp.centerY)
-            make.trailing.equalTo(notificationSwitch.snp.trailing)
+            make.centerX.equalTo(notificationSwitch.snp.centerX)
         }
     }
     
     enum LayoutConstraint {
         static let standardOffset: CGFloat = 30
-         static let mainViewHeight: CGFloat = 200
-         static let settingLabelTopOffset: CGFloat = 28
-         static let labelLeftOffset: CGFloat = 16
-         static let notificationsLabelBottomOffset: CGFloat = -28
-         static let notificationsLabelTopOffset: CGFloat = 40
-         static let timeLabelTopOffset: CGFloat = 20
-         static let timePickerTopOffset: CGFloat = 25
+        static let mainViewHeight: CGFloat = 200
+        static let settingLabelTopOffset: CGFloat = 28
+        static let labelLeftOffset: CGFloat = 16
+        static let notificationsLabelBottomOffset: CGFloat = -28
     }
 }
+
+
+

@@ -14,8 +14,7 @@ final class MovieWishlist: Object {
     @Persisted var name = ""
     @Persisted var type = ""
     @Persisted var rating = ""
-    @Persisted(primaryKey: true) var id: Int
-//    @Persisted var id = Int()
+    @Persisted var id = Int()
 }
 
 

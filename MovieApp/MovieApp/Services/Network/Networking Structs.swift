@@ -89,17 +89,6 @@ struct FullMovieInfo: Codable {
     let genres: [Genre]?            //RUS
     let persons: [Person]?
     let type: String?
-    let videos: Videos
-
-    struct Videos: Codable {
-        let trailers: [Trailer]
-    }
-
-    struct Trailer: Codable {
-        let url: String?
-        let name: String?
-        let site: String?
-    }
 }
 
 /// Screenshots from movie on MovieDetails Screen
