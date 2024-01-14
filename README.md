@@ -30,7 +30,7 @@
 * SnapKit
 
 ---
-
+### Screenshots
 ![image-2](https://github.com/michaelbolgar/MovieApp/assets/119865051/4b409b08-092d-406a-b652-95efda774697)
 
 ---
