@@ -15,10 +15,10 @@ protocol DetailViewProtocol: AnyObject {
     func hideLoading()
     func showShareView()
     func playVideo(url: String)
-    func shareToInstagram()
+    func shareToInstagram(movieName: String, movieId: Int)
     func shareToTwitter(movieName: String)
-    func shareToFacebook()
-    func shareToMessenger()
+    func shareToFacebook(movieName: String, movieId: Int)
+    func shareToMessenger(movieName: String, movieId: Int)
     func closeShareView()
 }
 

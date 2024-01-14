@@ -47,7 +47,6 @@ final class DetailPresenter: DetailPresenterProtocol {
             switch result {
             case .success(let details):
                 movieDetails = details
-                print(movieDetails as Any)
             case .failure(let error):
                 print(error)
             }
@@ -161,7 +160,7 @@ final class DetailPresenter: DetailPresenterProtocol {
     }
     
     func shareToInstagram() {
-        view?.shareToInstagram()
+        view?.shareToInstagram(movieName: movieDetail.name, movieId: movieId)
     }
     
     func shareToTwitter() {
@@ -169,11 +168,11 @@ final class DetailPresenter: DetailPresenterProtocol {
     }
     
     func shareToFacebook() {
-        view?.shareToFacebook()
+        view?.shareToFacebook(movieName: movieDetail.name, movieId: movieId)
     }
     
     func shareToMessenger() {
-        view?.shareToMessenger()
+        view?.shareToMessenger(movieName: movieDetail.name, movieId: movieId)
     }
     func closeShareView() {
         view?.closeShareView()

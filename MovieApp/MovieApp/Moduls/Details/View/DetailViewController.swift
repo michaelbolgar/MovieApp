@@ -310,7 +310,8 @@ extension DetailViewController: DetailViewProtocol {
         }
     }
     
-    func shareToInstagram() {
+    func shareToInstagram(movieName: String, movieId: Int) {
+        uiActivityVC(movieName: movieName, movieId: movieId)
     }
     
     func shareToTwitter(movieName: String) {
@@ -327,20 +328,25 @@ extension DetailViewController: DetailViewProtocol {
         }
     }
     
-    func shareToFacebook() {
+    func shareToFacebook(movieName: String, movieId: Int) {
+        uiActivityVC(movieName: movieName, movieId: movieId)
     }
     
-    func shareToMessenger() {
-        let messengerURLScheme = URL(string: "fb-messenger://compose")!
-        
-        if UIApplication.shared.canOpenURL(messengerURLScheme) {
-            UIApplication.shared.open(messengerURLScheme, options: [:], completionHandler: nil)
-        } else {
-            // Если Messenger не установлен, переход в app store
-            if let appStoreURL = URL(string: "https://apps.apple.com/app/id454638411") {
-                UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
-            }
-        }
+    func shareToMessenger(movieName: String, movieId: Int) {
+        uiActivityVC(movieName: movieName, movieId: movieId)
+    }
+    
+    func uiActivityVC(movieName: String, movieId: Int) {
+        let textToShare = "Проверьте этот фильм: \(movieName)"
+        let urlToShare = URL(string: "https://www.kinopoisk.ru/film/\(movieId)")!
+
+        let itemsToShare: [Any] = [textToShare, urlToShare]
+        let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+
+        // Исключить нежелательные типы активности
+        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.assignToContact, UIActivity.ActivityType.print, UIActivity.ActivityType.saveToCameraRoll]
+
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     func playVideo(url: String) {
