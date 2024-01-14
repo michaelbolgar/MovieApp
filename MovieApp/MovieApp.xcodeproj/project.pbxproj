@@ -116,6 +116,7 @@
 		F48094DA2B4DF838004C9F96 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094D92B4DF838004C9F96 /* SearchRouter.swift */; };
 		F48094DC2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094DB2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift */; };
 		F48094DE2B4E020E004C9F96 /* UINavigationController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094DD2B4E020E004C9F96 /* UINavigationController Extension.swift */; };
+		F48A8F7C2B52909900635EAB /* SearchBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A8F7B2B52909900635EAB /* SearchBuilder.swift */; };
 		FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */; };
 		FA37EAD02B459ED700760039 /* PopularMoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */; };
 		FA37EAD32B4C00AF00760039 /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */; };
@@ -224,10 +225,11 @@
 		F48094CE2B4DF620004C9F96 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
 		F48094D02B4DF648004C9F96 /* HomeRouterNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouterNew.swift; sourceTree = "<group>"; };
 		F48094D42B4DF6E3004C9F96 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
-		F48094D72B4DF707004C9F96 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchVC.swift; path = MovieApp/Moduls/Search/View/SearchVC.swift; sourceTree = "<group>"; };
-		F48094D92B4DF838004C9F96 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchRouter.swift; path = MovieApp/Moduls/Search/View/SearchRouter.swift; sourceTree = "<group>"; };
+		F48094D72B4DF707004C9F96 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		F48094D92B4DF838004C9F96 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		F48094DB2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeRouter.swift; sourceTree = "<group>"; };
 		F48094DD2B4E020E004C9F96 /* UINavigationController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController Extension.swift"; sourceTree = "<group>"; };
+		F48A8F7B2B52909900635EAB /* SearchBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBuilder.swift; sourceTree = "<group>"; };
 		FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieViewController.swift; sourceTree = "<group>"; };
 		FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviePresenter.swift; sourceTree = "<group>"; };
 		FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
@@ -265,15 +267,6 @@
 				3C0BEEEC2B4C6D2700CC7FA4 /* MyHomeRouter.swift */,
 			);
 			path = HomeRouter;
-			sourceTree = "<group>";
-		};
-		3C0BEEF52B4D9C6A00CC7FA4 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				F48094D92B4DF838004C9F96 /* SearchRouter.swift */,
-				F48094D72B4DF707004C9F96 /* SearchVC.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		3C0BEEF82B4EBAD800CC7FA4 /* CacheManager */ = {
@@ -695,7 +688,6 @@
 			children = (
 				F48094282B389AE6004C9F96 /* MovieApp */,
 				F48094272B389AE6004C9F96 /* Products */,
-				3C0BEEF52B4D9C6A00CC7FA4 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1000,6 +992,9 @@
 		F48094D22B4DF6B7004C9F96 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				F48A8F7A2B52908200635EAB /* SearchBuilder */,
+				F48A8F7F2B52912600635EAB /* SearchRouter */,
+				F48A8F7E2B52911400635EAB /* View */,
 				F48094D32B4DF6D7004C9F96 /* Presenter */,
 			);
 			path = Search;
@@ -1011,6 +1006,30 @@
 				F48094D42B4DF6E3004C9F96 /* SearchPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		F48A8F7A2B52908200635EAB /* SearchBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				F48A8F7B2B52909900635EAB /* SearchBuilder.swift */,
+			);
+			path = SearchBuilder;
+			sourceTree = "<group>";
+		};
+		F48A8F7E2B52911400635EAB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F48094D72B4DF707004C9F96 /* SearchVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F48A8F7F2B52912600635EAB /* SearchRouter */ = {
+			isa = PBXGroup;
+			children = (
+				F48094D92B4DF838004C9F96 /* SearchRouter.swift */,
+			);
+			path = SearchRouter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1187,6 +1206,7 @@
 				3CF904762B3B409E006E9D51 /* PolicyPresenter.swift in Sources */,
 				3CF904AF2B3E05A0006E9D51 /* SearchBarViewDelegate.swift in Sources */,
 				3CA4D10C2B3B0B2900073990 /* ProfileRouter.swift in Sources */,
+				F48A8F7C2B52909900635EAB /* SearchBuilder.swift in Sources */,
 				F48094DC2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift in Sources */,
 				F48094BD2B4D8955004C9F96 /* SectionHeaderView.swift in Sources */,
 				F48094A72B4776AD004C9F96 /* Networking Manager.swift in Sources */,
