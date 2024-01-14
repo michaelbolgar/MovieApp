@@ -31,13 +31,7 @@
 
 ---
 
-![image5](https://github.com/michaelbolgar/MovieApp/assets/119865051/3b986531-1bd1-4ed6-885a-4d1a1f8a8cba)
-![image4](https://github.com/michaelbolgar/MovieApp/assets/119865051/6ccaf1e8-82bd-4e54-88ab-9c1b40df037d)
-![image3](https://github.com/michaelbolgar/MovieApp/assets/119865051/2ff59fff-b154-43b0-9900-372b09c0362d)
-![image2](https://github.com/michaelbolgar/MovieApp/assets/119865051/a2c4df60-3684-4812-b4ff-411e8c5ea517)
-![image1](https://github.com/michaelbolgar/MovieApp/assets/119865051/fb95649d-96f6-42ec-9616-4ddcb03fa43a)
-
-
+![image-2](https://github.com/michaelbolgar/MovieApp/assets/119865051/4b409b08-092d-406a-b652-95efda774697)
 
 ---
 
