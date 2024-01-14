@@ -7,6 +7,7 @@
 
 import UIKit
 
+#warning("отрефакторить")
 // MARK: - MovieListViewProtocol
 
 protocol MovieListViewProtocol: AnyObject {

@@ -12,6 +12,7 @@ protocol MovieListCellProtocol: AnyObject{
     func configureCell(with model: MovieListCellModel)
 }
 
+#warning("не используется?")
 final class MovieListCell: UITableViewCell{
     
     //MARK: - Properties
