@@ -18,7 +18,7 @@ final class SearchCell: UITableViewCell {
     static let identifier = String(describing: SearchCell.self)
     
     // MARK: - Private UI Properties
-    private let filmeImage:UIImageView = {
+    private let filmeImage: UIImageView = {
         let element = UIImageView()
         element.contentMode = .scaleAspectFill
         element.clipsToBounds = true
@@ -26,7 +26,7 @@ final class SearchCell: UITableViewCell {
         return element
     }()
     
-    private let backgorundForRaitingView:UIView = {
+    private let backgorundForRaitingView: UIView = {
         let element = UIView()
         element.layer.cornerRadius = 8
         element.backgroundColor = .gray
@@ -34,52 +34,51 @@ final class SearchCell: UITableViewCell {
         return element
     }()
     
-    private let starImage:UIImageView = {
+    private let starImage: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(named: "star")
         return element
     }()
     
-    private let calenderImage:UIImageView = {
+    private let calenderImage: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(systemName: "calendar")
         element.tintColor = .customDarkGrey
         return element
     }()
     
-    private let timeImage:UIImageView = {
+    private let timeImage: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(systemName: "clock.fill")
         element.tintColor = .customDarkGrey
         return element
     }()
     
-    private let ganreImage:UIImageView = {
+    private let ganreImage: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(systemName: "film.fill")
         element.tintColor = .customDarkGrey
         return element
     }()
     
-    private let ratingLabel:UILabel = .makeLabel(
+    private let ratingLabel = UILabel.makeLabel(
         font: UIFont.montserratMedium(ofSize: 14.5),
         textColor: .customOrange,
         numberOfLines: 1
     )
+
+    private let filmNameLabel = UILabel.makeLabel(
+        font: UIFont.montserratSemiBold(ofSize: 16),
+        textColor: .white,
+        numberOfLines: 2
+    )
     
-    private let filmNameLabel:UILabel = {
-        let element = UILabel()
-        element.font = UIFont.montserratSemiBold(ofSize: 16)
-        element.textColor = .white
-        element.numberOfLines = 2
-        return element
-    }()
-    
-    private let ageLimitLabel:UILabel = {
-       let element = UILabel()
-        element.font = UIFont.montserratMedium(ofSize: 12)
-        element.textColor = .cyan
-        element.numberOfLines = 1
+    private let ageLimitLabel: UILabel = {
+        let element = UILabel.makeLabel(
+            font: UIFont.montserratMedium(ofSize: 12),
+            textColor: .cyan,
+            numberOfLines: 1
+        )
         element.textAlignment = .center
         element.layer.cornerRadius = 3
         element.layer.borderWidth = 2
@@ -87,25 +86,25 @@ final class SearchCell: UITableViewCell {
         return element
     }()
     
-    private let yearPublishedLabel:UILabel = .makeLabel(
+    private let yearPublishedLabel = UILabel.makeLabel(
         font: UIFont.montserratMedium(ofSize: 12),
         textColor: .customDarkGrey,
         numberOfLines: 1
     )
     
-    private let timeLabel:UILabel = .makeLabel(
+    private let timeLabel = UILabel.makeLabel(
         font: UIFont.montserratMedium(ofSize: 12),
         textColor: .customDarkGrey,
         numberOfLines: 1
     )
     
-    private let ganreLabel:UILabel = .makeLabel(
+    private let ganreLabel = UILabel.makeLabel(
         font: UIFont.montserratMedium(ofSize: 12),
         textColor: .customDarkGrey,
         numberOfLines: 1
     )
     
-    private let typeLabel:UILabel = .makeLabel(
+    private let typeLabel = UILabel .makeLabel(
         font: UIFont.montserratMedium(ofSize: 12),
         textColor: .white,
         numberOfLines: 1
@@ -115,6 +114,7 @@ final class SearchCell: UITableViewCell {
         var indicator = UIActivityIndicatorView()
         indicator.hidesWhenStopped = true
         indicator.startAnimating()
+        indicator.style = .medium
         indicator.color = .white
         return indicator
     }()
@@ -122,11 +122,10 @@ final class SearchCell: UITableViewCell {
     //MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
         setupViews()
         setupConstraints()
     }
-    
+        
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -145,16 +144,7 @@ final class SearchCell: UITableViewCell {
         task?.cancel()
         
         activityIndicator.startAnimating()
-        ratingLabel.text = model.rating.imdb?.formatted()
-        filmNameLabel.text = model.name
-        ageLimitLabel.text = "PG-13"
-        let year = model.year?.formatted()
-        let newYear = year?.replacingOccurrences(of: ",", with: "")
-        yearPublishedLabel.text = newYear
-        
-        timeLabel.text = "\(model.movieLength ?? 0) minutes"
-        ganreLabel.text = (model.genres?.first?.name ?? "") + "  |"
-        typeLabel.text = model.type
+        setupUI(with: model)
         
         guard let urlString = model.poster?.url, let url = URL(string: urlString) else {
             filmeImage.image = nil
@@ -186,9 +176,25 @@ final class SearchCell: UITableViewCell {
         task?.resume()
     }
     
-    //MARK: - Methods
-    private func setupViews() {
+    // MARK: - Private Methods
+    private func setupUI(with movie: MovieInfoForCell) {
+        ratingLabel.text = movie.rating.imdb?.formatted()
+        filmNameLabel.text = movie.name
+        ageLimitLabel.text = "PG-13"
+        let year = movie.year?.formatted()
+        let newYear = year?.replacingOccurrences(of: ",", with: "")
+        yearPublishedLabel.text = newYear
+        timeLabel.text = "\(movie.movieLength ?? 0) minutes"
+        ganreLabel.text = (movie.genres?.first?.name ?? "") + "  |"
+        typeLabel.text = movie.type
+    }
+}
+
+// MARK: - Setup UI
+private extension SearchCell {
+    func setupViews() {
         backgroundColor = .customBlack
+        filmeImage.addSubview(activityIndicator)
         [filmeImage, backgorundForRaitingView, starImage, filmNameLabel,
          yearPublishedLabel, timeLabel, ageLimitLabel, ganreLabel, typeLabel,
          calenderImage, timeImage, ganreImage].forEach { contentView.addSubview($0)}
@@ -196,8 +202,7 @@ final class SearchCell: UITableViewCell {
         [starImage, ratingLabel].forEach { backgorundForRaitingView.addSubview($0)}
     }
     
-    private func setupConstraints() {
-        
+    func setupConstraints() {
         filmeImage.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
             make.leading.equalToSuperview().inset(24)
@@ -269,6 +274,11 @@ final class SearchCell: UITableViewCell {
         typeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(ganreImage)
             make.leading.equalTo(ganreLabel.snp.trailing).offset(8)
+        }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
 }
