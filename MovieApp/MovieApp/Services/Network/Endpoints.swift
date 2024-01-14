@@ -25,6 +25,7 @@ enum Endpoint {
     case getRandom                                  //запрос для экрана с ёлкой
     case getColletionMovieList(slug: String)
     case getImages(id: Int)
+    case getUpcoming
 
     var path: String {
         switch self {
@@ -46,6 +47,8 @@ enum Endpoint {
             return "/v1.4/movie"
         case .getImages:
             return "/v1.4/image"
+        case .getUpcoming:
+            return "/v1.4/movie"
         }
     }
 }
