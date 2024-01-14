@@ -1,6 +1,6 @@
 # DevRush MarathonX | Final Challenge | MovieApp
 
-![GitHub repo size](https://img.shields.io/github/repo-size/michaelbolgar/BookStore)  ![GitHub contributors](https://img.shields.io/github/contributors/michaelbolgar/BookStore)   ![GitHub last commit](https://img.shields.io/github/last-commit/michaelbolgar/BookStore) ![][ios] ![][swift] ![][uikit] ![][SnapKit] 
+![GitHub repo size](https://img.shields.io/github/repo-size/michaelbolgar/BookStore)  ![GitHub contributors](https://img.shields.io/github/contributors/michaelbolgar/BookStore)   ![GitHub last commit](https://img.shields.io/github/last-commit/michaelbolgar/BookStore) ![][ios] ![][swift] ![][uikit] ![][SnapKit] ![][Realm] 
 
 ---
 ### The application was created as part of the DevRush Marathon X (https://t.me/devrush_community/13663)
@@ -39,3 +39,4 @@
 [swift]: https://img.shields.io/badge/-Swift-9cf
 [uikit]: https://img.shields.io/badge/-UIKit-blue
 [SnapKit]: https://img.shields.io/badge/-SnapKit-green
+[SnapKit]: https://img.shields.io/badge/-Realm-red
