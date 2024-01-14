@@ -289,7 +289,6 @@ private extension HomeViewController{
         }
         
         searchBar.snp.makeConstraints { make in
-#warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
 //            make.height.equalTo(41)
             make.top.equalTo(scrollView).offset(16)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(12)

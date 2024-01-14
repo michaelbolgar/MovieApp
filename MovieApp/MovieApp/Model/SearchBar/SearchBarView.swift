@@ -17,6 +17,7 @@ final class SearchBarView: UIView {
         let image = UIImage(systemName: searchIcon)?.withTintColor(.clear, renderingMode: .alwaysOriginal)
         search.setImage(image, for: .search, state: .normal)
         search.delegate = self
+        #warning("fix color")
         search.barTintColor = .customBlack
         search.tintColor = .customBlue
         search.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)

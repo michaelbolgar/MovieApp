@@ -117,7 +117,7 @@ final class SearchVC: UIViewController {
         presenter.setUpcomingMovies()
         presenter.setRecentMovies()
 //        showPopularVC()
-        setupNavigationBar(with: searchBar)
+//        setupNavigationBar(with: searchBar)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -281,23 +281,21 @@ private extension SearchVC {
         let inset: CGFloat = 24
 
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.edges.equalToSuperview()
+        }
+
+        searchBar.snp.makeConstraints { make in
+//            make.height.equalTo(41)
+            make.top.equalTo(scrollView.snp.top)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(12)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(12)
         }
 
         categoryCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top).offset(inset)
+            make.top.equalTo(searchBar.snp.bottom).offset(12)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(39)
         }
-
-//        searchBar.snp.makeConstraints { make in
-//#warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
-//            make.height.equalTo(41)
-//            make.bottom.equalTo(categoryCollectionView.snp.top).offset(inset)
-//            make.leading.trailing.equalToSuperview().offset(inset)
-//        }
 
         upcomingMoviesPreviewView.snp.makeConstraints { make in
             make.top.equalTo(categoryCollectionView.snp.bottom).offset(inset)
@@ -305,7 +303,7 @@ private extension SearchVC {
         }
 
         upcomingMoviesCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(upcomingMoviesPreviewView.snp.bottom).offset(16)
+            make.top.equalTo(upcomingMoviesPreviewView.snp.bottom).offset(12)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(231)
         }
@@ -325,6 +323,7 @@ private extension SearchVC {
 }
 
 // MARK: - Setup NavigationBar
+#warning("dead code")
 private extension SearchVC {
     func setupNavigationBar(with view: UIView) {
         let navBarAppearance = UINavigationBarAppearance()
