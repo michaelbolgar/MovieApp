@@ -11,7 +11,7 @@ import FBSDKShareKit
 // Класс для представления всплывающего окна с кнопками поделиться
 class ShareView: UIView {
     
-    var onInstagramShare: ((Data) -> Void)?
+    var onInstagramShare: (() -> Void)?
     var onTwitterShare: (() -> Void)?
     var onFacebookShare: (() -> Void)?
     var onMessengerShare: (() -> Void)?
@@ -26,7 +26,7 @@ class ShareView: UIView {
                 .alwaysOriginal
             ), for: .normal
         )
-        btn.contentMode = .scaleAspectFit // Измените здесь
+        btn.contentMode = .scaleAspectFit
         btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
@@ -41,7 +41,7 @@ class ShareView: UIView {
                 .alwaysOriginal
             ), for: .normal
         )
-        btn.contentMode = .scaleAspectFit // Измените здесь
+        btn.contentMode = .scaleAspectFit
         btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
@@ -56,7 +56,7 @@ class ShareView: UIView {
                 .alwaysOriginal
             ), for: .normal
         )
-        btn.contentMode = .scaleAspectFit // Измените здесь
+        btn.contentMode = .scaleAspectFit
         btn.imageView?.contentMode = .scaleAspectFit
         return btn
     }()
@@ -90,7 +90,10 @@ class ShareView: UIView {
         return btn
     }()
     
-    let shareLabel = UILabel.makeLabel(text: "Share to", font: .montserratSemiBold(ofSize: 18), textColor: .white, numberOfLines: 1)
+    let shareLabel = UILabel.makeLabel(
+        text: "Share to",
+        font: .montserratSemiBold(ofSize: 18),
+        textColor: .white, numberOfLines: 1)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -111,11 +114,7 @@ class ShareView: UIView {
     }
     
     @objc func instagramTapped() {
-        
-        // Предположим, что imageData уже передана в ShareView
-        //            if let imageData = ... {
-        //                onInstagramShare?(imageData)
-        //            }
+        onInstagramShare?()
     }
     
     @objc func twitterTapped() {
@@ -138,7 +137,14 @@ class ShareView: UIView {
         self.layer.cornerRadius = 16
         
         // Добавление кнопок на view
-        let stackView = UIStackView(arrangedSubviews: [facebookButton, instagramButton, twitterButton, fbMessanger])
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                facebookButton,
+                instagramButton,
+                twitterButton,
+                fbMessanger
+            ]
+        )
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10

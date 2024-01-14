@@ -15,6 +15,7 @@ final class DetailPresenter: DetailPresenterProtocol {
     private let movieId: Int
     private var movieDetail = MovieWishlist()
     private let viewModel = DetailViewController.ViewModel.self
+    private let fullMovieUrl = "https://www.kinopoisk.vip/film/"
     
     init(movieId: Int) {
         self.movieId = movieId
@@ -38,7 +39,7 @@ final class DetailPresenter: DetailPresenterProtocol {
                 print(error)
             }
         }
-        
+    
         // Запрос деталей фильма
         group.enter()
         networkManager.getMovieDetails(for: movieId) { result in
@@ -46,7 +47,7 @@ final class DetailPresenter: DetailPresenterProtocol {
             switch result {
             case .success(let details):
                 movieDetails = details
-                print(movieDetails?.videos.trailers.first?.url as Any)
+                print(movieDetails as Any)
             case .failure(let error):
                 print(error)
             }
@@ -119,7 +120,10 @@ final class DetailPresenter: DetailPresenterProtocol {
             year: details.year,
             trailerClosure: { [weak self] in
                 guard let trailerUrl = details.videos.trailers.first?.url else { return }
-                self?.view?.playTrailer(url: trailerUrl)
+                self?.view?.playVideo(url: trailerUrl)
+            },
+            movieClosure: {
+                self.view?.playVideo(url: "\(self.fullMovieUrl)\(self.movieId)")
             },
             shareClosure: { [weak self] in self?.userDidTapShare() }
         )
@@ -156,8 +160,8 @@ final class DetailPresenter: DetailPresenterProtocol {
         self.view?.showShareView()
     }
     
-    func shareToInstagram(imageData: Data) {
-        view?.shareToInstagram(imageData: movieDetail.image)
+    func shareToInstagram() {
+        view?.shareToInstagram()
     }
     
     func shareToTwitter() {

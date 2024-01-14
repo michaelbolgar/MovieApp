@@ -42,7 +42,9 @@ class SharePhotoViewController: UIViewController, UIImagePickerControllerDelegat
         button.backgroundColor = UIColor.lightGray
         button.setTitle("Select photo", for: .normal)
         button.tintColor = UIColor.black
-        button.addTarget(self, action: #selector(SharePhotoViewController.displayImagePickerButtonTapped) , for: .touchUpInside)
+        button.addTarget(self, action: #selector(
+            SharePhotoViewController.displayImagePickerButtonTapped
+        ), for: .touchUpInside)
         self.view.addSubview(button)
     }
     
@@ -81,7 +83,9 @@ class SharePhotoViewController: UIViewController, UIImagePickerControllerDelegat
         didFinishPickingMediaWithInfo
         info: [UIImagePickerController.InfoKey : Any])
         {
-            myImageView.image = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.originalImage.rawValue) ] as? UIImage
+            myImageView.image = info[UIImagePickerController.InfoKey(
+                rawValue: UIImagePickerController.InfoKey.originalImage.rawValue
+            ) ] as? UIImage
             myImageView.backgroundColor = UIColor.clear
             myImageView.contentMode = UIView.ContentMode.scaleAspectFit
             self.dismiss(animated: true, completion: nil)
@@ -101,8 +105,6 @@ class SharePhotoViewController: UIViewController, UIImagePickerControllerDelegat
             
             let shareButton = FBShareButton()
             shareButton.center = view.center
-            
-            shareButton.shareContent = content
             
             shareButton.center = self.view.center
             self.view.addSubview(shareButton)

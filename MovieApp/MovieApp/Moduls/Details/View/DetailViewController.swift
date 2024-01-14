@@ -14,7 +14,6 @@ import WebKit
 class DetailViewController: UIViewController {
     
     typealias HeaderCell = CollectionCell<DetailHeaderView>
-    typealias TextCell = CollectionCell<UILabel>
     
     var presenter: DetailPresenterProtocol!
     
@@ -41,7 +40,8 @@ class DetailViewController: UIViewController {
             forCellWithReuseIdentifier: DetailGalleryCell.identifier
         )
         cv.register(
-            SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            SectionHeaderView.self, 
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: Titles.reuseIdentifier
         )
         cv.register(
@@ -86,14 +86,17 @@ class DetailViewController: UIViewController {
     private func setupShareView() {
         shareView = ShareView()
         shareView?.alpha = 0
-        shareView?.onInstagramShare = { [weak self] imageData in
-            self?.presenter.shareToInstagram(imageData: imageData)
+        shareView?.onInstagramShare = { [weak self] in
+            self?.presenter.shareToInstagram()
         }
         shareView?.onTwitterShare = { [weak self] in
             self?.presenter.shareToTwitter()
         }
         shareView?.onMessengerShare = { [weak self] in
             self?.presenter.shareToMessenger()
+        }
+        shareView?.onFacebookShare = { [weak self] in
+            self?.presenter.shareToFacebook()
         }
         shareView?.onCloseTapped = { [weak self] in
             self?.presenter.closeShareView()
@@ -113,22 +116,6 @@ class DetailViewController: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(blurEffectView)
     }
-    
-    //    @objc private func facebookShareButtonTapped() {
-    //        guard let url = URL(string: "https://developers.facebook.com") else {
-    //            // handle and return
-    //        }
-    //
-    //        let content = ShareLinkContent()
-    //        content.contentURL = url
-    //
-    //        let dialog = ShareDialog(
-    //            viewController: self,
-    //            content: content,
-    //            delegate: self
-    //        )
-    //        dialog.show()
-    //        }
 }
 
 // MARK: - UICollectionView+Extension
@@ -155,11 +142,19 @@ extension DetailViewController: UICollectionViewDelegate,
                 height: LayoutConstants.headerHeight
             )
         case .storyLine(let storyLineItem):
-                let width = collectionView.bounds.width - LayoutConstants.storyLineWidthSubtraction
-                let font = UIFont.systemFont(ofSize: 17)
-                let textHeight = heightForText(storyLineItem.text, width: width, font: font)
-                let expandedHeight = textHeight + (15 * 2) // отступы
-                return CGSize(width: width, height: storyLineItem.isExpanded ? expandedHeight : LayoutConstants.storyLineHeight)
+            let width = collectionView.bounds.width - LayoutConstants.storyLineWidthSubtraction
+            let font = UIFont.systemFont(ofSize: 17)
+            let textHeight = heightForText(
+                storyLineItem.text,
+                width: width,
+                font: font
+            )
+            let expandedHeight = textHeight + (30) // отступы
+            return CGSize(
+                width: width,
+                height: storyLineItem.isExpanded ?
+                expandedHeight : LayoutConstants.storyLineHeight
+            )
         case .castAndCrew:
             return CGSize(
                 width: collectionView.bounds.width,
@@ -215,7 +210,7 @@ extension DetailViewController: UICollectionViewDelegate,
         case .header:
             title = Titles.movieDetail
         case .storyLine:
-            title = Titles.storyLineTitle
+            title = Titles.storyLineHeader
         case .castAndCrew:
             title = Titles.castAndCrewHeader
         case .gallery:
@@ -232,12 +227,15 @@ extension DetailViewController: UICollectionViewDelegate,
         
         switch item {
         case .storyLine(let storyLineItem):
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DetailStoryLineCell.identifier, for: indexPath) as! DetailStoryLineCell
-                    cell.configure(with: storyLineItem.text, isExpanded: storyLineItem.isExpanded)
-                    cell.onMoreButtonTapped = { [weak self] in
-                        self?.toggleStoryLine(at: indexPath)
-                    }
-                    return cell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: DetailStoryLineCell.identifier,
+                for: indexPath
+            ) as! DetailStoryLineCell
+            cell.configure(with: storyLineItem.text, isExpanded: storyLineItem.isExpanded)
+            cell.onMoreButtonTapped = { [weak self] in
+                self?.toggleStoryLine(at: indexPath)
+            }
+            return cell
         case .castAndCrew:
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: DetailCastAndCrewCell.identifier,
@@ -273,20 +271,32 @@ extension DetailViewController: UICollectionViewDelegate,
             return cell
         }
     }
-   
-        // Функция для переключения состояния текста сюжетной линии
+    
+    // Функция для переключения состояния story line
     private func toggleStoryLine(at indexPath: IndexPath) {
-            guard let itemIndex = items.firstIndex(where: { if case .storyLine = $0 { return true } else { return false } }),
-                  case let .storyLine(storyLineItem) = items[itemIndex] else { return }
-            
-            var updatedStoryLineItem = storyLineItem
-            updatedStoryLineItem.isExpanded.toggle()
-            items[itemIndex] = .storyLine(item: updatedStoryLineItem)
-
-            collectionView.performBatchUpdates({
-                self.collectionView.reloadItems(at: [indexPath])
-            }, completion: nil)
+        guard let itemIndex = items.firstIndex(
+            where: {
+                if case .storyLine = $0 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        ),
+              case let .storyLine(
+                storyLineItem
+              ) = items[itemIndex] else {
+            return
         }
+        
+        var updatedStoryLineItem = storyLineItem
+        updatedStoryLineItem.isExpanded.toggle()
+        items[itemIndex] = .storyLine(item: updatedStoryLineItem)
+        
+        collectionView.performBatchUpdates({
+            self.collectionView.reloadItems(at: [indexPath])
+        }, completion: nil)
+    }
 }
 
 // MARK: - DetailViewProtocol
@@ -300,8 +310,7 @@ extension DetailViewController: DetailViewProtocol {
         }
     }
     
-    func shareToInstagram(imageData: Data) {
-        
+    func shareToInstagram() {
     }
     
     func shareToTwitter(movieName: String) {
@@ -319,11 +328,10 @@ extension DetailViewController: DetailViewProtocol {
     }
     
     func shareToFacebook() {
-        
     }
     
     func shareToMessenger() {
-        let messengerURLScheme = URL(string: "messenger://compose")!
+        let messengerURLScheme = URL(string: "fb-messenger://compose")!
         
         if UIApplication.shared.canOpenURL(messengerURLScheme) {
             UIApplication.shared.open(messengerURLScheme, options: [:], completionHandler: nil)
@@ -333,16 +341,9 @@ extension DetailViewController: DetailViewProtocol {
                 UIApplication.shared.open(appStoreURL, options: [:], completionHandler: nil)
             }
         }
-        UIApplication.shared.open(messengerURLScheme, options: [:]) { (success) in
-          if success {
-            print("Messenger opened successfully.")
-          } else {
-            print("Failed to open Messenger.")
-          }
-        }
     }
     
-    func playTrailer(url: String) {
+    func playVideo(url: String) {
         guard let videoURL = URL(string: url) else {
             print("Invalid URL")
             return
@@ -381,24 +382,25 @@ extension DetailViewController: DetailViewProtocol {
     func update(with model: ViewModel) {
         
         DispatchQueue.main.async {
-            self.title = model.title
+            
+            self.setNavigationBar(title: model.title)
+            
+            let rightNavButton = CustomBarItem.shared.createCustomButton(
+                target: self,
+                action: #selector(
+                    self.didTapLikeBarButton
+                )
+            )
             if model.likeBarButtonAction != nil {
-                self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-                    image: UIImage(named: "heart.fill"),
-                    style: .plain,
-                    target: self,
-                    action: #selector(self.didTapLikeBarButton))
+                self.navigationItem.rightBarButtonItem = rightNavButton
             } else {
                 self.navigationItem.rightBarButtonItem = nil
             }
-            
             self.viewModel = model
             
             self.likeBarButtonAction = model.likeBarButtonAction
             
-            
             self.items.removeAll()
-            
             self.items.append(
                 .header(
                     item: .init(
@@ -408,6 +410,7 @@ extension DetailViewController: DetailViewProtocol {
                         rating: model.header.rating,
                         year: model.header.year,
                         trailerClosure: model.header.trailerClosure,
+                        movieClosure: model.header.movieClosure,
                         shareClosure: model.header.shareClosure)))
             self.items.append(
                 .storyLine(item: model.storyLine))
@@ -446,6 +449,7 @@ extension DetailViewController {
             let rating: Double?
             let year: Int?
             let trailerClosure: (() -> Void)
+            let movieClosure: (() -> Void)
             let shareClosure: (() -> Void)
         }
         
@@ -500,10 +504,9 @@ extension DetailViewController: UIScrollViewDelegate {
 // MARK: - Constants
 private enum Titles {
     static let headerCell = "headerCell"
-    static let textCell = "textCell"
     static let reuseIdentifier = "section-header-reuse-identifier"
     static let movieDetail = "Movie Detail"
-    static let storyLineTitle = "Story Line"
+    static let storyLineHeader = "Story Line"
     static let castAndCrewHeader = "Cast and Crew"
     static let galeryHeader = "Gallery"
 }

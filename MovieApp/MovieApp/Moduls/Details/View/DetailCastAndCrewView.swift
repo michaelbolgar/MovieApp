@@ -21,13 +21,13 @@ final class DetailCastAndCrewView: UIView {
 
     private let name = UILabel.makeLabel(
             text: "",
-            font: UIFont.montserratSemiBold(ofSize: 14),
+            font: UIFont.montserratSemiBold(ofSize: LayoutConstants.fontSize),
             textColor: .white,
             numberOfLines: 1)
 
         private let profession = UILabel.makeLabel(
             text: "",
-            font: UIFont.montserratSemiBold(ofSize: 14),
+            font: UIFont.montserratSemiBold(ofSize: LayoutConstants.fontSize),
             textColor: .white,
             numberOfLines: 1)
 
@@ -106,7 +106,6 @@ extension DetailCastAndCrewView: Configurable {
                 self.avatar.image = image
             case .failure(let error):
                 print(error.localizedDescription)
-                self.avatar.image = UIImage(named: "creator")
             }
         }
     }
@@ -117,4 +116,5 @@ private enum LayoutConstants {
     static let avatarSize: CGFloat = 40
     static let professionFontSize: CGFloat = 10
     static let textLeadingOffset = 10
+    static let fontSize: CGFloat = 14
 }

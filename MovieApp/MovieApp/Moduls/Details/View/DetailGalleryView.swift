@@ -35,9 +35,8 @@ class DetailGalleryView: UIView {
         backgroundColor = .customDarkGrey // Set background color for the whole view
         addSubview(photo)
         photo.snp.makeConstraints {
-            $0.edges.equalToSuperview() // Remove insets
+            $0.edges.equalToSuperview()
         }
-//        photo.layer.cornerRadius = 20
         photo.clipsToBounds = true
     }
 }
@@ -45,17 +44,14 @@ class DetailGalleryView: UIView {
 // MARK: - DetailGalleryView+Configurable
 extension DetailGalleryView: Configurable {
     struct Model {
-//        let imageURL: URL?
         let imageURL: String?
     }
-
+    
     func update(model: Model) {
-
         guard let imageURL = model.imageURL, let url = URL(string: imageURL) else {
             photo.image = nil
             return
         }
-        
         ImageDownloader.shared.downloadImage(from: url) { result in
             switch result {
             case .success(let image):

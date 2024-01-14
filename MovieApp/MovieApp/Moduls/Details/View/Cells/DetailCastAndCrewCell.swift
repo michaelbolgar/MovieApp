@@ -20,7 +20,7 @@ class DetailCastAndCrewCell: UICollectionViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(
             CollectionCell<DetailCastAndCrewView>.self,
-            forCellWithReuseIdentifier: Titles.castAndCrewCell
+            forCellWithReuseIdentifier: "CastAndCrewItemCell"
         )
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -71,7 +71,7 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: Titles.castAndCrewCell,
+            withReuseIdentifier: "CastAndCrewItemCell",
             for: indexPath
         ) as! CollectionCell<DetailCastAndCrewView>
         let item = castAndCrewItems[indexPath.item]
@@ -83,10 +83,10 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
             // Расчет предполагаемого размера основывается на содержимом
             let item = castAndCrewItems[indexPath.item]
             let approximateWidthOfName = item.name?.size(withAttributes: [
-                .font: UIFont.montserratSemiBold(ofSize: 14) ?? .systemFont(ofSize: 14)
+                .font: UIFont.montserratSemiBold(ofSize: LayoutConstants.fontSize) ?? .systemFont(ofSize: LayoutConstants.fontSize)
             ]).width ?? 0
             let approximateWidthOfProfession = item.profession?.size(withAttributes: [
-                .font: UIFont.montserratSemiBold(ofSize: 14) ?? .systemFont(ofSize: 14)
+                .font: UIFont.montserratSemiBold(ofSize: LayoutConstants.fontSize) ?? .systemFont(ofSize: LayoutConstants.fontSize)
             ]).width ?? 0
             
             // Выбираем максимальное значение из двух для установки ширины
@@ -99,17 +99,12 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
         }
 }
 
-// MARK: - Constants
-private enum Titles {
-    #warning("это надо раскидать по другим местам")
-    static let castAndCrewCell = "CastAndCrewItemCell"
-}
-
 // MARK: - LayoutConstants
 private enum LayoutConstants {
     static let collectionLeadingOffset = 25
     static let collectionViewWidth: CGFloat = 250
     static let avatarSize: CGFloat = 40
-        static let textLeadingOffset = 10
+    static let textLeadingOffset = 10
+    static let fontSize: CGFloat = 10
 }
 
