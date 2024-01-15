@@ -64,17 +64,6 @@ final class PopularMovieViewController: UIViewController {
     private func setupNavigationBar() {
         setNavigationBar(title: "Popular Movies")
         title = "Popular Movies"
-        let navBarAppearance = UINavigationBarAppearance()
-        
-        navBarAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.white,
-            .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
-        ]
-        
-        navBarAppearance.backgroundColor = .customBlack
-        
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
     
     private func setupConstraints() {

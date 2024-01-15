@@ -59,6 +59,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigationBar(title: "")
         presenter.activate()
         layout()
         setupShareView()
