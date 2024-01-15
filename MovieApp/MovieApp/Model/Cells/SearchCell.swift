@@ -73,6 +73,14 @@ final class SearchCell: UITableViewCell {
         numberOfLines: 2
     )
     
+    private let ageLimitView: UIView = {
+        var view = UIView()
+        view.layer.cornerRadius = 4
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.cyan.cgColor
+        return view
+    }()
+    
     private let ageLimitLabel: UILabel = {
         let element = UILabel.makeLabel(
             font: UIFont.montserratMedium(ofSize: 12),
@@ -80,9 +88,6 @@ final class SearchCell: UITableViewCell {
             numberOfLines: 1
         )
         element.textAlignment = .center
-        element.layer.cornerRadius = 3
-        element.layer.borderWidth = 2
-        element.layer.borderColor = UIColor.cyan.cgColor
         return element
     }()
     
@@ -195,8 +200,9 @@ private extension SearchCell {
     func setupViews() {
         backgroundColor = .customBlack
         filmeImage.addSubview(activityIndicator)
+        ageLimitView.addSubview(ageLimitLabel)
         [filmeImage, backgorundForRaitingView, starImage, filmNameLabel,
-         yearPublishedLabel, timeLabel, ageLimitLabel, ganreLabel, typeLabel,
+         yearPublishedLabel, timeLabel, ageLimitView, ganreLabel, typeLabel,
          calenderImage, timeImage, ganreImage].forEach { contentView.addSubview($0)}
         
         [starImage, ratingLabel].forEach { backgorundForRaitingView.addSubview($0)}
@@ -254,10 +260,19 @@ private extension SearchCell {
             make.leading.equalTo(timeImage.snp.trailing).offset(4)
             make.centerY.equalTo(timeImage)
         }
-        
-        ageLimitLabel.snp.makeConstraints { make in
+
+        ageLimitView.snp.makeConstraints { make in
             make.leading.equalTo(timeLabel.snp.trailing).offset(12)
             make.centerY.equalTo(timeLabel)
+            make.width.equalTo(43)
+            make.height.equalTo(20)
+        }
+        
+        ageLimitLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(2)
+            make.trailing.equalToSuperview().offset(-2)
+            make.top.equalToSuperview().offset(2)
+            make.bottom.equalToSuperview().offset(-2)
         }
         
         ganreImage.snp.makeConstraints { make in

@@ -209,6 +209,7 @@ extension SearchVC: UICollectionViewDataSource{
                 return UICollectionViewCell()
             }
             
+//            cell.configure(with: presenter.recentMovies[indexPath.item])
             cell.configure(with: presenter.recentMovies[indexPath.item])
             return cell
             
