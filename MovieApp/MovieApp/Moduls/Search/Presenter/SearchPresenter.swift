@@ -1,4 +1,5 @@
 import UIKit
+import RealmSwift
 
 protocol SearchPresenterProtocol {
     init(
@@ -10,10 +11,11 @@ protocol SearchPresenterProtocol {
 
     var categoryData: [CatergoriesModel] { get }
     var upcomingMovies: [MovieInfoForCell] { get }
-    var recentMovies: [MovieInfoForCell] { get }
+    var recentMovies: Results<MovieRecent> { get }
 
     func setUpcomingMovies()
     func setRecentMovies()
+    func reloadRecentMovies()
 
     func showRecentMovies()
     func showDetailsMovie(_ movieId: Int)
@@ -28,7 +30,7 @@ final class SearchPresenter: SearchPresenterProtocol {
     private let networkingManager: NetworkingManager
 
     var upcomingMovies: [MovieInfoForCell] = []
-    var recentMovies: [MovieInfoForCell] = []
+    var recentMovies: Results<MovieRecent>
 
     //MARK: - Mock data
 
@@ -46,6 +48,9 @@ final class SearchPresenter: SearchPresenterProtocol {
 //        self.dataSource = storageManager
         self.router = router
         self.networkingManager = networkingManager
+        recentMovies = StorageManager.shared.realm.objects(MovieRecent.self)
+
+
     }
 
     /// Network layer
@@ -64,16 +69,17 @@ final class SearchPresenter: SearchPresenterProtocol {
 
 #warning("заменить на реальный запрос, пока что тянутся популярные чтобы заполнить контент")
     func setRecentMovies() {
-        networkingManager.getPopular { result in
-            switch result {
-
-            case .success(let movies):
-                self.recentMovies = movies.docs
-                self.view?.reloadRecentMoviesCollection()
-            case .failure(let error):
-                print(error)
-            }
-        }
+//        networkingManager.getPopular { result in
+//            switch result {
+//
+//            case .success(let movies):
+//                self.recentMovies = movies.docs
+//                self.view?.reloadRecentMoviesCollection()
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+        recentMovies = StorageManager.shared.realm.objects(MovieRecent.self)
     }
 
     /// Navigation
@@ -89,6 +95,10 @@ final class SearchPresenter: SearchPresenterProtocol {
 
     func showDetailsMovie(_ movieId: Int) {
         router.showDetails(movieId)
+    }
+    
+    func reloadRecentMovies() {
+        view?.reloadRecentMoviesCollection()
     }
 
 //    func showPopularMovies() {
