@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FBSDKShareKit
 import WebKit
 
 // MARK: - DetailViewController
@@ -144,13 +143,13 @@ extension DetailViewController: UICollectionViewDelegate,
             )
         case .storyLine(let storyLineItem):
             let width = collectionView.bounds.width - LayoutConstants.storyLineWidthSubtraction
-            let font = UIFont.systemFont(ofSize: 17)
+            let font = UIFont.montserratSemiBold(ofSize: 15) ?? .italicSystemFont(ofSize: 15)
             let textHeight = heightForText(
                 storyLineItem.text,
                 width: width,
                 font: font
             )
-            let expandedHeight = textHeight + (30) // отступы
+            let expandedHeight = textHeight + (40) // отступы
             return CGSize(
                 width: width,
                 height: storyLineItem.isExpanded ?
@@ -184,11 +183,13 @@ extension DetailViewController: UICollectionViewDelegate,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch items[section] {
-        case .storyLine, .castAndCrew, .gallery:
+        case .castAndCrew, .gallery:
             return CGSize(
                 width: collectionView.bounds.width,
                 height: LayoutConstants.sectionsHeight
             )
+        case .storyLine:
+            return CGSize(width: collectionView.bounds.width, height: 70)
         default:
             return CGSize.zero
         }
@@ -206,19 +207,16 @@ extension DetailViewController: UICollectionViewDelegate,
         }
         
         let sectionType = items[indexPath.section]
-        let title: String
         switch sectionType {
         case .header:
-            title = Titles.movieDetail
+            headerView.configure(with: Titles.movieDetail)
         case .storyLine:
-            title = Titles.storyLineHeader
+            headerView.configure(with: Titles.storyLineHeader, hasTopPadding: true)
         case .castAndCrew:
-            title = Titles.castAndCrewHeader
+            headerView.configure(with: Titles.castAndCrewHeader)
         case .gallery:
-            title = Titles.galeryHeader
+            headerView.configure(with: Titles.galeryHeader)
         }
-        
-        headerView.configure(with: title)
         return headerView
     }
     
@@ -296,7 +294,10 @@ extension DetailViewController: UICollectionViewDelegate,
         
         collectionView.performBatchUpdates({
             self.collectionView.reloadItems(at: [indexPath])
-        }, completion: nil)
+        }) { _ in
+            // После обновления ячейки, возможно, потребуется обновить layout
+            self.collectionView.layoutIfNeeded()
+        }
     }
 }
 

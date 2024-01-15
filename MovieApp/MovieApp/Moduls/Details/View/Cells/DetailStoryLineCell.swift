@@ -1,5 +1,4 @@
 import UIKit
-import SnapKit
 
 final class DetailStoryLineCell: UICollectionViewCell {
     
@@ -11,18 +10,20 @@ final class DetailStoryLineCell: UICollectionViewCell {
     let storyLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 5
-        label.textColor = .white
+        label.textColor = .customWhiteGrey
+        label.font = .montserratMedium(ofSize: 15)
         return label
     }()
-
+    
     // UIButton для кнопки "More"
     let moreButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("More", for: .normal)
         button.titleLabel?.textColor = .customBlue
+        button.titleLabel?.font = .montserratSemiBold(ofSize: 15)
         return button
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -32,7 +33,7 @@ final class DetailStoryLineCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     @objc private func toggleText() {
         onMoreButtonTapped?() // Вызов замыкания при нажатии
     }
@@ -41,17 +42,17 @@ final class DetailStoryLineCell: UICollectionViewCell {
         contentView.addSubview(storyLabel)
         contentView.addSubview(moreButton)
         
-        // Настройка констрейнтов с использованием SnapKit
         storyLabel.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
-        
         moreButton.snp.makeConstraints { make in
-            make.top.equalTo(storyLabel.snp.bottom).offset(8)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.top .equalTo(storyLabel.snp.bottom).offset(8)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(16)
+            make.height.equalTo(34)
         }
     }
-    
     func configure(with text: String, isExpanded: Bool) {
         storyLabel.text = text
         storyLabel.numberOfLines = isExpanded ? 0 : 5
