@@ -1,11 +1,7 @@
 import UIKit
 
 extension UIView {
-
-    func addSubviewsTamicOff(_ views: UIView...) {
-        views.forEach {
-            addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }

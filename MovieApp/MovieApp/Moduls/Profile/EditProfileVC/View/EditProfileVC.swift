@@ -128,7 +128,12 @@ final class EditProfileVC: UIViewController {
         setupConstraints()
         presenter.showUserData()
     }
-    
+
+    // MARK: - Override Methods
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.hideKeyboard()
+    }
+
     // MARK: - Private Actions
     @objc private func editButtonDidTapped() {
         presenter.didTapEditButton()

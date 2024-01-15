@@ -133,7 +133,13 @@ final class HomeViewController: UIViewController {
         presenter.setUser()
         setupNavigationBar(with: userName, and: userImage)
     }
-    
+
+    #warning("куда ещё добавить эту функцию, чтобы можно было скрывать клавиатуру по всему экрану? ")
+    // MARK: - Override Methods
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.hideKeyboard()
+    }
+
     // MARK: - Private Actions
     @objc private func favoritesButtonDidTapped() {
         presenter.showFavoritesScreen()
