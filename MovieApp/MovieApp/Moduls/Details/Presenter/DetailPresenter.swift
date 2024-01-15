@@ -39,7 +39,7 @@ final class DetailPresenter: DetailPresenterProtocol {
                 print(error)
             }
         }
-    
+        
         // Запрос деталей фильма
         group.enter()
         networkManager.getMovieDetails(for: movieId) { result in
@@ -67,56 +67,29 @@ final class DetailPresenter: DetailPresenterProtocol {
     }
     
     private func updateMovieWishlist(with details: FullMovieInfo) {
-        let realm = try! Realm()
+        // Создаём и конфигурируем объект movieDetail
+        let newMovieDetail = MovieWishlist()
+        newMovieDetail.id = movieId
+        newMovieDetail.name = details.name ?? ""
+        newMovieDetail.ganre = details.genres?.first?.name ?? ""
+        newMovieDetail.type = details.type ?? ""
+        newMovieDetail.rating = details.rating?.imdb?.formatted() ?? ""
         
-        if let existingMovieDetail = realm.object(ofType: MovieWishlist.self, forPrimaryKey: movieId) {
-            // Update the existing record without changing its primary key
-            try! realm.write {
-                existingMovieDetail.name = details.name ?? ""
-                existingMovieDetail.ganre = details.genres?.first?.name ?? ""
-                existingMovieDetail.type = details.type ?? ""
-                existingMovieDetail.rating = details.rating?.imdb?.formatted() ?? ""
-            }
-            self.movieDetail = existingMovieDetail
-        } else {
-            // Create a new record
-            let newMovieDetail = MovieWishlist()
-            newMovieDetail.id = movieId
-            newMovieDetail.name = details.name ?? ""
-            newMovieDetail.ganre = details.genres?.first?.name ?? ""
-            newMovieDetail.type = details.type ?? ""
-            newMovieDetail.rating = details.rating?.imdb?.formatted() ?? ""
-            let movieRecent = MovieRecent()
-            movieRecent.id = movieId
-            movieRecent.name = details.name ?? ""
-            movieRecent.ganre = details.genres?.first?.name ?? ""
-            movieRecent.type = details.type ?? ""
-            movieRecent.rating = details.rating?.imdb?.formatted() ?? ""
-            
-            if let imageUrlString = details.poster?.url, let url = URL(string: imageUrlString) {
-                let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                    guard let data = data, error == nil else {
-                        print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        newMovieDetail.image = data
-                        movieRecent.image = data
-                        StorageManager.shared.save(newMovieDetail)
-                        StorageManager.shared.save(movieRecent)
-                        self.movieDetail = newMovieDetail
-                    }
+        // Загружаем изображение, если оно доступно
+        if let imageUrlString = details.poster?.url, let url = URL(string: imageUrlString) {
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data, error == nil else {
+                    print("Error downloading image: \(error?.localizedDescription ?? "unknown error")")
+                    return
                 }
-                task.resume()
-            } else {
-                // Save data without image
                 DispatchQueue.main.async {
-                    StorageManager.shared.save(newMovieDetail)
-                    StorageManager.shared.save(movieRecent)
+                    newMovieDetail.image = data
                     self.movieDetail = newMovieDetail
                 }
             }
+            task.resume()
+        } else {
+            self.movieDetail = newMovieDetail
         }
     }
     
@@ -140,8 +113,8 @@ final class DetailPresenter: DetailPresenterProtocol {
         let castAndCrew = details.persons?.compactMap { person in
             self.viewModel.CastAndCrewItem(
                 imageURL: person.photo,
-                name: person.enName,
-                profession: person.enProfession
+                name: person.enName ?? person.name,
+                profession: person.enProfession ?? person.profession
             )
         } ?? []
         
@@ -162,7 +135,13 @@ final class DetailPresenter: DetailPresenterProtocol {
     }
     
     private func addToLikes() {
-        StorageManager.shared.save(movieDetail)
+        // Проверяем, существует ли уже такой фильм в базе данных Realm
+        if StorageManager.shared.realm.object(ofType: MovieWishlist.self, forPrimaryKey: movieId) == nil {
+            // Если нет, то сохраняем новый объект
+            StorageManager.shared.save(self.movieDetail)
+        } else {
+            // можно добавить обновление, если фильм существует
+        }
     }
     
     func userDidTapShare() {

@@ -64,10 +64,6 @@
 		E04096912B4DFB7000BF8DA9 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */; };
 		E04096952B4E2D8800BF8DA9 /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */; };
 		E04096972B4F65AE00BF8DA9 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096962B4F65AE00BF8DA9 /* ShareView.swift */; };
-		E040969A2B50AD4800BF8DA9 /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = E04096992B50AD4800BF8DA9 /* FacebookAEM */; };
-		E040969C2B50AD4800BF8DA9 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = E040969B2B50AD4800BF8DA9 /* FacebookBasics */; };
-		E040969E2B50AD4800BF8DA9 /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = E040969D2B50AD4800BF8DA9 /* FacebookShare */; };
-		E04096A12B50C7CA00BF8DA9 /* SharePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04096A02B50C7CA00BF8DA9 /* SharePhotoViewController.swift */; };
 		F480942A2B389AE6004C9F96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094292B389AE6004C9F96 /* AppDelegate.swift */; };
 		F480942C2B389AE6004C9F96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942B2B389AE6004C9F96 /* SceneDelegate.swift */; };
 		F480942E2B389AE6004C9F96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F480942D2B389AE6004C9F96 /* ViewController.swift */; };
@@ -179,8 +175,6 @@
 		E04096902B4DFB7000BF8DA9 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		E04096942B4E2D8800BF8DA9 /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
 		E04096962B4F65AE00BF8DA9 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
-		E040969F2B50AFB700BF8DA9 /* MovieApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MovieApp.entitlements; sourceTree = "<group>"; };
-		E04096A02B50C7CA00BF8DA9 /* SharePhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoViewController.swift; sourceTree = "<group>"; };
 		F48094262B389AE6004C9F96 /* MovieApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F48094292B389AE6004C9F96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F480942B2B389AE6004C9F96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -242,10 +236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E040969A2B50AD4800BF8DA9 /* FacebookAEM in Frameworks */,
 				3CF904882B3C44DB006E9D51 /* RealmSwift in Frameworks */,
-				E040969E2B50AD4800BF8DA9 /* FacebookShare in Frameworks */,
-				E040969C2B50AD4800BF8DA9 /* FacebookBasics in Frameworks */,
 				3CF904862B3C44DB006E9D51 /* Realm in Frameworks */,
 				F48094502B38EF35004C9F96 /* SnapKit in Frameworks */,
 			);
@@ -712,7 +703,6 @@
 		F48094282B389AE6004C9F96 /* MovieApp */ = {
 			isa = PBXGroup;
 			children = (
-				E040969F2B50AFB700BF8DA9 /* MovieApp.entitlements */,
 				F480943D2B389E2C004C9F96 /* Application */,
 				F48094CB2B4DF5E7004C9F96 /* Components */,
 				3CF904892B3C4513006E9D51 /* Services */,
@@ -962,7 +952,6 @@
 				E04096962B4F65AE00BF8DA9 /* ShareView.swift */,
 				F48094B82B4D8926004C9F96 /* DetailHeaderView.swift */,
 				F48094BA2B4D893E004C9F96 /* DetailViewController.swift */,
-				E04096A02B50C7CA00BF8DA9 /* SharePhotoViewController.swift */,
 				F48094BC2B4D8955004C9F96 /* SectionHeaderView.swift */,
 			);
 			path = View;
@@ -1063,9 +1052,6 @@
 				F480944F2B38EF35004C9F96 /* SnapKit */,
 				3CF904852B3C44DB006E9D51 /* Realm */,
 				3CF904872B3C44DB006E9D51 /* RealmSwift */,
-				E04096992B50AD4800BF8DA9 /* FacebookAEM */,
-				E040969B2B50AD4800BF8DA9 /* FacebookBasics */,
-				E040969D2B50AD4800BF8DA9 /* FacebookShare */,
 			);
 			productName = MovieApp;
 			productReference = F48094262B389AE6004C9F96 /* MovieApp.app */;
@@ -1098,7 +1084,6 @@
 			packageReferences = (
 				F480944E2B38EF35004C9F96 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				3CF904842B3C44DB006E9D51 /* XCRemoteSwiftPackageReference "realm-swift" */,
-				E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = F48094272B389AE6004C9F96 /* Products */;
 			projectDirPath = "";
@@ -1182,7 +1167,6 @@
 				3CD315DF2B39BF97003035B0 /* UserInfoView.swift in Sources */,
 				F48094432B38A37A004C9F96 /* UIFont Extension.swift in Sources */,
 				F480947D2B38F971004C9F96 /* ChristmasTreePresenter.swift in Sources */,
-				E04096A12B50C7CA00BF8DA9 /* SharePhotoViewController.swift in Sources */,
 				E04096972B4F65AE00BF8DA9 /* ShareView.swift in Sources */,
 				FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */,
 				842B8BC32B4F21E300753510 /* MovieListPresenter.swift in Sources */,
@@ -1466,14 +1450,6 @@
 				kind = branch;
 			};
 		};
-		E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 14.1.0;
-			};
-		};
 		F480944E2B38EF35004C9F96 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1494,21 +1470,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3CF904842B3C44DB006E9D51 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
-		};
-		E04096992B50AD4800BF8DA9 /* FacebookAEM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
-			productName = FacebookAEM;
-		};
-		E040969B2B50AD4800BF8DA9 /* FacebookBasics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
-			productName = FacebookBasics;
-		};
-		E040969D2B50AD4800BF8DA9 /* FacebookShare */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E04096982B50AD4800BF8DA9 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
-			productName = FacebookShare;
 		};
 		F480944F2B38EF35004C9F96 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

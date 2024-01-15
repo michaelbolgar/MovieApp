@@ -105,6 +105,6 @@ private enum LayoutConstants {
     static let collectionViewWidth: CGFloat = 250
     static let avatarSize: CGFloat = 40
     static let textLeadingOffset = 10
-    static let fontSize: CGFloat = 10
+    static let fontSize: CGFloat = 15
 }
 
