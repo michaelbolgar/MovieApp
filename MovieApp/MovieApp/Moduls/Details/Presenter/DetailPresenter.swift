@@ -86,6 +86,13 @@ final class DetailPresenter: DetailPresenterProtocol {
             newMovieDetail.ganre = details.genres?.first?.name ?? ""
             newMovieDetail.type = details.type ?? ""
             newMovieDetail.rating = details.rating?.imdb?.formatted() ?? ""
+            let movieRecent = MovieRecent()
+            movieRecent.id = movieId
+            movieRecent.name = details.name ?? ""
+            movieRecent.ganre = details.genres?.first?.name ?? ""
+            movieRecent.type = details.type ?? ""
+            movieRecent.rating = details.rating?.imdb?.formatted() ?? ""
+            
             if let imageUrlString = details.poster?.url, let url = URL(string: imageUrlString) {
                 let task = URLSession.shared.dataTask(with: url) { data, response, error in
                     guard let data = data, error == nil else {
@@ -95,7 +102,9 @@ final class DetailPresenter: DetailPresenterProtocol {
                     
                     DispatchQueue.main.async {
                         newMovieDetail.image = data
+                        movieRecent.image = data
                         StorageManager.shared.save(newMovieDetail)
+                        StorageManager.shared.save(movieRecent)
                         self.movieDetail = newMovieDetail
                     }
                 }
@@ -104,6 +113,7 @@ final class DetailPresenter: DetailPresenterProtocol {
                 // Save data without image
                 DispatchQueue.main.async {
                     StorageManager.shared.save(newMovieDetail)
+                    StorageManager.shared.save(movieRecent)
                     self.movieDetail = newMovieDetail
                 }
             }

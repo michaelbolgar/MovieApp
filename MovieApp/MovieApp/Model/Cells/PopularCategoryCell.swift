@@ -88,43 +88,61 @@ final class PopularCategoryCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     func configure(with model: MovieInfoForCell) {
-
+        
         // Остановить предыдущую загрузку, если она есть
-           task?.cancel()
-
-           activityIndicator.startAnimating()
-           nameFilmLabel.text = model.name
-           ganreFilmLabel.text = model.genres?.first?.name
-           ratingFilmLabel.text = model.rating.imdb?.formatted()
-
-           guard let urlString = model.poster?.url, let url = URL(string: urlString) else {
-               filmeImage.image = nil
-               return
-           }
-
-           // Проверка наличия изображения в кэше
-           if let cachedImage = ImageCache.shared.image(forKey: urlString) {
-               filmeImage.image = cachedImage
-               activityIndicator.stopAnimating()
-               return
-           }
-
-           // Загрузка изображения
-           imageUrl = url
-           task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-               guard let self = self, self.imageUrl == url else { return }
-
-               DispatchQueue.main.async {
-                   if let data = data, let image = UIImage(data: data) {
-                       ImageCache.shared.save(image: image, forKey: urlString)
-                       self.filmeImage.image = image
-                   } else {
-                       self.filmeImage.image = nil
-                   }
-                   self.activityIndicator.stopAnimating()
-               }
-           }
-           task?.resume()
+        task?.cancel()
+        
+        activityIndicator.startAnimating()
+        nameFilmLabel.text = model.name
+        ganreFilmLabel.text = model.genres?.first?.name
+        ratingFilmLabel.text = model.rating.imdb?.formatted()
+        
+        guard let urlString = model.poster?.url, let url = URL(string: urlString) else {
+            filmeImage.image = nil
+            return
+        }
+        
+        // Проверка наличия изображения в кэше
+        if let cachedImage = ImageCache.shared.image(forKey: urlString) {
+            filmeImage.image = cachedImage
+            activityIndicator.stopAnimating()
+            return
+        }
+        
+        // Загрузка изображения
+        imageUrl = url
+        task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            guard let self = self, self.imageUrl == url else { return }
+            
+            DispatchQueue.main.async {
+                if let data = data, let image = UIImage(data: data) {
+                    ImageCache.shared.save(image: image, forKey: urlString)
+                    self.filmeImage.image = image
+                } else {
+                    self.filmeImage.image = nil
+                }
+                self.activityIndicator.stopAnimating()
+            }
+        }
+        task?.resume()
+    }
+    
+    func configure(with model: MovieRecent) {
+        
+        task?.cancel()
+        
+        activityIndicator.startAnimating()
+        nameFilmLabel.text = model.name
+        ganreFilmLabel.text = model.ganre
+        ratingFilmLabel.text = model.rating
+        
+        if let image = UIImage(data: model.image) {
+            filmeImage.image = image
+        } else {
+            filmeImage.image = nil
+        }
+        
+        activityIndicator.stopAnimating()
     }
 }
 
