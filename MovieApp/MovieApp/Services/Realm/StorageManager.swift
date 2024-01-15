@@ -53,8 +53,12 @@ final class StorageManager: StorageManagerProtocol {
     
     // MARK: - Movie Methods
     func save(_ movie: MovieWishlist) {
-        write {
-            realm.add(movie)
+        let existingMovie = realm.objects(MovieWishlist.self).filter("id == %@", movie.id).first
+        
+        if existingMovie == nil {
+            write {
+                realm.add(movie)
+            }
         }
     }
     
@@ -67,6 +71,18 @@ final class StorageManager: StorageManagerProtocol {
     func deleteMovie(_ movie: MovieWishlist) {
         write {
             realm.delete(movie)
+        }
+    }
+    
+    // MARK: - MovieRecent Methods
+    func save(_ movie: MovieRecent) {
+        let existingMovie = realm.objects(MovieRecent.self).filter("id == %@", movie.id).first
+        
+        if existingMovie == nil {
+            write {
+                realm.add(movie)
+                NotificationCenter.default.post(name: NSNotification.Name("RecentMovieSaved"), object: nil)
+            }
         }
     }
     

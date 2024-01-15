@@ -7,6 +7,7 @@
 
 import UIKit
 
+#warning("переименовать эту и другие модели ячеек в более абстрактные")
 struct SearchCellModel{
     let image: UIImage?
     let rating: String

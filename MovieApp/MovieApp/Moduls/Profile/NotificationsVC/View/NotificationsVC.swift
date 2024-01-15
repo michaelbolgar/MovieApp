@@ -184,7 +184,7 @@ private extension NotificationsVC {
             make.top.equalTo(notificationSwitch.snp.bottom)
                 .offset(LayoutConstraint.timePickerTopOffset)
             make.centerY.equalTo(timeLabel.snp.centerY)
-            make.centerX.equalTo(notificationSwitch.snp.centerX)
+            make.trailing.equalTo(notificationSwitch.snp.trailing)
         }
     }
     

@@ -16,6 +16,16 @@ final class HomeViewController: UIViewController {
     private var userImage = UIImage()
     
     // MARK: - Private UI Properties
+    private let scrollView: UIScrollView = {
+        let element = UIScrollView()
+        element.backgroundColor = .clear
+        element.showsVerticalScrollIndicator = false
+        element.alwaysBounceVertical = true
+        return element
+    }()
+
+    private let searchBar = SearchBarView()
+
     private lazy var previewCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -42,7 +52,7 @@ final class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    private let categoryView = CatergoriesSectionView(title: "Categories")
+    private let categoryView = CatergoriesSectionView(title: "Genres")
     
     private lazy var categoryCollectionView: UICollectionView = {
         let layot = UICollectionViewFlowLayout()
@@ -95,21 +105,15 @@ final class HomeViewController: UIViewController {
         )
         return collectionView
     }()
-    
-    private let scrollView: UIScrollView = {
-        let element = UIScrollView()
-        element.backgroundColor = .clear
-        element.showsVerticalScrollIndicator = false
-        element.alwaysBounceVertical = true
-        return element
-    }()
+
+    private var selectedGanreIndexPath: IndexPath!
     
 //    private let searchBar: SearchBarView = {
 //        let element = SearchBarView()
 //        element.backgroundColor = .customGrey
 //        return element
 //    }()
-    
+  
     //MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,6 +123,7 @@ final class HomeViewController: UIViewController {
         presenter.setSelections()
         presenter.setPopularMovies()
         showPopularVC()
+        showMovieList()
         setupNavigationBar(with: userName, and: userImage)
     }
     
@@ -140,9 +145,16 @@ final class HomeViewController: UIViewController {
         }
     }
     
+    private func showMovieList(){
+        categoryView.seeAllButtonTapped = {
+            self.navigationController?.pushViewController(MovieListController(with: self.selectedGanreIndexPath), animated: true)
+        }
+    }
+    
     //MARK: - Private Methods
     private func selectFirstCell(){
         let selectedIndexPath = IndexPath(item: 0, section: 0)
+        selectedGanreIndexPath = selectedIndexPath
         categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
     }
 }
@@ -231,6 +243,7 @@ extension HomeViewController: UICollectionViewDelegate {
         if collectionView == categoryCollectionView {
             if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
                 cell.selectCell()
+                selectedGanreIndexPath = indexPath
             }
         }
         
@@ -281,27 +294,26 @@ private extension HomeViewController{
         view.backgroundColor = .clear
         [scrollView].forEach { self.view.addSubview($0)
         }
-        [previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0)
+        [searchBar, previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0)
         }
     }
     
     func setupConstraints(){
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            make.leading.trailing.equalToSuperview()
+            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
         }
         
-//        searchBar.snp.makeConstraints { make in
-//#warning("тут явно надо что-то исправить, но после того как порефакторим сам searchBar")
+        searchBar.snp.makeConstraints { make in
 //            make.height.equalTo(41)
-//            make.top.equalTo(scrollView).offset(16)
-//            make.leading.equalTo(view.safeAreaLayoutGuide).offset(24)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(24)
-//        }
+            make.top.equalTo(scrollView).offset(16)
+            make.leading.equalTo(view.safeAreaLayoutGuide).offset(12)
+            make.trailing.equalTo(view.safeAreaLayoutGuide).inset(12)
+        }
         
         previewCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(scrollView.snp.top).offset(24)
+            make.top.equalTo(searchBar.snp.bottom).offset(24)
             make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             make.height.equalTo(154)
         }

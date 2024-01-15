@@ -28,7 +28,7 @@ protocol AppFactory: AnyObject {
     func makeProfileViewController() -> UIViewController
 
     func makeHomeRouter() -> MyHomeRouter
-    func makeSearchRouter() -> BaseRouter
+    func makeSearchRouter() -> SearchRouter
     func makeChristmasTreeRouter() -> BaseRouter
     func makeProfileRouter() -> ProfileRouter
 }
@@ -75,14 +75,15 @@ final class Factory: AppFactory {
         return router
     }
 
-    func makeSearchRouter() -> BaseRouter {
+    func makeSearchRouter() -> SearchRouter {
         let navController = UINavigationController()
         navController.configureTabBarItem(
             "Search",
             image: "magnifyingglass"
         )
-        let router = SearchRouter(navigationController: navController, factory: self)
-        router.start()
+        let moduleBuilder = SearchBuilder()
+        let router = SearchRouter(navigationController: navController, moduleBuilder: moduleBuilder)
+        router.initialViewController()
         return router
     }
 
