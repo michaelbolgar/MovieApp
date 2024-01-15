@@ -103,7 +103,9 @@ final class DetailPresenter: DetailPresenterProtocol {
                     DispatchQueue.main.async {
                         newMovieDetail.image = data
                         movieRecent.image = data
-                        StorageManager.shared.save(newMovieDetail)
+                        #warning("Вот тут фильм сохраняется в wishList в при открытии экрана")
+//                        StorageManager.shared.save(newMovieDetail)
+                        // сохраниние фильма в recent
                         StorageManager.shared.save(movieRecent)
                         self.movieDetail = newMovieDetail
                     }
@@ -112,7 +114,9 @@ final class DetailPresenter: DetailPresenterProtocol {
             } else {
                 // Save data without image
                 DispatchQueue.main.async {
-                    StorageManager.shared.save(newMovieDetail)
+#warning("Вот тут фильм сохраняется в wishList в при открытии экрана")
+//                    StorageManager.shared.save(newMovieDetail)
+                    // сохраниние фильма в recent
                     StorageManager.shared.save(movieRecent)
                     self.movieDetail = newMovieDetail
                 }

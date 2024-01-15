@@ -81,7 +81,10 @@ final class StorageManager: StorageManagerProtocol {
         if existingMovie == nil {
             write {
                 realm.add(movie)
-                NotificationCenter.default.post(name: NSNotification.Name("RecentMovieSaved"), object: nil)
+                NotificationCenter.default.post(
+                    name: NSNotification.Name("RecentMovieSaved"),
+                    object: nil
+                )
             }
         }
     }
