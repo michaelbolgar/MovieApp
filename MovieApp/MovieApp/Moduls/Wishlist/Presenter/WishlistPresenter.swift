@@ -34,6 +34,7 @@ final class WishlistPresenter: WishlistPresenterProtocol {
         
         // инициализируем фильмы из realm
         movies = storageManager.realm.objects(MovieWishlist.self)
+        print(movies)
     }
     
     func showView(with animate: Bool) {

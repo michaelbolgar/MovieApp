@@ -63,7 +63,6 @@ final class PopularMovieViewController: UIViewController {
     
     private func setupNavigationBar() {
         setNavigationBar(title: "Popular Movies")
-        title = "Popular Movies"
     }
     
     private func setupConstraints() {
