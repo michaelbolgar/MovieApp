@@ -8,6 +8,7 @@
 import Foundation
 
 #warning("вряд ли этот файл должен быть в этой папке")
+#warning("а куда его тогда")
 protocol Configurable {
     associatedtype Model
 

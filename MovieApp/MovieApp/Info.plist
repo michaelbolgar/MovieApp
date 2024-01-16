@@ -6,25 +6,8 @@
 	<array>
 		<dict>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb6959083327541301</string>
-			</array>
+			<array/>
 		</dict>
-	</array>
-	<key>FacebookAdvertiserIDCollectionEnabled</key>
-	<true/>
-	<key>FacebookAppID</key>
-	<string>6959083327541301</string>
-	<key>FacebookAutoLogAppEventsEnabled</key>
-	<true/>
-	<key>FacebookClientToken</key>
-	<string>77d55bc50d49a983d2a6f19aeb66b28a</string>
-	<key>FacebookDisplayName</key>
-	<string>MovieApp</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>

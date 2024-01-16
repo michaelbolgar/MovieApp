@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FBSDKShareKit
 
 // Класс для представления всплывающего окна с кнопками поделиться
 class ShareView: UIView {

@@ -220,14 +220,9 @@ final class DetailHeaderView: UIView {
         }
         
         buttonStack.snp.makeConstraints {
-            $0.top.equalTo(
-                filmInfoStack.snp.bottom
-            ).offset(
-                LayoutConstants.buttonStackTopOffset
-            )
-            $0.leading.trailing.equalToSuperview().inset(
-                LayoutConstants.filmInfoStackLeadingOffset
-            )
+            $0.top.equalTo(filmInfoStack.snp.bottom).offset(LayoutConstants.buttonStackTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(LayoutConstants.filmInfoStackLeadingOffset)
+            $0.bottom.equalToSuperview()
         }
     }
     
@@ -311,7 +306,9 @@ extension DetailHeaderView: Configurable {
             ).offset(
                 LayoutConstants.filmInfoStackTopOffset
             )
+            $0.leading.trailing.equalToSuperview().offset(160)
             $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-90)
         }
         
         [yearView, durationView, genreView].forEach {
@@ -346,7 +343,7 @@ private enum LayoutConstants {
     static let posterHeightMultiplied: CGFloat = 0.85
     static let filmInfoStackTopOffset: CGFloat = 50
     static let filmInfoStackLeadingOffset: CGFloat = 30
-    static let buttonStackTopOffset: CGFloat = 80
+    static let buttonStackTopOffset: CGFloat = 90
 }
 
 // MARK: - GradientConstants

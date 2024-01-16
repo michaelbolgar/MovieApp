@@ -1,5 +1,4 @@
 import UIKit
-import FacebookCore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
