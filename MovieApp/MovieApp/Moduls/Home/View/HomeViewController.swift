@@ -11,11 +11,28 @@ final class HomeViewController: UIViewController {
     //MARK: - Presenter
     var presenter: HomePresenterProtocol!
     
-    // MARK: - Private User Properties
-    private var userName = ""
-    private var userImage = UIImage()
+    // MARK: - Private Properties
+    private var selectedGanreIndexPath: IndexPath!
     
     // MARK: - Private UI Properties
+    private lazy var userImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.backgroundColor = .customDarkGrey
+        imageView.layer.cornerRadius = 20
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        return imageView
+    }()
+    
+    private lazy var userNameLabel: UILabel = {
+        var label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.montserratSemiBold(ofSize: 16)
+        label.frame = CGRect(x: 55, y: 10, width: 200, height: 20)
+        return label
+    }()
+    
     private let scrollView: UIScrollView = {
         let element = UIScrollView()
         element.backgroundColor = .clear
@@ -23,9 +40,9 @@ final class HomeViewController: UIViewController {
         element.alwaysBounceVertical = true
         return element
     }()
-
+    
     private let searchBar = SearchBarView()
-
+    
     private lazy var previewCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -105,18 +122,11 @@ final class HomeViewController: UIViewController {
         )
         return collectionView
     }()
-
-    private var selectedGanreIndexPath: IndexPath!
     
-//    private let searchBar: SearchBarView = {
-//        let element = SearchBarView()
-//        element.backgroundColor = .customGrey
-//        return element
-//    }()
-  
     //MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setViews()
         setupConstraints()
         presenter.setUser()
@@ -124,14 +134,12 @@ final class HomeViewController: UIViewController {
         presenter.setPopularMovies()
         showPopularVC()
         showMovieList()
-        setupNavigationBar(with: userName, and: userImage)
+        addObserver()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         selectFirstCell()
-        presenter.setUser()
-//        setupNavigationBar(with: userName, and: userImage)
     }
     
     // MARK: - Private Actions
@@ -147,7 +155,10 @@ final class HomeViewController: UIViewController {
     
     private func showMovieList(){
         categoryView.seeAllButtonTapped = {
-            self.navigationController?.pushViewController(MovieListController(with: self.selectedGanreIndexPath), animated: true)
+            self.navigationController?.pushViewController(
+                MovieListController(with: self.selectedGanreIndexPath),
+                animated: true
+            )
         }
     }
     
@@ -155,7 +166,20 @@ final class HomeViewController: UIViewController {
     private func selectFirstCell(){
         let selectedIndexPath = IndexPath(item: 0, section: 0)
         selectedGanreIndexPath = selectedIndexPath
-        categoryCollectionView.selectItem(at: selectedIndexPath, animated: false, scrollPosition: .left)
+        categoryCollectionView.selectItem(
+            at: selectedIndexPath,
+            animated: false,
+            scrollPosition: .left
+        )
+    }
+    
+    private func addObserver() {
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("UserSaved"),
+            object: nil, queue: nil
+        ) { _ in
+            self.presenter.setUser()
+        }
     }
 }
 
@@ -270,8 +294,8 @@ extension HomeViewController: UICollectionViewDelegate {
 // MARK: - HomeViewControllerProtocol
 extension HomeViewController: HomeViewControllerProtocol {
     func setUserInfo(with user: User) {
-        userName = "Hello, " + user.fullName
-        userImage = UIImage(data: user.image) ?? UIImage()
+        userNameLabel.text = "Hello, " + user.fullName
+        userImageView.image = UIImage(data: user.image) ?? UIImage()
     }
     
     func reloadPreviewCollection() {
@@ -289,13 +313,12 @@ extension HomeViewController: HomeViewControllerProtocol {
 
 //MARK: - Setup UI
 private extension HomeViewController{
-    
     func setViews() {
         view.backgroundColor = .clear
-        [scrollView].forEach { self.view.addSubview($0)
-        }
-        [searchBar, previewCollectionView, categoryView, categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView].forEach { scrollView.addSubview($0)
-        }
+        view.addSubview(scrollView)
+        [searchBar, previewCollectionView, categoryView,
+         categoryCollectionView, categoriesPreviewView, categoryFilmCollectionView]
+            .forEach { scrollView.addSubview($0) }
     }
     
     func setupConstraints(){
@@ -306,7 +329,7 @@ private extension HomeViewController{
         }
         
         searchBar.snp.makeConstraints { make in
-//            make.height.equalTo(41)
+            //            make.height.equalTo(41)
             make.top.equalTo(scrollView).offset(16)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(12)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(12)
@@ -345,44 +368,33 @@ private extension HomeViewController{
 
 // MARK: - Setup NavigationBar
 private extension HomeViewController {
-    func setupNavigationBar(with name: String, and imageUser: UIImage) {
-//        let navBarAppearance = UINavigationBarAppearance()
-//
-//        navBarAppearance.titleTextAttributes = [
-//            .foregroundColor: UIColor.white,
-//            .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
-//        ]
-//
-//        navBarAppearance.backgroundColor = .customBlack
-//
-//        navigationController?.navigationBar.standardAppearance = navBarAppearance
+    func setupNavigationBar() {
+        let navBarAppearance = UINavigationBarAppearance()
         
-        let rightButton = CustomBarItem.shared.createCustomButton(target: self, action: #selector(favoritesButtonDidTapped))
-        let customTitleView = createCustomTitleView(with: name, and: imageUser)
+        navBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
+        ]
+        
+        navBarAppearance.backgroundColor = .customBlack
+        
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        
+        let rightButton = CustomBarItem.shared.createCustomButton(
+            target: self,
+            action: #selector(favoritesButtonDidTapped)
+        )
+        let customTitleView = createCustomTitleView()
         
         navigationItem.rightBarButtonItem = rightButton
         navigationItem.titleView = customTitleView
     }
     
-    func createCustomTitleView(with name: String, and imageUser: UIImage) -> UIView {
+    func createCustomTitleView() -> UIView {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 300, height: 40)
-        
-        let image = UIImageView()
-        image.image = imageUser
-        image.backgroundColor = .customDarkGrey
-        image.layer.cornerRadius = 20
-        image.clipsToBounds = true
-        image.contentMode = .scaleAspectFill
-        image.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        view.addSubview(image)
-        
-        let label = UILabel()
-        label.text = name
-        label.textColor = .white
-        label.font = UIFont.montserratSemiBold(ofSize: 16)
-        label.frame = CGRect(x: 55, y: 10, width: 200, height: 20)
-        view.addSubview(label)
+        view.addSubview(userImageView)
+        view.addSubview(userNameLabel)
         return view
     }
 }
