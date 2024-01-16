@@ -14,7 +14,7 @@ class SectionHeaderView: UICollectionReusableView {
     // MARK: - Properties
     let titleLabel: UILabel = {
         let label = UILabel.makeLabel(
-            font: .montserratSemiBold(ofSize: 16),
+            font: .montserratSemiBold(ofSize: 18),
             textColor: .white,
             numberOfLines: 1
         )
@@ -43,8 +43,11 @@ class SectionHeaderView: UICollectionReusableView {
     }
 
     // MARK: - Configuration
-    func configure(with title: String) {
+    func configure(with title: String, hasTopPadding: Bool = false) {
         titleLabel.text = title
+        titleLabel.snp.updateConstraints { make in
+                    make.top.equalToSuperview().offset(hasTopPadding ? 20 : 0) // Добавьте отступ, если это необходимо
+                }
     }
 }
 
