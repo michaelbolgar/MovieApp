@@ -45,36 +45,46 @@ final class MyHomeRouter: HomeRouterProtocol {
     
     func showFavorites() {
         if let navigationController = navigationController {
-            guard let wishlistVC = moduleBuilder?.createFavoritesModule(router: self) else { return }
+            guard
+                let wishlistVC = moduleBuilder?.createFavoritesModule(router: self)
+            else {
+                return
+            }
             navigationController.pushViewController(wishlistVC, animated: true)
         }
     }
-//    func showFavorites() {
-//        if let navigationController = navigationController {
-//            let testVC = TestVC()
-//            navigationController.pushViewController(testVC, animated: true)
-//        }
-//    }
     
     func showDetails(_ movieId: Int) {
         if let navigationController = navigationController {
-            guard let detailsVC = moduleBuilder?.createDetailsModule(movieId) else { return }
+            guard
+                let detailsVC = moduleBuilder?.createDetailsModule(movieId)
+            else {
+                return
+            }
             navigationController.pushViewController(detailsVC, animated: true)
         }
     }
     
     func showPopularScreen(with movies: [MovieInfoForCell] = []) {
         if let navigationController = navigationController {
-            guard let popularVC = moduleBuilder?.createPopularModule(with: movies, and: self) else { return }
+            guard
+                let popularVC = moduleBuilder?.createPopularModule(with: movies, and: self)
+            else {
+                return
+            }
             navigationController.pushViewController(popularVC, animated: true)
         }
     }
     
     func updatePopularScreen(with movies: [MovieInfoForCell]) {
-        if let navigationController = navigationController,
-           let popularVC = navigationController.viewControllers.last as? PopularMovieViewController {
+        if let navigationController = navigationController {
+            guard
+                let popularVC = navigationController.viewControllers.last as? PopularMovieViewController
+            else {
+                return
+            }
             popularVC.presenter.movies = movies
-                popularVC.presenter.updateData()
+            popularVC.presenter.updateData()
         }
     }
 }

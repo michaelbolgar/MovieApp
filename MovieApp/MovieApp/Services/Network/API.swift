@@ -20,7 +20,6 @@ struct Token {
     static let twelve = "BR9GX9R-2TD4AQX-H67HE11-CSGFVP4"
     static let thirteen = "4M3ZC0R-XYV44S1-QE7HWZA-ASPTETW"
     static let fourteen = "MEY4BQK-S3G4X7A-QWH2AEP-MKCHDYX"
-    
 }
 
 //you can generate more apiKeys on https://t.me/kinopoiskdev_bot if you've exceeded the daily requests limit (200 requests/day)

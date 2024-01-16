@@ -106,11 +106,8 @@ final class WishlistCell: UITableViewCell {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.indicatorView.stopAnimating()
             self.playImage.isHidden = false
-             self.filmeImage.image = UIImage(data: model.image)
-
-            
-         }
-//        filmeImage.image = UIImage(data: model.image)
+            self.filmeImage.image = UIImage(data: model.image)
+        }
         
         ganreLabel.text = model.ganre
         filmNameLabel.text = model.name
