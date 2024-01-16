@@ -36,6 +36,8 @@ final class WishlistPresenter: WishlistPresenterProtocol {
         movies = storageManager.realm.objects(MovieWishlist.self)
     }
     
+
+    
     func showView(with animate: Bool) {
         view.showView(with: animate)
     }

@@ -27,8 +27,8 @@ final class DetailCastAndCrewView: UIView {
 
         private let profession = UILabel.makeLabel(
             text: "",
-            font: UIFont.montserratSemiBold(ofSize: LayoutConstants.fontSize),
-            textColor: .white,
+            font: UIFont.montserratSemiBold(ofSize: 13),
+            textColor: .customLightGrey,
             numberOfLines: 1)
 
     // TODO: - NEED REMOVE TEXTSTACK
@@ -116,5 +116,5 @@ private enum LayoutConstants {
     static let avatarSize: CGFloat = 40
     static let professionFontSize: CGFloat = 10
     static let textLeadingOffset = 10
-    static let fontSize: CGFloat = 14
+    static let fontSize: CGFloat = 15
 }

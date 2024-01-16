@@ -16,3 +16,4 @@ final class MovieRecent: Object {
     @Persisted var rating = ""
     @Persisted var id = Int()
 }
+

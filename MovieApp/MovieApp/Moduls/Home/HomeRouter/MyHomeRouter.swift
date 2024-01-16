@@ -49,6 +49,12 @@ final class MyHomeRouter: HomeRouterProtocol {
             navigationController.pushViewController(wishlistVC, animated: true)
         }
     }
+//    func showFavorites() {
+//        if let navigationController = navigationController {
+//            let testVC = TestVC()
+//            navigationController.pushViewController(testVC, animated: true)
+//        }
+//    }
     
     func showDetails(_ movieId: Int) {
         if let navigationController = navigationController {
