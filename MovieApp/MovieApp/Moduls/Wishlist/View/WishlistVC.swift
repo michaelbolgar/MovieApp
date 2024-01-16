@@ -20,7 +20,7 @@ final class WishlistVC: UIViewController {
     
     // MARK: - Private UI Properties
     private let plugView = PlugView()
-    private var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         var tableView = UITableView()
         tableView.register(
             WishlistCell.self,
@@ -37,9 +37,10 @@ final class WishlistVC: UIViewController {
         super.viewDidLoad()
         presenter.showView(with: false)
         setViews()
+        setupConstraints()
         setupTableView()
         setupNavigationBar()
-        setupConstraints()
+
     }
     
     // MARK: - Private Actions
@@ -84,16 +85,14 @@ extension WishlistVC: WishlistVCProtocol {
     }
     
     func showView(with animate: Bool) {
-        let isMovieListEmpty = presenter.movies.isEmpty
-        
         if animate {
             plugView.alpha = 0
             UIView.animate(withDuration: 0.7) {
                 self.plugView.alpha = 1
             }
         }
-        plugView.isHidden = !isMovieListEmpty
-        tableView.isHidden = isMovieListEmpty
+        plugView.isHidden = !presenter.movies.isEmpty
+        tableView.isHidden = presenter.movies.isEmpty
     }
     
     func removeMovie(at indexPath: IndexPath) {

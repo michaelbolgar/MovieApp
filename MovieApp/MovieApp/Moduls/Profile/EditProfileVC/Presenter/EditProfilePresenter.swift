@@ -58,6 +58,10 @@ final class EditProfilePresenter: EditProfilePresenterProtocol {
             user.image = imageData
         }
         storageManager.save(user)
+        NotificationCenter.default.post(
+            name: NSNotification.Name("UserSaved"),
+            object: nil
+        )
     }
     
     func textFieldDidChange(text: String, textFieldType: TextFieldType) {
