@@ -131,7 +131,7 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         selectFirstCell()
         presenter.setUser()
-        setupNavigationBar(with: userName, and: userImage)
+//        setupNavigationBar(with: userName, and: userImage)
     }
     
     // MARK: - Private Actions
@@ -346,16 +346,16 @@ private extension HomeViewController{
 // MARK: - Setup NavigationBar
 private extension HomeViewController {
     func setupNavigationBar(with name: String, and imageUser: UIImage) {
-        let navBarAppearance = UINavigationBarAppearance()
-        
-        navBarAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.white,
-            .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
-        ]
-        
-        navBarAppearance.backgroundColor = .customBlack
-        
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
+//        let navBarAppearance = UINavigationBarAppearance()
+//
+//        navBarAppearance.titleTextAttributes = [
+//            .foregroundColor: UIColor.white,
+//            .font: UIFont.montserratSemiBold(ofSize: 16) ?? UIFont.systemFont(ofSize: 16),
+//        ]
+//
+//        navBarAppearance.backgroundColor = .customBlack
+//
+//        navigationController?.navigationBar.standardAppearance = navBarAppearance
         
         let rightButton = CustomBarItem.shared.createCustomButton(target: self, action: #selector(favoritesButtonDidTapped))
         let customTitleView = createCustomTitleView(with: name, and: imageUser)

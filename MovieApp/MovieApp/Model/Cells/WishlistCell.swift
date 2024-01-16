@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class WishlistCell: UITableViewCell {
     
@@ -94,6 +95,7 @@ final class WishlistCell: UITableViewCell {
     //FIXME: - Переделать когда будет готова сеть
     func configure(with model:MovieWishlist){
         filmeImage.image = UIImage(data: model.image)
+        
         ganreLabel.text = model.ganre
         filmNameLabel.text = model.name
         typeFilmeLabel.text = model.type
@@ -160,12 +162,3 @@ final class WishlistCell: UITableViewCell {
         }
     }
 }
-
-//FIXME: 
-//struct WishlistCellModel{
-//    let image: UIImage
-//    let ganre: String
-//    let name: String
-//    let type: String
-//    let rating: String
-//}
