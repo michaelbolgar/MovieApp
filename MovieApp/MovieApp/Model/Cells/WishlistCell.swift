@@ -45,6 +45,7 @@ final class WishlistCell: UITableViewCell {
     private let playImage: UIImageView = {
         let element = UIImageView()
         element.image = UIImage(named: "playGroup")
+        element.isHidden = true
         return element
     }()
     
@@ -80,6 +81,15 @@ final class WishlistCell: UITableViewCell {
         return element
     }()
     
+    private let indicatorView: UIActivityIndicatorView = {
+        var indicator = UIActivityIndicatorView()
+        indicator.startAnimating()
+        indicator.hidesWhenStopped = true
+        indicator.color = .white
+        indicator.style = .medium
+        return indicator
+    }()
+    
     //MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -92,9 +102,15 @@ final class WishlistCell: UITableViewCell {
     }
     
     // MARK: - Public Methods
-    //FIXME: - Переделать когда будет готова сеть
     func configure(with model:MovieWishlist){
-        filmeImage.image = UIImage(data: model.image)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.indicatorView.stopAnimating()
+            self.playImage.isHidden = false
+             self.filmeImage.image = UIImage(data: model.image)
+
+            
+         }
+//        filmeImage.image = UIImage(data: model.image)
         
         ganreLabel.text = model.ganre
         filmNameLabel.text = model.name
@@ -105,6 +121,7 @@ final class WishlistCell: UITableViewCell {
     //MARK: - Private Methods
     private func setupViews() {
         contentView.addSubview(backgroundForView)
+        filmeImage.addSubview(indicatorView)
         [
             filmeImage, playImage, ganreLabel, filmNameLabel, typeFilmeLabel,
             starImage, ratingLabel, heartImage
@@ -159,6 +176,11 @@ final class WishlistCell: UITableViewCell {
         heartImage.snp.makeConstraints { make in
             make.bottom.equalTo(backgroundForView).inset(12)
             make.trailing.equalTo(backgroundForView).inset(12)
+        }
+        
+        indicatorView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
 }
