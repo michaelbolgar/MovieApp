@@ -35,7 +35,7 @@ final class CategoriesCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
         setupConstraints()
-        self.layer.cornerRadius = 8
+
     }
     
     required init?(coder: NSCoder) {
@@ -43,11 +43,12 @@ final class CategoriesCell: UICollectionViewCell {
     }
     
     // MARK: - Methods
-    private func setupViews(){
+    private func setupViews() {
+        self.layer.cornerRadius = 8
         addSubview(nameCategoieLabel)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         nameCategoieLabel.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

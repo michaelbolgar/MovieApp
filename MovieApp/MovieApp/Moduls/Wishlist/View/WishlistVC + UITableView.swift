@@ -27,7 +27,7 @@ extension WishlistVC: UITableViewDataSource {
         
         let movie = presenter.movies[indexPath.row]
         
-        cell.configure(with:movie)
+        cell.configure(with: movie)
         return cell
     }
 }
