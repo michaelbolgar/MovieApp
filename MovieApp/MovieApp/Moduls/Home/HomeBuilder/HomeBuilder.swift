@@ -12,7 +12,9 @@ protocol HomeBuilderProtocol {
     func createHomeModule(router: HomeRouterProtocol) -> UIViewController
     func createFavoritesModule(router: HomeRouterProtocol) -> UIViewController
     func createDetailsModule(_ movieId: Int) -> UIViewController
-    func createPopularModule(with movies: [MovieInfoForCell], and router: HomeRouterProtocol) -> UIViewController
+    func createPopularModule(
+        with movies: [MovieInfoForCell],
+        and router: HomeRouterProtocol) -> UIViewController
 }
 
 // MARK: - ModuleBUilder
@@ -35,7 +37,11 @@ final class HomeBuilder: HomeBuilderProtocol {
     func createFavoritesModule(router: HomeRouterProtocol) -> UIViewController {
         let view = WishlistVC()
         let storageManager = StorageManager.shared
-        let presenter = WishlistPresenter(view: view, storageManager: storageManager, router: router)
+        let presenter = WishlistPresenter(
+            view: view,
+            storageManager: storageManager,
+            router: router
+        )
         view.presenter = presenter
         return view
     }
@@ -50,7 +56,11 @@ final class HomeBuilder: HomeBuilderProtocol {
     
     func createPopularModule(with movies: [MovieInfoForCell] = [], and router: HomeRouterProtocol) -> UIViewController {
         let view = PopularMovieViewController()
-        let presenter = PopularMoviePresenter(view: view, movies: movies, router: router)
+        let presenter = PopularMoviePresenter(
+            view: view,
+            movies: movies,
+            router: router
+        )
         view.presenter = presenter
         return view
     }
