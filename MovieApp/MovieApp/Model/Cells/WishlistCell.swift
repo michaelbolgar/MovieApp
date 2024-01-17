@@ -26,6 +26,7 @@ final class WishlistCell: UITableViewCell {
         element.contentMode = .scaleAspectFill
         element.layer.cornerRadius = 8
         element.clipsToBounds = true
+        //        element.alpha = 0
         return element
     }()
     
@@ -101,12 +102,27 @@ final class WishlistCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Override Methods
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        filmeImage.image = nil
+        indicatorView.stopAnimating()
+    }
+    
     // MARK: - Public Methods
-    func configure(with model:MovieWishlist){
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+    func configure(with model:MovieWishlist) {
+        if let cachedImage = ImageCache.shared.image(forKey: model.id.formatted()) {
+            self.filmeImage.image = cachedImage
             self.indicatorView.stopAnimating()
             self.playImage.isHidden = false
-            self.filmeImage.image = UIImage(data: model.image)
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                guard let image = UIImage(data: model.image) else { return }
+                self.filmeImage.image = image
+                ImageCache.shared.save(image: image, forKey: model.id.formatted())
+                self.indicatorView.stopAnimating()
+                self.playImage.isHidden = false
+            }
         }
         
         ganreLabel.text = model.ganre
