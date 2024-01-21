@@ -111,6 +111,7 @@ final class WishlistCell: UITableViewCell {
     
     // MARK: - Public Methods
     func configure(with model:MovieWishlist) {
+     
         if let cachedImage = ImageCache.shared.image(forKey: model.id.formatted()) {
             self.filmeImage.image = cachedImage
             self.indicatorView.stopAnimating()
