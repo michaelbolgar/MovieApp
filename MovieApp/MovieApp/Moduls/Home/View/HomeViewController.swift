@@ -12,7 +12,7 @@ final class HomeViewController: UIViewController {
     var presenter: HomePresenterProtocol!
     
     // MARK: - Private Properties
-    private var selectedGanreIndexPath: IndexPath!
+    private var selectedGenreIndexPath: IndexPath!
     
     // MARK: - Private UI Properties
     private lazy var userImageView: UIImageView = {
@@ -162,7 +162,7 @@ final class HomeViewController: UIViewController {
     private func showMovieList(){
         categoryView.seeAllButtonTapped = {
             self.navigationController?.pushViewController(
-                MovieListController(with: self.selectedGanreIndexPath),
+                MovieListController(with: self.selectedGenreIndexPath),
                 animated: true
             )
         }
@@ -171,7 +171,7 @@ final class HomeViewController: UIViewController {
     //MARK: - Private Methods
     private func selectFirstCell(){
         let selectedIndexPath = IndexPath(item: 0, section: 0)
-        selectedGanreIndexPath = selectedIndexPath
+        selectedGenreIndexPath = selectedIndexPath
         categoryCollectionView.selectItem(
             at: selectedIndexPath,
             animated: false,
@@ -273,7 +273,7 @@ extension HomeViewController: UICollectionViewDelegate {
         if collectionView == categoryCollectionView {
             if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
                 cell.selectCell()
-                selectedGanreIndexPath = indexPath
+                selectedGenreIndexPath = indexPath
             }
         }
         

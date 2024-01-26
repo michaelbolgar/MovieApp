@@ -21,16 +21,14 @@ final class PreviewCategoryCell: UICollectionViewCell {
         indicator.style = .medium
         return indicator
     }()
-    
-    private let nameCategoryLabel:UILabel = .makeLabel(
-        font: UIFont.montserratSemiBold(ofSize: 16),
-        textColor: .white,
-        numberOfLines: 1
+
+    private let nameCategoryLabel:UILabel = .makeLabel(font: UIFont.montserratSemiBold(ofSize: 16),
+                                                       textColor: .white,
+                                                       numberOfLines: 1
     )
-    private let descriptionLabel:UILabel = .makeLabel(
-        font: UIFont.montserratRegular(ofSize: 12),
-        textColor: .white,
-        numberOfLines: 1
+    private let descriptionLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 12),
+                                                      textColor: .white,
+                                                      numberOfLines: 1
     )
     
     //MARK: - Init

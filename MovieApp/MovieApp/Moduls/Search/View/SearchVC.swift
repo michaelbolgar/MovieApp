@@ -11,15 +11,15 @@ final class SearchVC: UIViewController {
     var presenter: SearchPresenterProtocol!
     
     // MARK: - Private UI Properties
-    
+
     /// First collection (above)
     private lazy var categoryCollectionView: UICollectionView = {
-        let layot = UICollectionViewFlowLayout()
-        layot.scrollDirection = .horizontal
-        layot.minimumLineSpacing = 8
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 8
         let collectionView = UICollectionView(
             frame: .zero,
-            collectionViewLayout: layot
+            collectionViewLayout: layout
         )
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
@@ -40,16 +40,6 @@ final class SearchVC: UIViewController {
     
     /// Second collection (middle)
     private let upcomingMoviesPreviewView = CatergoriesSectionView(title: "Upcoming movie")
-    
-    //    let searchCell = SearchCell(style: .default, reuseIdentifier: SearchCell.identifier)
-    //    let movieInfo = NetworkingManager.shared.getMovieDetails(for: 666) { result in
-    //        switch result {
-    //        case .success(let movieDetails):
-    //            print("Details for movie: \(movieDetails)")
-    //        case .failure(let error):
-    //            print("Error fetching movie details: \(error)")
-    //        }
-    //    }
     
     private lazy var upcomingMoviesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -157,8 +147,8 @@ final class SearchVC: UIViewController {
 
 //MARK: - UICollectionViewDataSource
 #warning("что будет если поменять на дифбл?")
-extension SearchVC: UICollectionViewDataSource{
-    
+extension SearchVC: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         switch collectionView {

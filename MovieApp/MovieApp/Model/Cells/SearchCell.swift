@@ -61,16 +61,14 @@ final class SearchCell: UITableViewCell {
         return element
     }()
     
-    private let ratingLabel = UILabel.makeLabel(
-        font: UIFont.montserratMedium(ofSize: 14.5),
-        textColor: .customOrange,
-        numberOfLines: 1
+    private let ratingLabel = UILabel.makeLabel(font: UIFont.montserratMedium(ofSize: 14.5),
+                                                textColor: .customOrange,
+                                                numberOfLines: 1
     )
 
-    private let filmNameLabel = UILabel.makeLabel(
-        font: UIFont.montserratSemiBold(ofSize: 16),
-        textColor: .white,
-        numberOfLines: 2
+    private let filmNameLabel = UILabel.makeLabel(font: UIFont.montserratSemiBold(ofSize: 16),
+                                                  textColor: .white,
+                                                  numberOfLines: 2
     )
     
     private let ageLimitView: UIView = {
@@ -82,37 +80,32 @@ final class SearchCell: UITableViewCell {
     }()
     
     private let ageLimitLabel: UILabel = {
-        let element = UILabel.makeLabel(
-            font: UIFont.montserratMedium(ofSize: 12),
-            textColor: .cyan,
-            numberOfLines: 1
+        let element = UILabel.makeLabel(font: UIFont.montserratMedium(ofSize: 12),
+                                        textColor: .cyan,
+                                        numberOfLines: 1
         )
         element.textAlignment = .center
         return element
     }()
     
-    private let yearPublishedLabel = UILabel.makeLabel(
-        font: UIFont.montserratMedium(ofSize: 12),
-        textColor: .customDarkGrey,
-        numberOfLines: 1
+    private let yearPublishedLabel = UILabel.makeLabel(font: UIFont.montserratMedium(ofSize: 12),
+                                                       textColor: .customDarkGrey,
+                                                       numberOfLines: 1
     )
     
-    private let timeLabel = UILabel.makeLabel(
-        font: UIFont.montserratMedium(ofSize: 12),
-        textColor: .customDarkGrey,
-        numberOfLines: 1
+    private let timeLabel = UILabel.makeLabel(font: UIFont.montserratMedium(ofSize: 12),
+                                              textColor: .customDarkGrey,
+                                              numberOfLines: 1
     )
     
-    private let ganreLabel = UILabel.makeLabel(
-        font: UIFont.montserratMedium(ofSize: 12),
-        textColor: .customDarkGrey,
-        numberOfLines: 1
+    private let ganreLabel = UILabel.makeLabel(font: UIFont.montserratMedium(ofSize: 12),
+                                               textColor: .customDarkGrey,
+                                               numberOfLines: 1
     )
     
-    private let typeLabel = UILabel .makeLabel(
-        font: UIFont.montserratMedium(ofSize: 12),
-        textColor: .white,
-        numberOfLines: 1
+    private let typeLabel = UILabel .makeLabel(font: UIFont.montserratMedium(ofSize: 12),
+                                               textColor: .white,
+                                               numberOfLines: 1
     )
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
@@ -198,7 +191,8 @@ final class SearchCell: UITableViewCell {
 // MARK: - Setup UI
 private extension SearchCell {
     func setupViews() {
-        backgroundColor = .customBlack
+        contentView.backgroundColor = .customBlack
+        contentView.layer.cornerRadius = 16
         filmeImage.addSubview(activityIndicator)
         ageLimitView.addSubview(ageLimitLabel)
         [filmeImage, backgorundForRaitingView, starImage, filmNameLabel,
