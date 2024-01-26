@@ -30,7 +30,7 @@ final class SearchCell: UITableViewCell {
         let element = UIView()
         element.layer.cornerRadius = 8
         element.backgroundColor = .gray
-        element.alpha = 0.9
+        element.alpha = 0.6
         return element
     }()
     
@@ -192,7 +192,7 @@ final class SearchCell: UITableViewCell {
 private extension SearchCell {
     func setupViews() {
         contentView.backgroundColor = .customBlack
-        contentView.layer.cornerRadius = 16
+//        contentView.layer.cornerRadius = 16
         filmeImage.addSubview(activityIndicator)
         ageLimitView.addSubview(ageLimitLabel)
         [filmeImage, backgorundForRaitingView, starImage, filmNameLabel,
