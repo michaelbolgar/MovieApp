@@ -1,21 +1,17 @@
-//
-//  SearchCell.swift
-//  MovieApp
-//
-//  Created by Admin on 26.12.2023.
-//
-
 import UIKit
 import SnapKit
 
-final class SearchCell: UITableViewCell {
+/// this cell is been used for such collections as 'Search Results' or "See more" collection and provides extended movies info:
+/// the same as MovieSmallCell does + year, length, and type of movie
+
+final class MovieBigCell: UITableViewCell {
     
     // MARK: - Network Properties
     private var task: URLSessionDataTask?
     private var imageUrl: URL?
     
     //MARK: - Properties
-    static let identifier = String(describing: SearchCell.self)
+    static let identifier = String(describing: MovieBigCell.self)
     
     // MARK: - Private UI Properties
     private let filmeImage: UIImageView = {
@@ -30,7 +26,7 @@ final class SearchCell: UITableViewCell {
         let element = UIView()
         element.layer.cornerRadius = 8
         element.backgroundColor = .gray
-        element.alpha = 0.6
+        element.alpha = 0.9
         return element
     }()
     
@@ -189,7 +185,7 @@ final class SearchCell: UITableViewCell {
 }
 
 // MARK: - Setup UI
-private extension SearchCell {
+private extension MovieBigCell {
     func setupViews() {
         contentView.backgroundColor = .customBlack
 //        contentView.layer.cornerRadius = 16

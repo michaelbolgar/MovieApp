@@ -10,7 +10,7 @@ import UIKit
 // MARK: - DetailGalleryCell
 class DetailGalleryCell: UICollectionViewCell {
 
-    typealias GalleryCell = CollectionCell<DetailGalleryView>
+    typealias GalleryCell = DetailCell<DetailGalleryView>
     static let identifier = String(describing: DetailGalleryCell.self)
 
     // MARK: - Properties

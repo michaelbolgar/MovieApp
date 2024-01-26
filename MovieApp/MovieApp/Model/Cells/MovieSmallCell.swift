@@ -1,20 +1,16 @@
-//
-//  PopularCategoryCell.swift
-//  MovieApp
-//
-//  Created by Admin on 26.12.2023.
-//
-
 import UIKit
 
-final class PopularCategoryCell: UICollectionViewCell {
+/// this cell is been used for such collections as 'Most Popular' collection on the HomeScreen and provides short movies info:
+/// poster, name, raiting and genre
+
+final class MovieSmallCell: UICollectionViewCell {
     
     // MARK: - Network Properties
     private var task: URLSessionDataTask?
     private var imageUrl: URL?
     
     //MARK: - Properties
-    static let identifier = String(describing: PopularCategoryCell.self)
+    static let identifier = String(describing: MovieSmallCell.self)
     
     // MARK: - Private UI Properties
     private let backgorundForRaitingView: UIView = {
@@ -147,7 +143,7 @@ final class PopularCategoryCell: UICollectionViewCell {
 }
 
 // MARK: - Setup UI
-private extension PopularCategoryCell {
+private extension MovieSmallCell {
     func setupCellUI() {
         contentView.backgroundColor = .customGrey
         contentView.layer.cornerRadius = 12

@@ -109,8 +109,8 @@ final class HomeViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
-            PopularCategoryCell.self,
-            forCellWithReuseIdentifier: PopularCategoryCell.identifier
+            MovieSmallCell.self,
+            forCellWithReuseIdentifier: MovieSmallCell.identifier
         )
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -235,8 +235,8 @@ extension HomeViewController: UICollectionViewDataSource{
         case categoryFilmCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: PopularCategoryCell.identifier,
-                    for: indexPath) as? PopularCategoryCell
+                    withReuseIdentifier: MovieSmallCell.identifier,
+                    for: indexPath) as? MovieSmallCell
             else {
                 return UICollectionViewCell()
             }

@@ -17,8 +17,7 @@ class ViewController: UIViewController {
                                   font: UIFont.montserratSemiBold(ofSize: 20),
                                   textColor: .customBlack, numberOfLines: nil)
 
-    //нужна ячейка не под таблицу -- начать с этого
-    let cell = SearchCell()
+    let cell = MovieBigCell()
 
     // MARK: Life Cycle
     override func viewDidLoad() {

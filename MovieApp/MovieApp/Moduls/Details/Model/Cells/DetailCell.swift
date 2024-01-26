@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class CollectionCell<View>: UICollectionViewCell where View: UIView & Configurable {
+final class DetailCell<View>: UICollectionViewCell where View: UIView & Configurable {
     private let view = View()
 
     override init(frame: CGRect) {

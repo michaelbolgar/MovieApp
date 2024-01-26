@@ -52,8 +52,8 @@ final class SearchVC: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
-            PopularCategoryCell.self,
-            forCellWithReuseIdentifier: PopularCategoryCell.identifier
+            MovieSmallCell.self,
+            forCellWithReuseIdentifier: MovieSmallCell.identifier
         )
         
         collectionView.dataSource = self
@@ -81,8 +81,8 @@ final class SearchVC: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
-            PopularCategoryCell.self,
-            forCellWithReuseIdentifier: PopularCategoryCell.identifier
+            MovieSmallCell.self,
+            forCellWithReuseIdentifier: MovieSmallCell.identifier
         )
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -182,8 +182,8 @@ extension SearchVC: UICollectionViewDataSource {
         case upcomingMoviesCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: PopularCategoryCell.identifier,
-                    for: indexPath) as? PopularCategoryCell
+                    withReuseIdentifier: MovieSmallCell.identifier,
+                    for: indexPath) as? MovieSmallCell
             else {
                 return UICollectionViewCell()
             }
@@ -193,8 +193,8 @@ extension SearchVC: UICollectionViewDataSource {
         case recentMoviesCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: PopularCategoryCell.identifier,
-                    for: indexPath) as? PopularCategoryCell
+                    withReuseIdentifier: MovieSmallCell.identifier,
+                    for: indexPath) as? MovieSmallCell
             else {
                 return UICollectionViewCell()
             }

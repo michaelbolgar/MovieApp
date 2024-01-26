@@ -21,8 +21,8 @@ final class PopularMovieViewController: UIViewController {
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.register(
-            SearchCell.self,
-            forCellReuseIdentifier: SearchCell.identifier
+            MovieBigCell.self,
+            forCellReuseIdentifier: MovieBigCell.identifier
         )
         table.rowHeight = 150
         table.sectionFooterHeight = 0

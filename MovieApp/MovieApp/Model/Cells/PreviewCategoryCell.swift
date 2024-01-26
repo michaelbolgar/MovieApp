@@ -1,5 +1,6 @@
 import UIKit
 
+#warning("переименовать после того как разберемся с MovieListCell")
 final class PreviewCategoryCell: UICollectionViewCell {
     
     //MARK: - Static Properties

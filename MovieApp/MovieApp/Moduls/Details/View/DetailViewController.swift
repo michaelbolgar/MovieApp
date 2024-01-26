@@ -12,7 +12,7 @@ import WebKit
 
 final class DetailViewController: UIViewController {
 
-    typealias HeaderCell = CollectionCell<DetailHeaderView>
+    typealias HeaderCell = DetailCell<DetailHeaderView>
     
     var presenter: DetailPresenterProtocol!
     

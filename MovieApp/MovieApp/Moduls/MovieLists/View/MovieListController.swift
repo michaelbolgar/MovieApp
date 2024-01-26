@@ -41,7 +41,7 @@ final class MovieListController: UIViewController {
         element.separatorStyle = .none
         element.rowHeight = 152
         element.allowsSelection = false
-        element.register(SearchCell.self, forCellReuseIdentifier: SearchCell.identifier)
+        element.register(MovieBigCell.self, forCellReuseIdentifier: MovieBigCell.identifier)
         element.dataSource = self
         element.delegate = self
         return element
@@ -211,7 +211,7 @@ extension MovieListController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.identifier, for: indexPath) as? SearchCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MovieBigCell.identifier, for: indexPath) as? MovieBigCell else { return UITableViewCell() }
         let selection = presenter.selection(at: indexPath.item)
         cell.configure(with: selection)
         return cell
