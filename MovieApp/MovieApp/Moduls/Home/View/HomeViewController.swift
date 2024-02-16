@@ -1,5 +1,7 @@
 import UIKit
 
+#warning("обработать случай, когда телефон не подключён к сети: пусть выдаётся соответствующая ошибка")
+
 protocol HomeViewControllerProtocol: AnyObject {
     func setUserInfo(with user: User)
     func reloadPreviewCollection()

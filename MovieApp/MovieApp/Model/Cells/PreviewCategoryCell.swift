@@ -23,9 +23,17 @@ final class PreviewCategoryCell: UICollectionViewCell {
         return indicator
     }()
 
-    private let nameCategoryLabel:UILabel = .makeLabel(font: UIFont.montserratSemiBold(ofSize: 16),
+    private let backgorundForLabels: UIView = {
+        let element = UIView()
+//        element.layer.cornerRadius = 8
+        element.backgroundColor = .customDarkBlue
+        element.alpha = 0.8
+        return element
+    }()
+
+    private let nameCategoryLabel:UILabel = .makeLabel(font: UIFont.montserratSemiBold(ofSize: 14),
                                                        textColor: .white,
-                                                       numberOfLines: 1
+                                                       numberOfLines: 2
     )
     private let descriptionLabel:UILabel = .makeLabel(font: UIFont.montserratRegular(ofSize: 12),
                                                       textColor: .white,
@@ -83,10 +91,11 @@ private extension PreviewCategoryCell {
     }
     
     func setupViews() {
-        contentView.addSubview(filmeImage)
-        contentView.addSubview(nameCategoryLabel)
-        contentView.addSubview(descriptionLabel)
+
+        [filmeImage, backgorundForLabels].forEach { contentView.addSubview($0) }
         filmeImage.addSubview(activityIndicator)
+        backgorundForLabels.addSubview(nameCategoryLabel)
+        backgorundForLabels.addSubview(descriptionLabel)
     }
     
     func setupConstraints() {
@@ -98,16 +107,22 @@ private extension PreviewCategoryCell {
         filmeImage.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
-        
-        nameCategoryLabel.snp.makeConstraints { make in
-            make.leading.equalTo(filmeImage.snp.leading).offset(16)
-            make.trailing.equalTo(filmeImage.snp.trailing).inset(16)
-            make.centerY.equalTo(filmeImage.snp.centerY)
+
+        backgorundForLabels.snp.makeConstraints { make in
+            make.trailing.leading.equalToSuperview()
+            make.bottom.equalTo(filmeImage.snp.bottom)
+            make.height.equalTo(60)
         }
-        
+
+        nameCategoryLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().inset(16)
+            make.bottom.equalTo(descriptionLabel.snp.top).inset(-3)
+        }
+
         descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalTo(nameCategoryLabel.snp.leading).offset(16)
-            make.bottom.equalTo(filmeImage.snp.bottom).inset(16)
+            make.bottom.equalToSuperview().inset(6)
+            make.leading.equalToSuperview().inset(16)
         }
     }
 }
