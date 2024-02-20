@@ -13,6 +13,7 @@ final class SearchVC: UIViewController {
     // MARK: - Private UI Properties
 
     /// First collection (above)
+    #warning ("продумать значение этого селектора")
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
