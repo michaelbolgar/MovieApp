@@ -3,14 +3,14 @@ import SnapKit
 
 /// this cell is only been used for the collection 'Upcoming soon' on the Search screen
 
-final class UpcomingCell: UICollectionViewCell {
+final class ComingSoonCell: UICollectionViewCell {
 
     // MARK: - Network Properties
     private var task: URLSessionDataTask?
     private var imageUrl: URL?
 
     //MARK: - Properties
-    static let identifier = String(describing: UpcomingCell.self)
+    static let identifier = String(describing: ComingSoonCell.self)
 
     // MARK: - Private UI Properties
     private let filmeImage: UIImageView = {
@@ -167,7 +167,7 @@ final class UpcomingCell: UICollectionViewCell {
 }
 
 // MARK: - Setup UI
-private extension UpcomingCell {
+private extension ComingSoonCell {
     func setupViews() {
         contentView.backgroundColor = .customBlack
         filmeImage.addSubview(activityIndicator)

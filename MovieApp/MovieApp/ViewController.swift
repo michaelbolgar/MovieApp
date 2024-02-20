@@ -17,7 +17,7 @@ class ViewController: UIViewController {
                                   font: UIFont.montserratSemiBold(ofSize: 20),
                                   textColor: .customBlack, numberOfLines: nil)
 
-    let cell = UpcomingCell()
+    let cell = ComingSoonCell()
 
     // MARK: Life Cycle
     override func viewDidLoad() {

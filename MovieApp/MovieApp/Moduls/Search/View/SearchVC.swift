@@ -39,8 +39,8 @@ final class SearchVC: UIViewController {
     }()
     
     /// Second collection (middle)
-    private let upcomingMoviesPreviewView = CatergoriesSectionView(title: "Upcoming movie")
-    
+    private let upcomingMoviesPreviewView = CatergoriesSectionView(title: "Coming soon")
+
     private lazy var upcomingMoviesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -52,8 +52,8 @@ final class SearchVC: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
-            UpcomingCell.self,
-            forCellWithReuseIdentifier: UpcomingCell.identifier
+            ComingSoonCell.self,
+            forCellWithReuseIdentifier: ComingSoonCell.identifier
         )
         
         collectionView.dataSource = self
@@ -182,8 +182,8 @@ extension SearchVC: UICollectionViewDataSource {
         case upcomingMoviesCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: UpcomingCell.identifier,
-                    for: indexPath) as? UpcomingCell
+                    withReuseIdentifier: ComingSoonCell.identifier,
+                    for: indexPath) as? ComingSoonCell
             else {
                 return UICollectionViewCell()
             }
