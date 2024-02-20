@@ -7,7 +7,7 @@ protocol SearchViewControllerProtocol: AnyObject {
 
 final class SearchVC: UIViewController {
     
-    //MARK: - Presenter
+    // MARK: - Presenter
     var presenter: SearchPresenterProtocol!
     
     // MARK: - Private UI Properties
@@ -52,8 +52,8 @@ final class SearchVC: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
-            MovieSmallCell.self,
-            forCellWithReuseIdentifier: MovieSmallCell.identifier
+            UpcomingCell.self,
+            forCellWithReuseIdentifier: UpcomingCell.identifier
         )
         
         collectionView.dataSource = self
@@ -117,14 +117,14 @@ final class SearchVC: UIViewController {
         presenter.setUpcomingMovies()
         presenter.setRecentMovies()
         
-        
         //        showPopularVC()
-        //        setupNavigationBar(with: searchBar)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("RecentMovieSaved") , object: nil, queue: nil) { _ in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("RecentMovieSaved") , 
+                                               object: nil,
+                                               queue: nil) { _ in
             self.presenter.setRecentMovies()
             self.presenter.reloadRecentMovies()
         }
@@ -182,8 +182,8 @@ extension SearchVC: UICollectionViewDataSource {
         case upcomingMoviesCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: MovieSmallCell.identifier,
-                    for: indexPath) as? MovieSmallCell
+                    withReuseIdentifier: UpcomingCell.identifier,
+                    for: indexPath) as? UpcomingCell
             else {
                 return UICollectionViewCell()
             }
@@ -198,8 +198,7 @@ extension SearchVC: UICollectionViewDataSource {
             else {
                 return UICollectionViewCell()
             }
-            
-//            cell.configure(with: presenter.recentMovies[indexPath.item])
+
             cell.configure(with: presenter.recentMovies[indexPath.item])
             return cell
             

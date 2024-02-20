@@ -113,6 +113,7 @@
 		F48094DC2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094DB2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift */; };
 		F48094DE2B4E020E004C9F96 /* UINavigationController Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48094DD2B4E020E004C9F96 /* UINavigationController Extension.swift */; };
 		F48A8F7C2B52909900635EAB /* SearchBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48A8F7B2B52909900635EAB /* SearchBuilder.swift */; };
+		F4F0225C2B855A33004D10A4 /* UpcomingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F0225B2B855A33004D10A4 /* UpcomingCell.swift */; };
 		FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */; };
 		FA37EAD02B459ED700760039 /* PopularMoviePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */; };
 		FA37EAD32B4C00AF00760039 /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */; };
@@ -224,6 +225,7 @@
 		F48094DB2B4DF8C2004C9F96 /* ChristmasTreeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChristmasTreeRouter.swift; sourceTree = "<group>"; };
 		F48094DD2B4E020E004C9F96 /* UINavigationController Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController Extension.swift"; sourceTree = "<group>"; };
 		F48A8F7B2B52909900635EAB /* SearchBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBuilder.swift; sourceTree = "<group>"; };
+		F4F0225B2B855A33004D10A4 /* UpcomingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingCell.swift; sourceTree = "<group>"; };
 		FA37EACD2B459EB800760039 /* PopularMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieViewController.swift; sourceTree = "<group>"; };
 		FA37EACF2B459ED700760039 /* PopularMoviePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviePresenter.swift; sourceTree = "<group>"; };
 		FA37EAD22B4C00AF00760039 /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				3C18BEA32B557FB300AD8F76 /* MovieRecent.swift */,
+				F4F0225B2B855A33004D10A4 /* UpcomingCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1166,6 +1169,7 @@
 				E04096972B4F65AE00BF8DA9 /* ShareView.swift in Sources */,
 				FA37EACE2B459EB800760039 /* PopularMovieViewController.swift in Sources */,
 				842B8BC32B4F21E300753510 /* MovieListPresenter.swift in Sources */,
+				F4F0225C2B855A33004D10A4 /* UpcomingCell.swift in Sources */,
 				F480944D2B38A616004C9F96 /* UILabel Extension.swift in Sources */,
 				F48094C62B4D8A8C004C9F96 /* ConfigurableProtocol.swift in Sources */,
 				F48094C12B4D89A7004C9F96 /* DetailPresenter.swift in Sources */,

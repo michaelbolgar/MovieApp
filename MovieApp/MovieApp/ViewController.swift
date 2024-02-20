@@ -17,7 +17,7 @@ class ViewController: UIViewController {
                                   font: UIFont.montserratSemiBold(ofSize: 20),
                                   textColor: .customBlack, numberOfLines: nil)
 
-    let cell = MovieBigCell()
+    let cell = UpcomingCell()
 
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -56,14 +56,7 @@ class ViewController: UIViewController {
             return
         }
 
-        //создать объект
-//        let cell = SearchCell()
-
-        // присвоить данные
         cell.configure(with: movieInfo)
-
-        // Добавьте ячейку на ваш вью-контроллер (или в вашу коллекцию)
-//        view.addSubview(cell)
     }
 
     // MARK: Networking manager methods
