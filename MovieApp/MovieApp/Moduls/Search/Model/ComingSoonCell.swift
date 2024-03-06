@@ -180,8 +180,8 @@ private extension ComingSoonCell {
     func setupConstraints() {
         filmeImage.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
-            make.leading.equalToSuperview().inset(24)
-            make.width.equalTo(112)
+            make.leading.equalToSuperview()
+            make.width.equalTo(140)
         }
 
         filmNameLabel.snp.makeConstraints { make in

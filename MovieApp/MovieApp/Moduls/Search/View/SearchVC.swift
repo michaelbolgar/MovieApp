@@ -218,7 +218,9 @@ extension SearchVC: UICollectionViewDelegateFlowLayout{
         case categoryCollectionView:
             return CGSize(width: 80, height: 31)
         case upcomingMoviesCollectionView:
-            return CGSize(width: 135, height: 231)
+            #warning ("динамический расчёт размера ячейки (ширины)")
+            #warning ("зафиксировать ячейку в прокрутке или оставить её одну")
+            return CGSize(width: 320, height: 231)
         case recentMoviesCollectionView:
             return CGSize(width: 135, height: 231)
         default:
