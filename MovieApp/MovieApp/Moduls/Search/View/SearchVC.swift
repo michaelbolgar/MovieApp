@@ -42,6 +42,7 @@ final class SearchVC: UIViewController {
     /// Second collection (middle)
     private let upcomingMoviesPreviewView = CatergoriesSectionView(title: "Coming soon")
 
+#warning ("сколько фильмов должно быть в этой коллекции? Должна ли она крутиться? Чекнуть какая информация прилетает с апи")
     private lazy var upcomingMoviesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -294,7 +295,6 @@ private extension SearchVC {
         }
         
         searchBar.snp.makeConstraints { make in
-            //            make.height.equalTo(41)
             make.top.equalTo(scrollView.snp.top)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(12)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(12)
