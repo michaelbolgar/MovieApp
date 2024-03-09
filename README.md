@@ -1,5 +1,4 @@
-# DevRush MarathonX | Final Challenge | MovieApp
-# (in progress of development)
+# DevRush MarathonX | Final Challenge | MovieApp (in progress of development)
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/michaelbolgar/BookStore)  ![GitHub contributors](https://img.shields.io/github/contributors/michaelbolgar/BookStore)   ![GitHub last commit](https://img.shields.io/github/last-commit/michaelbolgar/MovieApp) ![][ios] ![][swift] ![][uikit] ![][SnapKit] ![][Realm] 
 
