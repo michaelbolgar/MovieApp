@@ -18,8 +18,8 @@ extension PopularMovieViewController: UITableViewDataSource {
         
         guard
             let cell = tableView.dequeueReusableCell(
-                withIdentifier: SearchCell.identifier,
-                for: indexPath) as? SearchCell
+                withIdentifier: MovieBigCell.identifier,
+                for: indexPath) as? MovieBigCell
         else {
             return UITableViewCell()
         }

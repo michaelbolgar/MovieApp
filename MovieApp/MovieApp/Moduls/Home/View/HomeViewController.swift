@@ -1,5 +1,7 @@
 import UIKit
 
+#warning("обработать случай, когда телефон не подключён к сети: пусть выдаётся соответствующая ошибка")
+
 protocol HomeViewControllerProtocol: AnyObject {
     func setUserInfo(with user: User)
     func reloadPreviewCollection()
@@ -12,7 +14,7 @@ final class HomeViewController: UIViewController {
     var presenter: HomePresenterProtocol!
     
     // MARK: - Private Properties
-    private var selectedGanreIndexPath: IndexPath!
+    private var selectedGenreIndexPath: IndexPath!
     
     // MARK: - Private UI Properties
     private lazy var userImageView: UIImageView = {
@@ -109,8 +111,8 @@ final class HomeViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
-            PopularCategoryCell.self,
-            forCellWithReuseIdentifier: PopularCategoryCell.identifier
+            MovieSmallCell.self,
+            forCellWithReuseIdentifier: MovieSmallCell.identifier
         )
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -141,7 +143,13 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         selectFirstCell()
     }
-    
+
+    #warning("куда ещё добавить эту функцию, чтобы можно было скрывать клавиатуру по всему экрану? ")
+    // MARK: - Override Methods
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.hideKeyboard()
+    }
+
     // MARK: - Private Actions
     @objc private func favoritesButtonDidTapped() {
         presenter.showFavoritesScreen()
@@ -156,7 +164,7 @@ final class HomeViewController: UIViewController {
     private func showMovieList(){
         categoryView.seeAllButtonTapped = {
             self.navigationController?.pushViewController(
-                MovieListController(with: self.selectedGanreIndexPath),
+                MovieListController(with: self.selectedGenreIndexPath),
                 animated: true
             )
         }
@@ -165,7 +173,7 @@ final class HomeViewController: UIViewController {
     //MARK: - Private Methods
     private func selectFirstCell(){
         let selectedIndexPath = IndexPath(item: 0, section: 0)
-        selectedGanreIndexPath = selectedIndexPath
+        selectedGenreIndexPath = selectedIndexPath
         categoryCollectionView.selectItem(
             at: selectedIndexPath,
             animated: false,
@@ -229,8 +237,8 @@ extension HomeViewController: UICollectionViewDataSource{
         case categoryFilmCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: PopularCategoryCell.identifier,
-                    for: indexPath) as? PopularCategoryCell
+                    withReuseIdentifier: MovieSmallCell.identifier,
+                    for: indexPath) as? MovieSmallCell
             else {
                 return UICollectionViewCell()
             }
@@ -267,7 +275,7 @@ extension HomeViewController: UICollectionViewDelegate {
         if collectionView == categoryCollectionView {
             if let cell = collectionView.cellForItem(at: indexPath) as? CategoriesCell {
                 cell.selectCell()
-                selectedGanreIndexPath = indexPath
+                selectedGenreIndexPath = indexPath
             }
         }
         

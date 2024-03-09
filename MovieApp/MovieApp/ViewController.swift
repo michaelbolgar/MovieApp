@@ -10,23 +10,37 @@ import SnapKit
 
 class ViewController: UIViewController {
 
+    private var movieInfoForCell: MovieInfoForCell?
+
+    // MARK: - UI Elements
     let label = UILabel.makeLabel(text: "Hello, world!",
                                   font: UIFont.montserratSemiBold(ofSize: 20),
                                   textColor: .customBlack, numberOfLines: nil)
 
+    let cell = ComingSoonCell()
+
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .customBlue
 
         view.addSubview(label)
+        view.addSubview(cell)
 
         label.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
         }
 
+        cell.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().inset(100)
+            make.leading.trailing.equalToSuperview().inset(50)
+            make.height.equalTo(150)
+        }
+
 #warning("пройтись по запросам и дать им нормальные названия")
-        detailsRequst()
+//        detailsRequst()
 //        collectionRequst()
 //        popularRequest()
 //        search()
@@ -34,14 +48,25 @@ class ViewController: UIViewController {
 //        loadImages()
 //        getGenreMovies()
 //        getPersonInfo()
-//        getRandom()
+        getRandom()
     }
 
+    private func updateCellWithData() {
+        guard let movieInfo = movieInfoForCell else {
+            return
+        }
+
+        cell.configure(with: movieInfo)
+    }
+
+    // MARK: Networking manager methods
     private func getRandom() {
         NetworkingManager.shared.getRandom { result in
             switch result {
             case .success(let movie):
                 print("Info about movie: \(movie)")
+                self.movieInfoForCell = movie
+                self.updateCellWithData()
             case .failure(let error):
                 print("Error fetching movie details: \(error)")
             }

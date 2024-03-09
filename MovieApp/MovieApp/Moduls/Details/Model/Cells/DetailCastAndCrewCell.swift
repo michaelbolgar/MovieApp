@@ -10,7 +10,7 @@ import UIKit
 // MARK: - DetailCastAndCrewCell
 class DetailCastAndCrewCell: UICollectionViewCell {
     
-    typealias CastAndCrewCell = CollectionCell<DetailCastAndCrewView>
+    typealias CastAndCrewCell = DetailCell<DetailCastAndCrewView>
     static let identifier = String(describing: DetailCastAndCrewCell.self)
 
     // MARK: - Properties
@@ -19,7 +19,7 @@ class DetailCastAndCrewCell: UICollectionViewCell {
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(
-            CollectionCell<DetailCastAndCrewView>.self,
+            DetailCell<DetailCastAndCrewView>.self,
             forCellWithReuseIdentifier: "CastAndCrewItemCell"
         )
         collectionView.delegate = self
@@ -73,7 +73,7 @@ extension DetailCastAndCrewCell: UICollectionViewDelegate,
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "CastAndCrewItemCell",
             for: indexPath
-        ) as! CollectionCell<DetailCastAndCrewView>
+        ) as! DetailCell<DetailCastAndCrewView>
         let item = castAndCrewItems[indexPath.item]
         cell.update(with: item)
         return cell

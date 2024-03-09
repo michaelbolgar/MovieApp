@@ -1,20 +1,15 @@
-//
-//  PopularCategoryCell.swift
-//  MovieApp
-//
-//  Created by Admin on 26.12.2023.
-//
-
 import UIKit
 
-final class PopularCategoryCell: UICollectionViewCell {
+/// this cell is been used for such collections as 'Most Popular' collection on the HomeScreen and provides short movies info: poster, name, raiting and genre
+
+final class MovieSmallCell: UICollectionViewCell {
     
     // MARK: - Network Properties
     private var task: URLSessionDataTask?
     private var imageUrl: URL?
     
     //MARK: - Properties
-    static let identifier = String(describing: PopularCategoryCell.self)
+    static let identifier = String(describing: MovieSmallCell.self)
     
     // MARK: - Private UI Properties
     private let backgorundForRaitingView: UIView = {
@@ -77,7 +72,7 @@ final class PopularCategoryCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Override Methods
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -89,7 +84,7 @@ final class PopularCategoryCell: UICollectionViewCell {
     // MARK: - Public Methods
     func configure(with model: MovieInfoForCell) {
         
-        // Остановить предыдущую загрузку, если она есть
+        /// stop previous downloading
         task?.cancel()
         
         activityIndicator.startAnimating()
@@ -102,14 +97,14 @@ final class PopularCategoryCell: UICollectionViewCell {
             return
         }
         
-        // Проверка наличия изображения в кэше
+        /// check if image is already downloaded (is in cache)
         if let cachedImage = ImageCache.shared.image(forKey: urlString) {
             filmeImage.image = cachedImage
             activityIndicator.stopAnimating()
             return
         }
         
-        // Загрузка изображения
+        /// downloading of image
         imageUrl = url
         task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             guard let self = self, self.imageUrl == url else { return }
@@ -118,12 +113,14 @@ final class PopularCategoryCell: UICollectionViewCell {
                 if let data = data, let image = UIImage(data: data) {
                     ImageCache.shared.save(image: image, forKey: urlString)
                     self.filmeImage.image = image
+                    self.roundTopCorners()
                 } else {
                     self.filmeImage.image = nil
                 }
                 self.activityIndicator.stopAnimating()
             }
         }
+
         task?.resume()
     }
     
@@ -138,27 +135,29 @@ final class PopularCategoryCell: UICollectionViewCell {
         
         if let image = UIImage(data: model.image) {
             filmeImage.image = image
+            self.roundTopCorners()
         } else {
             filmeImage.image = nil
         }
-        
+
+        DispatchQueue.main.async {
+            self.roundTopCorners()
+        }
+
         activityIndicator.stopAnimating()
     }
 }
 
 // MARK: - Setup UI
-private extension PopularCategoryCell {
+private extension MovieSmallCell {
     func setupCellUI() {
         contentView.backgroundColor = .customGrey
         contentView.layer.cornerRadius = 12
     }
     
     func setupViews() {
-        [
-            filmeImage, backgorundForRaitingView,
-            nameFilmLabel, ganreFilmLabel, activityIndicator
-        ].forEach { contentView.addSubview($0) }
-        
+        [filmeImage, backgorundForRaitingView,nameFilmLabel, ganreFilmLabel, activityIndicator].forEach { contentView.addSubview($0) }
+
         [starForRaitingImage, ratingFilmLabel].forEach { backgorundForRaitingView.addSubview($0) }
     }
     
@@ -167,7 +166,7 @@ private extension PopularCategoryCell {
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().inset(53)
         }
-        
+
         nameFilmLabel.snp.makeConstraints { make in
             make.top.equalTo(filmeImage.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview().inset(8)
@@ -201,4 +200,14 @@ private extension PopularCategoryCell {
             make.centerY.equalToSuperview()
         }
     }
+
+    func roundTopCorners() {
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = UIBezierPath(
+                roundedRect: filmeImage.bounds,
+                byRoundingCorners: [.topLeft, .topRight],
+                cornerRadii: CGSize(width: 12, height: 12)
+            ).cgPath
+            filmeImage.layer.mask = maskLayer
+        }
 }

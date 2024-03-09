@@ -12,6 +12,8 @@ protocol MovieListCellProtocol: AnyObject{
     func configureCell(with model: MovieListCellModel)
 }
 
+
+#warning("разобраться с этой ячейкой -- где она используется?")
 final class MovieListCell: UITableViewCell{
     
     //MARK: - Properties

@@ -10,9 +10,9 @@ import WebKit
 
 // MARK: - DetailViewController
 
-class DetailViewController: UIViewController {
-    
-    typealias HeaderCell = CollectionCell<DetailHeaderView>
+final class DetailViewController: UIViewController {
+
+    typealias HeaderCell = DetailCell<DetailHeaderView>
     
     var presenter: DetailPresenterProtocol!
     

@@ -7,19 +7,20 @@ protocol SearchViewControllerProtocol: AnyObject {
 
 final class SearchVC: UIViewController {
     
-    //MARK: - Presenter
+    // MARK: - Presenter
     var presenter: SearchPresenterProtocol!
     
     // MARK: - Private UI Properties
-    
+
     /// First collection (above)
+    #warning ("продумать значение этого селектора")
     private lazy var categoryCollectionView: UICollectionView = {
-        let layot = UICollectionViewFlowLayout()
-        layot.scrollDirection = .horizontal
-        layot.minimumLineSpacing = 8
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 8
         let collectionView = UICollectionView(
             frame: .zero,
-            collectionViewLayout: layot
+            collectionViewLayout: layout
         )
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
@@ -39,18 +40,9 @@ final class SearchVC: UIViewController {
     }()
     
     /// Second collection (middle)
-    private let upcomingMoviesPreviewView = CatergoriesSectionView(title: "Upcoming movie")
-    
-    //    let searchCell = SearchCell(style: .default, reuseIdentifier: SearchCell.identifier)
-    //    let movieInfo = NetworkingManager.shared.getMovieDetails(for: 666) { result in
-    //        switch result {
-    //        case .success(let movieDetails):
-    //            print("Details for movie: \(movieDetails)")
-    //        case .failure(let error):
-    //            print("Error fetching movie details: \(error)")
-    //        }
-    //    }
-    
+    private let upcomingMoviesPreviewView = CatergoriesSectionView(title: "Coming soon")
+
+#warning ("сколько фильмов должно быть в этой коллекции? Должна ли она крутиться? Чекнуть какая информация прилетает с апи")
     private lazy var upcomingMoviesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -62,8 +54,8 @@ final class SearchVC: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
-            PopularCategoryCell.self,
-            forCellWithReuseIdentifier: PopularCategoryCell.identifier
+            ComingSoonCell.self,
+            forCellWithReuseIdentifier: ComingSoonCell.identifier
         )
         
         collectionView.dataSource = self
@@ -91,8 +83,8 @@ final class SearchVC: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(
-            PopularCategoryCell.self,
-            forCellWithReuseIdentifier: PopularCategoryCell.identifier
+            MovieSmallCell.self,
+            forCellWithReuseIdentifier: MovieSmallCell.identifier
         )
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -127,14 +119,14 @@ final class SearchVC: UIViewController {
         presenter.setUpcomingMovies()
         presenter.setRecentMovies()
         
-        
         //        showPopularVC()
-        //        setupNavigationBar(with: searchBar)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("RecentMovieSaved") , object: nil, queue: nil) { _ in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("RecentMovieSaved") , 
+                                               object: nil,
+                                               queue: nil) { _ in
             self.presenter.setRecentMovies()
             self.presenter.reloadRecentMovies()
         }
@@ -157,8 +149,8 @@ final class SearchVC: UIViewController {
 
 //MARK: - UICollectionViewDataSource
 #warning("что будет если поменять на дифбл?")
-extension SearchVC: UICollectionViewDataSource{
-    
+extension SearchVC: UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         switch collectionView {
@@ -192,8 +184,8 @@ extension SearchVC: UICollectionViewDataSource{
         case upcomingMoviesCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: PopularCategoryCell.identifier,
-                    for: indexPath) as? PopularCategoryCell
+                    withReuseIdentifier: ComingSoonCell.identifier,
+                    for: indexPath) as? ComingSoonCell
             else {
                 return UICollectionViewCell()
             }
@@ -203,13 +195,12 @@ extension SearchVC: UICollectionViewDataSource{
         case recentMoviesCollectionView:
             guard
                 let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: PopularCategoryCell.identifier,
-                    for: indexPath) as? PopularCategoryCell
+                    withReuseIdentifier: MovieSmallCell.identifier,
+                    for: indexPath) as? MovieSmallCell
             else {
                 return UICollectionViewCell()
             }
-            
-//            cell.configure(with: presenter.recentMovies[indexPath.item])
+
             cell.configure(with: presenter.recentMovies[indexPath.item])
             return cell
             
@@ -228,7 +219,9 @@ extension SearchVC: UICollectionViewDelegateFlowLayout{
         case categoryCollectionView:
             return CGSize(width: 80, height: 31)
         case upcomingMoviesCollectionView:
-            return CGSize(width: 135, height: 231)
+            #warning ("динамический расчёт размера ячейки (ширины)")
+            #warning ("зафиксировать ячейку в прокрутке или оставить её одну")
+            return CGSize(width: 320, height: 231)
         case recentMoviesCollectionView:
             return CGSize(width: 135, height: 231)
         default:
@@ -302,7 +295,6 @@ private extension SearchVC {
         }
         
         searchBar.snp.makeConstraints { make in
-            //            make.height.equalTo(41)
             make.top.equalTo(scrollView.snp.top)
             make.leading.equalTo(view.safeAreaLayoutGuide).offset(12)
             make.trailing.equalTo(view.safeAreaLayoutGuide).inset(12)
